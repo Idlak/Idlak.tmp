@@ -1,1 +1,1 @@
-from app.endpoints import user, auth
+from app.endpoints import user, auth, voice, speech
