@@ -1,5 +1,7 @@
-from app import db
+from app import app, db
 from passlib.hash import pbkdf2_sha256 as sha256
+from sqlalchemy import inspect
+from datetime import datetime
 import uuid
 
 class Voice(db.Model):
@@ -21,10 +23,25 @@ class Voice(db.Model):
     def __repr__(self):
         return '<Voice {}:{}:{}>'.format(self.id, self.name, self.language)
 
+    def toDict(self):
+        exceptions = ['directory']
+        di = { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
+        for e in exceptions:
+            del di[e]
+        return di   
+
     @classmethod
     def new_voice(self, name, lang, acc, gndr, directory):
         id = uuid.uuid4().hex[:16]
         voice = Voice(id, name, lang, acc, gndr, directory)
         db.session.add(voice)
         db.session.commit()
+        app.logger.debug("[{}] New voice created:\n{{\n"
+                         "\tid: {}\n"
+                         "\tname: {}\n"
+                         "\tlanguage: {}\n"
+                         "\taccent: {}\n"
+                         "\tgender: {}\n"
+                         "\tdirectory: {}\n}}"
+                         .format(datetime.now(), id, name, lang, acc, gndr, directory))
         return voice
