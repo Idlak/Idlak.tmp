@@ -17,6 +17,7 @@
 //
 
 #include "idlaktxp/txpxmldata.h"
+#include <math.h>
 
 namespace kaldi {
 
@@ -60,6 +61,35 @@ void TxpXmlData::EndCDataCB(void *userData) {
   reinterpret_cast<TxpXmlData*>(userData)->EndCData();
 }
 
+static const char * _get_str_field(std::string work, char sep, int pos) {
+    /*std::string work = new std::string(str);*/
+    int i, direction = 0;
+    size_t n = 0;
+    size_t next;
+    if (pos < 0) {
+        direction = 1;
+        pos = -pos - 1;
+        n = work.size() - 1;
+    }
+    for (i = 0; i < pos; i++) {
+        if (direction) {
+            next = work.rfind(sep, n);
+            if (next == n) {
+                n = n - 1;
+                continue;
+            }
+        } else {
+            next = work.find(sep, n);
+            if (next == n) {
+                n = n + 1;
+                continue;
+            }
+        }
+        if (next == std::string::npos) return NULL;
+    }
+    return work.substr(std::min(n, next), abs(next - n)).c_str();
+}
+
 bool TxpXmlData::Parse(const std::string &tpdb) {
   const char *lang, *region, *acc, *spk;
   bool binary, indataroot = false;
@@ -84,14 +114,20 @@ bool TxpXmlData::Parse(const std::string &tpdb) {
       dataroot = tpdb + std::string("/..");
       if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
         indataroot = true;
+        lang = _get_str_field(tpdb, '/', -1);
       } else {
         dataroot = tpdb + std::string("/../..");
         if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
           indataroot = true;
+          lang = _get_str_field(tpdb, '/', -2);
+          acc = _get_str_field(tpdb, '/', -1);
         } else {
           dataroot = tpdb + std::string("/../../..");
           if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
             indataroot = true;
+            lang = _get_str_field(tpdb, '/', -3);
+            acc = _get_str_field(tpdb, '/', -2);
+            spk = _get_str_field(tpdb, '/', -1);
           } else {
             // not flat and not a kaldi-trunk error
             KALDI_ERR << "Missing idlak-data-trunk or idlak-data-flat file";
