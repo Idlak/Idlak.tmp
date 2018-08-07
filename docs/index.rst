@@ -26,6 +26,7 @@ Contents:
    :maxdepth: 2
 
    language_resources
+   accents
    tangle_voices
 
 Indices and tables

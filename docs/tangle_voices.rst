@@ -20,7 +20,7 @@ First ensure there is the appropriate language resources in the correct location
 See :ref:`language-resources`
 
 * Language codes are 2 letter ISO_639-1 codes:  https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-* Accent codes are 2 ASCII letters
+* Accent codes are 2 ASCII letters, see :ref:`accents`
 * Speaker codes are 3 ASCII letters.
 
 Individual samples and files are of the form::
@@ -50,15 +50,18 @@ The audio files must match the IDs in the script and must have a ``.wav`` extens
 
 When decompressed the audio should be in a folder called ``srate_orig``
 
-Script
-======
 
-A speaker specific script should be located in
 
-idlak_resources/lng/acc/spk/text.xml
+Recording Script
+================
+
+A speaker specific script should be located in::
+
+    idlak_resources/lng/acc/spk/text.xml
 
 This will allow you to match the speaker's pronounciation by using SSML
-to override the pronounciation of single words, or change words all together.
+to override the pronounciation of single words, or change words all together compared
+to the original recording script.
 
 The general format of the recording script is as follows:
 
@@ -74,11 +77,10 @@ The general format of the recording script is as follows:
 
 Note:
 
-#. ID must match the audio files and all audio files must exist.
+#. ID must match the audio files
+#. Not all utterances need audio files, if the audio is missing it is ignored.
 #. The xml declaration with encoding is manditory.
-
-
-
+#. For consistancy please use utf-8 encoding
 
 
 **************************
