@@ -4,7 +4,12 @@ from functools import wraps
 from flask_restful import abort, request
 from app import app
 
+
 def admin_required(func):
+    """ Decorator for endpoints that require admin access
+        has to be used with jwt_required decorator 
+        if the user does not have admin permissions, 
+        an unauthorised message is returned """
     @wraps(func)
     def wrapper(*args, **kwargs):
         user = User.query.get(get_jwt_identity())

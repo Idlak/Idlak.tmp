@@ -18,6 +18,7 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
 handler = RotatingFileHandler('idlak-server.log', maxBytes=100000, backupCount=1)
+handler.setLevel(logging.DEBUG)
 app.logger.addHandler(handler)
 app.logger.setLevel(logging.DEBUG)
 

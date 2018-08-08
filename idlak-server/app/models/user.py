@@ -3,23 +3,44 @@ from passlib.hash import pbkdf2_sha256 as sha256
 from flask_restful import abort
 import uuid
 
+
 class User(db.Model):
+    """ A user model used in authentication and authorisation """
     id = db.Column(db.String(16), primary_key=True)
     password = db.Column(db.String(128))
     admin = db.Column(db.Boolean)
 
     def __init__(self, id, password, admin):
+        """ __init__ method for User class.
+        
+        Args:
+            id (str): Id of the user.
+            password (str): user password.
+            admin (bool): determines whether user is an admin or not .
+        """
         self.id = id
         self.password = password
         self.admin = admin
 
     def __repr__(self):
+        """ __repr__ method of the User class """
         return '<User {}:{}:{}>'.format(self.id, self.password, self.admin)
 
+    
     @classmethod
     def new_user(self, isAdmin=False, user_id=uuid.uuid4().hex[:16]):
+        """ Creates a new user.
+        
+        A static method.
+        
+        Args:
+            isAdmin (bool, optional): if user to be created is an admin.
+            user_id (str, optional): user id.
+            
+        Returns:
+            :obj:'User': info of the new user (with id and password).
+        """
         # create id: take guid and split it
-        #user_id = uuid.uuid4().hex[:16]
         if User.query.get(user_id) is not None:
             return None
         # create password
@@ -43,6 +64,11 @@ class User(db.Model):
         return user
 
     def generate_new_pass(self):
+        """ Created new password for a user.
+        
+        Returns:
+            str: the new generated password.
+        """
         # create password
         user_pass = uuid.uuid4().hex[:8]
         # hash password
@@ -54,16 +80,39 @@ class User(db.Model):
         return user_pass
 
     def delete(self):
+        """ Deletes user from a database. """
         db.session.delete(self)
         db.session.commit()
         app.logger.debug("User {} has been deleted".format(self.id))
 
+
 def authenticate(user_id, password):
+    """ Checks if user exists and its password is correct.
+    
+    Used for the jwt module.
+    
+    Args:
+        user_id (str): The user id provided on login.
+        password (str): The user password provided on login.
+    
+    Returns:
+        :obj:'User': user that has matching id and correct password.
+    """
     user = User.query.get(user_id)
     if user and sha256.verify(password, user.password):
             return user
 
 def identity(payload):
+    """ Extracts identity of the user from the payload.
+    
+    Used for the jwt module.
+    
+    Args:
+        payload (dict): a payload object that must have an identity key value pair.
+    
+    Returns:
+        :obj:'User': the user that is found by the identity in the payload.
+    """
     user_id = payload['identity']
     return User.query.get(user_id)
 
