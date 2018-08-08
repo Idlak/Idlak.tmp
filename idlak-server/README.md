@@ -11,23 +11,29 @@ When setting up the server a single user with Admin permissions is created.
 
 ## Authentication
 **Retrieve an authentication token**
+
 | [ POST ] | */auth* |
 | - | - |
+
 Permissions: ```none```
 Authorization Header: ```none```
 Accepted content types: ```application/json```
 Arguments:
+    
 | Argument | Example | Required  | Description |
 | -- | -- | -- | :-- |
 | ```uid``` | ```userid``` | Required | User id for registered user |
 | ```password``` | ```pass``` | Required | Password for registered user |
+
 Response (200 ok):
 ```json
 {
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzIxMDEyNDEsIm5iZiI6MTUzMjEwMTI0MSwiZXhwIjoxNTMyMTA0ODQxLCJzdWIiOiJhZG1pbiJ9.gxTh6ubxqb7lqSZnWnQeWCXOS9u6cJ7skMBUbm2gJiI"
 }
 ```
+
 Typical error response (401 unauthorized):
+    
 ```json
 {
     "message": "Login details are incorrect"
@@ -36,11 +42,14 @@ Typical error response (401 unauthorized):
 ## Users
 
 **Retrieve a list of currently registered users.**
+
 | [ GET ] | */users* |
 | - | - |
+
 Permissions: ```admin```
 Authorization Header: ```Bearer <access_token>```
 Response (200 OK):
+    
 ```json
 {
     "users": [
@@ -55,24 +64,32 @@ Response (200 OK):
     ]
 }
 ```
+
 Typical error response (401 unauthorized):
+    
 ```json
 {
     "message": "Access token is invalid"
 }
 ```
+
 ---
+
 **Create a new user account**
+
 | [ POST ] | */users* |
 | - | - |
+
 Permissions: ```admin```
 Authorization Header: ```Bearer <access_token>```
 Accepted content types: ```application/json```
 Arguments:
+    
 | Argument | Example | Required  | Description |
 | -- | -- | -- | :-- |
 | ```uid``` | ```userid``` | Optional | User id, generated randomly by default  |
 | ```admin``` | ```true``` | Optional | Admin permissions - true/false (default: false) |
+
 Response (200 OK):
 ```json
 {
@@ -81,52 +98,69 @@ Response (200 OK):
     "uid": "userid"
 }
 ```
+
 Typical error response (422 unprocessable entity):
 ```json
 {
     "message": "User id already exists"
 }
 ```
+
 ---
+
 **Generate new password**
+
 | [ POST ] | */users/`<uid>`/password* |
 | - | - |
+
 Permissions: ```admin```
 Authorization Header: ```Bearer <access_token>```
 Response (200 OK):
+    
 ```json
 {
     "password": "621175b8"
 }
 ```
+
 Typical error response (422 unprocessable entity):
 ```json
 {
     "message": "User does not exist"
 }
 ```
+
 ---
+
 **Delete a user**
+
 | [ DELETE ] | */users/`<uid>`* |
 | - | - |
+
 Permissions: ```admin```
 Authorization Header: ```Bearer <access_token>```
 Response (200 OK):
+    
 ```json
 {
     "message": "User 'userid' has been deleted"
 }
 ```
+
 Typical error response (422 unprocessable entity):
 ```json
 {
     "message": "User does not exist"
 }
 ```
+
 ## Languages
+
 **Lists available languages**
+
 | [ GET ] | */languages* |
 | - | - |
+
 Permissions: ```none```
 Authorization Header: ```none```
 Response (200 OK):
@@ -141,8 +175,10 @@ Response (200 OK):
 ```
 
 **Lists available accents of a language**
+
 | [ GET ] | */languages/`<lang_iso>`/accents* |
 | - | - |
+
 Permissions: ```none```
 Authorization Header: ```none```
 Response (200 OK):
@@ -156,26 +192,32 @@ Response (200 OK):
     "language": "en"
 }
 ```
+
 Typical error response (404 not found):
 ```json
 {
     "message": "Language could not be found"
 }
 ```
+
 ## Voices
 
 **Get available voices**
+
 | [ GET ] | */voices* |
 | - | - |
+
 Permissions: ```none```
 Authorization Header: ```none```
 Accepted content types: ```application/json```
 Arguments:
+    
 | Argument | Example | Required  | Description |
 | -- | -- | -- | :-- |
 | ```language``` | ```en``` | Optional | Language code in ISO 2 letter format |
 | ```accent``` | ```gb``` | Optional | Accent code in 2 letter format |
 | ```gender``` | ```female``` | Optional | Voice gender - male/female  |
+
 Response (200 OK):
 ```json
 {
@@ -192,16 +234,21 @@ Response (200 OK):
     ]
 }
 ```
+
 Typical error response (204 no content):
 ```json
 {
     "message": "No voices were found"
 }
 ```
+
 ---
+
 **Get voice details**
+
 | [ GET ] | */voices/`<voice_id>`* |
 | - | - |
+
 Permissions: ```none```
 Authorization Header: ```none```
 Response (200 OK):
@@ -215,6 +262,7 @@ Response (200 OK):
       ...
 }
 ```
+
 Typical error response (404 no content):
 ```json
 {
@@ -223,13 +271,17 @@ Typical error response (404 no content):
 ```
 
 ## Speech Synthesis
+
 **Synthesise speech**
+
 | [ POST ] | */speech* |
 | - | - |
+
 Permissions: ```none```
 Authorization Header: ```Bearer <access_token>```
 Accepted content types: ```application/json```
 Arguments:
+    
 | Argument | Example | Required  | Description |
 | -- | -- | -- | :-- |
 | ```voice_id``` | ```voiceid``` | Required | Voice ID |
