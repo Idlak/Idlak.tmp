@@ -5,9 +5,7 @@ source path.sh
 ##### Step 0: data preparation #####
 ####################################
 
-# Arctic database usual sampling rate is 16k; although 32k is
-# also available for some speakers.
-# This recipe uses upsampled 32k data; please adjust to use 16k data instead
+# Idlak audio data is hosted at archive.org, while the rest of the resources are available from Github
 
 srate=48000
 FRAMESHIFT=0.005
@@ -20,87 +18,179 @@ acc="ru"
 # Speaker ID
 spks="abr" # Must be a speaker from the Idlak Resources
 network_type=dnn # dnn or lstm
-nodev=50 #the remaining will be in the training set.
-         #50 utterances in the test set assums that the number of utterances
-         #in the recording script is between 500 and 600
+nodev=50 # the number of samples used for calculating loss
+         # the remaining will be in the training set.
+         # 50 utterances in the test set assumes that the number of utterances
+         # in the recording script is between 500 and 600
 
 . parse_options.sh || exit 1;
 
-here=`pwd`
+# Input directories
+tpdb=$KALDI_ROOT/idlak-data/$lng/$acc
+
+# Working directories
+datadir=$HERE/data/$lng/$acc
+f0datadir=$HERE/f0data/$lng/$acc
+expdir=$HERE/exp/$lng/$acc
+lbldatadir=$HERE/lbldata/$lng/$acc
+lblf0datadir=$HERE/lblf0datadir/$lng/$acc
+lbldurdatadir=$HERE/lbldurdata/$lng/$acc
+durdatadir=$HERE/durdata/$lng/$acc
+exp_dnndir=$HERE/exp_dnn/$lng/$acc
 
 function incr_stage(){
-   stage=$(( $stage + 1 ))
-   if [ $stage -gt $endstage ]; then
-       exit 0
-   fi
+    stage=$(( $stage + 1 ))
+    if [ $stage -gt $endstage ]; then
+        echo "##### Finsished after running step $(( $stage - 1 )) #####"
+        exit 0
+    fi
 }
 
-# Clean up
-if [ $stage -le -1 ]; then
-    rm -rf data/train data/eval data/dev data/train_* data/eval_* data/dev_* data/full
+
+# Clean up all working directories
+if [ $stage -le -10 ]; then
+    cd $HERE
+    rm -rf data f0data exp lbldata lblf0data lbldurdata durdata exp_dnn
     stage=0
 fi
-spk=$spks
+# Clean up voice
+if [ $stage -le -1 ]; then
+    rm -rf $datadir/train $datadir/eval $datadir/dev $datadir/train_* $datadir/eval_* $datadir/dev_* $datadir/full
+    stage=0
+fi
 
+############################################
+#####     Step 1: Data preparation     #####
+############################################
 
-## Stage 1: Extract audio
 if [ $stage -le 0 ]; then
     echo "##### Step 0: data preparation #####"
-    mkdir -p data/{train,dev}
+    mkdir -p $datadir/{train,dev,full}
+    for k in wav.scp utt2spk text.xml; do
+        rm -f $datadir/{train,dev,full}/$k
+    done
+
     for spk in $spks; do
         # URL of idlak DB
         arch=$lng.$acc.$spk.$srate.tar.gz
-        url=https://github.com/Idlak/idlak_resources/raw/master/$lng/$acc/$spk/$arch
+        url=https://github.com/idlak/idlak_resources/raw/master/$lng/$acc/$spk/audiourl
         laburl=https://github.com/idlak/idlak_resources/raw/master/$lng/$acc/$spk/text.xml
-        audio_dir=$here/rawaudio/$lng/$acc/$spk/${srate}
-        label_dir=$here/labels/$lng/$acc/$spk
-        # Download data
+        audio_dir=$HERE/rawaudio/$lng/$acc/$spk/${srate}
+        label_dir=$HERE/labels/$lng/$acc/$spk
+        mkdir -p $datadir/{train,dev,full}/$spk
+
+        # Get the audio at the correct sample rate
         if [ ! -e $audio_dir ]; then
-	        mkdir -p $audio_dir
-	        cd $audio_dir/..
-	        wget -c -N $url
-	        tar xjf $arch
-          cp -r 48000_orig/*.wav 48000/.
-            #for i in rawaudio/cmu_us_${spk}_arctic/orig/*.wav; do
-              #  sox $i $audio_dir/`basename $i` remix 1 rate -v -s -a 48000 dither -s
-            #done
+            # Download data
+            for f in $HERE/rawaudio/$lng/$acc/$spk/*_orig/*.wav; do
+                if [ ! -e "$f" ]; then
+                    mkdir -p $HERE/rawaudio/$lng/$acc/$spk
+                    cd $HERE/rawaudio/$lng/$acc/$spk
+                    wget -c -N $(curl -L $url)
+                    tar -xzf $arch
+                fi
+                break
+            done
+            # create a symbolic link for the original audio sample rate
+            for f in $HERE/rawaudio/$lng/$acc/$spk/*_orig/*.wav; do
+                org_dir=`dirname $f`
+                org_dir=`basename $org_dir`
+                cd $HERE/rawaudio/$lng/$acc/$spk
+                org_srate=`sox --info -r $f`
+                if [ ! -e "$org_srate" ]; then
+                    ln -s  $org_dir $org_srate
+                fi
+                break
+            done
+            # if not the same sample rate as original then use sox to resample
+            # these setting are only for downsampling
+            if [ ! -e $audio_dir ]; then
+                mkdir -p $audio_dir
+                for i in $HERE/rawaudio/$lng/$acc/$spk/*_orig/*.wav; do
+                    sox $i -r $srate $audio_dir/`basename $i`
+                done
+            fi
         fi
-        if [ ! -e $label_dir ]; then
-	        mkdir -p $label_dir
-	        cd $label_dir
-	        wget $laburl
+
+        # Get the transcription
+        if [ ! -e $label_dir/text.xml ]; then
+            mkdir -p $label_dir
+            cd $label_dir
+            wget -c -N $laburl
         fi
 
-        # Create train, dev sets
-        cd $audio_dir
-        python -c "import sys,os,random,glob; random.seed(0); files = glob.glob('*.wav'); random.shuffle(files); print '\n'.join(map(lambda f: os.path.splitext(f)[0], files))" > $here/$lng.$acc.$spk.order.txt
+        # Create a list of files
+        flist=$datadir/$lng.$acc.$spk.flist
+        if [ ! -e $flist ]; then
+            cd $audio_dir
+            pycmd="import sys,os,random,glob; "
+            pycmd+="random.seed(0); "
+            pycmd+="files = glob.glob('*.wav'); "
+            pycmd+="random.shuffle(files); "
+            pycmd+="print '\n'.join(map(lambda f: os.path.splitext(f)[0], files))"
+            python -c "$pycmd" > $flist
+        fi
 
-        cd $here
-        tail -r $lng.$acc.$spk.order.txt | tail -n +$nodev | tail -r | sed s'|^\(.*\)|\1 '$audio_dir/'\1.wav|' > data/train/wav.scp
-        tail -n$nodev $lng.$acc.$spk.order.txt | sed s'|^\(.*\)|\1 '$audio_dir/'\1.wav|' > data/dev/wav.scp
+        # Split train, dev sets
+        # linux and mac have to do this in different ways
+        head -n-$nodev $flist > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            head -n-$nodev $flist | sed s'|^\(.*\)|\1 '$audio_dir/'\1.wav|' | sort -u > $datadir/train/$spk/wav.scp
+        else
+            tail -r $flist | tail -n +$nodev | tail -r | sed s'|^\(.*\)|\1 '$audio_dir/'\1.wav|' | sort -u  > $datadir/train/$spk/wav.scp
+        fi
+        cat $datadir/train/$spk/wav.scp >> $datadir/train/wav.scp
 
-        cp $label_dir/text.xml $here/data/train
-        cp $label_dir/text.xml $here/data/dev
+        tail -n$nodev $flist | sed s'|^\(.*\)|\1 '$audio_dir/'\1.wav|' | sort -u  > $datadir/dev/$spk/wav.scp
+        cat $datadir/dev/$spk/wav.scp >> $datadir/dev/wav.scp
+
+        cat $datadir/{train,dev}/$spk/wav.scp | sort -u > $datadir/full/$spk/wav.scp
 
         # Generate utt2spk / spk2utt info
         for step in train dev; do
-	        cat data/$step/wav.scp | awk -v spk=$spk '{print $1, spk}' >> data/$step/utt2spk
-	        utt2spk_to_spk2utt.pl < data/$step/utt2spk > data/$step/spk2utt
+            cat $datadir/$step/$spk/wav.scp | awk -v spk=$spk '{print $1, spk}' | sort -u  > $datadir/$step/$spk/utt2spk
+            cat $datadir/$step/$spk/utt2spk >> $datadir/$step/utt2spk
+            utt2spk_to_spk2utt.pl < $datadir/$step/$spk/utt2spk > $datadir/$step/$spk/spk2utt
+        done
+
+        # Generate transcriptions
+        cd $HERE
+        for step in train dev full; do
+            python local/idlak_extract_utterances.py -i $label_dir/text.xml -s $datadir/$step/$spk/wav.scp -o $datadir/$step/$spk/text.xml
+        done
+
+        # Combine transcriptions
+        for step in train dev full; do
+            if [ ! -e  $datadir/$step/text.xml ]; then
+                head -n1 $datadir/$step/$spk/text.xml > $datadir/$step/text.xml
+                echo "<all_scripts>" >> $datadir/$step/text.xml
+            fi
+            grep -v "<?xml" $datadir/$step/$spk/text.xml | sed "s|^|  |" >> $datadir/$step/text.xml
         done
     done
 
-    mkdir -p data/full
-    for k in wav.scp utt2spk; do
-        cat $here/data/{train,dev}/$k | sort -u > $here/data/full/$k
+    for step in train dev; do
+        for k in wav.scp utt2spk; do
+            sort -o $datadir/$step/$k $datadir/$step/$k
+        done
+        utt2spk_to_spk2utt.pl < $datadir/$step/utt2spk > $datadir/$step/spk2utt
     done
-    cp $here/data/train/text.xml $here/data/full/.
 
-    utt2spk_to_spk2utt.pl < data/full/utt2spk > data/full/spk2utt
+    for k in wav.scp utt2spk; do
+        cat $datadir/{train,dev}/$k | sort -u > $datadir/full/$k
+    done
+    utt2spk_to_spk2utt.pl < $datadir/full/utt2spk > $datadir/full/spk2utt
+
+    for step in train dev full; do
+        echo "</all_scripts>" >> $datadir/$step/text.xml
+    done
 
     incr_stage
 fi
 
-export featdir=$TMPDIR/dnn_feats/idlak
+export featdir=$TMPDIR/dnn_feats/idlak/$lng/$acc
+mkdir -p $featdir
+
 ############################################
 ##### Step 1: acoustic data generation #####
 ############################################
@@ -110,19 +200,19 @@ if [ $stage -le 1 ]; then
 
     # Use kaldi to generate MFCC features for alignment
     for step in full; do
-        steps/make_mfcc.sh --nj $nj --mfcc-config conf/mfcc-48k.conf data/$step exp/make_mfcc/$step $featdir
-        steps/compute_cmvn_stats.sh data/$step exp/make_mfcc/$step $featdir
+        steps/make_mfcc.sh --nj $nj --mfcc-config conf/mfcc-48k.conf $datadir/$step $expdir/make_mfcc/$step $featdir
+        steps/compute_cmvn_stats.sh $datadir/$step $expdir/make_mfcc/$step $featdir
     done
 
     # Use Kaldi + SPTK tools to generate F0 / BNDAP / MCEP
     # NB: respective configs are in conf/pitch.conf, conf/bndap.conf, conf/mcep.conf
     for step in train dev; do
-        rm -f data/$step/feats.scp
+        rm -f $datadir/$step/feats.scp
         # Generate f0 features
-        steps/make_pitch.sh --pitch-config conf/pitch-48k.conf  data/$step    exp/make_pitch/$step   $featdir;
-        cp data/$step/pitch_feats.scp data/$step/feats.scp
+        steps/make_pitch.sh --pitch-config conf/pitch-48k.conf  $datadir/$step   $expdir/make_pitch/$step  $featdir
+        cp $datadir/$step/pitch_feats.scp $datadir/$step/feats.scp
         # Compute CMVN on pitch features, to estimate min_f0 (set as mean_f0 - 2*std_F0)
-        steps/compute_cmvn_stats.sh data/$step    exp/compute_cmvn_pitch/$step   $featdir;
+        steps/compute_cmvn_stats.sh  $datadir/$step  $expdir/compute_cmvn_pitch/$step  $featdir
         # For bndap / mcep extraction to be successful, the frame-length must be adjusted
         # in relation to the "reasonable minimum" pitch frequency.
         # We therefore do something speaker specific using the mean / std deviation from
@@ -130,43 +220,42 @@ if [ $stage -le 1 ]; then
         # Note that the CMVN based f0 estimation will not work well if there is a large amount of silence
         # in the recordings, so you may want to override the value in that case.
         for spk in $spks; do
-	        min_f0=`copy-feats scp:"awk -v spk=$spk '(\\$1 == spk){print}' data/$step/cmvn.scp |" ark,t:- \
-	    | awk '(NR == 2){n = \$NF; m = \$2 / n}(NR == 3){std = sqrt(\$2/n - m * m)}END{print m - 2*std}'`
-	        echo $min_f0
-	        # Rule of thumb recipe; probably try with other window sizes?
-	        bndapflen=`awk -v f0=$min_f0 'BEGIN{printf "%d", 4.6 * 1000.0 / f0 + 0.5}'`
-	        mcepflen=`awk -v f0=$min_f0 'BEGIN{printf "%d", 2.3 * 1000.0 / f0 + 0.5}'`
-	        f0flen=`awk -v f0=$min_f0 'BEGIN{printf "%d", 2.3 * 1000.0 / f0 + 0.5}'`
-	        echo "using wsizes: $bndapflen $mcepflen"
-            echo "$spk" > data/$step/$spk.lst
-	        subset_data_dir.sh --spk-list data/$step/$spk.lst data/$step data/${step}_$spk
+            min_f0=`copy-feats scp:"awk -v spk=$spk '(\\$1 == spk){print}' $datadir/$step/cmvn.scp |" ark,t:- \
+                | awk '(NR == 2){n = \$NF; m = \$2 / n}(NR == 3){std = sqrt(\$2/n - m * m)}END{print m - 2*std}'`
+            echo "Minimum f0: $min_f0"
+            # Rule of thumb recipe; probably try with other window sizes?
+            bndapflen=`awk -v f0=$min_f0 'BEGIN{printf "%d", 4.6 * 1000.0 / f0 + 0.5}'`
+            mcepflen=`awk -v f0=$min_f0 'BEGIN{printf "%d", 2.3 * 1000.0 / f0 + 0.5}'`
+            f0flen=`awk -v f0=$min_f0 'BEGIN{printf "%d", 2.3 * 1000.0 / f0 + 0.5}'`
+            echo "using wsizes: $bndapflen $mcepflen"
+            echo "$spk" > $datadir/$step/$spk.lst
+            subset_data_dir.sh --spk-list $datadir/$step/$spk.lst $datadir/$step $datadir/${step}_$spk
 
-	        # Regenerate pitch with more appropriate window
-	        steps/make_pitch.sh --nj $nj --pitch-config conf/pitch-48k.conf --frame_length $f0flen    data/${step}_$spk exp/make_pitch/${step}_$spk  $featdir;
-	        # Generate Band Aperiodicity feature
-	        steps/make_bndap.sh --nj $nj --bndap-config conf/bndap-48k.conf --frame_length $bndapflen data/${step}_$spk exp/make_bndap/${step}_$spk  $featdir
-	        # Generate Mel Cepstral features
-	        steps/make_mcep.sh  --nj $nj --mcep-config  conf/mcep-48k.conf --frame_length $mcepflen  data/${step}_$spk exp/make_mcep/${step}_$spk   $featdir
+            # Regenerate pitch with more appropriate window
+            steps/make_pitch.sh --nj $nj --pitch-config conf/pitch-48k.conf --frame_length $f0flen    $datadir/${step}_$spk $expdir/make_pitch/${step}_$spk  $featdir
+            # Generate Band Aperiodicity feature
+            steps/make_bndap.sh --nj $nj --bndap-config conf/bndap-48k.conf --frame_length $bndapflen $datadir/${step}_$spk $expdir/make_bndap/${step}_$spk  $featdir
+            # Generate Mel Cepstral features
+            steps/make_mcep.sh  --nj $nj --mcep-config  conf/mcep-48k.conf --frame_length $mcepflen  $datadir/${step}_$spk $expdir/make_mcep/${step}_$spk   $featdir
         done
         # Merge features
-        cat data/${step}_*/bndap_feats.scp > data/$step/bndap_feats.scp
-        cat data/${step}_*/mcep_feats.scp > data/$step/mcep_feats.scp
+        cat $datadir/${step}_*/bndap_feats.scp > $datadir/$step/bndap_feats.scp
+        cat $datadir/${step}_*/mcep_feats.scp > $datadir/$step/mcep_feats.scp
         # Have to set the length tolerance to 1, as mcep files are generated using SPTK
         # which uses different windowing so are a bit longer than the others feature files
-        paste-feats --length-tolerance=1 scp:data/$step/mcep_feats.scp scp:data/$step/bndap_feats.scp ark,scp:$featdir/${step}_cmp_feats.ark,data/$step/feats.scp
+        paste-feats --length-tolerance=1 scp:$datadir/$step/mcep_feats.scp scp:$datadir/$step/bndap_feats.scp ark,scp:$featdir/${step}_cmp_feats.ark,$datadir/$step/feats.scp
         # Copy pitch feature in separate folder
-        mkdir -p f0data/${step}
-        cp data/$step/pitch_feats.scp f0data/${step}/feats.scp
+        mkdir -p $f0datadir/${step}
+        cp $datadir/$step/pitch_feats.scp $f0datadir/${step}/feats.scp
         for k in utt2spk spk2utt; do
-            cp data/$step/$k f0data/${step}/$k;
+            cp $datadir/$step/$k $f0datadir/${step}/$k;
         done
     done
 
     incr_stage
 fi
 
-tpdb=$KALDI_ROOT/idlak-data/en/ga/
-dict=data/local/dict
+dict=$datadir/local/dict
 
 ############################################
 #####      Step 2: label creation      #####
@@ -177,36 +266,43 @@ if [ $stage -le 2 ]; then
     # We are using the idlak front-end for processing the text
     for step in train dev full; do
         # Normalise text and generate phoneme information
-        idlaktxp --pretty --tpdb=$tpdb data/$step/text.xml data/$step/text_norm.xml
+        idlaktxp --pretty --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/$step/text.xml $datadir/$step/text_norm.xml
         # Generate full labels
         #idlakcex --pretty --cex-arch=default --tpdb=$tpdb data/$step/text_norm.xml data/$step/text_full.xml
     done
     # Generate language models for alignment
     mkdir -p $dict
     # Create dictionary and text files
-    python local/idlak_make_lang.py --mode 0 data/full/text_norm.xml data/full $dict
+    cd $HERE
+    python local/idlak_make_lang.py --mode 0 $datadir/full/text_norm.xml $datadir/full $dict
     # Fix data directory, in case some recordings are missing
-    utils/fix_data_dir.sh data/full
+    utils/fix_data_dir.sh $datadir/full
 
     incr_stage
 fi
 
-lang=data/lang
+lang=$datadir/lang
+
+
 
 #######################################
-## 3a: create kaldi forced alignment ##
+#####   Step 3: Forced alignment  #####
 #######################################
 
 if [ $stage -le 3 ]; then
     echo "##### Step 3: forced alignment #####"
+    ###############################
+    ##  3a: monophone alignment  ##
+    ###############################
+    echo " #### monophone alignment ####"
     rm -rf $dict/lexiconp.txt $lang
-    utils/prepare_lang.sh --num-nonsil-states 5 --share-silence-phones true $dict "<OOV>" data/local/lang_tmp $lang
+    utils/prepare_lang.sh --num-nonsil-states 5 --share-silence-phones true $dict "<OOV>" $datadir/local/lang_tmp $lang
     #utils/validate_lang.pl $lang
 
     # Now running the normal kaldi recipe for forced alignment
-    expa=exp-align
-    train=data/full
-    #test=data/eval_mfcc
+    expa=$HERE/exp-align/$lng/$acc
+    train=$datadir/full
+    #test=$datadir/eval_mfcc
 
     rm -rf $train/split$nj
     split_data.sh --per-utt $train $nj
@@ -218,7 +314,7 @@ if [ $stage -le 3 ]; then
     steps/train_deltas.sh --boost-silence 1.25 --cmd "$train_cmd" \
         2000 10000 $train $lang $expa/mono_ali $expa/tri1 || exit 1;
     steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
-        $train data/lang $expa/tri1 $expa/tri1_ali || exit 1;
+        $train $lang $expa/tri1 $expa/tri1_ali || exit 1;
     steps/train_deltas.sh --cmd "$train_cmd" \
         5000 50000 $train $lang $expa/tri1_ali $expa/tri2 || exit 1;
 
@@ -235,51 +331,50 @@ if [ $stage -le 3 ]; then
     steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
         $train $lang $expa/quin $expa/quin_ali_full || exit 1;
 
+    ################################
+    ## 3b. Align with full labels ##
+    ################################
+    echo " #### full label alignment ####"
+    # Convert to phone-state alignement
+    for step in full; do
+        ali=$expa/quin_ali_$step
+        # Extract phone alignment
+        ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:- \
+            | utils/int2sym.pl -f 2- $lang/phones.txt > $ali/phones.txt
+        # Extract state alignment
+        ali-to-hmmstate $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$ali/states.tra
+        # Extract word alignment
+        linear-to-nbest ark:"gunzip -c $ali/ali.{1..$nj}.gz|" \
+            ark:"utils/sym2int.pl --map-oov 1669 -f 2- $lang/words.txt < $datadir/$step/text |" '' '' ark:- \
+            | lattice-align-words $lang/phones/word_boundary.int $ali/final.mdl ark:- ark:- \
+            | nbest-to-ctm --frame-shift=$FRAMESHIFT --precision=3 ark:- - \
+            | utils/int2sym.pl -f 5 $lang/words.txt > $ali/wrdalign.dat
 
-################################
-## 3b. Align with full labels ##
-################################
+        # Regenerate text output from alignment
+        python local/idlak_make_lang.py --mode 1 "2:0.03,3:0.2" "4" $ali/phones.txt $ali/wrdalign.dat $datadir/$step/text_align.xml $ali/states.tra
 
-# Convert to phone-state alignement
-for step in full; do
-    ali=$expa/quin_ali_$step
-    # Extract phone alignment
-    ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:- \
-	| utils/int2sym.pl -f 2- $lang/phones.txt > $ali/phones.txt
-    # Extract state alignment
-    ali-to-hmmstate $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$ali/states.tra
-    # Extract word alignment
-    linear-to-nbest ark:"gunzip -c $ali/ali.{1..$nj}.gz|" \
-	ark:"utils/sym2int.pl --map-oov 1669 -f 2- $lang/words.txt < data/$step/text |" '' '' ark:- \
-	| lattice-align-words $lang/phones/word_boundary.int $ali/final.mdl ark:- ark:- \
-	| nbest-to-ctm --frame-shift=$FRAMESHIFT --precision=3 ark:- - \
-	| utils/int2sym.pl -f 5 $lang/words.txt > $ali/wrdalign.dat
+        # Generate corresponding quinphone full labels
+        idlaktxp --pretty --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/$step/text_align.xml $datadir/$step/text_anorm.xml
+        idlakcex --pretty --general-lang=$lng --general-acc=$acc --cex-arch=default --tpdb=$tpdb $datadir/$step/text_anorm.xml $datadir/$step/text_afull.xml
+        python local/idlak_make_lang.py --mode 2 $datadir/$step/text_afull.xml $datadir/$step/cex.ark > $datadir/$step/cex_output_dump
 
-    # Regenerate text output from alignment
-    python local/idlak_make_lang.py --mode 1 "2:0.03,3:0.2" "4" $ali/phones.txt $ali/wrdalign.dat data/$step/text_align.xml $ali/states.tra
-
-    # Generate corresponding quinphone full labels
-    idlaktxp --pretty --tpdb=$tpdb data/$step/text_align.xml data/$step/text_anorm.xml
-    idlakcex --pretty --cex-arch=default --tpdb=$tpdb data/$step/text_anorm.xml data/$step/text_afull.xml
-    python local/idlak_make_lang.py --mode 2 data/$step/text_afull.xml data/$step/cex.ark > data/$step/cex_output_dump
-
-    # Merge alignment with output from idlak cex front-end => gives you a nice vector
-    # NB: for triphone alignment:
-    # make-fullctx-ali-dnn  --phone-context=3 --mid-context=1 --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:data/$step/cex.ark ark,t:data/$step/ali
-    make-fullctx-ali-dnn --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:data/$step/cex.ark ark,t:data/$step/ali
+        # Merge alignment with output from idlak cex front-end => gives you a nice vector
+        # NB: for triphone alignment:
+        # make-fullctx-ali-dnn  --phone-context=3 --mid-context=1 --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$datadir/$step/cex.ark ark,t:$datadir/$step/ali
+        make-fullctx-ali-dnn --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$datadir/$step/cex.ark ark,t:$datadir/$step/ali
 
 
-    # UGLY convert alignment to features
-    cat data/$step/ali \
-	| awk '{print $1, "["; $1=""; na = split($0, a, ";"); for (i = 1; i < na; i++) print a[i]; print "]"}' \
-	| copy-feats ark:- ark,scp:$featdir/in_feats_$step.ark,$featdir/in_feats_$step.scp
-done
+        # UGLY convert alignment to features
+        cat $datadira/$step/ali \
+            | awk '{print $1, "["; $1=""; na = split($0, a, ";"); for (i = 1; i < na; i++) print a[i]; print "]"}' \
+            | copy-feats ark:- ark,scp:$featdir/in_feats_$step.ark,$featdir/in_feats_$step.scp
+    done
 
 # HACKY
 # Generate features for duration modelling
 # we remove relative position within phone and state
-copy-feats ark:$featdir/in_feats_full.ark ark,t:- \
-    | awk -v nstate=5 'BEGIN{oldkey = 0; oldstate = -1; for (s = 0; s < nstate; s++) asd[s] = 0}
+    copy-feats ark:$featdir/in_feats_full.ark ark,t:- \
+        | awk -v nstate=5 'BEGIN{oldkey = 0; oldstate = -1; for (s = 0; s < nstate; s++) asd[s] = 0}
 function print_phone(vkey, vasd, vpd) {
       for (s = 0; s < nstate; s++) {
          print vkey, s, vasd[s], vpd;
@@ -313,89 +408,94 @@ function print_phone(vkey, vasd, vpd) {
    }
 }' > $featdir/tmp_durfeats_full.ark
 
-duration_feats="ark:$featdir/tmp_durfeats_full.ark"
-nfeats=$(feat-to-dim "$duration_feats" -)
-# Input
-select-feats 0-$(( $nfeats - 3 )) "$duration_feats" ark,scp:$featdir/in_durfeats_full.ark,$featdir/in_durfeats_full.scp
-# Output: duration of phone and state are assumed to be the 2 last features
-select-feats $(( $nfeats - 2 ))-$(( $nfeats - 1 )) "$duration_feats" ark,scp:$featdir/out_durfeats_full.ark,$featdir/out_durfeats_full.scp
+    duration_feats="ark:$featdir/tmp_durfeats_full.ark"
+    nfeats=$(feat-to-dim "$duration_feats" -)
+    # Input
+    select-feats 0-$(( $nfeats - 3 )) "$duration_feats" ark,scp:$featdir/in_durfeats_full.ark,$featdir/in_durfeats_full.scp
+    # Output: duration of phone and state are assumed to be the 2 last features
+    select-feats $(( $nfeats - 2 ))-$(( $nfeats - 1 )) "$duration_feats" ark,scp:$featdir/out_durfeats_full.ark,$featdir/out_durfeats_full.scp
 
-# Split in train / dev
-for step in train dev; do
-    dir=lbldata/$step
-    mkdir -p $dir
-    #cp data/$step/{utt2spk,spk2utt} $dir
-    utils/filter_scp.pl data/$step/utt2spk $featdir/in_feats_full.scp > $dir/feats.scp
-    cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
-    utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
-    steps/compute_cmvn_stats.sh $dir $dir $dir
-done
+    # Split in train / dev
+    for step in train dev; do
+        dir=$lbldatadir/$step
+        mkdir -p $dir
+        #cp data/$step/{utt2spk,spk2utt} $dir
+        utils/filter_scp.pl data/$step/utt2spk $featdir/in_feats_full.scp > $dir/feats.scp
+        cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
+        utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
+        steps/compute_cmvn_stats.sh $dir $dir $dir
+    done
 
-# Same for duration
-for step in train dev; do
-    dir=lbldurdata/$step
-    mkdir -p $dir
-    #cp data/$step/{utt2spk,spk2utt} $dir
-    utils/filter_scp.pl data/$step/utt2spk $featdir/in_durfeats_full.scp > $dir/feats.scp
-    cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
-    utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
-    steps/compute_cmvn_stats.sh $dir $dir $dir
+    # Same for duration
+    for step in train dev; do
+        dir=$lbldurdatadir/$step
+        mkdir -p $dir
+        #cp data/$step/{utt2spk,spk2utt} $dir
+        utils/filter_scp.pl data/$step/utt2spk $featdir/in_durfeats_full.scp > $dir/feats.scp
+        cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
+        utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
+        steps/compute_cmvn_stats.sh $dir $dir $dir
 
-    dir=durdata/$step
-    mkdir -p $dir
-    #cp data/$step/{utt2spk,spk2utt} $dir
-    utils/filter_scp.pl data/$step/utt2spk $featdir/out_durfeats_full.scp > $dir/feats.scp
-    cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
-    utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
-    steps/compute_cmvn_stats.sh $dir $dir $dir
-done
+        dir=durdata/$step
+        mkdir -p $dir
+        #cp data/$step/{utt2spk,spk2utt} $dir
+        utils/filter_scp.pl data/$step/utt2spk $featdir/out_durfeats_full.scp > $dir/feats.scp
+        cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
+        utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
+        steps/compute_cmvn_stats.sh $dir $dir $dir
+    done
 
-# Compute cmvn for f0data
-for step in train dev; do
-    dir=f0data/$step
-    steps/compute_cmvn_stats.sh $dir $dir $dir
+    # Compute cmvn for f0data
+    for step in train dev; do
+        dir=$f0datadir/$step
+        steps/compute_cmvn_stats.sh $dir $dir $dir
 
-    dir=data/$step
-    steps/compute_cmvn_stats.sh $dir $dir $dir
-done
+        dir=$datadir/$step
+        steps/compute_cmvn_stats.sh $dir $dir $dir
+    done
 
-# Same for input of DNN3: pitch + frame-level labels
-# Generate DNN 3 input data: pitch + frames labels
-for step in train dev; do
-    dir=lblf0data/$step
-    indir=lbldata/$step
-    mkdir -p $dir
-    paste-feats scp:data/$step/pitch_feats.scp scp:$indir/feats.scp ark,scp:$featdir/${step}_f0lbl_feats.ark,$dir/feats.scp
-    cp $indir/{utt2spk,spk2utt} $dir
-    #utils/filter_scp.pl data/$step/utt2spk $featdir/in_durfeats_full.scp > $dir/feats.scp
-done
+    # Same for input of DNN3: pitch + frame-level labels
+    # Generate DNN 3 input data: pitch + frames labels
+    for step in train dev; do
+        dir=$lblf0datadir/$step
+        indir=$lbldatadir/$step
+        mkdir -p $dir
+        paste-feats scp:$datadir/$step/pitch_feats.scp scp:$indir/feats.scp ark,scp:$featdir/${step}_f0lbl_feats.ark,$dir/feats.scp
+        cp $indir/{utt2spk,spk2utt} $dir
+        #utils/filter_scp.pl $datadir/$step/utt2spk $featdir/in_durfeats_full.scp > $dir/feats.scp
+    done
+
     incr_stage
 fi
 
-acdir=data
-lblpitchdir=lblf0data
-pitchdir=f0data
-lbldir=lbldata
-durdir=durdata
-lbldurdir=lbldurdata
-exp=exp_dnn
+acdir=$datadir
+lblpitchdir=$lblf0datadir
+pitchdir=$f0datadir
+lbldir=$lbldatadir
+durdir=$durdatadir
+lbldurdir=$lbldurdatadir
+exp=$exp_dnndir
 mkdir -p $exp
 dnndurdir=$exp/tts_${network_type}_dur_3_delta_quin5
 dnnf0dir=$exp/tts_${network_type}_f0_3_delta_quin5
 dnndir=$exp/tts_${network_type}_train_3_delta_quin5
 dnnffdir=$exp/tts_${network_type}_fake_3_delta_quin5
 
+##############################
+## 4. Train DNN
+##############################
+
 if [ $stage -le 4 ]; then
-#ensure consistency in lists
-#for dir in $lbldir $acdir; do
-for class in train dev; do
-    lst=""
-    for dir in $acdir $lbldir $pitchdir $lblpitchdir $durdir $lbldurdir; do
-        cp $dir/$class/feats.scp $dir/$class/feats_tmp.scp
-        lst=${lst:+$lst,}$dir/$class/feats_tmp.scp
-    done
-    for dir in $acdir $lbldir $pitchdir $lblpitchdir $durdir $lbldurdir; do
-        cat $dir/$class/feats_tmp.scp | awk -v lst=$lst  '
+    echo "##### Step 4: training DNNs #####"
+    #ensure consistency in lists
+    for class in train dev; do
+        lst=""
+        for dir in $acdir $lbldir $pitchdir $lblpitchdir $durdir $lbldurdir; do
+            cp $dir/$class/feats.scp $dir/$class/feats_tmp.scp
+            lst=${lst:+$lst,}$dir/$class/feats_tmp.scp
+        done
+        for dir in $acdir $lbldir $pitchdir $lblpitchdir $durdir $lbldurdir; do
+            cat $dir/$class/feats_tmp.scp | awk -v lst=$lst  '
 BEGIN{ nv=split(lst, v, ",");
   for (i = 1; i <= nv; i++) while (getline < v[i]) {nt[$1] = 1; nk[i "_" $1] = 1;}
   for (k in nt) {
@@ -406,59 +506,53 @@ BEGIN{ nv=split(lst, v, ",");
 }{
    if (n[$1]) print
 }' > $dir/$class/feats.scp
+        done
     done
-done
 
-##############################
-## 4. Train DNN
-##############################
+    echo " ### Step 4a: duration model DNN ###"
+    # A. Small one for duration modelling
+    rm -rf $dnndurdir
+    if [ "$network_type" == "lstm" ]; then
+        mkdir -p $dnndurdir
+        echo "<Splice> <InputDim> 6 <OutputDim> 6 <BuildVector> -5 </BuildVector>" > $dnndurdir/delay5.proto
+        $cuda_cmd $dnndurdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/dur-lstm-splice5.conf --feature-transform-proto $dnndurdir/delay5.proto \
+            $lbldurdir/train $lbldurdir/dev $durdir/train $durdir/dev $dnndurdir
+    else
+        $cuda_cmd $dnndurdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/dur-nn-splice5.conf \
+            $lbldurdir/train $lbldurdir/dev $durdir/train $durdir/dev $dnndurdir
+    fi
 
-echo "##### Step 4: training DNNs #####"
+    echo " ### Step 4b: pitch prediction DNN ###"
+    rm -rf $dnnf0dir
+    if [ "$network_type" == "lstm" ]; then
+        mkdir -p $dnnf0dir
+        echo "<Splice> <InputDim> 6 <OutputDim> 6 <BuildVector> -5 </BuildVector>" >$dnnf0dir/delay5.proto
+        $cuda_cmd $dnnf0dir/_train_nnet.log steps/train_nnet_basic.sh --config conf/pitch-lstm-splice5.conf --feature-transform-proto $dnnf0dir/delay5.proto \
+            $lbldir/train $lbldir/dev $pitchdir/train $pitchdir/dev $dnnf0dir
+    else
+        $cuda_cmd $dnnf0dir/_train_nnet.log steps/train_nnet_basic.sh --config conf/pitch-nn-splice5.conf \
+            $lbldir/train $lbldir/dev $pitchdir/train $pitchdir/dev $dnnf0dir
+    fi
 
-echo " ### Step 4a: duration model DNN ###"
-# A. Small one for duration modelling
-rm -rf $dnndurdir
-if [ "$network_type" == "lstm" ]; then
-    mkdir -p $dnndurdir
-    echo "<Splice> <InputDim> 6 <OutputDim> 6 <BuildVector> -5 </BuildVector>" >$dnndurdir/delay5.proto
-    $cuda_cmd $dnndurdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/dur-lstm-splice5.conf --feature-transform-proto $dnndurdir/delay5.proto \
-        $lbldurdir/train $lbldurdir/dev $durdir/train $durdir/dev $dnndurdir
-else
-    $cuda_cmd $dnndurdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/dur-nn-splice5.conf \
-        $lbldurdir/train $lbldurdir/dev $durdir/train $durdir/dev $dnndurdir
-fi
+    echo " ### Step 4c: acoustic model DNN ###"
+    # C. Larger DNN for filter acoustic features
+    rm -rf $dnndir
+    if [ "$network_type" == "lstm" ]; then
+        mkdir -p $dnndir
+        echo "<Splice> <InputDim> 258 <OutputDim> 258 <BuildVector> -5 </BuildVector>" >$dnndir/delay5.proto
+        $cuda_cmd $dnndir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-lstm-splice5.conf --feature-transform-proto $dnndir/delay5.proto \
+            $lblpitchdir/train $lblpitchdir/dev $acdir/train $acdir/dev $dnndir
+    else
+        $cuda_cmd $dnndir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-nn-splice5.conf \
+            $lblpitchdir/train $lblpitchdir/dev $acdir/train $acdir/dev $dnndir
+    fi
 
-echo " ### Step 4b: pitch prediction DNN ###"
-rm -rf $dnnf0dir
-if [ "$network_type" == "lstm" ]; then
-    mkdir -p $dnnf0dir
-    echo "<Splice> <InputDim> 6 <OutputDim> 6 <BuildVector> -5 </BuildVector>" >$dnnf0dir/delay5.proto
-    $cuda_cmd $dnnf0dir/_train_nnet.log steps/train_nnet_basic.sh --config conf/pitch-lstm-splice5.conf --feature-transform-proto $dnnf0dir/delay5.proto \
-        $lbldir/train $lbldir/dev $pitchdir/train $pitchdir/dev $dnnf0dir
-else
-    $cuda_cmd $dnnf0dir/_train_nnet.log steps/train_nnet_basic.sh --config conf/pitch-nn-splice5.conf \
-        $lbldir/train $lbldir/dev $pitchdir/train $pitchdir/dev $dnnf0dir
-fi
+    echo " ### 4d: fake DNN for comparisons ###"
+    rm -rf $dnnffdir
+    $cuda_cmd $dnnffdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-nn-splice5.conf \
+        $lbldir/train $lbldir/dev $acdir/train $acdir/dev $dnnffdir
 
-# C. Larger DNN for filter acoustic features
-echo " ### Step 4c: acoustic model DNN ###"
-rm -rf $dnndir
-if [ "$network_type" == "lstm" ]; then
-    mkdir -p $dnndir
-    echo "<Splice> <InputDim> 258 <OutputDim> 258 <BuildVector> -5 </BuildVector>" >$dnndir/delay5.proto
-    $cuda_cmd $dnndir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-lstm-splice5.conf --feature-transform-proto $dnndir/delay5.proto \
-        $lblpitchdir/train $lblpitchdir/dev $acdir/train $acdir/dev $dnndir
-else
-    $cuda_cmd $dnndir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-nn-splice5.conf \
-        $lblpitchdir/train $lblpitchdir/dev $acdir/train $acdir/dev $dnndir
-fi
-
-echo " ### 4d: fake DNN for comparisons ###"
-rm -rf $dnnffdir
-$cuda_cmd $dnnffdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-nn-splice5.conf \
-    $lbldir/train $lbldir/dev $acdir/train $acdir/dev $dnnffdir
-
-incr_stage
+    incr_stage
 fi
 
 ##############################
