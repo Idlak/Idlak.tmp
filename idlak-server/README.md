@@ -6,7 +6,6 @@ This server runs an RESTful API based on Python Flask.
 When setting up the server a single user with Admin permissions is created.
 
 
-
 # API Documentation
 
 ## Authentication
@@ -16,8 +15,11 @@ When setting up the server a single user with Admin permissions is created.
 | - | - |
 
 Permissions: ```none```
+
 Authorization Header: ```none```
+
 Accepted content types: ```application/json```
+
 Arguments:
     
 | Argument | Example | Required  | Description |
@@ -25,14 +27,14 @@ Arguments:
 | ```uid``` | ```userid``` | Required | User id for registered user |
 | ```password``` | ```pass``` | Required | Password for registered user |
 
-Response (200 ok):
+Response (```200 OK```):
 ```json
 {
     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzIxMDEyNDEsIm5iZiI6MTUzMjEwMTI0MSwiZXhwIjoxNTMyMTA0ODQxLCJzdWIiOiJhZG1pbiJ9.gxTh6ubxqb7lqSZnWnQeWCXOS9u6cJ7skMBUbm2gJiI"
 }
 ```
 
-Typical error response (401 unauthorized):
+Typical error response (```401 UNAUTHORIZED```):
     
 ```json
 {
@@ -47,8 +49,10 @@ Typical error response (401 unauthorized):
 | - | - |
 
 Permissions: ```admin```
+
 Authorization Header: ```Bearer <access_token>```
-Response (200 OK):
+
+Response (```200 OK```):
     
 ```json
 {
@@ -65,7 +69,7 @@ Response (200 OK):
 }
 ```
 
-Typical error response (401 unauthorized):
+Typical error response (```401 UNAUTHORIZED```):
     
 ```json
 {
@@ -81,8 +85,11 @@ Typical error response (401 unauthorized):
 | - | - |
 
 Permissions: ```admin```
+
 Authorization Header: ```Bearer <access_token>```
+
 Accepted content types: ```application/json```
+
 Arguments:
     
 | Argument | Example | Required  | Description |
@@ -90,7 +97,7 @@ Arguments:
 | ```uid``` | ```userid``` | Optional | User id, generated randomly by default  |
 | ```admin``` | ```true``` | Optional | Admin permissions - true/false (default: false) |
 
-Response (200 OK):
+Response (```200 OK```):
 ```json
 {
     "admin": true,
@@ -99,7 +106,7 @@ Response (200 OK):
 }
 ```
 
-Typical error response (422 unprocessable entity):
+Typical error response (```422 UNPROCESSABLE ENTITY```):
 ```json
 {
     "message": "User id already exists"
@@ -114,8 +121,10 @@ Typical error response (422 unprocessable entity):
 | - | - |
 
 Permissions: ```admin```
+
 Authorization Header: ```Bearer <access_token>```
-Response (200 OK):
+
+Response (```200 OK```):
     
 ```json
 {
@@ -123,7 +132,7 @@ Response (200 OK):
 }
 ```
 
-Typical error response (422 unprocessable entity):
+Typical error response (```422 UNPROCESSABLE ENTITY```):
 ```json
 {
     "message": "User does not exist"
@@ -138,7 +147,9 @@ Typical error response (422 unprocessable entity):
 | - | - |
 
 Permissions: ```admin```
+
 Authorization Header: ```Bearer <access_token>```
+
 Response (200 OK):
     
 ```json
@@ -147,7 +158,7 @@ Response (200 OK):
 }
 ```
 
-Typical error response (422 unprocessable entity):
+Typical error response (```422 UNPROCESSABLE ENTITY```):
 ```json
 {
     "message": "User does not exist"
@@ -162,8 +173,10 @@ Typical error response (422 unprocessable entity):
 | - | - |
 
 Permissions: ```none```
+
 Authorization Header: ```none```
-Response (200 OK):
+
+Response (```200 OK```):
 ```json
 {
     "languages": [
@@ -180,8 +193,10 @@ Response (200 OK):
 | - | - |
 
 Permissions: ```none```
+
 Authorization Header: ```none```
-Response (200 OK):
+
+Response (```200 OK```):
 ```json
 {
     "accents": [
@@ -193,7 +208,7 @@ Response (200 OK):
 }
 ```
 
-Typical error response (404 not found):
+Typical error response (```404 NOT FOUND```):
 ```json
 {
     "message": "Language could not be found"
@@ -208,8 +223,11 @@ Typical error response (404 not found):
 | - | - |
 
 Permissions: ```none```
+
 Authorization Header: ```none```
+
 Accepted content types: ```application/json```
+
 Arguments:
     
 | Argument | Example | Required  | Description |
@@ -218,24 +236,24 @@ Arguments:
 | ```accent``` | ```gb``` | Optional | Accent code in 2 letter format |
 | ```gender``` | ```female``` | Optional | Voice gender - male/female  |
 
-Response (200 OK):
+Response (```200 OK```):
 ```json
 {
-    'voices' : [
+    "voices" : [
         {
               "voice_id": "voiceid",
               "language": "en",
               "accent": "gb",
               "gender": "female",
               "name": "voice",
-              ...
+              "...": "..."
         },
-        ...
+        "..."
     ]
 }
 ```
 
-Typical error response (204 no content):
+Typical error response (```204 NO CONTENT```):
 ```json
 {
     "message": "No voices were found"
@@ -250,8 +268,10 @@ Typical error response (204 no content):
 | - | - |
 
 Permissions: ```none```
+
 Authorization Header: ```none```
-Response (200 OK):
+
+Response (```200 OK```):
 ```json
 {
       "voice_id": "voiceid",
@@ -259,11 +279,11 @@ Response (200 OK):
       "accent": "gb",
       "gender": "female",
       "name": "voice",
-      ...
+      "...": "..."
 }
 ```
 
-Typical error response (404 no content):
+Typical error response (```404 NO CONTENT```):
 ```json
 {
     "message": "Voice could not be found"
@@ -278,8 +298,11 @@ Typical error response (404 no content):
 | - | - |
 
 Permissions: ```none```
+
 Authorization Header: ```Bearer <access_token>```
+
 Accepted content types: ```application/json```
+
 Arguments:
     
 | Argument | Example | Required  | Description |
@@ -289,7 +312,7 @@ Arguments:
 | ```audio_format``` | ```mp3``` | Optional | Audio file format - wav/ogg/mp3 (default: wav) |
 | ```text``` | ```Hello``` | Required | Text input for speech synthesis |
 
-Response (501 not implemented):
+Response (```501 NOT IMPLEMENTED```):
 ```json
 {
       "message": "Not implemented yet"
