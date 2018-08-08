@@ -55,7 +55,7 @@ def get_txp_input(idlak_database, temp_folder):
         string = re.sub(characters, ' ', re.sub(r'[<>]', '', child[0].text))
         new_string = re.sub(r'[\n\r]', ' ', string)
 
-        final_string = '<parent>\n' + new_string + '</parent>'
+        final_string = '<parent>\n' + new_string.replace(u"\u00A0", " ") + '</parent>'
         with open('{}/{}.xml'.format(temp_folder, str(child.get("id"))), 'w',encoding="utf-8") as outfile:
             outfile.write(final_string)
     return temp_folder
