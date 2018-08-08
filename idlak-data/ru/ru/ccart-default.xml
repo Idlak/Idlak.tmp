@@ -525,6 +525,9 @@
 	<tree ltr='й' rootnode='N1' terminal='1' nonterminal='0'>
 		<node id='T0' val='j'/>
 	</tree>
+        <tree ltr='й' rootnode='N1' terminal='1' nonterminal='0'>
+                <node id='T0' val='j'/>
+        </tree>
 	<tree ltr='к' rootnode='N2' terminal='2' nonterminal='2'>
 		<node id='T0' val='kj'/>
 		<node id='T1' val='k'/>
