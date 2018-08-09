@@ -62,6 +62,38 @@ class User(db.Model):
         user = User(user_id, user_pass, isAdmin)
         # return user with the unhashed password
         return user
+    
+    @classmethod
+    def new_user_full(self, user_id, user_pass, admin):
+        """ Creates a new user.
+        
+        A static method.
+        
+        Args:
+            admin (bool, optional): if user to be created is an admin.
+            user_id (str, optional): user id.
+            user_pass (str, optional): user password.
+            
+        Returns:
+            :obj:'User': info of the new user (with id and password).
+        """
+        # hash password
+        hashed_pass = sha256.hash(user_pass)
+        # create user
+        user = User(user_id, hashed_pass, admin)
+        # store it in db
+        db.session.add(user)
+        db.session.commit()
+        app.logger.debug("New user created:\n{{\n"
+                         "\tuid: {},\n"
+                         "\tpassword: {},\n"
+                         "\tencrypted-password: {},\n"
+                         "\tadmin: {}\n}}"
+                         .format(user.id, user_pass, user.password, user.admin))
+        # create user with the unhashed password
+        user = User(user_id, user_pass, admin)
+        # return user with the unhashed password
+        return user
 
     def generate_new_pass(self):
         """ Created new password for a user.

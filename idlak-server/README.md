@@ -3,7 +3,7 @@
 
 This server runs an RESTful API based on Python Flask.
 
-When setting up the server a single user with Admin permissions is created.
+When running the server for the first time a single user with Admin permissions is created. The login credentials of this user are noted in the logs.
 
 
 # API Documentation

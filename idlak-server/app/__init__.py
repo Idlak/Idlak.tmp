@@ -23,6 +23,12 @@ app.logger.addHandler(handler)
 app.logger.setLevel(logging.DEBUG)
 
 from app import models, endpoints, reqlogging
+from app.models.user import User
+
+# check if there are any users, if there are none, create an admin
+if len(User.query.all()) == 0:
+    admin_user = User.new_user_full('admin', 'admin', True)
+    app.logger.info("An initial admin user has been created:\n{}".format(admin_user))
 
 if __name__ == '__main__':
     app.run()

@@ -1,2 +1,4 @@
+app.db
 venv
-
+migrations
+idlak-server.log*
