@@ -94,10 +94,10 @@ GSYMS
 /idlak-egs/*/s*/lbldata
 /idlak-egs/*/s*/lbldurdata
 /idlak-egs/*/s*/lblf0data
-/idlak-egs/*/s*/slt_pmdl
-/idlak-egs/*/s*/bdl_pmdl
-/idlak-egs/*/s*/jmk_pmdl
-/idlak-egs/tts_tangle_lj/s2/LJ_pmdl/
+/idlak-egs/*/s*/*_pmdl
+/idlak-egs/*/s*/voices
+/idlak-egs/*/s*/testout
+
 
 # /tools/
 /tools/ATLAS/
