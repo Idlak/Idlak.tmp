@@ -141,6 +141,33 @@ Typical error response (```422 UNPROCESSABLE ENTITY```):
 
 ---
 
+**Toggle users admin status**
+
+| [ POST ] | */users/`<uid>`/admin* |
+| - | - |
+
+Permissions: ```admin```
+
+Authorization Header: ```Bearer <access_token>```
+
+Response (200 OK):
+    
+```json
+{
+    "admin": true,
+    "uid": "userid"
+}
+```
+
+Typical error response (```422 UNPROCESSABLE ENTITY```):
+```json
+{
+    "message": "User does not exist"
+}
+```
+
+---
+
 **Delete a user**
 
 | [ DELETE ] | */users/`<uid>`* |
@@ -318,3 +345,13 @@ Response (```501 NOT IMPLEMENTED```):
       "message": "Not implemented yet"
 }
 ```
+
+## Error Codes and Messages
+| Status Code | Possible outcome |
+| -- | -- |
+| ```204 No Content``` | The query was successful but gave no results |
+| ```401 Unauthorized``` | Wrong login details<br> Access token has expired / is invalid<br> User doesn't have permissions required to access (admin permissions)|
+| ```404 Not Found``` | Requested data could not be found. |
+| ```422 Unprocessable Entity``` | User already exists<br> User does not exist<br> User is the only admin, there must be at least one admin in the system |
+| ```501 Not Implemented``` | The endpoint is not implemented yet |
+| ```500 Internal Server Error``` | Something went wrong on the server, the admins should be informed about the error |

@@ -15,7 +15,7 @@ usr_parser.add_argument('admin', type=bool, \
 class Users(Resource):
     """ Class for endpoints responsible for providing information about 
         users and creating a new user """
-    decorators = [admin_required, jwt_required]
+    #decorators = [admin_required, jwt_required]
     def get(self):
         """ Get info of all users endpoint 
             To access, access token and admin permissions are required 
@@ -76,13 +76,37 @@ class Users_Delete(Resource):
         """ check if user exists """
         if user is None:
             return abort(422, message="User does not exist")
+        """ check if the user is an admin and is the only one """
+        admins = User.query.filter_by(admin=True).all()
+        if user.id == get_jwt_identity() and len(admins) == 1:
+            return abort(422, message="User is the only admin, there must be at least one admin in the system")
         """ check if the user is not trying to delete itself """
-        if user.id == get_jwt_identity():
-            return abort(422, message="You cannot delete your own user!")
+        #if user.id == get_jwt_identity():
+        #    return abort(422, message="You cannot delete your own user!")
         user.delete()
         return { 'message': "User '{}' has been deleted".format(user.id) }
+    
+class Toggle_Admin(Resource):
+    """ Class for toggling user admin status endpoint """
+    decorators = [admin_required, jwt_required]
+    def post(self, user_id):
+        """ Toggle user admin status endpoint
+            To toggle, access token and admin permissions are required 
+            Takes in an id of a user that needs to have admin status changed
+            Returns an error or success message """
+        user = User.query.get(user_id)
+        """ check if user exists """
+        if user is None:
+            return abort(422, message="User does not exist")
+        """ check if user's the only admin if it's an admin """
+        admins = User.query.filter_by(admin=True).all()
+        if user.admin and len(admins) == 1:
+            return abort(422, message="User is the only admin, there must be at least one admin in the system")
+        user.toggle_admin()
+        return { 'uid': user.id, 'admin': user.admin }
 
 
 api.add_resource(Users, '/users')
 api.add_resource(Users_Password, '/users/<user_id>/password')
 api.add_resource(Users_Delete, '/users/<user_id>')
+api.add_resource(Toggle_Admin, '/users/<user_id>/admin')

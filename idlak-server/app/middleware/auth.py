@@ -13,7 +13,11 @@ def admin_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         user = User.query.get(get_jwt_identity())
-        app.logger.info("User requesting access: {}".format(user.id))
+        if user is not None:
+            app.logger.info("User requesting access: {}".format(user.id))
+        else:
+            app.logger.info("None-existing user tried to request for access")
+            return abort(401, message="The user with such access token does not exist")
         if user.admin:
             return func(*args, **kwargs)
         return abort(401, message="Admin permissions required")

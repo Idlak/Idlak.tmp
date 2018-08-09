@@ -78,6 +78,14 @@ class User(db.Model):
         db.session.commit()
         app.logger.debug("Password for user {} has been changed into {}".format(self.id, user_pass))
         return user_pass
+    
+    
+    def toggle_admin(self):
+        """ Toggles users admin status """
+        self.admin = not self.admin
+        db.session.merge(self)
+        db.session.commit()
+        app.logger.debug("Admin status for user {} has been changed into {}".format(self.id, self.admin))
 
     def delete(self):
         """ Deletes user from a database. """
