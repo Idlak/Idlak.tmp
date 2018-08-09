@@ -1,7 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask
-from config import Config
+from config import Config,load_config_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api, request
@@ -9,7 +9,9 @@ from flask_jwt_simple import JWTManager
 from datetime import datetime
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object(Config())
+load_config_file(app.config)
+print app.config
 api = Api(app)
 
 db = SQLAlchemy(app)
