@@ -1,10 +1,6 @@
 source cmd.sh
 source path.sh
 
-####################################
-##### Step 0: data preparation #####
-####################################
-
 # Idlak audio data is hosted at archive.org, while the rest of the resources are available from Github
 
 srate=48000
@@ -27,16 +23,21 @@ nodev=50 # the number of samples used for calculating loss
 
 # Input directories
 tpdb=$KALDI_ROOT/idlak-data/$lng/$acc
+testdatadir=$KALDI_ROOT/idlak-data/$lng/testdata
 
 # Working directories
 datadir=$HERE/data/$lng/$acc
 f0datadir=$HERE/f0data/$lng/$acc
 expdir=$HERE/exp/$lng/$acc
 lbldatadir=$HERE/lbldata/$lng/$acc
-lblf0datadir=$HERE/lblf0datadir/$lng/$acc
+lblf0datadir=$HERE/lblf0data/$lng/$acc
 lbldurdatadir=$HERE/lbldurdata/$lng/$acc
 durdatadir=$HERE/durdata/$lng/$acc
 exp_dnndir=$HERE/exp_dnn/$lng/$acc
+
+# Output directories
+voicedir=voices/$lng/$acc/${spks}_pmdl
+testoutdir=testout/$lng/$acc
 
 function incr_stage(){
     stage=$(( $stage + 1 ))
@@ -47,12 +48,17 @@ function incr_stage(){
 }
 
 
+############################################
+#####     Step -2/-1: Clean options    #####
+############################################
+
 # Clean up all working directories
 if [ $stage -le -10 ]; then
     cd $HERE
     rm -rf data f0data exp lbldata lblf0data lbldurdata durdata exp_dnn
     stage=0
 fi
+
 # Clean up voice
 if [ $stage -le -1 ]; then
     rm -rf $datadir/train $datadir/eval $datadir/dev $datadir/train_* $datadir/eval_* $datadir/dev_* $datadir/full
@@ -60,7 +66,7 @@ if [ $stage -le -1 ]; then
 fi
 
 ############################################
-#####     Step 1: Data preparation     #####
+#####     Step 0: Data preparation     #####
 ############################################
 
 if [ $stage -le 0 ]; then
@@ -289,6 +295,9 @@ lang=$datadir/lang
 #####   Step 3: Forced alignment  #####
 #######################################
 
+expa=$HERE/exp-align/$lng/$acc
+train=$datadir/full
+
 if [ $stage -le 3 ]; then
     echo "##### Step 3: forced alignment #####"
     ###############################
@@ -300,8 +309,6 @@ if [ $stage -le 3 ]; then
     #utils/validate_lang.pl $lang
 
     # Now running the normal kaldi recipe for forced alignment
-    expa=$HERE/exp-align/$lng/$acc
-    train=$datadir/full
     #test=$datadir/eval_mfcc
 
     rm -rf $train/split$nj
@@ -338,6 +345,7 @@ if [ $stage -le 3 ]; then
     # Convert to phone-state alignement
     for step in full; do
         ali=$expa/quin_ali_$step
+
         # Extract phone alignment
         ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:- \
             | utils/int2sym.pl -f 2- $lang/phones.txt > $ali/phones.txt
@@ -365,7 +373,7 @@ if [ $stage -le 3 ]; then
 
 
         # UGLY convert alignment to features
-        cat $datadira/$step/ali \
+        cat $datadir/$step/ali \
             | awk '{print $1, "["; $1=""; na = split($0, a, ";"); for (i = 1; i < na; i++) print a[i]; print "]"}' \
             | copy-feats ark:- ark,scp:$featdir/in_feats_$step.ark,$featdir/in_feats_$step.scp
     done
@@ -419,9 +427,9 @@ function print_phone(vkey, vasd, vpd) {
     for step in train dev; do
         dir=$lbldatadir/$step
         mkdir -p $dir
-        #cp data/$step/{utt2spk,spk2utt} $dir
-        utils/filter_scp.pl data/$step/utt2spk $featdir/in_feats_full.scp > $dir/feats.scp
-        cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
+        #cp $datadir/$step/{utt2spk,spk2utt} $dir
+        utils/filter_scp.pl $datadir/$step/utt2spk $featdir/in_feats_full.scp > $dir/feats.scp
+        cat $datadir/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
         utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
         steps/compute_cmvn_stats.sh $dir $dir $dir
     done
@@ -431,16 +439,16 @@ function print_phone(vkey, vasd, vpd) {
         dir=$lbldurdatadir/$step
         mkdir -p $dir
         #cp data/$step/{utt2spk,spk2utt} $dir
-        utils/filter_scp.pl data/$step/utt2spk $featdir/in_durfeats_full.scp > $dir/feats.scp
-        cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
+        utils/filter_scp.pl $datadir/$step/utt2spk $featdir/in_durfeats_full.scp > $dir/feats.scp
+        cat $datadir/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
         utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
         steps/compute_cmvn_stats.sh $dir $dir $dir
 
-        dir=durdata/$step
+        dir=$durdatadir/$step
         mkdir -p $dir
         #cp data/$step/{utt2spk,spk2utt} $dir
-        utils/filter_scp.pl data/$step/utt2spk $featdir/out_durfeats_full.scp > $dir/feats.scp
-        cat data/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
+        utils/filter_scp.pl $datadir/$step/utt2spk $featdir/out_durfeats_full.scp > $dir/feats.scp
+        cat $datadir/$step/utt2spk | awk -v lst=$dir/feats.scp 'BEGIN{ while (getline < lst) n[$1] = 1}{if (n[$1]) print}' > $dir/utt2spk
         utils/utt2spk_to_spk2utt.pl < $dir/utt2spk > $dir/spk2utt
         steps/compute_cmvn_stats.sh $dir $dir $dir
     done
@@ -468,6 +476,12 @@ function print_phone(vkey, vasd, vpd) {
     incr_stage
 fi
 
+
+
+#######################################
+#####   Step 4: DNN training      #####
+#######################################
+
 acdir=$datadir
 lblpitchdir=$lblf0datadir
 pitchdir=$f0datadir
@@ -475,15 +489,11 @@ lbldir=$lbldatadir
 durdir=$durdatadir
 lbldurdir=$lbldurdatadir
 exp=$exp_dnndir
-mkdir -p $exp
 dnndurdir=$exp/tts_${network_type}_dur_3_delta_quin5
 dnnf0dir=$exp/tts_${network_type}_f0_3_delta_quin5
 dnndir=$exp/tts_${network_type}_train_3_delta_quin5
 dnnffdir=$exp/tts_${network_type}_fake_3_delta_quin5
-
-##############################
-## 4. Train DNN
-##############################
+mkdir -p $exp
 
 if [ $stage -le 4 ]; then
     echo "##### Step 4: training DNNs #####"
@@ -555,23 +565,64 @@ BEGIN{ nv=split(lst, v, ",");
     incr_stage
 fi
 
-##############################
-## 5. Synthesis
-##############################
 
-if [ "$srate" = "16000" ]; then
-    order=39
-    alpha=0.42
-    fftlen=1024
-    bndap_order=21
-elif [ "$srate" = "48000" ]; then
-    order=60
-    alpha=0.55
-    fftlen=4096
-    bndap_order=25
+#######################################
+#####   Step 5: Creating voice    #####
+#######################################
+
+if [ $stage -le 5 ]; then
+    echo "##### Step 5: preparing voice files #####"
+
+
+    if [ "$srate" = "16000" ]; then
+        order=39
+        alpha=0.42
+        fftlen=1024
+        bndap_order=21
+    elif [ "$srate" = "48000" ]; then
+        order=60
+        alpha=0.55
+        fftlen=4096
+        bndap_order=25
+    fi
+
+    # Variant with mlpg: requires mean / variance from coefficients
+    copy-feats scp:$datadir/train/feats.scp ark:- \
+        | add-deltas --delta-order=2 ark:- ark:- \
+        | compute-cmvn-stats --binary=false ark:- - \
+        | awk '
+    (NR==2){count=$NF; for (i=1; i < NF; i++) mean[i] = $i / count}
+    (NR==3){if ($NF == "]") NF -= 1; for (i=1; i < NF; i++) var[i] = $i / count - mean[i] * mean[i]; nv = NF-1}
+    END{for (i = 1; i <= nv; i++) print mean[i], var[i]}' \
+        > $datadir/train/var_cmp.txt
+
+    # Variant with mlpg: requires mean / variance from coefficients
+    copy-feats scp:$datadir/train/pitch_feats.scp ark:- \
+        | add-deltas --delta-order=2 ark:- ark:- \
+        | compute-cmvn-stats --binary=false ark:- - \
+        | awk '
+    (NR==2){count=$NF; for (i=1; i < NF; i++) mean[i] = $i / count}
+    (NR==3){if ($NF == "]") NF -= 1; for (i=1; i < NF; i++) var[i] = $i / count - mean[i] * mean[i]; nv = NF-1}
+    END{for (i = 1; i <= nv; i++) print mean[i], var[i]}' \
+        > $datadir/train/var_pitch.txt
+
+    cd $HERE
+    local/make_dnn_voice_pitch.sh --spk $spks --lng $lng --acc $acc \
+         --srate $srate --mcep_order $order --bndap_order $bndap_order --alpha $alpha --fftlen $fftlen \
+         --cex_freq $datadir/full/cex.ark.freq \
+         --var_cmp $datadir/train/var_cmp.txt \
+         --var_pitch $datadir/train/var_pitch.txt \
+         --durdnndir $dnndurdir \
+         --f0dnndir $dnnf0dir \
+         --acsdnndir $dnndir \
+         --outputdir $voicedir
+
+    echo "Voice packaged successfully. Portable models have been stored in '$voicedir'."
+
+    incr_stage
 fi
 
-echo "##### Step 5: synthesis #####"
+
 # Original samples:
 #echo "Synthesizing vocoded training samples"
 #mkdir -p exp_dnn/orig2/cmp exp_dnn/orig2/wav
@@ -580,39 +631,62 @@ echo "##### Step 5: synthesis #####"
 #    local/mlsa_synthesis_63_mlpg.sh --voice_thresh 0.5 --alpha $alpha --fftlen $fftlen --srate $srate --bndap_order $bndap_order --mcep_order $order $cmp exp_dnn/orig2/wav/`basename $cmp .cmp`.wav
 #done
 
-# Variant with mlpg: requires mean / variance from coefficients
-copy-feats scp:data/train/feats.scp ark:- \
-    | add-deltas --delta-order=2 ark:- ark:- \
-    | compute-cmvn-stats --binary=false ark:- - \
-    | awk '
-(NR==2){count=$NF; for (i=1; i < NF; i++) mean[i] = $i / count}
-(NR==3){if ($NF == "]") NF -= 1; for (i=1; i < NF; i++) var[i] = $i / count - mean[i] * mean[i]; nv = NF-1}
-END{for (i = 1; i <= nv; i++) print mean[i], var[i]}' \
-    > data/train/var_cmp.txt
+#######################################
+#####   Step 6: Synthesizing      #####
+#######################################
 
-# Variant with mlpg: requires mean / variance from coefficients
-copy-feats scp:data/train/pitch_feats.scp ark:- \
-    | add-deltas --delta-order=2 ark:- ark:- \
-    | compute-cmvn-stats --binary=false ark:- - \
-    | awk '
-(NR==2){count=$NF; for (i=1; i < NF; i++) mean[i] = $i / count}
-(NR==3){if ($NF == "]") NF -= 1; for (i=1; i < NF; i++) var[i] = $i / count - mean[i] * mean[i]; nv = NF-1}
-END{for (i = 1; i <= nv; i++) print mean[i], var[i]}' \
-    > data/train/var_pitch.txt
+if [ $stage -le 6 ]; then
+    echo "##### Step 6: synthesizing test data #####"
+
+    cd $HERE
+
+    for f in $testdatadir/*.xml ; do
+        if [ -e "$f" ]; then
+            echo "Synthesizing $f"
+            local/synthesis_voice_pitch.sh --input_text $f $voicedir $testoutdir
+        else
+            echo "Warning : no test data in $testdatadir to synthesize"
+        fi
+    done
+fi
+
+
+
+
+case $lng in
+    en)
+        sampletxt='This is a demo of D N N synthesis'
+        ;;
+    ru)
+        sampletxt='Кирпич ни с того ни с сего никому и никогда на голову не свалится.'
+        ;;
+    *)
+        for f in $testdatadir/*.xml ; do
+            if [ -e "$f" ]; then
+                sampletxt=$(grep -v "<?xml" $f | grep -v "<.*>" | head -n1)
+            else
+                sampletxt='This is a demo of D N N synthesis'
+            fi
+        done
+        ;;
+esac
+
+
 
 echo "
+
 *********************
 ** Congratulations **
 *********************
-TTS-DNN trained.
 
-Synthesis can be performed using the utils/synthesis_test.sh utility,
-e.g.: echo 'Test 1 2 3' | utils/synthesis_test-48k.sh
+The Tangle TTS DNN has been trained.
+
+Example audio can be found in $testoutdir
+
+Portable voice models have been stored in
+    $voicedir
+
+Synthesis can be performed using:
+    echo \"$sampletxt\" | local/synthesis_voice_pitch.sh $voicedir <out_dir>
+
 "
-echo "#### Step 6: packaging DNN voice ####"
-
-local/make_dnn_voice_pitch.sh --spk $spk --srate $srate --mcep_order $order --bndap_order $bndap_order --alpha $alpha --fftlen $fftlen --durdnndir $dnndurdir --f0dnndir $dnnf0dir --acsdnndir $dnndir
-
-echo "Voice packaged successfully. Portable models have been stored in ${spk}_pmdl."
-echo "Synthesis can be performed using:
-         echo \"This is a demo of D N N synthesis\" | local/synthesis_voice_pitch.sh ${spk}_pmdl <out_dir>"
