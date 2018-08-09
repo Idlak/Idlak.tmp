@@ -15,11 +15,13 @@ usr_parser.add_argument('admin', type=bool, \
 class Users(Resource):
     """ Class for endpoints responsible for providing information about 
         users and creating a new user """
-    #decorators = [admin_required, jwt_required]
+    decorators = [admin_required, jwt_required]
     def get(self):
         """ Get info of all users endpoint 
-            To access, access token and admin permissions are required 
-            returns a list of existing users with their info """
+            To access, access token and admin permissions are required
+            
+            Returns:
+                obj: a list of existing users with their info """
         users = User.query.all()
         usersJSON = []
         for u in users:
@@ -29,13 +31,19 @@ class Users(Resource):
     
     def post(self):
         """ Create a new user account endpoint
-            To create, access token and admin permissions are required 
-            Takes in id and admin as optional parameters in json body
-            returns details of the new user with a password provided """
+            To create, access token and admin permissions are required
+            
+            Args:
+                uid (str): user id
+                admin (bool): admin status of user
+                
+            Returns:
+                obj: details of the new user with a password provided
+        """
         args = usr_parser.parse_args()
-        """ convert admin parameter into a boolean """
+        # convert admin parameter into a boolean
         admin = bool(args['admin'])
-        """ check if the id of user is provided """
+        # check if the id of user is provided
         if args['uid'] is not None:
             user = User.new_user(admin, args['uid'])
         else:
@@ -56,6 +64,7 @@ class Users_Password(Resource):
     def post(self, user_id):
         """ Reset password endpoint 
             To reset, access token and admin permissions are required
+            
             Takes in an id of a user that needs to have its password reset
             Returns the new changed password """
         user = User.query.get(user_id)
@@ -70,20 +79,23 @@ class Users_Delete(Resource):
     def delete(self, user_id):
         """ Delete user endpoint
             To delete, access token and admin permissions are required 
-            Takes in an id of a user that needs to be deleted
-            Returns an error or success message """
+            
+            Args:
+                uid (str): user id
+            Returns: 
+                obj: an error or success message
+        """
         user = User.query.get(user_id)
-        """ check if user exists """
+        # check if user exists
         if user is None:
             return abort(422, message="User does not exist")
-        """ check if the user is an admin and is the only one """
+        # check if the user is an admin and is the only one
         admins = User.query.filter_by(admin=True).all()
         if user.id == get_jwt_identity() and len(admins) == 1:
             return abort(422, message="User is the only admin, there must be at least one admin in the system")
-        """ check if the user is not trying to delete itself """
-        #if user.id == get_jwt_identity():
-        #    return abort(422, message="You cannot delete your own user!")
+        
         user.delete()
+        
         return { 'message': "User '{}' has been deleted".format(user.id) }
     
 class Toggle_Admin(Resource):
@@ -92,8 +104,12 @@ class Toggle_Admin(Resource):
     def post(self, user_id):
         """ Toggle user admin status endpoint
             To toggle, access token and admin permissions are required 
-            Takes in an id of a user that needs to have admin status changed
-            Returns an error or success message """
+            
+            Args:
+                uid (str): user id
+            Returns: 
+                obj: an error or success message
+        """
         user = User.query.get(user_id)
         """ check if user exists """
         if user is None:
@@ -102,7 +118,9 @@ class Toggle_Admin(Resource):
         admins = User.query.filter_by(admin=True).all()
         if user.admin and len(admins) == 1:
             return abort(422, message="User is the only admin, there must be at least one admin in the system")
+        
         user.toggle_admin()
+        
         return { 'uid': user.id, 'admin': user.admin }
 
 

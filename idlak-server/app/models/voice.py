@@ -39,7 +39,6 @@ class Voice(db.Model):
         self.country = country
 
     def __repr__(self):
-        """ __repr__ method of the Voice class """
         return '<Voice {}:{}:{}:{}>'.format(self.name, self.id, self.language, self.accent)
 
     def toDict(self):

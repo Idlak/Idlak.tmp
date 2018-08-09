@@ -23,15 +23,12 @@ class User(db.Model):
         self.admin = admin
 
     def __repr__(self):
-        """ __repr__ method of the User class """
         return '<User {}:{}:{}>'.format(self.id, self.password, self.admin)
 
     
     @classmethod
     def new_user(self, isAdmin=False, user_id=uuid.uuid4().hex[:16]):
         """ Creates a new user.
-        
-        A static method.
         
         Args:
             isAdmin (bool, optional): if user to be created is an admin.
@@ -45,11 +42,9 @@ class User(db.Model):
             return None
         # create password
         user_pass = uuid.uuid4().hex[:8]
-        # hash password
         hashed_pass = sha256.hash(user_pass)
-        # create user
+        # create user & store it in db
         user = User(user_id, hashed_pass, isAdmin)
-        # store it in db
         db.session.add(user)
         db.session.commit()
         app.logger.debug("New user created:\n{{\n"
@@ -60,28 +55,24 @@ class User(db.Model):
                          .format(user.id, user_pass, user.password, user.admin))
         # create user with the unhashed password
         user = User(user_id, user_pass, isAdmin)
-        # return user with the unhashed password
         return user
     
     @classmethod
     def new_user_full(self, user_id, user_pass, admin):
-        """ Creates a new user.
-        
-        A static method.
+        """ Creates a new user provided all details.
         
         Args:
-            admin (bool, optional): if user to be created is an admin.
-            user_id (str, optional): user id.
-            user_pass (str, optional): user password.
+            admin (bool): if user to be created is an admin.
+            user_id (str): user id.
+            user_pass (str): user password.
             
         Returns:
             :obj:'User': info of the new user (with id and password).
         """
         # hash password
         hashed_pass = sha256.hash(user_pass)
-        # create user
+        # create user & store it in db
         user = User(user_id, hashed_pass, admin)
-        # store it in db
         db.session.add(user)
         db.session.commit()
         app.logger.debug("New user created:\n{{\n"
@@ -92,7 +83,6 @@ class User(db.Model):
                          .format(user.id, user_pass, user.password, user.admin))
         # create user with the unhashed password
         user = User(user_id, user_pass, admin)
-        # return user with the unhashed password
         return user
 
     def generate_new_pass(self):

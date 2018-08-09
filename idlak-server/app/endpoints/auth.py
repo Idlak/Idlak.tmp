@@ -13,19 +13,20 @@ usr_parser.add_argument('uid', help='user id', location='json', required=True)
 usr_parser.add_argument('password', help='user password', location='json', required=True)
 
 class Auth(Resource):
-    """ Class for user authentication endpoint """
     def post(self):
         """ Authentication endpoint
-            request has to come with user id and password in its body
-            in JSON format
-            returns access token if login details are correct, otherwise
-            returns an error message """
+        
+            Args:
+                uid (str) : user id
+                password (str) : user password
+            Returns:
+                str: access token if login details are correct, otherwise
+                returns an error message 
+        """
         args = usr_parser.parse_args()
         user = User.query.get(args['uid'])
-        """ check if user exists and the password is correct """
         if user and sha256.verify(args['password'], user.password):
             return {'access_token': create_jwt(identity=user.id)}, 200
-        """ return error message """
         return { "message" : "Login details are incorrect" }, 401
 
 api.add_resource(Auth, '/auth')

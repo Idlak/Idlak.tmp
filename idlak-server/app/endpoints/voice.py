@@ -14,10 +14,16 @@ class Voices(Resource):
     """ Class for Voices enpoint """
     def post(self):
         """ Voices enpoint 
-            takes in optional parameters for language, accent and gender
-            returns a list of voiced based on the optional parameters,
-            if no options are provided all voices are returned with their details """
+        
+            Args:
+                language (str, optional)
+                accent (str, optional)
+                gender (str, optional)
             
+            Returns:
+                obj: a list of voiced based on the optional parameters,
+                     if no options are provided all voices are returned with their details 
+        """
         # get available voices
         args = vcs_parser.parse_args()
         """ create a query based on the parameters """
@@ -31,21 +37,23 @@ class Voices(Resource):
             query = query.filter(Voice.gender == args['gender'])
         """ get voices based on the query """
         voices = query.all()
-        """ check if the query returned any voices, if not return a message """
+        """ check if the query returned any voices """
         if not voices:
             return {"message":"No voices were found"}, 204
         """ create a returnable list of voices and return it as response """
-        ret_voices = []
-        for v in voices:
-            ret_voices.append(v.toDict())
+        ret_voices = [ v.toDict() for v in voices ]
         return { 'voices' : ret_voices }
 
 class VoiceDetails(Resource):
     """ Class for voice detail endpoint"""
     def get(self, voice_id):
         """ Voice details endpoint
-            takes in an id of a voice
-            returns details of that voice """
+        
+            Args:
+                voice_id (str): voice id
+            Returns:
+                dict: details of a voice
+        """
         # get voice details
         voice = Voice.query.get(voice_id)
         if voice is None:

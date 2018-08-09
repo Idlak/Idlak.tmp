@@ -11,11 +11,18 @@ spch_parser.add_argument('text', help='text to syntesise speech', location='json
 
 
 class Speech(Resource):
-    """ Class for getting speech endpoint """
     def post(self):
         """ Speech endpoint
-            provided with voice id and text
-            returns audio file of the speech """
+        
+            Args:
+                voice_id (str)
+                streaming (boolean, optional)
+                audio_format (boolean, optional)
+                text (str)
+                
+            Returns: 
+                audio file of the speech
+        """
         return {'message':'Not implemented yet'}, 501
 
 
