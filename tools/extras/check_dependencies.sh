@@ -100,7 +100,7 @@ fi
 #  pythonok=false
 #fi
 
-( 
+(
 #Use a subshell so that sourcing env.sh does not have an influence on the rest of the script
 [ -f ./env.sh ] && . ./env.sh
 if $pythonok && ! which python2 >&/dev/null; then
@@ -111,14 +111,14 @@ if $pythonok && ! which python2 >&/dev/null; then
 fi
 
 if [[ -f $PWD/python/.use_default_python && -f $PWD/python/python ]]; then
-  rm $PWD/python/python 
+  rm $PWD/python/python
 fi
 
 if $pythonok && which python >&/dev/null && [[ ! -f $PWD/python/.use_default_python ]]; then
   version=`python 2>&1 --version | awk '{print $2}' `
   if [[ $version != "2.7"* ]] ; then
     echo "$0: WARNING python 2.7 is not the default python. We fixed this by adding a correct symlink more prominently on the path."
-    echo "$0: If you really want to use python $version as default, add an empty file $PWD/python/.use_default_python and run this script again."  
+    echo "$0: If you really want to use python $version as default, add an empty file $PWD/python/.use_default_python and run this script again."
     mkdir -p $PWD/python
     ln -s $(which python2.7) $PWD/python/python
     echo "export PATH=$PWD/python:\${PATH}" >> env.sh
