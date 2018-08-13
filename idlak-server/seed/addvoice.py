@@ -8,7 +8,7 @@ from app import app, db
 from app.models.voice import Voice
 
 """ Example:
-./addvoice.py -g female -n Ana -i abr -d /home/skaiste/Documents/Idlak/idlak/idlak-egs/tts_tangle_idlak/s2/voices/ru/ru/abr_pmdl
+./addvoice.py -g female -n Anna -i abr -d /home/skaiste/Documents/Idlak/idlak/idlak-egs/tts_tangle_idlak/s2/voices/ru/ru/abr_pmdl
 """
 
 parser = argparse.ArgumentParser(description='Add a voice to the database.')

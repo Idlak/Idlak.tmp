@@ -2,6 +2,8 @@
 import subprocess
 import sys
 import os
+import uuid
+import time
 from app import app, api, jwt
 from flask import send_from_directory
 from flask_restful import Resource, reqparse, abort, request
@@ -33,6 +35,16 @@ def convertTo(audio_format, filename):
     return_code = subprocess.call(command, shell=True)
     return new_filename
 
+def removeOldOutputFiles():
+    """ Removes an output folder if it is older than 5 minutes """
+    path = "output/"
+    current_time = time.time() - 300
+    for filename in os.listdir(path):
+        if os.stat(path + filename).st_mtime < current_time:
+            subprocess.call("rm -rf " + path + filename, shell=True)
+            app.logger.info("Directory \"" + path + filename + "\" was deleted because it wasn't necessary anymore.")
+        
+
 class Speech(Resource):
     decorators = [jwt_required]
     def post(self):
@@ -51,25 +63,28 @@ class Speech(Resource):
         if voice is None:
             return {"message":"Voice could not be found"}, 400
         
+        removeOldOutputFiles()
+        
         # set the current path to where the speech files are for the processing
         current_path = os.getcwd()
         os.chdir(app.config['SPEECH_PATH'])
                 
         app.logger.info("PROCESSING SPEECH:\nVoice id: {}\nText: {}".format(voice.id, args['text']))
         voice_dir = "voices/{}/{}/{}_pmdl".format(voice.language, voice.accent, voice.id)
-        output_dir = current_path + "/output"
+        output_dir = current_path + "/output/" + uuid.uuid4().hex[:8] 
         
         command = "echo {} | local/synthesis_voice_pitch.sh {} {}".format(args['text'], voice_dir, output_dir)
         return_code = subprocess.call(command, shell=True)
         if return_code == 0:
-            app.logger.info("Processing went through successfully")
+            app.logger.info("Processing went through successfully, the audio files have been stored in " + output_dir)
         else:
             app.logger.error("PROCESSING FAILED!!!")
+            os.chdir(current_path)
             return {"message":"The process has failed"}, 400
         
         # remove temporary files of the user after processing
         if 'CURRENT_USER' in app.config:
-            subprocess.call("find /tmp -user " + app.config['CURRENT_USER'] + " -exec rm -rf {} \;", shell=True)
+            subprocess.call("ls -l /tmp | grep \"" + app.config['CURRENT_USER'] + ".*tmp*\" | awk '{print \"/tmp/\"$NF}' | xargs rm -rf", shell=True)
             app.logger.info("Deleted temporary processing files")
         
         # change the path to the path of this program to
