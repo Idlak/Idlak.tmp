@@ -5,7 +5,8 @@ durdnndir=exp_dnn/tts_dnn_dur_3_delta_quin5/
 f0dnndir=exp_dnn/tts_dnn_f0_3_delta_quin5/
 acsdnndir=exp_dnn/tts_dnn_train_3_delta_quin5/
 spk=bdl
-tpdbvar=en/ga/
+lng=en
+acc=ga
 srate=16000
 delta_order=2
 mcep_order=39
@@ -13,6 +14,9 @@ bndap_order=21
 voice_thresh=0.5
 alpha=0.42
 fftlen=512
+outputdir=
+tpdbvar=
+tpdbdir=
 
 # NB: important input files are:
 # data/full/cex.ark.freq (for mapping categorical features to binary)
@@ -21,13 +25,24 @@ fftlen=512
 # tpdb dir
 # data/train/var_cmp.txt
 
-[ -f path.sh ] && . ./path.sh; 
+[ -f path.sh ] && . ./path.sh;
 . parse_options.sh || exit 1;
 
-outputdir=${spk}_pmdl
+if [ ! $outputdir ]; then
+    outputdir=${spk}_pmdl
+fi
+
+if [ ! $tpdbvar ]; then
+    tpdbvar=$lng/$acc
+fi
+
+if [ ! $tpdbdir ]; then
+    tpdbdir=$KALDI_ROOT/idlak-data/`dirname $tpdbvar`
+fi
+
 rm -rf $outputdir
 mkdir -p $outputdir/{dur,pitch,acoustic,lang}
-tpdbdir=$KALDI_ROOT/idlak-data/`dirname $tpdbvar`
+
 
 for step in dur pitch acoustic; do
     case $step in
@@ -72,8 +87,8 @@ cp $cex_freq $outputdir/lang/
 cat $var_pitch $var_cmp > $outputdir/lang/var_cmp.txt
 
 # Config
-for k in spk tpdbvar srate delta_order mcep_order bndap_order voice_thresh alpha fftlen; do
+for k in spk lng acc tpdbvar srate delta_order mcep_order bndap_order voice_thresh alpha fftlen; do
     echo "$k=${!k}"
 done > $outputdir/voice.conf
 
-echo 'All done! voice is in'  $outputdir
+# echo 'All done! voice is in' $outputdir
