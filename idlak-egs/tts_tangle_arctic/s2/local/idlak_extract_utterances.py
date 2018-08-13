@@ -54,11 +54,11 @@ def main():
                          help = 'SCP file to exctract from')
 
     parser.add_argument('-o', '--output', required = True, type = argparse.FileType('w'),
-                         help = 'Input transcription (normally called text.xml)')
+                         help = 'Output transcription (normally called text.xml)')
 
     args = parser.parse_args()
     extracted_needed_transcriptions(args.input, args.scp, args.output)
-    #print "finished creating subset"
+
 
 if __name__ == "__main__":
     main()
