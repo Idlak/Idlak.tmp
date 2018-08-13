@@ -73,7 +73,7 @@ class Logger:
         else:
             self.log('Warn', 'Bad log level: %s Message: %s' % (level, message))
 
-# sax handler 
+# sax handler
 class idlak_saxhandler(xml.sax.ContentHandler):
     def __init__(self):
         self.id = ''
@@ -81,7 +81,7 @@ class idlak_saxhandler(xml.sax.ContentHandler):
         self.ids = []
         self.lex = {}
         self.oov = {}
-        
+
     def startElement(self, name, attrs):
         if name == "fileid":
             newid = attrs['id']
@@ -92,11 +92,12 @@ class idlak_saxhandler(xml.sax.ContentHandler):
             if not self.id:
                 self.id = newid
                 self.ids.append(self.id)
-        if name == "tk":
+        elif name == "tk":
             try:
                 word = attrs['norm'].upper().encode('utf8')
             except:
-                print "Failed parsing: %s, attrs:" % name, attrs.getNames(), attrs.getValue('wordid')
+                print "Failed parsing '{0}': word {1}, 'norm' missing or not utf8, attrs: {2}".format(
+                    self.id, attrs.getValue('wordid'), ', '.join(attrs.getNames()))
                 raise
             self.data[-1].append(word)
             if not self.lex.has_key(word):
@@ -147,7 +148,7 @@ def forward_context(logger, input_fname, input_freqtable_fname, cexoutput_filena
                 if lookuptables[key].has_key('0'):
                     lookuptables_len[key] -= 1
                 break
-    
+
     # Read input file
     dom = parse(input_fname)
     # get header information
@@ -188,7 +189,7 @@ def forward_context(logger, input_fname, input_freqtable_fname, cexoutput_filena
             last_phon_name = phon_name
 
     print lookuptables, lookuptables_len
-            
+
     # Perform mapping of input file using freqtable
     if cexoutput_filename == None or cexoutput_filename == '-':
         cexoutput_file = sys.stdout
@@ -240,7 +241,7 @@ def update_freq_table(logger, cex_string, freqtables):
     # prepend the phone to keep track of silences and for sanity checks
     cexs.insert(0, phonename)
 
-    # keep track of frequencies 
+    # keep track of frequencies
     for i in range(len(cexs)):
         key = 'cex' + ('000' + str(i))[-3:]
         if not freqtables.has_key(key):
@@ -252,7 +253,7 @@ def update_freq_table(logger, cex_string, freqtables):
     return cexs
 
 
-# sax handler 
+# sax handler
 class idlakcexhandler(xml.sax.ContentHandler):
     def __init__(self):
         self.id = None
@@ -263,7 +264,7 @@ class idlakcexhandler(xml.sax.ContentHandler):
     def characters(self, content):
         if self.pron != None:
             self.prons[self.id][-1][1] += content
-        
+
     def startElement(self, name, attrs):
         if name == "fileid":
             newid = attrs['id']
@@ -291,8 +292,8 @@ def make_output_kaldidnn_cex(logger, input_filename, output_filename, cexoutput_
     p.setContentHandler(handler)
     p.parse(open(input_filename, "r"))
 
-    
-    
+
+
     # get by file ids
     #fileids = dom.getElementsByTagName('fileid')
     #if len(fileids) == 0:
@@ -335,9 +336,9 @@ def make_output_kaldidnn_cex(logger, input_filename, output_filename, cexoutput_
             #output_file.write('%s %s\n' % (f.getAttribute('id'), ' '.join(cexs)))
             output_file.write('%s %s\n' % (f, ' '.join(cexs)))
             output_contexts[-1][-1].append(cexs)
-            
+
             last_phon_name = phon_name
-            
+
     if output_filename != None and output_filename != '-':
         output_file.close()
 
@@ -392,7 +393,7 @@ def idlak_make_lang(textfile, datadir, langdir):
         handler = idlak_saxhandler()
         p.setContentHandler(handler)
         p.parse(open(textfile, "r"))
-        fp = open(os.path.join(datadir, "text"), 'w') 
+        fp = open(os.path.join(datadir, "text"), 'w')
         for i in range(len(handler.ids)):
             #if valid_ids.has_key(handler.ids[i]):
             # If we are forcing beginning and end silences add <SIL>s
@@ -402,7 +403,7 @@ def idlak_make_lang(textfile, datadir, langdir):
             #s = u"%s %s\n" % (handler.ids[i], u' '.join(handler.data[i]))
             fp.write(s.encode('utf-8'))
         fp.close()
-        
+
         # lexicon and oov have all words for the corpus
         # whether selected or not by flist
         fpoov = open(os.path.join(langdir, "oov.txt"), 'w')
@@ -533,7 +534,7 @@ def write_xml_textalign(breaktype, breakdef, labfile, wordfile, output, statefil
 
     if statefile is None:
         print "WARNING: alignment with phone identity only is not accurate enough. Please use states aligment as final argument."
-    
+
     #labs = glob.glob(labdir + '/*.lab')
     #labs.sort()
     all_labs = load_labs(labfile, statefile)
@@ -548,7 +549,7 @@ def write_xml_textalign(breaktype, breakdef, labfile, wordfile, output, statefil
         fileid_element = document.createElement("fileid")
         doc_element.appendChild(fileid_element)
         fileid_element.setAttribute('id', id)
-        
+
         words = all_words[id]# open(os.path.join(wrddir, stem + '.wrd')).readlines()
         phones = all_labs[id]
         pidx = 0
@@ -572,7 +573,7 @@ def write_xml_textalign(breaktype, breakdef, labfile, wordfile, output, statefil
                 lex_element = document.createElement("lex")
                 fileid_element.appendChild(lex_element)
                 lex_element.setAttribute('pron', ' '.join(pron))
-                
+
                 text_node = document.createTextNode(ww[2])
                 lex_element.appendChild(text_node)
             else:
@@ -622,7 +623,7 @@ def main():
         # Forward with existing freqtable
         elif len(args) == 3:
             forward_context(logger, args[0], args[1], args[2], opts.root_name)
-    else: 
+    else:
         parser.error('Mandatory arguments missing or excessive number of arguments')
 
 if __name__ == '__main__':

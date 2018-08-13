@@ -27,6 +27,8 @@ synth=excitation
 voice_dir=$1
 outdir=$2
 
+mkdir -p $outdir
+
 source $voice_dir/voice.conf
 
 cex_freq=$voice_dir/lang/cex.ark.freq
@@ -37,7 +39,7 @@ dnndir=$voice_dir/acoustic
 datadir=`mktemp -d`
 tpdb=`readlink -f $voice_dir/lang/$tpdbvar`
 
-[ -f path.sh ] && . ./path.sh; 
+[ -f path.sh ] && . ./path.sh;
 
 if [ ! -z "$input_xml" ]; then
     cp $input_xml $datadir/text_full.xml
@@ -48,10 +50,10 @@ else
         awk 'BEGIN{print "<parent>"}{print}END{print "</parent>"}' > $datadir/text.xml
     fi
 
-    # Generate CEX features for test set.
-    idlaktxp --pretty --tpdb=$tpdb $datadir/text.xml - \
-        | idlakcex --pretty --cex-arch=default --tpdb=$tpdb - $datadir/text_full.xml
+    idlaktxp --pretty --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/text.xml - \
+        | idlakcex --pretty --general-lang=$lng --general-acc=$acc --cex-arch=default --tpdb=$tpdb - $datadir/text_full.xml
 fi
+
 python local/idlak_make_lang.py --mode 2 -r "test" \
     $datadir/text_full.xml $cex_freq $datadir/cex.ark > $datadir/cex_output_dump
 # Generate input feature for duration modelling
@@ -111,7 +113,7 @@ local/make_forward_fmllr.sh $durdnndir $lbldurdir $duroutdir ""
         }
    }
    pd = 0;
-}' 
+}'
 done) > $datadir/synth_lab.mlf
 # 3. Turn them into DNN input labels (i.e. one sample per frame)
 python local/make_fullctx_mlf_dnn.py --extra-feats="$extra_feats" $datadir/synth_lab.mlf $datadir/cex.ark $datadir/feat.ark
