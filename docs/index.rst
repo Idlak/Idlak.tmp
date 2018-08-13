@@ -28,11 +28,4 @@ Contents:
    language_resources
    accents
    tangle_voices
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   rest_server
