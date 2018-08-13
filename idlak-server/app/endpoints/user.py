@@ -48,10 +48,12 @@ class Users(Resource):
             user = User.new_user(admin, args['uid'])
         else:
             user = User.new_user(admin)
+            
         """ check if the user is created, 
             if the user with the same id exists it won't be created """
         if user is None:
             return abort(422, message="User id already exists")
+        
         """ create an object to represent the user with the password provided
             and return it as a response """
         userToReturn = { 'uid' : user.id, 'password':user.password,'admin':user.admin }
@@ -86,9 +88,10 @@ class Users_Delete(Resource):
                 obj: an error or success message
         """
         user = User.query.get(user_id)
-        # check if user exists
+        
         if user is None:
             return abort(422, message="User does not exist")
+        
         # check if the user is an admin and is the only one
         admins = User.query.filter_by(admin=True).all()
         if user.id == get_jwt_identity() and len(admins) == 1:
@@ -111,9 +114,10 @@ class Toggle_Admin(Resource):
                 obj: an error or success message
         """
         user = User.query.get(user_id)
-        """ check if user exists """
+        
         if user is None:
             return abort(422, message="User does not exist")
+        
         """ check if user's the only admin if it's an admin """
         admins = User.query.filter_by(admin=True).all()
         if user.admin and len(admins) == 1:

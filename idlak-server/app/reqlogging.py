@@ -1,3 +1,4 @@
+import copy
 from app import app
 from datetime import datetime
 from flask_restful import request
@@ -16,7 +17,10 @@ def before():
             value = "[provided]" 
         headers += "{}: {}\n".format(key, value)
     app.logger.info("Request Headers:{}\n{}\n{}".format("-"*45,str(headers)[:-1], "-"*60))
-    app.logger.info("Request Body: {}".format(request.json))
+    body = copy.deepcopy(request.json)
+    if type(body) is dict and "password" in body:
+        body['password'] = "[provided]"
+    app.logger.info("Request Body: {}".format(body))
 
 
 # Useful debugging interceptor to log all endpoint responses
@@ -28,8 +32,10 @@ def after(response):
     app.logger.info("Response Headers:{}\n{}\n{}".format("-"*43,str(response.headers)[:-3], "-"*60))
     # hide password from logs
     body = response.json
-    if "password" in body:
+    if type(body) is dict and "password" in body:
         body['password'] = "[provided]"
+    if type(body) is dict and "access_token" in body:
+        body['access_token'] = "[provided]"
     app.logger.info("Response Body: {}\n".format(body))
     return response
 

@@ -3,7 +3,9 @@
 
 This server runs an RESTful API based on Python Flask.
 
-When running the server for the first time a single user with Admin permissions is created. The login credentials of this user are noted in the logs.
+When running the server for the first time it has to be run twice: first time to set up the database, and second to actually run it. On the second run a single user with Admin permissions is created. The login credentials of this user are noted in the logs.
+
+To add a voice to the database use script ```seed/addvoice.py```.
 
 
 # API Documentation
@@ -123,7 +125,7 @@ Typical error response (```422 UNPROCESSABLE ENTITY```):
 
 Permissions: ```admin```<br>
 Authorization Header: ```Bearer <access_token>```<br>
-Response (200 OK): 
+Response (```200 OK```): 
 ```json
 {
     "admin": true,
@@ -144,7 +146,7 @@ Typical error response (```422 UNPROCESSABLE ENTITY```):
 
 Permissions: ```admin```<br>
 Authorization Header: ```Bearer <access_token>```<br>
-Response (200 OK):
+Response (```200 OK```):
 ```json
 {
     "message": "User 'userid' has been deleted"
@@ -277,20 +279,21 @@ Arguments:
 | Argument | Example | Required  | Description |
 | -- | -- | -- | :-- |
 | ```voice_id``` | ```voiceid``` | Required | Voice ID |
-| ```streaming``` | ```true``` | Optional | Audio file streaming - true/false (default: false) |
 | ```audio_format``` | ```mp3``` | Optional | Audio file format - wav/ogg/mp3 (default: wav) |
 | ```text``` | ```Hello``` | Required | Text input for speech synthesis |
 
-Response (```501 NOT IMPLEMENTED```):
+Response (```200 OK```): Streamed audio file.<br>
+Typical error response (```400 BAD REQUEST```):
 ```json
 {
-      "message": "Not implemented yet"
+      "message": "Voice could not be found"
 }
 ```
 ## Error Codes and Messages
 | Status Code | Possible outcome |
 | -- | -- |
 | ```204 No Content``` | The query was successful but gave no results |
+| ```400 Bad Request``` | Voice could not be found, the voice id is incorrect |
 | ```401 Unauthorized``` | Wrong login details<br> Access token has expired / is invalid<br> User doesn't have permissions required to access (admin permissions)|
 | ```404 Not Found``` | Requested data could not be found. |
 | ```422 Unprocessable Entity``` | User already exists<br> User does not exist<br> User is the only admin, there must be at least one admin in the system |

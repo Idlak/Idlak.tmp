@@ -31,10 +31,8 @@ def removeVoice():
                             "\tlanguage: {}\n"
                             "\taccent: {}\n"
                             "\tgender: {}\n"
-                            "\tdirectory: {}\n"
-                            "\tlanguage name: {}\n"
-                            "\tcountry: {}\n}}"
-                            .format(voice.id, voice.name, voice.language, voice.accent, voice.gender, voice.directory, voice.lang_name, voice.country))
+                            "\tdirectory: {}\n}}"
+                            .format(voice.id, voice.name, voice.language, voice.accent, voice.gender, voice.directory))
 
 if __name__ == '__main__':
     removeVoice()

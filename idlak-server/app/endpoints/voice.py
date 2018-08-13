@@ -41,7 +41,7 @@ class Voices(Resource):
         if not voices:
             return {"message":"No voices were found"}, 204
         """ create a returnable list of voices and return it as response """
-        ret_voices = [ v.toDict() for v in voices ]
+        ret_voices = [ v.to_dict() for v in voices ]
         return { 'voices' : ret_voices }
 
 class VoiceDetails(Resource):
@@ -58,7 +58,7 @@ class VoiceDetails(Resource):
         voice = Voice.query.get(voice_id)
         if voice is None:
             return {"message":"Voice could not be found"}, 404
-        return voice.toDict()
+        return voice.to_dict()
 
 
 api.add_resource(Voices, '/voices')
