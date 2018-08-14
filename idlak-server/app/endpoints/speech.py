@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-from app import api, jwt
-from flask_restful import Resource, reqparse, abort, request
-
-spch_parser = reqparse.RequestParser()
-spch_parser.add_argument('voice_id', help='voice id', location='json', required=True)
-spch_parser.add_argument('streaming', choices=['true','false'], \
-	help='true|false, default=false', location='json')
-spch_parser.add_argument('audio_format', choices=['wav|ogg|mp3'], \
-	help='wav|ogg|mp3, default=wav', location='json')
-spch_parser.add_argument('text', help='text to syntesise speech', location='json', required=True)
-
-
-class Speech(Resource):
-	def post(self):
-		# get available voices
-		return "get synthesise speech"
-=======
 # -*- coding: utf-8 -*-
 import subprocess
 import sys
@@ -123,7 +105,6 @@ class Speech(Resource):
             app.logger.info("Audio file has been converted to " + args['audio_format'])
                 
         return send_from_directory(output_dir, audio_file)
->>>>>>> 0d65f968c7b8ecc9c1080ae5cae487ba38fc8210
 
 
 api.add_resource(Speech, '/speech')
