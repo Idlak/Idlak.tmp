@@ -50,6 +50,7 @@ else
         awk 'BEGIN{print "<parent>"}{print}END{print "</parent>"}' > $datadir/text.xml
     fi
 
+    # Generate CEX features for test set.
     idlaktxp --pretty --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/text.xml - \
         | idlakcex --pretty --general-lang=$lng --general-acc=$acc --cex-arch=default --tpdb=$tpdb - $datadir/text_full.xml
 fi
