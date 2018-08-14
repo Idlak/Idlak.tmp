@@ -25,6 +25,7 @@ iflag=false
 # Some default values for parameters
 output="ccart-default.xml"
 phonet2cartpath="../../idlak-misc/cart_lts/"
+cart2toolspath="../../tools"
 storagedirectory="tmp"
 
 # Argument handling
@@ -86,7 +87,7 @@ mkdir -p "$storagedirectory"
 echo "#####Converting lexicon#####"
 cat "$lexicon" | cut -d " " -f 1-2 > "$storagedirectory"/converted.lex
 
-cd ~/idlak/tools
+cd "$cart2toolspath"
 
 echo "#####Installing Phonetisaurus#####"
 if [ ! -d "Phonetisaurus" ]
