@@ -4,6 +4,7 @@ import sys
 import os
 import uuid
 import time
+import shutil
 from app import app, api, jwt
 from flask import send_from_directory
 from flask_restful import Resource, reqparse, abort, request
@@ -40,9 +41,10 @@ def removeOldOutputFiles():
     path = "output/"
     current_time = time.time() - 300
     for filename in os.listdir(path):
-        if os.stat(path + filename).st_mtime < current_time:
-            subprocess.call("rm -rf " + path + filename, shell=True)
-            app.logger.info("Directory \"" + path + filename + "\" was deleted because it wasn't necessary anymore.")
+        full_path = os.path.join(path, filename)
+        if os.stat(full_path).st_mtime < current_time:
+            shutil.rmtree(full_path)
+            app.logger.info("Directory \"" + full_path + "\" was deleted because it wasn't necessary anymore.")
         
 
 class Speech(Resource):
@@ -94,13 +96,13 @@ class Speech(Resource):
         output_dir += "/wav_mlpg/"
         audio_file = "test001.wav"
                 
-        if not os.path.isfile(output_dir + audio_file):
+        if not os.path.isfile(os.path.join(output_dir, audio_file)):
             app.logger.error("PROCESSING FAILED: no audio file has been found!!!")
             return {"message":"The process has failed"}, 400
         
         # check if the audio file needs to be converted
         if args['audio_format'] is not None and args['audio_format'] != "wav":
-            audio_file = convertTo(args['audio_format'], output_dir + audio_file)
+            audio_file = convertTo(args['audio_format'], os.path.join(output_dir, audio_file))
             audio_file = audio_file.split('/')[len(audio_file.split('/'))-1]
             app.logger.info("Audio file has been converted to " + args['audio_format'])
                 
