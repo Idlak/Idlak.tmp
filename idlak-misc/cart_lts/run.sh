@@ -1,29 +1,90 @@
 #!/bin/bash
 # Takes a lexicon a generates letter-to-sound rules
 
-if [ $# -ne 2 ]
-    then
-        echo "Usage is "$0" <input lexicon> <output file>"
-        exit 1
-    else
-        lexicon=$1
-        output=$2
+set -euo pipefail
+
+# Usage message
+usage="\nUsage: "$0" -i <input lexicon>
+
+  Optional flags and parameters:
+    -h: show usage
+    -o: output file
+      default = ccart-default.xml
+    -p: path to storage directory
+      default = tmp
+
+  The following Phonetisaurus arguments can be set as environment variables:
+    delim: delimiter between lexicon attributes
+      default = \" \"
+    s2_char_delim: delimiter between phones
+      default = \"_\"\n"
+
+# Flag to detect if input directory has been set
+iflag=false
+
+# Some default values for parameters
+output="ccart-default.xml"
+phonet2cartpath="../../idlak-misc/cart_lts/"
+storagedirectory="tmp"
+
+# Argument handling
+while getopts "i:o:hp:" opt
+do
+    case $opt in
+        i)
+            lexicon=$OPTARG
+            iflag=true
+            ;;
+        o)
+            output=$OPTARG
+            ;;
+        h)
+            echo -e "$usage"
+            exit 0
+            ;;
+        p)
+            storagedirectory="$OPTARG"
+            ;;
+        \?)
+            echo "Invalid option: -"$OPTARG"" >&2
+            echo -e "$usage" >&2
+            exit 1
+            ;;
+    esac
+done
+
+# Error if no input file
+if ! $iflag
+then
+    echo "$usage" >&2
+    exit 1
 fi
 
+# Check input file format
 if [[ ${lexicon: -4} != ".lex" ]]
     then
         echo "Lexicon must be a .lex file"
         exit 1
 fi
 
+# Phonetisaurus enviornment variables
+if [ ${#delim} -eq 0 ]
+    then
+        delim=" "
+fi
+
+if [ ${#s2_char_delim} -eq 0 ]
+    then
+        s2_char_delim="_"
+fi
+
 align="${lexicon::-4}"".align"
 converted="converted.lex"
 
-mkdir -p tmp
-phonet2cartltspath="../../idlak-misc/cart_lts/tmp/"
+mkdir -p "$storagedirectory"
 
 echo "#####Converting lexicon#####"
-cat "$lexicon" | cut -d " " -f 1-2 > tmp/converted.lex
+cat "$lexicon" | cut -d " " -f 1-2 > "$storagedirectory"/converted.lex
 
 cd ~/idlak/tools
 
@@ -46,13 +107,16 @@ fi
 echo "#####Creating alignment file#####"
 cd Phonetisaurus
 ./phonetisaurus-align \
---input="$phonet2cartltspath""$converted" \
---ofile="$phonet2cartltspath""$align" \
---delim=" " \
---s2_char_delim="_"
+--input="$phonet2cartpath""$storagedirectory""/""$converted" \
+--ofile="$phonet2cartpath""$storagedirectory""/""$align" \
+--delim="$delim" \
+--s2_char_delim="$s2_char_delim"
+# Add more Phonetisaurus arguments here if needed
+# Run ./phonetisaurus-align -help in idlak/tools/Phonetisaurus for more options
 
 echo "#####Generating cart files#####"
-cd "$phonet2cartltspath"
+cd "$phonet2cartpath""$storagedirectory"
+pwd
 python ../phonet2cart.py "$align"
 
 echo "#####Running wagon#####"
@@ -64,5 +128,7 @@ do
 done
 
 echo "#####Generating lts rules#####"
-python ../carttree2xml.py cart ccart-default.xml
-mv ccart-default.xml ..
+python ../carttree2xml.py cart "$output"
+mv "$output" ..
+
+echo "#####Done#####"
