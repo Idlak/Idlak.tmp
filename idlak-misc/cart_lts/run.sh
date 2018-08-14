@@ -1,10 +1,10 @@
 #!/bin/bash
 # Takes a lexicon a generates letter-to-sound rules
 
-set -euo pipefail
+set -eo pipefail
 
 # Usage message
-usage="\nUsage: "$0" -i <input lexicon>
+usage="Usage: "$0" -i <input lexicon>
 
   Optional flags and parameters:
     -h: show usage
