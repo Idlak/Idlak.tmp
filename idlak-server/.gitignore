@@ -1,0 +1,5 @@
+app.db
+venv
+migrations
+output
+idlak-server.log*

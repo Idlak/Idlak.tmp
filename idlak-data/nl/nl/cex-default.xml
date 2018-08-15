@@ -5,6 +5,7 @@
     <item name="aa"/>
     <item name="an"/>
     <item name="ah"/>
+    <item name="au"/>
     <item name="ax"/>
     <item name="b"/>
     <item name="d"/>
@@ -33,6 +34,7 @@
     <item name="oe"/>
     <item name="p"/>
     <item name="r"/>
+    <item name="rr"/>
     <item name="s"/>
     <item name="sh"/>
     <item name="t"/>
@@ -86,9 +88,12 @@
     <item name="VDN"/>
     <item name="VDP"/>
     <item name="VDZ"/>
+    <item name="VH"/>
     <item name="VHB"/>
     <item name="VHD"/>
+    <item name="VHG"/>
     <item name="VHI"/>
+    <item name="VHN"/>
     <item name="VHP"/>
     <item name="VHZ"/>
     <item name="VV"/>
