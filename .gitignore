@@ -37,6 +37,9 @@ core
 .[#]*
 *~
 
+# Kate files
+*.kate-swp
+
 # [ecg]tag files
 TAGS
 tags
