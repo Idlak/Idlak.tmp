@@ -4,7 +4,7 @@
 set -eo pipefail
 
 # Usage message
-usage="Usage: "$0" -i <input lexicon>
+usage="\nUsage: "$0" -i <input lexicon>
 
   Optional flags and parameters:
     -h: show usage
@@ -24,8 +24,8 @@ iflag=false
 
 # Some default values for parameters
 output="ccart-default.xml"
-phonet2cartpath="../../idlak-misc/cart_lts/"
-cart2toolspath="../../tools"
+cartpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+cart2toolspath="$cartpath/../../tools"
 storagedirectory="tmp"
 
 # Argument handling
@@ -57,14 +57,14 @@ done
 # Error if no input file
 if ! $iflag
 then
-    echo "$usage" >&2
+    echo -e "$usage" >&2
     exit 1
 fi
 
 # Check input file format
 if [[ ${lexicon: -4} != ".lex" ]]
     then
-        echo "Lexicon must be a .lex file"
+        echo "Input lexicon must be a .lex file"
         exit 1
 fi
 
@@ -90,7 +90,7 @@ cat "$lexicon" | cut -d " " -f 1-2 > "$storagedirectory"/converted.lex
 cd "$cart2toolspath"
 
 echo "#####Installing Phonetisaurus#####"
-if [ ! -d "Phonetisaurus" ]
+if [ ! -f "Phonetisaurus/phonetisaurus-align" ]
 then
     git clone https://github.com/AdolfVonKleist/Phonetisaurus.git
     cd Phonetisaurus
@@ -108,15 +108,15 @@ fi
 echo "#####Creating alignment file#####"
 cd Phonetisaurus
 ./phonetisaurus-align \
---input="$phonet2cartpath""$storagedirectory""/""$converted" \
---ofile="$phonet2cartpath""$storagedirectory""/""$align" \
+--input="$cartpath""/""$storagedirectory""/""$converted" \
+--ofile="$cartpath""/""$storagedirectory""/""$align" \
 --delim="$delim" \
 --s2_char_delim="$s2_char_delim"
 # Add more Phonetisaurus arguments here if needed
 # Run ./phonetisaurus-align -help in idlak/tools/Phonetisaurus for more options
 
 echo "#####Generating cart files#####"
-cd "$phonet2cartpath""$storagedirectory"
+cd "$cartpath""/""$storagedirectory"
 pwd
 python ../phonet2cart.py "$align"
 
