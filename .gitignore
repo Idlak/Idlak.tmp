@@ -99,8 +99,14 @@ GSYMS
 /idlak-egs/*/s*/testout
 
 # Idlak python wrapper
-/src/txp/pyIdlak/txp/pyIdlak_txp_wrap.cc
-/src/txp/pyIdlak/txp/pyIdlak_txp.py
+!/src/pyIdlak/*/Makefile
+!/src/pyIdlak/*/*.i
+!/src/pyIdlak/*/*.cc
+!/src/pyIdlak/*/*.h
+!/src/pyIdlak/*/*.py
+
+/src/pyIdlak/txp/pyIdlak_txp_wrap.cc
+/src/pyIdlak/txp/pyIdlak_txp.py
 
 # /tools/
 /tools/ATLAS/

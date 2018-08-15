@@ -17,16 +17,16 @@
 // limitations under the License.
 //
 
-%module pyIdlak
+%module pyIdlak_txp
 %include <argcargv.i>
 
 %apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
 
 %{
-#include "python-api.h"
+#include "python-txp-api.h"
 %}
 
-%include "python-api.h"
+%include "python-txp-api.h"
 
 
 

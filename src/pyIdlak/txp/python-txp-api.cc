@@ -19,7 +19,7 @@
 
 #include "idlaktxp/idlaktxp.h"
 
-#include "python-api.h"
+#include "python-txp-api.h"
 
 struct PyTxpParseOptions {
   kaldi::TxpParseOptions * po_;
