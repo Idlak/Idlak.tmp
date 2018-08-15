@@ -101,6 +101,7 @@ then
         --prefix=`pwd`
     make -j4
     make install
+    cd ..
 else
     echo "Phonetisaurus already installed"
 fi
