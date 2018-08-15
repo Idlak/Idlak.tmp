@@ -15,16 +15,16 @@
 # limitations under the License.
 
 import re
+import pyIdlak_txp
 
 # utility functions to access wrapped code
-from pyIdlak import *
 
 # helper functions PyTxpParseOptions
 
 def PyTxpParseOptions_GetOpt(pypo, opt_name):
-    configbuf = PyTxpParseOptions_PrintConfig(pypo)
-    configstr = PyIdlakBuffer_get(configbuf)
-    PyIdlakBuffer_delete(configbuf)
+    configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
+    configstr = pyIdlak_txp.PyIdlakBuffer_get(configbuf)
+    pyIdlak_txp.PyIdlakBuffer_delete(configbuf)
     lines = configstr.split('\n')
     for l in lines:
         pat = re.match("\s*([a-z_\-]+) = '([a-z_\-]+)'\s*", l)
@@ -33,9 +33,9 @@ def PyTxpParseOptions_GetOpt(pypo, opt_name):
 
 
 def PyTxpParseOptions_GetConfig(pypo):
-    configbuf = PyTxpParseOptions_PrintConfig(pypo)
-    configstr = PyIdlakBuffer_get(configbuf)
-    PyIdlakBuffer_delete(configbuf)
+    configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
+    configstr = pyIdlak_txp.PyIdlakBuffer_get(configbuf)
+    pyIdlak_txp.PyIdlakBuffer_delete(configbuf)
     lines = configstr.split('\n')
     config = {}
     for l in lines:
