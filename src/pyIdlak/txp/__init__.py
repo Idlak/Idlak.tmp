@@ -14,7 +14,9 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
-import txp
+# SWIG wrapped API
+from pyIdlak_txp import *
 
-__all__ = ['txp']
+# Utility functions to access wrapped code
+from pytxplib import *
 
