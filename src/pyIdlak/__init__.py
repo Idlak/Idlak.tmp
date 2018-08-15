@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # Copyright 2018 Cereproc Ltd. (author: Matthew Aylett)
 #
@@ -15,9 +14,7 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
+import txp
 
-# SWIG wrapped API
-from pyIdlak import *
-# utility functions to access wrapped code
-from pylib import *
+__all__ = ['txp']
 

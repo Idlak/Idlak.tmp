@@ -37,6 +37,9 @@ core
 .[#]*
 *~
 
+# Kate files
+*.kate-swp
+
 # [ecg]tag files
 TAGS
 tags
@@ -72,9 +75,6 @@ GSYMS
 /src/kaldi.mk.tmp
 /src/kaldi.mk.bak
 
-# Idlak python wrapper
-/src/pyIdlak/pyIdlak.py
-/src/pyIdlak/pyIdlak_wrap.cc
 
 # /egs/ & /idlak-egs/
 /egs/*/s*/mfcc
@@ -98,6 +98,9 @@ GSYMS
 /idlak-egs/*/s*/voices
 /idlak-egs/*/s*/testout
 
+# Idlak python wrapper
+/src/txp/pyIdlak/txp/pyIdlak_txp_wrap.cc
+/src/txp/pyIdlak/txp/pyIdlak_txp.py
 
 # /tools/
 /tools/ATLAS/
