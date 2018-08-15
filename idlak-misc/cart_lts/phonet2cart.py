@@ -90,7 +90,8 @@ if __name__=="__main__":
     # Create and write .cart file for each letter
     for letter in entry.keys():
         if letter != "'": 
-            open(letter + ".cart","w").write("\n".join(entry[letter]))
+            with open(letter + ".cart","w") as lf:
+                lf.write("\n".join(entry[letter]))
 
     # Create and write stress.cart
     with open("stress.cart","w") as sf:
@@ -98,22 +99,22 @@ if __name__=="__main__":
             sf.write(stress_entry+"\n")
 
     # Create and write wagon file
-    wf = open("wagon_description.dat","w")
-    wf.write("(\n( phone\n0\n1\n2\n")
-    for phone_group in phone_groups:
-        if phone_group != "0":
-            wf.write(phone_group + "\n")
-    wf.write(")\n")
-    for i in range(8,-1,-1):
-        wf.write("( " + "p."*i + "name\n#\n0\n")
-        for letter in entry.keys():
-            if letter != "'" and letter != "0":
-                wf.write(letter + "\n")
+    with open("wagon_description.dat","w") as wf:
+        wf.write("(\n( phone\n0\n1\n2\n")
+        for phone_group in phone_groups:
+            if phone_group != "0":
+                wf.write(phone_group + "\n")
         wf.write(")\n")
-    for i in range(1,9):
-        wf.write("( " + "n."*i + "name\n#\n0\n")
-        for letter in entry.keys():
-            if letter != "'" and letter != "0":
-                wf.write(letter + "\n")
-        wf.write(")\n")
-    wf.write(")")
+        for i in range(8,-1,-1):
+            wf.write("( " + "p."*i + "name\n#\n0\n")
+            for letter in entry.keys():
+                if letter != "'" and letter != "0":
+                    wf.write(letter + "\n")
+            wf.write(")\n")
+        for i in range(1,9):
+            wf.write("( " + "n."*i + "name\n#\n0\n")
+            for letter in entry.keys():
+                if letter != "'" and letter != "0":
+                    wf.write(letter + "\n")
+            wf.write(")\n")
+        wf.write(")")
