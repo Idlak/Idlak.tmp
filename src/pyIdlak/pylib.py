@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # Copyright 2018 Cereproc Ltd. (author: Matthew Aylett)
 #
@@ -37,7 +36,6 @@ def PyTxpParseOptions_GetConfig(pypo):
     configbuf = PyTxpParseOptions_PrintConfig(pypo)
     configstr = PyIdlakBuffer_get(configbuf)
     PyIdlakBuffer_delete(configbuf)
-    print configstr
     lines = configstr.split('\n')
     config = {}
     for l in lines:
