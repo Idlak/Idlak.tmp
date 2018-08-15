@@ -1,148 +1,301 @@
+
 # Idlak Speech Synthesis Server
 
 This server runs an RESTful API based on Python Flask.
 
-When setting up the server a single user with Admin permissions is created.
+When running the server for the first time it has to be run twice: first time to set up the database, and second to actually run it. On the second run a single user with Admin permissions is created. The login credentials of this user are noted in the logs.
+
+To add a voice to the database use script ```seed/addvoice.py```.
 
 
+# API Documentation
 
-## API
-
-Functions that get only be run by the admin users have been indicated as such.
-
-Every request must have the authentication header, ```bearer``` for password, and ```awt``` for web authentication tokens.
-
-### Authentication
-
+## Authentication
 **Retrieve an authentication token**
-```
-GET /awt
-```
 
-*Response*
-```
+| [ POST ] | */auth* |
+| - | - |
+
+Permissions: ```none```<br>
+Authorization Header: ```none```<br>
+Accepted content types: ```application/json```<br>
+Arguments:
+
+| Argument | Example | Required  | Description |
+| -- | -- | -- | :-- |
+| ```uid``` | ```userid``` | Required | User id for registered user |
+| ```password``` | ```pass``` | Required | Password for registered user |
+
+Response (```200 OK```):
+```json
 {
-    'awt': ...
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MzIxMDEyNDEsIm5iZiI6MTUzMjEwMTI0MSwiZXhwIjoxNTMyMTA0ODQxLCJzdWIiOiJhZG1pbiJ9.gxTh6ubxqb7lqSZnWnQeWCXOS9u6cJ7skMBUbm2gJiI"
 }
 ```
-
-**Expire the authentication token**
-```
-DELETE /awt
-```
-
-### Users
-
-**Retrieve a list of currently registered users.**
-```
-(ADMIN) GET /users
-```
-
-*Response*
-```
+Typical error response (```401 UNAUTHORIZED```):
+```json
 {
-    'users' : [
+    "message": "Login details are incorrect"
+}
+```
+## Users
+**Retrieve a list of currently registered users.**<br>
+
+| [ GET ] | */users* |
+| - | - |
+
+Permissions: ```admin```<br>
+Authorization Header: ```Bearer <access_token>```<br>
+Response (```200 OK```):
+```json
+{
+    "users": [
         {
-           'uid' : ... ,
-           'admin' : (true|false)
+            "admin": true,
+            "id": "admin"
         },
-        ...
+        {
+            "admin": false,
+            "id": "userid"
+        }
     ]
 }
 ```
-
-**Create a new user account (with or without admin privileges), or change an existing account's admin status.**
-```
-(ADMIN) POST /users
+Typical error response (```401 UNAUTHORIZED```):
+```json
 {
-    (optional) 'admin' : (true|false),
-    (optional) 'uid' : ...
+    "message": "Access token is invalid"
 }
 ```
+---
+**Create a new user account**
 
-*Response*
-```
+| [ POST ] | */users* |
+| - | - |
+
+Permissions: ```admin```<br>
+Authorization Header: ```Bearer <access_token>```<br>
+Accepted content types: ```application/json```<br>
+Arguments:
+    
+| Argument | Example | Required  | Description |
+| -- | -- | -- | :-- |
+| ```uid``` | ```userid``` | Optional | User id, generated randomly by default  |
+| ```admin``` | ```true``` | Optional | Admin permissions - true/false (default: false) |
+
+Response (```200 OK```):
+```json
 {
-    'uid' : ... ,
-    'password' : ...
+    "admin": true,
+    "password": "e37bf8f6",
+    "uid": "userid"
 }
 ```
-
-**Reset a password**
-```
-(ADMIN) POST /users/<uid>/password
-```
-
-*Response*
-```
+Typical error response (```422 UNPROCESSABLE ENTITY```):
+```json
 {
-    'password' : ...
+    "message": "User id already exists"
 }
 ```
+---
+**Generate new password**
 
+| [ POST ] | */users/`<uid>`/password* |
+| - | - |
+
+Permissions: ```admin```<br>
+Authorization Header: ```Bearer <access_token>```<br>
+Response (```200 OK```):
+```json
+{
+    "password": "621175b8"
+}
+```
+Typical error response (```422 UNPROCESSABLE ENTITY```):
+```json
+{
+    "message": "User does not exist"
+}
+```
+---
+**Toggle users admin status**
+
+| [ POST ] | */users/`<uid>`/admin* |
+| - | - |
+
+Permissions: ```admin```<br>
+Authorization Header: ```Bearer <access_token>```<br>
+Response (```200 OK```): 
+```json
+{
+    "admin": true,
+    "uid": "userid"
+}
+```
+Typical error response (```422 UNPROCESSABLE ENTITY```):
+```json
+{
+    "message": "User does not exist"
+}
+```
+---
 **Delete a user**
-```
-(ADMIN) DELETE /users/<uid>
-```
 
-*Response*
-```
+| [ DELETE ] | */users/`<uid>`* |
+| - | - |
+
+Permissions: ```admin```<br>
+Authorization Header: ```Bearer <access_token>```<br>
+Response (```200 OK```):
+```json
 {
-    'success' : (true|false)
+    "message": "User 'userid' has been deleted"
 }
 ```
-
-### Voices
-
-**Get available voices**
-```
-GET /voices
-```
-Options will filter results
-```
-language : language (ISO 2 letter code)
-accent : 2 letter accent code
-gender : male|female
-```
-
-*Response*
-```
+Typical error response (```422 UNPROCESSABLE ENTITY```):
+```json
 {
-    'Voices' : [
-        <voice_id>,
-        ...
+    "message": "User does not exist"
+}
+```
+## Languages
+**Lists available languages**
+
+| [ GET ] | */languages* |
+| - | - |
+
+Permissions: ```none```<br>
+Authorization Header: ```none```<br>
+Response (```200 OK```):
+```json
+{
+    "languages": [
+        "en",
+        "it",
+        "es"
     ]
 }
 ```
+**Lists available accents of a language**
 
+| [ GET ] | */languages/`<lang_iso>`/accents* |
+| - | - |
+
+Permissions: ```none```<br>
+Authorization Header: ```none```<br>
+Response (```200 OK```):
+```json
+{
+    "accents": [
+        "ca",
+        "gb",
+        "us"
+    ],
+    "language": "en"
+}
+```
+Typical error response (```404 NOT FOUND```):
+```json
+{
+    "message": "Language could not be found"
+}
+```
+## Voices
+**Get available voices**
+
+| [ GET ] | */voices* |
+| - | - |
+
+Permissions: ```none```<br>
+Authorization Header: ```none```<br>
+Accepted content types: ```application/json```<br>
+Arguments:
+    
+| Argument | Example | Required  | Description |
+| -- | -- | -- | :-- |
+| ```language``` | ```en``` | Optional | Language code in ISO 2 letter format |
+| ```accent``` | ```gb``` | Optional | Accent code in 2 letter format |
+| ```gender``` | ```female``` | Optional | Voice gender - male/female  |
+
+Response (```200 OK```):
+```json
+{
+    "voices" : [
+        {
+              "voice_id": "voiceid",
+              "language": "en",
+              "accent": "gb",
+              "gender": "female",
+              "name": "voice",
+              "...": "..."
+        },
+        "..."
+    ]
+}
+```
+Typical error response (```204 NO CONTENT```):
+```json
+{
+    "message": "No voices were found"
+}
+```
+---
 **Get voice details**
-```
-GET /voices/<voice_id>
-```
 
-*Response*
-```
+| [ GET ] | */voices/`<voice_id>`* |
+| - | - |
+
+Permissions: ```none```<br>
+Authorization Header: ```none```<br>
+Response (```200 OK```):
+```json
 {
-    'language' : ... ,
-    'accent' : ... ,
-    'gender' : ... ,
+      "voice_id": "voiceid",
+      "language": "en",
+      "accent": "gb",
+      "gender": "female",
+      "name": "voice",
+      "...": "..."
+}
+```
+Typical error response (```404 NO CONTENT```):
+```json
+{
+    "message": "Voice could not be found"
 }
 ```
 
-### Speech Synthesis
-
+## Speech Synthesis
 **Synthesise speech**
-```
-POST /speech
+
+| [ POST ] | */speech* |
+| - | - |
+
+Permissions: ```none```<br>
+Authorization Header: ```Bearer <access_token>```<br>
+Accepted content types: ```application/json```<br>
+Arguments:
+    
+| Argument | Example | Required  | Description |
+| -- | -- | -- | :-- |
+| ```voice_id``` | ```voiceid``` | Required | Voice ID |
+| ```audio_format``` | ```mp3``` | Optional | Audio file format - wav/ogg/mp3 (default: wav) |
+| ```text``` | ```Hello``` | Required | Text input for speech synthesis |
+
+Response (```200 OK```): Streamed audio file.<br>
+Typical error response (```400 BAD REQUEST```):
+```json
 {
-    "voice" : <voice_id>,
-    (optional default=false) "streaming" : (true|false),
-    (optional default=wav) "audio format" : (wav|ogg|mp3),
-    "text" : ...
+      "message": "Voice could not be found"
 }
 ```
-
-*Response*
-```
-TBD
-```
+## Error Codes and Messages
+| Status Code | Possible outcome |
+| -- | -- |
+| ```204 No Content``` | The query was successful but gave no results |
+| ```400 Bad Request``` | Voice could not be found, the voice id is incorrect |
+| ```401 Unauthorized``` | Wrong login details<br> Access token has expired / is invalid<br> User doesn't have permissions required to access (admin permissions)|
+| ```404 Not Found``` | Requested data could not be found. |
+| ```422 Unprocessable Entity``` | User already exists<br> User does not exist<br> User is the only admin, there must be at least one admin in the system |
+| ```501 Not Implemented``` | The endpoint is not implemented yet |
+| ```500 Internal Server Error``` | Something went wrong on the server, the admins should be informed about the error |
