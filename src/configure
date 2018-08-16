@@ -89,6 +89,7 @@ Configuration options:
   --host=HOST           Host triple in the format 'cpu-vendor-os'
                         If provided, it is prepended to all toolchain programs.
   --android-incdir=DIR  Android include directory
+  --pyidlak             Build Python Wrappers [default=yes]
   --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python2.7]
 
 Following environment variables can be used to override the default toolchain.
@@ -851,6 +852,7 @@ static_math=false
 threaded_atlas=false
 mkl_threading=sequential
 android=false
+pyidlak=true
 
 MATHLIB='ATLAS'
 ATLASROOT=`rel2abs ../tools/ATLAS_headers/`
@@ -1004,6 +1006,15 @@ do
     MATHLIB='OPENBLAS';
     ANDROIDINC=`read_dirname $1`;
     shift;;
+  --pyidlak)
+    pyidlak=true;
+    shift ;;
+  --pyidlak=yes)
+    pyidlak=true;
+    shift ;;
+  --pyidlak=no)
+    pyidlak=false;
+    shift ;;
   --pydev-incdir=*)
     PYTHONDEVINC=`read_dirname $1`;
     shift;;
@@ -1111,13 +1122,18 @@ if [ ! -f $PUJIXMLROOT/src/pugixml.hpp  ]; then
 	failure "Could not find file $PUJIROOT/src/pugixml.hpp:
     you may not have installed PUJIXML.  See ../tools/install_idlak.sh"
 fi
-echo "Checking Swig Binary in $SWIGROOT"
-if [ ! -f $SWIGROOT/swig  ]; then
-        failure "Could not find file $SWIGROOT/swig:
-    you may not have installed Swig.  See ../tools/install_idlak.sh"
+
+if [ $pyidlak ]; then
+    echo "Checking Swig Binary in $SWIGROOT"
+    if [ ! -f $SWIGROOT/swig  ]; then
+            failure "Could not find file $SWIGROOT/swig:
+        you may not have installed Swig.  See ../tools/install_idlak.sh"
+    fi
+    echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/txp/pyIdlak_txp_wrap.cc
 fi
 
 echo IDLAK = true >> kaldi.mk
+echo PYIDLAK = $pyidlak >> kaldi.mk
 echo PCREROOT = $PCREROOT >> kaldi.mk
 echo EXPATROOT = $EXPATROOT >> kaldi.mk
 echo PUJIXMLROOT = $PUJIXMLROOT >> kaldi.mk
