@@ -99,6 +99,7 @@ GSYMS
 /idlak-egs/*/s*/testout
 
 # Idlak python wrapper
+!/src/pyIdlak/*
 !/src/pyIdlak/*/Makefile
 !/src/pyIdlak/*/*.i
 !/src/pyIdlak/*/*.cc
