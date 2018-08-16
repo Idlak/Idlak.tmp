@@ -18,7 +18,6 @@ a high level overview.
 The tangle scripts in the idlak-egs directory are responsible for training models
 for voices using different data sources. A location independant voice directory
 is created once the script is finished. Briefly the process is as follows:
-Numbering matches the steps in the run.sh for the Idlak examples.
 
 0. Download the audio and text data and prepares the inputs for training.
 1. Decomposes the speech using a vocoder (currently using the Idlak / Kaldi mcep vocoder)
@@ -28,9 +27,11 @@ Numbering matches the steps in the run.sh for the Idlak examples.
 5. Packages the voice into a directory that contains all files required for synthesis.
 6. Synthesizes the text in testdata.
 
+Numbering matches the steps in the run.sh for the Idlak examples.
+
 There are some tools for synthesing using the Tangle voices. Firstly there is a command
 line program (instructions are given once the script has finished running) and then
-there is a RESTful server, see :ref:`rest-server`.
+there is a RESTful server, see :ref:`rest-server`
 
 If you are using Tangle in your research please reference the following paper::
 

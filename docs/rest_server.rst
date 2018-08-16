@@ -1,4 +1,4 @@
-.. rest-server:
+.. _rest-server:
 
 ##################
 RESTful API Server

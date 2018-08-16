@@ -81,7 +81,7 @@ same word (grapheme). The lexicon format for a single entry is as follows:
 
 .. code-block:: xml
 
-    <lex pron="" entry="" default="">GRAPHEME</lex>
+    <lex pron="" entry="" default="">grapheme</lex>
 
 for example
 
@@ -125,7 +125,15 @@ LTS rules
 
 Currently the Idlak front-end uses cart trees for letter-to-sound rules.
 
-*TODO: how to make cart trees from lexicon*
+We have a script that can automatically generate this file from the lexicon, using
+`Phonetisaurus <https://github.com/AdolfVonKleist/Phonetisaurus>`_.
+(Fill in the path, language code, and accent code)
+
+.. code-block:: none
+
+    IDIR=<path to idlak>
+    cd $IDIR/idlak-misc/cart_lts
+    ./run.sh -i $IDIR/idlak-data/<lng>/<acc>/lexicon-default.xml -o $IDIR/idlak-data/<lng>/<acc>/ccart-default.xml
 
 
 
@@ -136,8 +144,62 @@ Tokeniser rules
 
     idlak-data/<lng>/trules-default.xml
 
+The tokeniser rules govern how text is split into individual tokens. These
+are a series of regular expression (PCRE) that govern what is considered to be
+letters, numbers, etc. All of the rules are manditory. A rule is of the form:
+
+.. code-block:: xml
+
+    <regex name="matches a name in the tokeniser">
+        <comment>
+            Description as to the purpose of the rule and any interesting
+            things about this language's version.
+        </comment>
+        <exp>
+            <![CDATA[regex]>
+        </exp>
+    </regex>
+
+
+The list of rules understood and required by the tokeniser is as follows:
+
+* **whitespace** what is considered to be whitespace in the language
+* **seperators** characters that should always be put on their own token
+* **alpha** the lower and uppercase letters of that lanugage, note that you do not need to include diacritics
+* **downcase** the mapping from uppercase to lowercase letters
+* **decompose** lookup for utf8 decomposition into NFD form see
+    `Unicode_equivalence <https://en.wikipedia.org/wiki/Unicode_equivalence>`_.
+    This can be generated automatically from the lexicon.
+* **convertillegal** a lookup for changing characters from one form to another
+    espically useful for converting utf8 characters to ascii versions, and for
+    stripping diacritics that are not part of the language.
+* **utfpunc2ascii** a lookup for converting alternative utf-8 versions of punctuation to ascii versions
+* **asdigits** The names in the language of numerals.
+* **symbols** The names in the language of symbols.
+
+In general you can copy the English one and make a few modifications.
+
+
 Normalizer rules
 ================
+
+**Whole langauge**:
+
+.. code-block:: none
+
+    idlak-data/<lng>/nrules-default/*.xml
+
+**Accent specific**:
+
+.. code-block:: none
+
+    idlak-data/<lng>/<acc>/nrules-default/*.xml
+
+**NB** Unlike other resources the accent specific rules are *appended* to the lanugage rules.
+
+
+
+
 
 
 
@@ -146,13 +208,16 @@ Part of speech set and rules
 
 
 
+
 Abbreviations
 =============
 
 
 
+
 Phrasing rules
 ==============
+
 
 
 
