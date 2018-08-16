@@ -17,8 +17,8 @@
 // limitations under the License.
 //
 
-#ifndef KALDI_PYIDLAK_PYTHON_API_H_
-#define KALDI_PYIDLAK_PYTHON_API_H_
+#ifndef KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
+#define KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
 
 // TxpParseOptions wrappers
 typedef struct PyTxpParseOptions PyTxpParseOptions;
@@ -47,6 +47,7 @@ void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_l
 int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char * argv[]);
 int PyTxpParseOptions_NumArgs(PyTxpParseOptions * pypo);
 const char * PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n);
+PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo);
 
 PyPugiXMLDocument * PyPugiXMLDocument_new();
 void PyPugiXMLDocument_delete(PyPugiXMLDocument * pypugidoc);
@@ -57,4 +58,4 @@ PyIdlakModule * PyIdlakModule_new(enum IDLAKMOD modtype, PyTxpParseOptions * pyp
 void PyIdlakModule_delete(PyIdlakModule * pymod);
 void PyIdlakModule_process(PyIdlakModule * pymod, PyPugiXMLDocument * pypugidoc);
 
-#endif // KALDI_PYIDLAK_PYTHON_API_H_
+#endif // KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_

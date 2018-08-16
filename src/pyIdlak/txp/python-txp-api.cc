@@ -19,7 +19,7 @@
 
 #include "idlaktxp/idlaktxp.h"
 
-#include "python-api.h"
+#include "python-txp-api.h"
 
 struct PyTxpParseOptions {
   kaldi::TxpParseOptions * po_;
@@ -69,7 +69,6 @@ PyTxpParseOptions * PyTxpParseOptions_new(const char *usage) {
   return pypo;
 }
 
-
 void PyTxpParseOptions_delete(PyTxpParseOptions * pypo) {
   if (pypo) {
     delete pypo->po_;
@@ -96,6 +95,23 @@ int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char *argv[]) {
 
 int PyTxpParseOptions_NumArgs(PyTxpParseOptions * pypo) {
   return  pypo->po_->NumArgs();
+}
+
+PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo) {
+  PyIdlakBuffer * pybuf;
+  std::ostringstream stream;
+  std::string output;
+  const char * s;
+  if (pypo) {
+    pypo->po_->PrintConfig(stream);
+    output = stream.str();
+    s = output.c_str();
+    pybuf = new PyIdlakBuffer;
+    pybuf->len_ = strlen(s);
+    pybuf->data_ = new char[pybuf->len_ + 1];
+    strcpy(pybuf->data_, s);
+  }
+  return pybuf;
 }
 
 PyPugiXMLDocument * PyPugiXMLDocument_new() {
