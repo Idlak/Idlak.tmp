@@ -15,7 +15,7 @@
 # limitations under the License.
 
 import pyIdlak_txp
-
+import copy
 
 class XMLDoc(object):
 
@@ -39,7 +39,8 @@ class XMLDoc(object):
     def to_string(self):
         """ Get the XML in string format """
         buf = pyIdlak_txp.PyPugiXMLDocument_SavePretty(self._doc)
-        xmlstr = pyIdlak_txp.PyIdlakBuffer_get(buf)
+        xmlstr = copy.copy(pyIdlak_txp.PyIdlakBuffer_get(buf))
+        pyIdlak_txp.PyIdlakBuffer_delete(buf)
         return xmlstr
 
     @property
