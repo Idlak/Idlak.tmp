@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett)
+# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett
+#                                       David Braude)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,8 +16,14 @@
 # limitations under the License.
 
 # SWIG wrapped API
-from pyIdlak_txp import *
+import pyIdlak_txp as c_api
 
 # Utility functions to access wrapped code
-from pytxplib import *
+import pytxplib
+
+# The normal Python API
+from idargparse import TxpArgumentParser
+from xmldoc import XMLDoc
+
+import modulefactory as modules
 

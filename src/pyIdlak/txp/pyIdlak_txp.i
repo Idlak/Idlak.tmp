@@ -1,6 +1,6 @@
 // pyIdlak/pyIdlak.i
 
-// Copyright 2018 CereProc Ltd.  (Authors: David A. Braude
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
