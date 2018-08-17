@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett)
+# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett
+#                                       David Braude)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +20,7 @@
 
 import pyIdlak_txp
 import idargparse
+import xmldoc
 
 class CppTxpModule(object):
     """ Base class for the TxpModules that have underlying
@@ -40,8 +42,10 @@ class CppTxpModule(object):
 
     def process(self, doc):
         """ process the document in place """
-        # typecheck
-        pyIdlak_txp.PyIdlakModule_process(self._mod, doc)
+        if not type(doc) is xmldoc.XMLDoc:
+            raise ValueError("doc must be a XMLDoc")
+
+        pyIdlak_txp.PyIdlakModule_process(self._mod, doc.idlak_doc)
 
 
     @property
