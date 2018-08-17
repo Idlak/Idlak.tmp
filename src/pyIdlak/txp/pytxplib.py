@@ -23,51 +23,6 @@ import argparse
 import pyIdlak_txp
 
 
-class PyTxpArgumentParser(argparse.ArgumentParser):
-    """ An option parser that combines Python and Idlak parsers """
-
-    def __init__(self, usage):
-        super(IdlakArgumentParser, self).__init__(add_help = False, usage= '')
-        self._idlakopts = None
-        self._usage = copy.copy(usage)
-
-
-    def __del__(self):
-        """ Clean up the txp option parser """
-        if not self._idlakopts is None:
-            pyIdlak_txp.PyTxpParseOptions_delete(self._idlakopts)
-            self._idlakopts = None
-
-
-    def parse_args(self, *args):
-        """ Parse the args or if none parse the commandline """
-        if not args:
-            args = None
-        pythonargs, idlakargv = super(IdlakArgumentParser, self).parse_known_args(args)
-        idlakargv.insert(0, sys.argv[0])
-        # Create an Idlak opts parser for the Idlak arguments
-        if not self._idlakopts is None:
-            pyIdlak_txp.PyTxpParseOptions_delete(self._idlakopts)
-        self._idlakopts = pyIdlak_txp.PyTxpParseOptions_new(self._usage + self._get_py_help())
-        pyIdlak_txp.PyTxpParseOptions_Read(self._idlakopts, idlakargv)
-        return pythonargs, self._idlakopts
-
-
-    def _get_py_help(self):
-        """ Gets the python help """
-        _stdout = sys.stdout
-        _stringio = cStringIO.StringIO()
-        sys.stdout = _stringio
-        self.print_help()
-        usage = _stringio.getvalue()
-        _stringio.close()
-        sys.stdout = _stdout
-        return usage
-
-
-
-# utility functions to access wrapped code
-
 # helper functions PyTxpParseOptions
 def PyTxpParseOptions_GetOpt(pypo, opt_name):
     configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
@@ -78,6 +33,7 @@ def PyTxpParseOptions_GetOpt(pypo, opt_name):
         pat = re.match("\s*([a-z_\-]+) = '([a-z_\-]+)'\s*", l)
         if pat and pat.group(1) == opt_name:
             return pat.group(2)
+    return None
 
 
 def PyTxpParseOptions_GetConfig(pypo):

@@ -21,6 +21,18 @@
 
 #include "python-txp-api.h"
 
+static const char* const _module_names[] = {
+  "Empty",
+  "Tokenise",
+  "PosTag",
+  "Pauses",
+  "Phrasing",
+  "Pronounce",
+  "Syllabify",
+  "ContextExtraction",
+  nullptr
+};
+
 struct PyTxpParseOptions {
   kaldi::TxpParseOptions * po_;
 };
@@ -267,4 +279,9 @@ void PyIdlakModule_process(PyIdlakModule * pymod, PyPugiXMLDocument * pypugidoc)
       break;
   }
 }
- 
+
+const char * PyIdlakModule_name(enum IDLAKMOD modtype) {
+  if (modtype > NumMods || modtype < Empty)
+    return nullptr;
+  return _module_names[modtype];
+}

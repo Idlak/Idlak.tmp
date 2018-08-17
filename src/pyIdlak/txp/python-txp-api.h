@@ -26,6 +26,7 @@ typedef struct PyPugiXMLDocument PyPugiXMLDocument;
 typedef struct PyIdlakBuffer PyIdlakBuffer;
 typedef struct PyIdlakModule PyIdlakModule;
 
+// Remember to update the list of names in the .cc
 enum IDLAKMOD {Empty = 0,
                Tokenise = 1,
                PosTag = 2,
@@ -57,5 +58,7 @@ PyIdlakBuffer * PyPugiXMLDocument_SavePretty(PyPugiXMLDocument * pypugidoc);
 PyIdlakModule * PyIdlakModule_new(enum IDLAKMOD modtype, PyTxpParseOptions * pypo);
 void PyIdlakModule_delete(PyIdlakModule * pymod);
 void PyIdlakModule_process(PyIdlakModule * pymod, PyPugiXMLDocument * pypugidoc);
+
+const char * PyIdlakModule_name(enum IDLAKMOD modtype);
 
 #endif // KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
