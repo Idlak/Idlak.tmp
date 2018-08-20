@@ -54,7 +54,6 @@ TxpParseOptions::TxpParseOptions(const char *usage)
     : ParseOptions(usage) {
   std::istringstream is(txpconfigdefault);
   std::string line, key, value, *stringptr;
-  LookupMapItem item;
   RegisterStandard("tpdb", &tpdb_,
                    "Text processing database (directory XML language/speaker files)"); //NOLINT
   while (std::getline(is, line)) {

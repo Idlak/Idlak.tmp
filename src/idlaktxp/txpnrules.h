@@ -37,6 +37,11 @@ namespace kaldi {
 typedef std::map<std::string, pcre*> RgxMap;
 /// Regular expression name/ pcre regular expression pair
 typedef std::pair<std::string, pcre*> RgxItem;
+/// Lookup map of lookup maps
+typedef std::map<std::string, LookupMap * > LookupMapMap;
+/// string/LookupMap pair
+typedef std::pair<std::string, LookupMap * > LookupMapItem;
+
 
 struct TxpCaseInfo;
 
@@ -109,7 +114,7 @@ class TxpNRules: public TxpXmlData {
   void EndCData();
   void CharHandler(const char* data, int32 len);
   /// Parses the lookup format in the cdata into a map and adds it to lkps
-  int32 MakeLkp(LookupMap *lkps,
+  int32 MakeLkp(LookupMapMap *lkps,
                 const std::string &name,
                 const std::string &cdata);
   /// Parser status currently in cdata element
@@ -140,9 +145,9 @@ class TxpNRules: public TxpXmlData {
   /// Regex for finding lexicon valid character (e.g. English a-z)
   const pcre* rgxalpha_default_;
   /// Map of hard coded lookup tables
-  LookupMap locallkps_;
+  LookupMapMap locallkps_;
   /// Map of lookup tables in tpdb file
-  LookupMap lkps_;
+  LookupMapMap lkps_;
   /// Map of Regexes in tpdb file
   RgxMap rgxs_;
   /// Records type of ellement during expat parse
