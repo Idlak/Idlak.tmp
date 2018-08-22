@@ -37,10 +37,6 @@ namespace kaldi {
 typedef std::map<std::string, std::string> LookupMap;
 /// Generic string/string pair
 typedef std::pair<std::string, std::string> LookupItem;
-/// Generic string to string map lookup
-typedef std::map<std::string, LookupMap> LookupMapMap;
-/// Generic string/lookupmap pair
-typedef std::pair<std::string, LookupMap> LookupMapItem;
 /// Generic string to vector index
 typedef std::map<std::string, int32> LookupInt;
 /// Generic string/vector index pair

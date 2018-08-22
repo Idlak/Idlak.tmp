@@ -38,8 +38,15 @@ TxpNRules::TxpNRules()
 
 TxpNRules::~TxpNRules() {
   RgxMap::iterator it;
+  LookupMapMap::iterator itmap;
   for (it = rgxs_.begin(); it != rgxs_.end(); it++) {
     pcre_free(it->second);
+  }
+  for (itmap = lkps_.begin(); itmap != lkps_.end(); itmap++) {
+    delete (itmap->second);
+  }
+  for (itmap = locallkps_.begin(); itmap != locallkps_.end(); itmap++) {
+    delete (itmap->second);
   }
   pcre_free(const_cast<pcre *>(lkp_item_));
   pcre_free(const_cast<pcre *>(lkp_open_));
@@ -90,19 +97,22 @@ bool TxpNRules::Parse(const std::string &tpdb) {
 const std::string* TxpNRules::Lkp(const std::string & name,
                                    const std::string & key) {
   std::string namekey;
-  LookupMap::iterator it;
-  namekey = name + ":" + key;
-  it = lkps_.find(namekey);
-  if (it != lkps_.end()) {
-    return &(it->second);
+  LookupMapMap::iterator itmap;
+  LookupMap::iterator it, tmp;
+  itmap = lkps_.find(name);
+  if (itmap != lkps_.end()) {
+    it = (itmap->second)->find(key);
+    if (it != (itmap->second)->end()) return &(it->second);
+    else return NULL;
   } else {
-    it = locallkps_.find(namekey);
-    if (it != locallkps_.end()) {
-      return &(it->second);
-    } else {
-      return NULL;
+    itmap = locallkps_.find(name);
+    if (itmap != locallkps_.end()) {
+      it = (itmap->second)->find(key);
+      if (it != (itmap->second)->end()) return &(it->second);
+      else return NULL;
     }
   }
+  return NULL;
 }
 
 const pcre* TxpNRules::GetRgx(const std::string & name) {
@@ -286,7 +296,7 @@ void TxpNRules::CharHandler(const char* data, int32 len) {
 }
 
 // private member to format lookup table from xml cdata
-int32 TxpNRules::MakeLkp(LookupMap *lkps,
+int32 TxpNRules::MakeLkp(LookupMapMap *lkps,
                          const std::string &name,
                          const std::string &cdata) {
   TxpPcre pcre;
@@ -294,8 +304,16 @@ int32 TxpNRules::MakeLkp(LookupMap *lkps,
   std::string key;
   std::string val;
   std::string tmp;
-  std::string namekey;
   const char* pp, *npp;
+
+  LookupMapMap::iterator itmap;
+  // see if we have already created the LookupMap 
+  itmap = lkps->find(name);
+  if (itmap == lkps->end()) {
+    // if not add one
+    lkps->insert(LookupMapItem(name, new LookupMap));
+    itmap = lkps->find(name);
+  }
   pp = cdata.c_str();
   pplen = cdata.length();
   // consume opening {
@@ -307,8 +325,7 @@ int32 TxpNRules::MakeLkp(LookupMap *lkps,
     if (npp) {
       pcre.SetMatch(1, &key);
       pcre.SetMatch(2, &val);
-      namekey = name + ":" + key;
-      lkps->insert(LookupItem(namekey, val));
+      (itmap->second)->insert(LookupItem(key, val));
       pplen -= npp - pp;
       pp = npp;
     } else {
