@@ -25,7 +25,7 @@
 
 #include <string>
 #include "idlaktxp/txpmodule.h"
-#include "idlaktxp/txpnrules.h"
+#include "idlaktxp/txptrules.h"
 #include "idlaktxp/txpabbrev.h"
 
 namespace kaldi {
@@ -46,7 +46,7 @@ class TxpTokenise : public TxpModule {
   /// A normalisation rule database used to decide case etc.
   /// Currently this data will be loaded muliple times across
   /// multiple modules
-  TxpNRules nrules_;
+  TxpTrules trules_;
   /// Abbreviation data. This overides normalisation by directly
   /// replacing matching tokens with normalised results
   /// i.e. Dr. -> doctor
