@@ -3,7 +3,7 @@ include ../kaldi.mk
 
 ifeq ($(PYIDLAK), true)
 
-PY_SUBDIRS = txp
+PY_SUBDIRS = txp vocode
 
 all: $(PY_SUBDIRS)
 	@echo "Finished making python wrappers"

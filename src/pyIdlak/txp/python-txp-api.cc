@@ -1,4 +1,4 @@
-// pyIdlak/python-api.cc
+// pyIdlak/python-txp-api.cc
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)

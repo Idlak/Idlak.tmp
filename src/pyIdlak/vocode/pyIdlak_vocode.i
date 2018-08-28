@@ -1,4 +1,4 @@
-// pyIdlak/pyIdlak_txp.i
+// pyIdlak/pyIdlak_vocode.i
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
@@ -17,16 +17,22 @@
 // limitations under the License.
 //
 
-%module pyIdlak_txp
+%module pyIdlak_vocode
+
+%include <std_vector.i>
 %include <argcargv.i>
+
+namespace std {
+   %template(vectord) vector<double>;
+};
 
 %apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
 
 %{
-#include "python-txp-api.h"
+#include "python-vocode-api.h"
 %}
 
-%include "python-txp-api.h"
+%include "python-vocode-api.h"
 
 
 
