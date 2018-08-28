@@ -16,9 +16,9 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
-# Python wrapped version of idlaktxp
 
-import sys, os, argparse, re, cStringIO
+import os
+import sys
 
 # load pyidlak python library
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../src'))
@@ -34,63 +34,57 @@ Usage: ./pyidlaktxp.py [options] xml_input xml_output\n"
 
 def main():
 
-    # create a python opts parser to deal with python arguments
-    arg_parser = txp.PyTxpArgumentParser(usage = USAGE)
+    # Create an Idlak option parser & parse the command line
+    args = txp.TxpArgumentParser(usage = USAGE)
 
-    arg_parser.add_argument("--cex", action='store_true',
+    args.add_argument("--cex", action='store_true',
             help = "Add linguistic context extraction features for TTS synthesis")
 
-    pythonargv, opts = arg_parser.parse_args()
-    pythonargs = vars(pythonargv)
+    args.parse_args()
 
-    #create an Idlak opts parser for the Idlak arguments
-    if txp.PyTxpParseOptions_NumArgs(opts) < 2:
-        sys.stderr.write("Error processing arguments:\n")
-        txp.PyTxpParseOptions_PrintUsage(opts)
+    # Check that the input and output have been specified
+    if args.no_args != 2:
+        sys.stderr.write("Script requires extactly 2 arguments\n")
+        args.print_usage()
         sys.exit(1)
 
-    filein = txp.PyTxpParseOptions_GetArg(opts, 1)
-    fileout = txp.PyTxpParseOptions_GetArg(opts, 2)
+    filein = args.get_arg(1)
+    fileout = args.get_arg(2)
 
-    # initialise all the modules
+    # Initialise all the modules that will be run
     modules = []
-    modules.append(txp.PyIdlakModule_new(txp.Tokenise, opts))
-    modules.append(txp.PyIdlakModule_new(txp.PosTag, opts))
-    modules.append(txp.PyIdlakModule_new(txp.Pauses, opts))
-    modules.append(txp.PyIdlakModule_new(txp.Phrasing, opts))
-    modules.append(txp.PyIdlakModule_new(txp.Pronounce, opts))
-    modules.append(txp.PyIdlakModule_new(txp.Syllabify, opts))
-    if pythonargs['cex']:
-        modules.append(txp.PyIdlakModule_new(txp.ContextExtraction, opts))
+    modules.append(txp.modules.Tokenise(args))
+    modules.append(txp.modules.PosTag(args))
+    modules.append(txp.modules.Pauses(args))
+    modules.append(txp.modules.Phrasing(args))
+    modules.append(txp.modules.Pronounce(args))
+    modules.append(txp.modules.Syllabify(args))
+    if args.get('cex'):
+        modules.append(txp.modules.ContextExtraction(args))
 
-    # create a Pugi XML document
-    doc = txp.PyPugiXMLDocument_new()
+    # Create an Idlak XML document
     if filein == '-':
         inputxml = sys.stdin.read()
     else:
         if not os.path.isfile(filein):
-            print "Can't open input XML file"
+            sys.stderr.write("Can't open input XML file")
             sys.exit(1)
         else:
             inputxml = open(filein).read()
-    txp.PyPugiXMLDocument_LoadString(doc, inputxml)
 
-    # run the modules over it in order1
-    for m in modules:
-        txp.PyIdlakModule_process(m, doc)
+    doc = txp.XMLDoc(inputxml)
 
-    # output generated XML
-    buf = txp.PyPugiXMLDocument_SavePretty(doc)
+    # Run the modules over it in order
+    for txp_module in modules:
+        txp_module.process(doc)
+
+    # Output generated XML
     if fileout == '-':
-        sys.stdout.write(txp.PyIdlakBuffer_get(buf))
+        sys.stdout.write(doc.to_string())
     else:
         with open(fileout, 'w') as fp:
-            fp.write(txp.PyIdlakBuffer_get(buf))
+            fp.write(doc.to_string())
 
-    # clean up
-    txp.PyPugiXMLDocument_delete(doc)
-    for m in modules:
-        txp.PyIdlakModule_delete(m)
 
 if __name__ == "__main__":
     main()
