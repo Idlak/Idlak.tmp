@@ -1139,7 +1139,7 @@ if [ $pyidlak ]; then
         you may not have compiled SPTK.  See ../tools/install_idlak.sh"
     fi
     echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/txp/pyIdlak_txp_wrap.cc
-    echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/vocode/pyIdlak_vocode_wrap.cc
+    echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/vocoder/pyIdlak_vocoder_wrap.cc
 fi
 
 echo IDLAK = true >> kaldi.mk

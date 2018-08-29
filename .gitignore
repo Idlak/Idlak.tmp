@@ -109,7 +109,7 @@ GSYMS
 /src/pyIdlak/*/*.pyc
 /src/pyIdlak/.depend.mk
 /src/pyIdlak/*/.depend.mk
-
+/src/pyIdlak/*/*_wrap.cc
 
 /src/pyIdlak/txp/pyIdlak_txp_wrap.cc
 /src/pyIdlak/txp/pyIdlak_txp.py

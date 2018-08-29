@@ -16,6 +16,6 @@
 # limitations under the License.
 
 # SWIG wrapped API
-import pyIdlak_vocode as c_api
+import pyIdlak_vocoder as c_api
 
 
