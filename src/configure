@@ -91,7 +91,7 @@ Configuration options:
   --android-incdir=DIR  Android include directory
   --pyidlak             Build Python Wrappers [default=yes]
   --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python2.7]
-  --sptk-root=DIR      ATLAS root directory [default=../tools/SPTK/]
+  --sptk-root=DIR       SPTK root directory [default=../tools/SPTK/]
 
 Following environment variables can be used to override the default toolchain.
   CXX         C++ compiler [default=g++]
