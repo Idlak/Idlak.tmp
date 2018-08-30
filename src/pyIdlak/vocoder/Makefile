@@ -49,7 +49,7 @@ else
 endif
 
 clean_wrapper:
-	-rm -rf pyIdlak_vocoder.py pyIdlak_vocoder_wrap.cc *.pyc
+	-rm -rf pyIdlak_vocoder.py pyIdlak_vocoder_wrap.cc *.pyc __pycache__
 	@echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak_vocoder_wrap.cc
 
 clean: clean_wrapper

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett
-#                                       David Braude)
+# Copyright 2018 Cereproc Ltd. (author: David Braude)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,8 +25,9 @@ from os.path import join as pjoin
 
 here = os.path.dirname(__file__)
 
-sys.path.insert(0, pjoin(here, '..'))
-import vocoder
+sys.path.insert(0, pjoin(here, '..', '..'))
+import pyIdlak
+from pyIdlak import vocoder
 
 """
 TODO:
@@ -199,7 +199,7 @@ if False:
 
 print("MCEPVocoder    ... ", end='', flush=True)
 mcep_voc = vocoder.MCEPVocoder()
-f0s = np.loadtxt(f0file).tolist()
+f0s = np.loadtxt(f0file).tolist()[2:] # To match SPTK
 mceps = np.loadtxt(mcepfile).tolist()
 
 mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s))

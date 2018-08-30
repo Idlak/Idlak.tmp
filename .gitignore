@@ -107,6 +107,7 @@ GSYMS
 /src/pyIdlak/txp/pyIdlak_txp.py
 /src/pyIdlak/vocoder/pyIdlak_vocoder_wrap.cc
 /src/pyIdlak/vocoder/pyIdlak_vocoder.py
+/src/pyIdlak/__pycache__
 /src/pyIdlak/*/__pycache__
 /src/pyIdlak/*.so
 /src/pyIdlak/*.a
