@@ -36,3 +36,16 @@ def SPTK_excitation(f0s, srate = 48000, fshift = 0.005, iperiod = 1, gauss = Fal
     periods = [ srate / float(f0) if f0 > 0.0 else 0.0  for f0 in f0s ]
     excitation = pyIdlak_vocoder.PySPTK_excite(periods, fperiod, iperiod, gauss, seed)
     return excitation
+
+
+def mixed_excitation(f0s, bndaps, srate = 48000, fshift = 0.005):
+    """ Generates mixed excitation
+
+        Generates the excitation by mising a pulse train with
+        noise specific to different energy bands
+
+        see. compute-aperiodic-feats.cc for details on the theory
+    """
+    excitation = []
+    return excitation
+    

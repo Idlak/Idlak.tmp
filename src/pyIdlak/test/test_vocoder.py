@@ -15,6 +15,8 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
+
 import numpy as np
 import sys
 import os
@@ -31,7 +33,6 @@ from pyIdlak import vocoder
 
 """
 TODO:
-    Switch to proper unittest module
     Test for PySPTK_mgc2sp
     Test for PySPTK_mlpg
 """
@@ -39,174 +40,181 @@ TODO:
 # Testing raw wrappers
 
 SPTKpath = os.path.abspath(pjoin(here, '../../../tools/SPTK/bin'))
-x2x = pjoin(SPTKpath, 'x2x')
-mlsacheck = pjoin(SPTKpath, 'mlsacheck')
-excite = pjoin(SPTKpath, 'excite')
-mlsadf = pjoin(SPTKpath, 'mlsadf')
+x2x         = pjoin(SPTKpath, 'x2x')
+mlsacheck   = pjoin(SPTKpath, 'mlsacheck')
+excite      = pjoin(SPTKpath, 'excite')
+mlsadf      = pjoin(SPTKpath, 'mlsadf')
 
-mcepfile = pjoin(here, 'test001.mcep')
-f0file = pjoin(here, 'test001.f0')
-bndapfile = pjoin(here, 'test001.bndap')
+class TestIdlakPythonVocoder(unittest.TestCase):
 
-mceps = np.loadtxt(mcepfile)
-f0s = np.loadtxt(f0file)
+    alpha = 0.55
+    srate = 48000
+    fshift = 0.005
+    fftlen = 4096
+    pade_order = 5
 
-mcep_order = mceps.shape[1]
-alpha = 0.55
-srate = 48000
-fftlen = 4096
-fshift = 0.005
+    mcepfile  = pjoin(here, 'testdata', 'test001.mcep')
+    f0file    = pjoin(here, 'testdata', 'test001.f0')
+    bndapfile = pjoin(here, 'testdata', 'test001.bndap')
 
+    def setUp(self):
+        self.fperiod = int(self.fshift * self.srate)
+        self.mceps   = np.loadtxt(self.mcepfile)
+        self.f0s     = np.loadtxt(self.f0file)
+        self.bndaps  = np.loadtxt(self.bndapfile)
+        self.mcep_order = self.mceps.shape[1]
 
-fperiod = fshift * srate
-flat_mceps = mceps.flatten()
+    """ Calls to SPTK binaries to making inputs """
 
-
-#################################
-# Functions for creating inputs #
-#################################
-
-def make_stable_mceps(dirname):
-    """ Convert the test mceps into stable mceps """
-    mlsacheck_cmd = x2x + ' +af ' + mcepfile
-    mlsacheck_cmd += ' | ' + mlsacheck + ' -l {0} -c 2 -r 0 -P 5 -m {1} -a {2} 2> /dev/null'.format(fftlen, mcep_order, alpha)
-    mlsacheck_cmd += ' | ' + x2x + ' +fa%.10f'
-    mlsacheck_cmd += ' > {0}/test.smceps '.format(dirname)
-    p = subprocess.Popen(mlsacheck_cmd, cwd = here, shell = True)
-    p.wait()
-    return '{0}/test.smceps'.format(dirname)
-
-
-def make_sptk_excitation(dirname):
-    """ Create an SPTK only excitation """
-    excite_cmd = "cat {0} | awk -v srate={1} '(NR > 2){{if ($1 > 0) print srate / $1; else print 0.0}}' ".format(f0file, srate)
-    excite_cmd += ' | ' + x2x + ' +af '
-    excite_cmd += ' | ' + excite + ' -p {0} '.format(int(fperiod))
-    excite_cmd += ' | ' + x2x + ' +fa%.10f '
-    excite_cmd += ' > {0}/test.exc '.format(dirname)
-    p = subprocess.Popen(excite_cmd, cwd = here, shell = True)
-    p.wait()
-    return '{0}/test.exc'.format(dirname)
+    def _make_stable_mceps(self, dirname):
+        """ Convert the test mceps into stable mceps """
+        mlsacheck_cmd = x2x + ' +af ' + self.mcepfile
+        mlsacheck_cmd += ' | ' + mlsacheck + ' -l {0} -c 2 -r 0 -P 5 -m {1} -a {2} 2> /dev/null'.format(self.fftlen, self.mcep_order, self.alpha)
+        mlsacheck_cmd += ' | ' + x2x + ' +fa%.6f'
+        mlsacheck_cmd += ' > {0}/test.smceps '.format(dirname)
+        p = subprocess.Popen(mlsacheck_cmd, cwd = here, shell = True)
+        p.wait()
+        return '{0}/test.smceps'.format(dirname)
 
 
-def sptk_to_float(filename):
-    """ Use SPTK to convert to floating point format """
-    float_cmd = x2x + ' +af {filename} > {filename}.float'.format(filename = filename)
-    p = subprocess.Popen(float_cmd, cwd = here, shell = True)
-    p.wait()
-    return '{filename}.float'.format(filename = filename)
+    def _make_pitch_periods(self, dirname):
+        pitch_cmd = "cat {0}".format(self.f0file)
+        pitch_cmd += " | awk -v srate={0} '(NR > 2){{if ($1 > 0) printf \"%0.6f\\n\", srate / $1; else print 0.0}}' ".format(self.srate)
+        pitch_cmd += ' > {0}/test.pperiods '.format(dirname)
+        p = subprocess.Popen(pitch_cmd, cwd = here, shell = True)
+        p.wait()
+        return '{0}/test.pperiods'.format(dirname)
+
+
+    def _make_sptk_excitation(self, dirname):
+        excite_cmd = "cat {0}".format(self.f0file)
+        excite_cmd += " | awk -v srate={0} '(NR > 2){{if ($1 > 0) printf \"%0.6f\\n\", srate / $1; else print 0.0}}' ".format(self.srate)
+        excite_cmd += ' | ' + x2x + ' +af '
+        excite_cmd += ' | ' + excite + ' -p {0} '.format(self.fperiod)
+        excite_cmd += ' | ' + x2x + ' +fa%.6f '
+        excite_cmd += ' > {0}/test.exc '.format(dirname)
+        p = subprocess.Popen(excite_cmd, cwd = here, shell = True)
+        p.wait()
+        return '{0}/test.exc'.format(dirname)
+
+
+    def _sptk_to_float(self, filename):
+        """ Use SPTK to convert to floating point format """
+        float_cmd = x2x + ' +af {0} > {0}.float'.format(filename)
+        p = subprocess.Popen(float_cmd, cwd = here, shell = True)
+        p.wait()
+        return '{0}.float'.format(filename)
+
+
+    """ Test cases start here """
+
+    def test_PySPTK_mlsacheck(self):
+        """ Wrapper of SPTK mlsacheck binary """
+        with tempfile.TemporaryDirectory() as testdir:
+            smcepsfile = self._make_stable_mceps(testdir)
+            sptk_stable_mceps = np.loadtxt(smcepsfile)
+            idlak_stable_mceps = vocoder.c_api.PySPTK_mlsacheck(
+                            self.mceps.flatten(),
+                            self.mcep_order,
+                            self.alpha,
+                            self.fftlen,
+                            2,
+                            0,
+                            self.pade_order,
+                            0.0,
+                            True)
+            self.assertEqual(len(sptk_stable_mceps), len(idlak_stable_mceps),
+                             "lengths are not equal")
+            for sptk_val, idlak_val in zip(sptk_stable_mceps, idlak_stable_mceps):
+                self.assertAlmostEqual(sptk_val, idlak_val,
+                             delta = 1e-6, msg = "values are not the same")
+
+
+    def test_PySPTK_excite(self):
+        """ Wrapper of SPTK excite binary """
+        with tempfile.TemporaryDirectory() as testdir:
+            pperiodsfile = self._make_pitch_periods(testdir)
+            excitationfile = '{0}/test.exc'.format(testdir)
+            excite_cmd = 'cat {0} '.format(pperiodsfile)
+            excite_cmd += ' | ' + x2x + ' +af '
+            excite_cmd += ' | ' + excite + ' -p {0} '.format(self.fperiod)
+            excite_cmd += ' | ' + x2x + ' +fa%.6f '
+            excite_cmd += ' > {0}'.format(excitationfile)
+            p = subprocess.Popen(excite_cmd, cwd = here, shell = True)
+            p.wait()
+            sptk_excite = np.loadtxt(excitationfile)
+
+            periods = np.loadtxt(pperiodsfile).tolist()
+            idlak_excite = vocoder.c_api.PySPTK_excite(periods, self.fperiod, 1, False, 1)
+            self.assertEqual(len(sptk_excite), len(idlak_excite),
+                             "lengths are not equal")
+            for sptk_val, idlak_val in zip(sptk_excite, idlak_excite):
+                self.assertAlmostEqual(sptk_val, idlak_val,
+                             delta = 1e-3, msg = "values are not the same")
+
+    
+    def test_PySPTK_mlsadf(self):
+        """ Wrapper of SPTK mlsadf binary """
+        with tempfile.TemporaryDirectory() as testdir:
+            smcepsfile = self._make_stable_mceps(testdir)
+            smcepsfloat = self._sptk_to_float(smcepsfile)
+
+            excfile = self._make_sptk_excitation(testdir)
+            excfloat = self._sptk_to_float(excfile)
+
+            sptk_waveformfile = '{0}/test.syn'.format(testdir)
+            mlsadf_cmd = mlsadf + ' -P 5 -m {0} -a {1} -p {2} {3} < {4} '.format(
+                    self.mcep_order, self.alpha, self.fperiod, smcepsfloat, excfloat)
+            mlsadf_cmd += ' | ' + x2x + ' +fa%.6f '
+            mlsadf_cmd += ' > {0} '.format(sptk_waveformfile)
+            p = subprocess.Popen(mlsadf_cmd, cwd = here, shell = True)
+            p.wait()
+            sptk_waveform = np.loadtxt(sptk_waveformfile)
+
+            sptk_excite = np.loadtxt(excfile)
+            sptk_smceps = np.loadtxt(smcepsfile).flatten()
+            idlak_waveform = vocoder.c_api.PySPTK_mlsadf(sptk_smceps, sptk_excite,
+                                                         self.mcep_order,
+                                                         self.alpha,
+                                                         self.fperiod,
+                                                         1,
+                                                         self.pade_order,
+                                                         False, False, False, False)
+
+            self.assertEqual(len(sptk_waveform), len(idlak_waveform),
+                             "lengths are not equal")
+            for sptk_val, idlak_val in zip(sptk_waveform, idlak_waveform):
+                self.assertAlmostEqual(sptk_val, idlak_val,
+                             places = 1, msg = "values are not the same")
+
 
 
 #################################
 # SPTK Wrapper Tests            #
 #################################
-
-if True:
-    print("PySPTK_mlsacheck ... ", end='', flush=True)
-    mlsacheck_cmd = x2x + ' +af ' + mcepfile + ' | '
-    mlsacheck_cmd += mlsacheck + ' -l {0} -c 2 -r 0 -P 5 -m {1} -a {2} 2> /dev/null | '.format(fftlen, mcep_order, alpha)
-    mlsacheck_cmd += x2x + ' +fa%.10f'
-
-    p = subprocess.Popen(mlsacheck_cmd, stdout = subprocess.PIPE, cwd = here, shell = True)
-    sptk_stdout = p.stdout.read()
-    sptk_stable_mceps = [float(x) for x in sptk_stdout.split()]
-
-    stable_mceps = vocoder.c_api.PySPTK_mlsacheck(flat_mceps, mcep_order, alpha, fftlen, 2, 0, 5, 0.0, True)
-
-    if len(stable_mceps) != len(sptk_stable_mceps):
-        print("\t[ FAIL ] length mismatch")
-    else:
-        err_count = 0
-        for i in range(len(stable_mceps)):
-            if abs(sptk_stable_mceps[i] - stable_mceps[i]) > 1e-6:
-                err_count += 1
-        if err_count:
-            print("\t[ FAIL ] {0} value(s) mismatched".format(err_count))
-        else:
-            print("\t[  OK  ]")
-
-#################################################
-
-if False:
-    print("PySPTK_excite    ... ", end='', flush=True)
-    excite_cmd = "cat {0} | awk -v srate={1} '(NR > 2){{if ($1 > 0) print srate / $1; else print 0.0}}' ".format(f0file, srate)
-    excite_cmd += ' | ' + x2x + ' +af | '
-    excite_cmd += excite + ' -p {0} | '.format(int(fperiod))
-    excite_cmd += x2x + ' +fa%.10f'
-
-    p = subprocess.Popen(excite_cmd, stdout = subprocess.PIPE, cwd = here, shell = True)
-    sptk_stdout = p.stdout.read()
-    sptk_excitation = [float(x) for x in sptk_stdout.split()]
-
-    periods = srate * np.reciprocal(f0s[2:])
-    periods[np.isinf(periods)] = 0
-    periods = np.around(periods, 3) # to match the output of awk
-    excitation = vocoder.c_api.PySPTK_excite(periods, int(fperiod), 1, False, 1)
-
-    if len(excitation) != len(sptk_excitation):
-        print("\t[ FAIL ] length mismatch")
-    else:
-        err_count = 0
-        for i in range(len(excitation)):
-            if abs(sptk_excitation[i] - excitation[i]) > 1e-3:
-                err_count += 1
-        if err_count:
-            print("\t[ FAIL ] {0} value(s) mismatched".format(err_count))
-        else:
-            print("\t[  OK  ]")
+def test():
 
 
+    #################################
+    # Python Vocoder Tests          #
+    #################################
 
-#################################################
+    print("MCEPVocoder    ... ", end='', flush=True)
+    mcep_voc = vocoder.MCEPVocoder()
+    f0s = np.loadtxt(f0file).tolist()[2:] # To match SPTK
+    mceps = np.loadtxt(mcepfile).tolist()
+    bndaps = np.loadtxt(bndapfile).tolist()
 
-if False:
-    print("PySPTK_mlsadf    ... ", end='', flush=True)
-    with tempfile.TemporaryDirectory() as testdir:
-        # Make required files so that inputs are the same
-        smcepsfile = make_stable_mceps(testdir)
-        smcepsfloat = sptk_to_float(smcepsfile)
+    mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s))
+    mcep_voc.to_wav('test.wav')
 
-        excfile = make_sptk_excitation(testdir)
-        excfloat = sptk_to_float(excfile)
+    mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s, bndaps))
+    mcep_voc.to_wav('test.mixed.wav')
 
-        mlsadf_cmd = mlsadf + ' -P 5 -m {0} -a {1} -p {2} {3} < {4} '.format(
-                mcep_order, alpha, int(fperiod), smcepsfloat, excfloat )
-        mlsadf_cmd += ' | ' + x2x + ' +fa%.10f '
-        p = subprocess.Popen(mlsadf_cmd, stdout = subprocess.PIPE, cwd = here, shell = True)
-        sptk_stdout = p.stdout.read()
-        sptk_waveform = [float(x) for x in sptk_stdout.split()]
-
-        excitation = np.loadtxt(excfile).flatten()
-        smceps = np.loadtxt(smcepsfile).flatten()
-        waveform = vocoder.c_api.PySPTK_mlsadf(smceps, excitation, mcep_order, alpha, int(fperiod), 1, 5, False, False, False, False)
-
-        if len(waveform) != len(sptk_waveform):
-            print("\t[ FAIL ] length mismatch")
-        else:
-            err_count = 0
-            for i in range(len(waveform)):
-                if abs(sptk_waveform[i] - waveform[i]) > 1e-3:
-                    err_count += 1
-            if err_count:
-                print("\t[ FAIL ] {0} value(s) mismatched".format(err_count))
-            else:
-                print("\t[  OK  ]")
+    print("\t[  OK  ]")
 
 
-#################################
-# Python Vocoder Tests          #
-#################################
+    print("Finished testing vocoder")
 
-print("MCEPVocoder    ... ", end='', flush=True)
-mcep_voc = vocoder.MCEPVocoder()
-f0s = np.loadtxt(f0file).tolist()[2:] # To match SPTK
-mceps = np.loadtxt(mcepfile).tolist()
-
-mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s))
-mcep_voc.to_wav('test.wav')
-
-
-print("\t[  OK  ]")
-
-
-print("Finished testing vocoder")
+if __name__ == '__main__':
+    unittest.main()
