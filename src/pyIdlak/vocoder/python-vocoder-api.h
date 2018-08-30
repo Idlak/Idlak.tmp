@@ -1,7 +1,7 @@
 // pyIdlak/python-vocoder-api.h
 
-// Copyright 2018 CereProc Ltd.  (Authors: David Braude
-//                                         Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
+
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -92,10 +92,13 @@ if the threshold is 0.0 then it depends on the pade order and stability conditio
   r=1,P=4 : R=6.2
   r=0,P=5 : R=6.0
   r=1,P=5 : R=7.65
+  
+if quiet is true then errors are not reported to stderr
 */
 std::vector<double> PySPTK_mlsacheck(const std::vector<double> &INPUT, int order,
                                      double all_pass_constant, int fftlen, int check_type,
-                                     int stable_condition, int pade_order, double threshold);
+                                     int stable_condition, int pade_order, double threshold,
+                                     bool quiet);
 
 
 

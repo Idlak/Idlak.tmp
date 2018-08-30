@@ -90,7 +90,8 @@ Configuration options:
                         If provided, it is prepended to all toolchain programs.
   --android-incdir=DIR  Android include directory
   --pyidlak             Build Python Wrappers [default=yes]
-  --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python2.7]
+  --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python3.5m]
+  --pydev-lib=lib       Python development library [default=python3.5m]
   --sptk-root=DIR       SPTK root directory [default=../tools/SPTK/]
 
 Following environment variables can be used to override the default toolchain.
@@ -866,7 +867,8 @@ PCREROOT=`rel2abs ../tools/pcre-8.20/`
 PUJIXMLROOT=`rel2abs ../tools/pugixml-1.2/`
 SWIGROOT=`rel2abs ../tools/swig-3.0.12/`
 
-PYTHONDEVINC=/usr/include/python2.7
+PYTHONDEVINC=/usr/include/python3.5m
+PYTHONDEVLIB=python3.5m
 SPTKROOT=`rel2abs ../tools/SPTK/`
 
 # Save the command line to include in kaldi.mk
@@ -1020,6 +1022,9 @@ do
   --pydev-incdir=*)
     PYTHONDEVINC=`read_dirname $1`;
     shift;;
+  --pydev-lib=*)
+    PYTHONDEVLIB=$1
+    shift;;
   --sptk-root=*)
     SPTKROOT=`read_dirname $1`
     shift;;
@@ -1138,8 +1143,9 @@ if [ $pyidlak ]; then
             failure "Could not find file $SPTKROOT/lib/libSPTK.a:
         you may not have compiled SPTK.  See ../tools/install_idlak.sh"
     fi
-    echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/txp/pyIdlak_txp_wrap.cc
-    echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/vocoder/pyIdlak_vocoder_wrap.cc
+    for d in pyIdlak/*/*.i ; do
+        echo "REQUIRED FOR MAKE DO NOT DELETE!" > ${d%.*}_wrap.cc
+    done
 fi
 
 echo IDLAK = true >> kaldi.mk
@@ -1149,6 +1155,7 @@ echo EXPATROOT = $EXPATROOT >> kaldi.mk
 echo PUJIXMLROOT = $PUJIXMLROOT >> kaldi.mk
 echo SWIGROOT = $SWIGROOT >> kaldi.mk
 echo PYTHONDEVINC = $PYTHONDEVINC >> kaldi.mk
+echo PYTHONDEVLIB = $PYTHONDEVLIB >> kaldi.mk
 echo SPTKROOT = $SPTKROOT >> kaldi.mk
 
 echo "Checking OpenFst library in $FSTROOT ..."

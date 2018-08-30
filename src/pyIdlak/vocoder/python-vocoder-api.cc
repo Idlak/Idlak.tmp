@@ -1,7 +1,7 @@
 // pyIdlak/python-vocoder-api.cc
 
-// Copyright 2018 CereProc Ltd.  (Authors: David Braude
-//                                         Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
+
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -167,7 +167,7 @@ const double PADE5_THRESH1 = 6.0;
 const double PADE5_THRESH2 = 7.65;
 
 static void mlsacheck(double *mceps, int m, int fftlen, int frame,
-               double a, double r, int c, double *stable_mceps)
+               double a, double r, int c, double *stable_mceps, bool quiet)
 {
    int i;
    double gain, *x, *y, *mag = NULL, max = 0.0;
@@ -205,9 +205,10 @@ static void mlsacheck(double *mceps, int m, int fftlen, int frame,
    /* modification MLSA filter coefficients */
    if (max > r) {
       /* output ascii report */
-      fprintf(stderr,
-              "[No. %d] is unstable frame (maximum = %f, threshold = %f)\n",
-              frame, max, r);
+      if (!quiet)
+        fprintf(stderr,
+                "[No. %d] is unstable frame (maximum = %f, threshold = %f)\n",
+                frame, max, r);
 
       /* modification */
       if (c == 2) {             /* clipping */
@@ -246,7 +247,8 @@ static void mlsacheck(double *mceps, int m, int fftlen, int frame,
 
 std::vector<double> PySPTK_mlsacheck(const std::vector<double> &INPUT, int order,
                                      double all_pass_constant, int fftlen, int check_type,
-                                     int stable_condition, int pade_order, double threshold) {
+                                     int stable_condition, int pade_order, double threshold,
+                                     bool quiet) {
 
   std::vector<double> coeffs;
   int m = order, pd = pade_order, c = check_type;
@@ -285,7 +287,7 @@ std::vector<double> PySPTK_mlsacheck(const std::vector<double> &INPUT, int order
   int frame = 0;
   std::vector<double>::const_iterator INPUT_it = INPUT.begin();
   while (vreadf(mceps, m + 1, INPUT, &INPUT_it) == m + 1) {
-    mlsacheck(mceps, m, fftlen, frame, a, r, c, stable_mceps);
+    mlsacheck(mceps, m, fftlen, frame, a, r, c, stable_mceps, quiet);
     for (int t = 0; t < m + 1; t++) {
       coeffs.push_back(stable_mceps[t]);
     }

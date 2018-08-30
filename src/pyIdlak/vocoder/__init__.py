@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett
-#                                       David Braude)
+# Copyright 2018 Cereproc Ltd. (author: David Braude)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +15,7 @@
 # limitations under the License.
 
 # SWIG wrapped API
-import pyIdlak_vocoder as c_api
+from . import pyIdlak_vocoder as c_api
 
 
+from .vocoders import MCEPVocoder, MCEPExcitation

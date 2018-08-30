@@ -14,8 +14,10 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
-import pyIdlak_txp
+
 import copy
+
+from . import pyIdlak_txp
 
 class XMLDoc(object):
 

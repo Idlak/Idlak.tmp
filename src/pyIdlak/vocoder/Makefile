@@ -10,7 +10,7 @@ LIBNAME = _pyIdlak_vocoder
 # ADDLIBS = ../../idlaktxp/idlak-txp.a ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a
 
 EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(SPTKROOT)/include
-EXTRA_LDLIBS = -lpython2.7 $(SPTKROOT)/lib/libSPTK.a
+EXTRA_LDLIBS = -l$(PYTHONDEVLIB) $(SPTKROOT)/lib/libSPTK.a
 
 include ../../makefiles/default_rules.mk
 
@@ -49,7 +49,7 @@ else
 endif
 
 clean_wrapper:
-	-rm -f pyIdlak_vocoder.py pyIdlak_vocoder_wrap.cc *.pyc
+	-rm -rf pyIdlak_vocoder.py pyIdlak_vocoder_wrap.cc *.pyc
 	@echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak_vocoder_wrap.cc
 
 clean: clean_wrapper
