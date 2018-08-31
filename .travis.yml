@@ -22,7 +22,8 @@ addons:
       - liblapack-dev
       - clang-3.8
       - csh
-
+      - python3.5-dev
+      
 branches:
   only:
     - master
