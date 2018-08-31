@@ -1,7 +1,7 @@
-// pyIdlak/pyIdlak_txp.i
+// pyIdlak/python-vocoder-api.cc
 
-// Copyright 2018 CereProc Ltd.  (Authors: David Braude
-//                                         Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
+
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,16 +17,23 @@
 // limitations under the License.
 //
 
-%module pyIdlak_txp
-%include <argcargv.i>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <cstdio>
 
-%apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
+extern "C" {
+#include "SPTK.h"
+}
 
-%{
-#include "python-txp-api.h"
-%}
+#include "python-vocoder-api.h"
+#include "python-vocoder-lib.h"
 
-%include "python-txp-api.h"
-
-
-
+int vreadf(double *ptr, const int nitems,
+           const std::vector<double> &vec, std::vector<double>::const_iterator * pos) {
+  int no_read;
+  for(no_read = 0; (*pos != vec.end()) && (no_read < nitems); no_read++, (*pos)++) {
+    ptr[no_read] = **pos;
+  }
+  return no_read;
+}

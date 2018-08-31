@@ -18,10 +18,9 @@
 import re
 import sys
 import copy
-import cStringIO
 import argparse
 
-import pyIdlak_txp
+from . import pyIdlak_txp
 
 
 # helper functions PyTxpParseOptions

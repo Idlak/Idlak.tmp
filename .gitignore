@@ -13,6 +13,7 @@
 *.o
 *.obj
 *.pyc
+*__pycache__
 
 # profiling files and core files
 *.nvprof
@@ -100,19 +101,23 @@ GSYMS
 
 # Idlak python wrapper
 !/src/pyIdlak/*
-!/src/pyIdlak/*/Makefile
-!/src/pyIdlak/*/*.i
-!/src/pyIdlak/*/*.cc
-!/src/pyIdlak/*/*.h
-!/src/pyIdlak/*/*.py
-/src/pyIdlak/*.pyc
-/src/pyIdlak/*/*.pyc
-/src/pyIdlak/.depend.mk
-/src/pyIdlak/*/.depend.mk
-
-
+!/src/pyIdlak/*/*
+!/src/pyIdlak/*/*/*
 /src/pyIdlak/txp/pyIdlak_txp_wrap.cc
 /src/pyIdlak/txp/pyIdlak_txp.py
+/src/pyIdlak/vocoder/pyIdlak_vocoder_wrap.cc
+/src/pyIdlak/vocoder/pyIdlak_vocoder.py
+/src/pyIdlak/__pycache__
+/src/pyIdlak/*/__pycache__
+/src/pyIdlak/*.so
+/src/pyIdlak/*.a
+/src/pyIdlak/*.dylib
+/src/pyIdlak/*/*.o
+/src/pyIdlak/*/*.so
+/src/pyIdlak/*/*.a
+/src/pyIdlak/*/*.dylib
+/src/pyIdlak/*/*.o
+
 
 # /tools/
 /tools/ATLAS/

@@ -17,11 +17,11 @@
 import re
 import sys
 import copy
-import cStringIO
+import io
 import argparse
 
-import pyIdlak_txp
-import pytxplib
+from . import pyIdlak_txp
+from . import pytxplib
 
 class TxpArgumentParser(argparse.ArgumentParser):
     """ An option parser that combines Python and Idlak parsers """
@@ -57,7 +57,7 @@ class TxpArgumentParser(argparse.ArgumentParser):
     def _get_py_help(self):
         """ Gets the python help """
         _stdout = sys.stdout
-        _stringio = cStringIO.StringIO()
+        _stringio = io.StringIO()
         sys.stdout = _stringio
         self.print_help()
         usage = _stringio.getvalue()

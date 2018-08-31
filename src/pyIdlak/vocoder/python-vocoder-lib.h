@@ -1,7 +1,7 @@
-// pyIdlak/pyIdlak_txp.i
+// pyIdlak/python-vocode-lib.h
 
-// Copyright 2018 CereProc Ltd.  (Authors: David Braude
-//                                         Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
+
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,16 +17,14 @@
 // limitations under the License.
 //
 
-%module pyIdlak_txp
-%include <argcargv.i>
 
-%apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
+// Some useful functions that should not be exposed
 
-%{
-#include "python-txp-api.h"
-%}
+#ifndef KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_LIB_H_
+#define KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_LIB_H_
 
-%include "python-txp-api.h"
+// Replacement for freadf
+int vreadf(double *ptr, const int nitems,
+           const std::vector<double> &vec, std::vector<double>::const_iterator * pos);
 
-
-
+#endif // KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_LIB_H_

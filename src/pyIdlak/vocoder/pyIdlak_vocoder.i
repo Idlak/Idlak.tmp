@@ -1,7 +1,7 @@
-// pyIdlak/pyIdlak_txp.i
+// pyIdlak/pyIdlak_vocoder.i
 
-// Copyright 2018 CereProc Ltd.  (Authors: David Braude
-//                                         Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
+
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,16 +17,26 @@
 // limitations under the License.
 //
 
-%module pyIdlak_txp
+%module pyIdlak_vocoder
+
+%include "std_string.i"
+%include <std_vector.i>
 %include <argcargv.i>
+
+namespace std {
+   %template(IntVector) vector<int>;
+   %template(DoubleVector) vector<double>;
+   %template(StringVector) vector<string>;
+   %template(ConstCharVector) vector<const char*>;
+};
 
 %apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
 
 %{
-#include "python-txp-api.h"
+#include "python-vocoder-api.h"
 %}
 
-%include "python-txp-api.h"
+%include "python-vocoder-api.h"
 
 
 

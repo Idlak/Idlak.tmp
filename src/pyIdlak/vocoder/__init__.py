@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett)
+# Copyright 2018 Cereproc Ltd. (author: David Braude)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
-from . import txp
-from . import vocoder
+# SWIG wrapped API
+from . import pyIdlak_vocoder as c_api
 
-__all__ = ['txp', 'vocoder']
 
+from .vocoders import MCEPVocoder, MCEPExcitation
