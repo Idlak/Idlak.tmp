@@ -23,8 +23,8 @@
 //  has been modified from the original SPTK documentation available 
 //  at http://sp-tk.sourceforge.net/
 
-#ifndef KALDI_PYIDLAK_TXP_PYTHON_VOCODER_API_H_
-#define KALDI_PYIDLAK_TXP_PYTHON_VOCODER_API_H_
+#ifndef KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_API_H_
+#define KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_API_H_
 
 // TODO: Value checking and throwing errors
 // TODO: ENUMs as appropriate
@@ -123,4 +123,4 @@ std::vector<double> PySPTK_mlsadf(const std::vector<double> &MCEPS, const std::v
                                   bool bflag, bool nogain, bool transpose_filter, bool inverse_filter);
 
 
-#endif // KALDI_PYIDLAK_TXP_PYTHON_VOCODER_API_H_
+#endif // KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_API_H_

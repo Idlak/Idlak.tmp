@@ -20,11 +20,11 @@
 
 // Some useful functions that should not be exposed
 
-#ifndef KALDI_PYIDLAK_TXP_PYTHON_VOCODER_LIB_H_
-#define KALDI_PYIDLAK_TXP_PYTHON_VOCODER_LIB_H_
+#ifndef KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_LIB_H_
+#define KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_LIB_H_
 
 // Replacement for freadf
 int vreadf(double *ptr, const int nitems,
            const std::vector<double> &vec, std::vector<double>::const_iterator * pos);
 
-#endif // KALDI_PYIDLAK_TXP_PYTHON_VOCODER_LIB_H_
+#endif // KALDI_PYIDLAK_VOCODER_PYTHON_VOCODER_LIB_H_
