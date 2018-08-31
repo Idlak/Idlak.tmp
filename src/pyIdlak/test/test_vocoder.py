@@ -203,7 +203,7 @@ class TestIdlakPythonVocoder(unittest.TestCase):
 
             # Basic Vocoding
             wavfile = pjoin(testdir, 'test.wav')
-            mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s))
+            mcep_voc.apply_mlsa(mceps, mcep_voc.gen_excitation(f0s))
             mcep_voc.to_wav(wavfile)
             self.assertTrue(os.path.isfile(wavfile),
                             "output file not created")

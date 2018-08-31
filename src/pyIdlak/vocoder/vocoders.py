@@ -102,7 +102,7 @@ class MCEPVocoder(Vocoder):
         self.inverse_filter = False
 
 
-    def vocode_mlsa(self, mceps, excite, stablise_mceps = True):
+    def apply_mlsa(self, mceps, excite, stablise_mceps = True):
         """ Takes the mceps and vocodes them using the given excitation """
 
         flat_mceps = []
