@@ -10,7 +10,14 @@ LIBNAME = _pyIdlak_txp
 ADDLIBS = ../../idlaktxp/idlak-txp.a ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a
 
 EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(PCREROOT)/include -I$(EXPATROOT)/include -I$(PUJIXMLROOT)/src -I../..
-EXTRA_LDLIBS = -l$(PYTHONDEVLIB) -Wl,-rpath,"$(PCREROOT)/lib" $(PCREROOT)/lib/libpcre.so $(EXPATROOT)/lib/libexpat.so
+EXTRA_LDLIBS = -Wl,-rpath,"$(PCREROOT)/lib" $(PCREROOT)/lib/libpcre.so $(EXPATROOT)/lib/libexpat.so
+
+ifeq ($(PYTHONDEVLIBDIR),)
+  PYLIBFLAG = -l$(PYTHONDEVLIB)
+else
+  PYLIBFLAG = -L$(PYTHONDEVLIBDIR) -l$(PYTHONDEVLIB)
+endif
+EXTRA_LDLIBS += $(PYLIBFLAG)
 
 include ../../makefiles/default_rules.mk
 

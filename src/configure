@@ -91,6 +91,7 @@ Configuration options:
   --android-incdir=DIR  Android include directory
   --pyidlak             Build Python Wrappers [default=yes]
   --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python3.5m]
+  --pydev-libdir=DIR    Python development library path [default=]
   --pydev-lib=lib       Python development library [default=python3.5m]
   --sptk-root=DIR       SPTK root directory [default=../tools/SPTK/]
 
@@ -869,6 +870,7 @@ SWIGROOT=`rel2abs ../tools/swig-3.0.12/`
 
 PYTHONDEVINC=/usr/include/python3.5m
 PYTHONDEVLIB=python3.5m
+PYTHONDEVLIBDIR=
 SPTKROOT=`rel2abs ../tools/SPTK/`
 
 # Save the command line to include in kaldi.mk
@@ -1023,7 +1025,10 @@ do
     PYTHONDEVINC=`read_dirname $1`;
     shift;;
   --pydev-lib=*)
-    PYTHONDEVLIB=$1
+    PYTHONDEVLIB=`expr "X$1" : '[^=]*=\(.*\)'`;
+    shift;;
+  --pydev-libdir=*)
+    PYTHONDEVLIBDIR=`read_dirname $1`;
     shift;;
   --sptk-root=*)
     SPTKROOT=`read_dirname $1`
@@ -1143,6 +1148,18 @@ if [ $pyidlak ]; then
             failure "Could not find file $SPTKROOT/lib/libSPTK.a:
         you may not have compiled SPTK.  See ../tools/install_idlak.sh"
     fi
+    if [ ! -f $PYTHONDEVINC/Python.h ]; then
+        failure "Could not find file $PYTHONDEVINC/Python.h:
+        please ensure Python development libraries and includes are installed
+        and you have correctly set their paths"
+    fi
+    if [ ! -z $PYTHONDEVLIBDIR ]; then
+        if [ ! -d $PYTHONDEVLIBDIR ]; then
+            failure "Could not find directory $PYTHONDEVLIBDIR:
+        please ensure Python development libraries and includes are installed
+        and you have correctly set their paths correctly"
+        fi
+    fi
     for d in pyIdlak/*/*.i ; do
         echo "REQUIRED FOR MAKE DO NOT DELETE!" > ${d%.*}_wrap.cc
     done
@@ -1156,6 +1173,7 @@ echo PUJIXMLROOT = $PUJIXMLROOT >> kaldi.mk
 echo SWIGROOT = $SWIGROOT >> kaldi.mk
 echo PYTHONDEVINC = $PYTHONDEVINC >> kaldi.mk
 echo PYTHONDEVLIB = $PYTHONDEVLIB >> kaldi.mk
+echo PYTHONDEVLIBDIR = $PYTHONDEVLIBDIR >> kaldi.mk
 echo SPTKROOT = $SPTKROOT >> kaldi.mk
 
 echo "Checking OpenFst library in $FSTROOT ..."

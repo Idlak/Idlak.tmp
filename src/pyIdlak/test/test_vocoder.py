@@ -22,6 +22,7 @@ import sys
 import os
 import subprocess
 import tempfile
+import wave
 
 from os.path import join as pjoin
 
@@ -149,10 +150,12 @@ class TestIdlakPythonVocoder(unittest.TestCase):
             self.assertEqual(len(sptk_excite), len(idlak_excite),
                              "lengths are not equal")
             for sptk_val, idlak_val in zip(sptk_excite, idlak_excite):
-                self.assertAlmostEqual(sptk_val, idlak_val,
-                             delta = 1e-3, msg = "values are not the same")
+                # excluded the unvoiced regions
+                if not(abs(sptk_val) == 1 and abs(idlak_val) == 1):
+                    self.assertAlmostEqual(sptk_val, idlak_val,
+                                delta = 1e-3, msg = "values are not the same")
 
-    
+
     def test_PySPTK_mlsadf(self):
         """ Wrapper of SPTK mlsadf binary """
         with tempfile.TemporaryDirectory() as testdir:
@@ -188,33 +191,31 @@ class TestIdlakPythonVocoder(unittest.TestCase):
                              places = 1, msg = "values are not the same")
 
 
+    def test_MCEPVocoder(self):
+        with tempfile.TemporaryDirectory() as testdir:
+            mcep_voc = vocoder.MCEPVocoder()
+            f0s    = self.f0s.tolist()[2:] # To match SPTK
+            mceps  = self.mceps.tolist()
+            bndaps = self.bndaps.tolist()
 
-#################################
-# SPTK Wrapper Tests            #
-#################################
-def test():
+            no_frames = min([len(mceps), len(f0s), len(bndaps)]) - 1
+            no_samples = int(no_frames * self.fshift * self.srate)
 
+            # Basic Vocoding
+            wavfile = pjoin(testdir, 'test.wav')
+            mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s))
+            mcep_voc.to_wav(wavfile)
+            self.assertTrue(os.path.isfile(wavfile),
+                            "output file not created")
 
-    #################################
-    # Python Vocoder Tests          #
-    #################################
+            with wave.open(wavfile, 'rb') as testwav:
+                self.assertEqual(testwav.getnframes(), no_samples,
+                                 "number of samples mismatch")
+                waveform = [x for x in testwav.readframes(no_samples)]
+                rms = np.sqrt(np.mean(np.square(waveform)))
+                self.assertGreater(rms, 0.0,
+                                   "Waveform seems to be silent")
 
-    print("MCEPVocoder    ... ", end='', flush=True)
-    mcep_voc = vocoder.MCEPVocoder()
-    f0s = np.loadtxt(f0file).tolist()[2:] # To match SPTK
-    mceps = np.loadtxt(mcepfile).tolist()
-    bndaps = np.loadtxt(bndapfile).tolist()
-
-    mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s))
-    mcep_voc.to_wav('test.wav')
-
-    mcep_voc.vocode_mlsa(mceps, mcep_voc.gen_excitation(f0s, bndaps))
-    mcep_voc.to_wav('test.mixed.wav')
-
-    print("\t[  OK  ]")
-
-
-    print("Finished testing vocoder")
 
 if __name__ == '__main__':
     unittest.main()

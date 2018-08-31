@@ -10,7 +10,7 @@ LIBNAME = _pyIdlak_vocoder
 # ADDLIBS = ../../idlaktxp/idlak-txp.a ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a
 
 EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(SPTKROOT)/include
-EXTRA_LDLIBS = -l$(PYTHONDEVLIB) $(SPTKROOT)/lib/libSPTK.a
+EXTRA_LDLIBS = $(SPTKROOT)/lib/libSPTK.a
 
 include ../../makefiles/default_rules.mk
 
@@ -19,6 +19,13 @@ ifeq ($(KALDI_FLAVOR), dynamic)
 else
   STATICLIB = _pyIdlak_vocoder.a
 endif
+
+ifeq ($(PYTHONDEVLIBDIR),)
+  PYLIBFLAG = -l$(PYTHONDEVLIB)
+else
+  PYLIBFLAG = -L$(PYTHONDEVLIBDIR) -l$(PYTHONDEVLIB)
+endif
+EXTRA_LDLIBS += $(PYLIBFLAG)
 
 .PHONY: wrapper
 wrapper:
