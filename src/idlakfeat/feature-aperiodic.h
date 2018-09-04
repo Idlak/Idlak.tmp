@@ -102,6 +102,8 @@ class AperiodicEnergy {
 
   int32 Dim() { return opts_.banks_opts.num_bins; }
 
+  Vector<BaseFloat> CenterFreqs() { return freq_banks_->GetCenterFreqs(); }
+
   void Compute(const VectorBase<BaseFloat> &wave,
                const VectorBase<BaseFloat> &voicing_prob,
                const VectorBase<BaseFloat> &f0,
