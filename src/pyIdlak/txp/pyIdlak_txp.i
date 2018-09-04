@@ -1,6 +1,6 @@
-// pyIdlak/python-api.cc
+// pyIdlak/pyIdlak_txp.i
 
-// Copyright 2018 CereProc Ltd.  (Authors: David A. Braude
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,34 +17,16 @@
 // limitations under the License.
 //
 
-#include "idlaktxp/idlaktxp.h"
+%module pyIdlak_txp
+%include <argcargv.i>
 
-#include "python-api.h"
+%apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
 
-struct PyTxpParseOptions {
-  kaldi::TxpParseOptions * po_;
-};
+%{
+#include "python-txp-api.h"
+%}
 
-
-PyTxpParseOptions * PyTxpParseOptions_new(const char *usage)
-{
-  PyTxpParseOptions * pypo = new PyTxpParseOptions;
-  pypo->po_ = new kaldi::TxpParseOptions(usage);
-  return pypo;
-}
+%include "python-txp-api.h"
 
 
-void PyTxpParseOptions_delete(PyTxpParseOptions * pypo)
-{
-  if (pypo) {
-    delete pypo->po_;
-    delete pypo;
-  }
-}
 
-void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_line)
-{
-  if (pypo) {
-    pypo->po_->PrintUsage(print_command_line);
-  }
-}

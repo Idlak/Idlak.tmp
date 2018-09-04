@@ -22,7 +22,7 @@ addons:
       - liblapack-dev
       - clang-3.8
       - csh
-      - swig
+      - libpython3.5-dev
 
 branches:
   only:

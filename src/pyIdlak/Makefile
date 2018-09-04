@@ -1,48 +1,22 @@
 
 include ../kaldi.mk
 
-OBJFILES = python-api.o pyIdlak_wrap.o
+ifeq ($(PYIDLAK), true)
 
-LIBNAME = _pyIdlak
+PY_SUBDIRS = txp vocoder
 
-ADDLIBS = ../idlaktxp/idlak-txp.a ../util/kaldi-util.a ../matrix/kaldi-matrix.a ../base/kaldi-base.a
+all: $(PY_SUBDIRS)
+	@echo "Finished making python wrappers"
 
-EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(PCREROOT)/include -I$(EXPATROOT)/include -I$(PUJIXMLROOT)/src
-EXTRA_LDLIBS = -lpython2.7 -Wl,-rpath,"$(PCREROOT)/lib" $(PCREROOT)/lib/libpcre.so $(EXPATROOT)/lib/libexpat.so
+.PHONY: clean_py
+clean_py:
+	-rm -rf *.pyc __pycache__ test/*.pyc test/__pycache__
+	
+clean:  clean_py
+	-for x in $(PY_SUBDIRS); do $(MAKE) -C $$x clean; done
 
-include ../makefiles/default_rules.mk
+.PHONY: $(PY_SUBDIRS)
+$(PY_SUBDIRS):
+	$(MAKE) -C $@
 
-ifeq ($(KALDI_FLAVOR), dynamic)
-  STATICLIB =
-else
-  STATICLIB = _pyIdlak.a
-endif
-
-wrapper:
-	$(SWIG) -c++ -python -o pyIdlak_wrap.cc pyIdlak.i
-
-sharedlib: $(STATICLIB)
-ifeq ($(KALDI_FLAVOR), dynamic)
-  ifeq ($(shell uname), Darwin)
-	ln -fs $(KALDILIBDIR)/lib_pyIdlak.dylib _pyIdlak.dylib
-  else ifeq ($(shell uname), Linux)
-	ln -fs $(KALDILIBDIR)/lib_pyIdlak.so _pyIdlak.so
-  else  # Platform not supported
-	$(error Dynamic libraries not supported on this platform '$(shell uname)'. Python wrapper cannot be built.)
-  endif
-else
-  ifeq ($(shell uname), Darwin)
-	$(CXX) -dynamiclib -o _pyIdlak.dylib -install_name @rpath/_pyIdlak.a $(LDFLAGS) $(LDLIBS)
-  else ifeq ($(shell uname), Linux)
-	# Building shared library from static (static was compiled with -fPIC)
-	$(CXX) -shared -o _pyIdlak.so -Wl,--no-undefined -Wl,--as-needed \
-		-Wl,-soname=_pyIdlak.so,--whole-archive _pyIdlak.a $(ADDLIBS) $(PUJIXMLROOT)/scripts/libpugixml.a -Wl,--no-whole-archive $(LDFLAGS) $(LDLIBS)
-  else  # Platform not supported
-	$(error Dynamic libraries not supported on this platform '$(shell uname)'. Python wrapper cannot be built.)
-  endif
-endif
-
-clean:
-	-rm -f *.o *.a *.so pyIdlak.py pyIdlak.pyc pyIdlak_wrap.cc
-
-all: wrapper sharedlib
+endif # PYIDLAK

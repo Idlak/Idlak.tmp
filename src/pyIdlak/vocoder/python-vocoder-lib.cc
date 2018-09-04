@@ -1,7 +1,7 @@
-// pyIdlak/python-api.h
+// pyIdlak/python-vocoder-api.cc
 
-// Copyright 2018 CereProc Ltd.  (Authors: David A. Braude
-//                                         Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
+
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,15 +17,23 @@
 // limitations under the License.
 //
 
-#ifndef KALDI_PYIDLAK_PYTHON_API_H_
-#define KALDI_PYIDLAK_PYTHON_API_H_
+#include <cmath>
+#include <string>
+#include <vector>
+#include <cstdio>
 
-// TxpParseOptions wrappers
-typedef struct PyTxpParseOptions PyTxpParseOptions;
+extern "C" {
+#include "SPTK.h"
+}
 
-PyTxpParseOptions * PyTxpParseOptions_new(const char *usage);
-void PyTxpParseOptions_delete(PyTxpParseOptions * pypo);
+#include "python-vocoder-api.h"
+#include "python-vocoder-lib.h"
 
-void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_line = false);
-
-#endif // KALDI_PYIDLAK_PYTHON_API_H_
+int vreadf(double *ptr, const int nitems,
+           const std::vector<double> &vec, std::vector<double>::const_iterator * pos) {
+  int no_read;
+  for(no_read = 0; (*pos != vec.end()) && (no_read < nitems); no_read++, (*pos)++) {
+    ptr[no_read] = **pos;
+  }
+  return no_read;
+}

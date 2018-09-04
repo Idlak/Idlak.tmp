@@ -13,6 +13,7 @@
 *.o
 *.obj
 *.pyc
+*__pycache__
 
 # profiling files and core files
 *.nvprof
@@ -36,6 +37,9 @@ core
 [#]*[#]
 .[#]*
 *~
+
+# Kate files
+*.kate-swp
 
 # [ecg]tag files
 TAGS
@@ -72,9 +76,6 @@ GSYMS
 /src/kaldi.mk.tmp
 /src/kaldi.mk.bak
 
-# Idlak python wrapper
-/src/pyIdlak/pyIdlak.py
-/src/pyIdlak/pyIdlak_wrap.cc
 
 # /egs/ & /idlak-egs/
 /egs/*/s*/mfcc
@@ -94,10 +95,29 @@ GSYMS
 /idlak-egs/*/s*/lbldata
 /idlak-egs/*/s*/lbldurdata
 /idlak-egs/*/s*/lblf0data
-/idlak-egs/*/s*/slt_pmdl
-/idlak-egs/*/s*/bdl_pmdl
-/idlak-egs/*/s*/jmk_pmdl
-/idlak-egs/tts_tangle_lj/s2/LJ_pmdl/
+/idlak-egs/*/s*/*_pmdl
+/idlak-egs/*/s*/voices
+/idlak-egs/*/s*/testout
+
+# Idlak python wrapper
+!/src/pyIdlak/*
+!/src/pyIdlak/*/*
+!/src/pyIdlak/*/*/*
+/src/pyIdlak/txp/pyIdlak_txp_wrap.cc
+/src/pyIdlak/txp/pyIdlak_txp.py
+/src/pyIdlak/vocoder/pyIdlak_vocoder_wrap.cc
+/src/pyIdlak/vocoder/pyIdlak_vocoder.py
+/src/pyIdlak/__pycache__
+/src/pyIdlak/*/__pycache__
+/src/pyIdlak/*.so
+/src/pyIdlak/*.a
+/src/pyIdlak/*.dylib
+/src/pyIdlak/*/*.o
+/src/pyIdlak/*/*.so
+/src/pyIdlak/*/*.a
+/src/pyIdlak/*/*.dylib
+/src/pyIdlak/*/*.o
+
 
 # /tools/
 /tools/ATLAS/
@@ -122,6 +142,8 @@ GSYMS
 /tools/openfst-1.6.2/
 /tools/openfst-1.6.5.tar.gz
 /tools/openfst-1.6.5/
+/tools/openfst-1.6.6.tar.gz
+/tools/openfst-1.6.6/
 /tools/BeamformIt/
 /tools/libsndfile-1.0.25.tar.gz
 /tools/libsndfile-1.0.25/
@@ -170,5 +192,9 @@ GSYMS
 /tools/pcre-8.20/
 /tools/pugixml-1.2.tar.gz
 /tools/pugixml-1.2/
+/tools/swig-3.0.12.tar.gz
+/tools/swig-3.0.12/
+/tools/opengrm-ngram-1.3.4.tar.gz
+/tools/opengrm-ngram-1.3.4/
 
 /kaldiwin_vs*
