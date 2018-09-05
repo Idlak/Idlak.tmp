@@ -156,6 +156,13 @@ class TestIdlakPythonVocoder(unittest.TestCase):
                                 delta = 1e-3, msg = "values are not the same")
 
 
+    def test_PySPTK_mixed(self):
+        """ Test generating mixed excitation """
+        with tempfile.TemporaryDirectory() as testdir:
+            mcep_voc = vocoder.MCEPVocoder()
+            excitation = mcep_voc.gen_excitation(self.f0s, self.bndaps)
+
+
     def test_PySPTK_mlsadf(self):
         """ Wrapper of SPTK mlsadf binary """
         with tempfile.TemporaryDirectory() as testdir:
