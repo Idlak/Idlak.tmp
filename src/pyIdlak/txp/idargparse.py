@@ -27,10 +27,37 @@ class TxpArgumentParser(argparse.ArgumentParser):
     """ An option parser that combines Python and Idlak parsers """
 
     def __init__(self, usage):
-        super(TxpArgumentParser, self).__init__(add_help = False, usage= '')
+
         self._idlakopts = None
         self._pythonargs = None
         self._usage = copy.copy(usage)
+
+        iopts = pyIdlak_txp.PyTxpParseOptions_new("")
+        default_config = pytxplib.PyTxpParseOptions_GetConfig(iopts)
+        pyIdlak_txp.PyTxpParseOptions_delete(iopts)
+        epilog = "Idlak TXP arguments:\n"
+        for k, v in default_config.items():
+            epilog += '  --{0:30}  default: "{1}"\n'.format(k, v)
+
+        super(TxpArgumentParser, self).__init__(
+            usage = usage,
+            epilog = epilog,
+            formatter_class=argparse.RawDescriptionHelpFormatter,)
+
+        # getting a list of idlak options and saving them into
+        # the parser so they cannot be duplicated by accident
+        # The help message is a bit unclear so it has been removed
+        # and manually created in the epilog
+        self._idlakargs = {}
+        self._default_config = {}
+        idlak_arg_group = self.add_argument_group()
+        for k, v in default_config.items():
+            argname = '--' + k
+            dest = k.replace('-','_')
+            self._idlakargs[dest] = argname
+            self._default_config[dest] = v
+            idlak_arg_group.add_argument(argname, default = v, dest = dest,
+                                         help=argparse.SUPPRESS)
 
 
     def __del__(self):
@@ -44,26 +71,20 @@ class TxpArgumentParser(argparse.ArgumentParser):
         """ Parse the args or if none parse the commandline """
         if not args:
             args = None
+        super(TxpArgumentParser, self).parse_known_args(args)
         self._pythonargs, idlakargv = super(TxpArgumentParser, self).parse_known_args(args)
-        idlakargv.insert(0, sys.argv[0])
-        # Create an Idlak opts parser for the Idlak arguments
+        idlak_args = [sys.argv[0]]
+        for dest, argname in self._idlakargs.items():
+            if vars(self._pythonargs)[dest] != self._default_config[dest]:
+                idlak_args.append('{0}={1}'.format(argname, vars(self._pythonargs)[dest]))
+        idlak_args += idlakargv
         if not self._idlakopts is None:
             pyIdlak_txp.PyTxpParseOptions_delete(self._idlakopts)
-        self._idlakopts = pyIdlak_txp.PyTxpParseOptions_new(self._usage + self._get_py_help())
-        pyIdlak_txp.PyTxpParseOptions_Read(self._idlakopts, idlakargv)
+        self._idlakopts = pyIdlak_txp.PyTxpParseOptions_new("")
+        pyIdlak_txp.PyTxpParseOptions_Read(self._idlakopts, idlak_args)
+
         return self._pythonargs, self._idlakopts
 
-
-    def _get_py_help(self):
-        """ Gets the python help """
-        _stdout = sys.stdout
-        _stringio = io.StringIO()
-        sys.stdout = _stringio
-        self.print_help()
-        usage = _stringio.getvalue()
-        _stringio.close()
-        sys.stdout = _stdout
-        return usage
 
 
     def get(self, opt_name, default = None):
@@ -113,12 +134,6 @@ class TxpArgumentParser(argparse.ArgumentParser):
             return pyIdlak_txp.PyTxpParseOptions_GetArg(self._idlakopts, argidx)
 
         return None
-
-
-    def print_usage(self):
-        """ Prints the usage statement """
-        pyIdlak_txp.PyTxpParseOptions_PrintUsage(self._idlakopts)
-
 
 
 

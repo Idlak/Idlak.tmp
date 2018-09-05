@@ -1,4 +1,4 @@
-// pyIdlak/python-vocoder-api.h
+// pyIdlak/vocoder/python-vocoder-api.h
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude)
 
@@ -28,6 +28,14 @@
 
 // TODO: Value checking and throwing errors
 // TODO: ENUMs as appropriate
+
+#include "pyIdlak/pylib/pyIdlak_types.h"
+
+/* Get the start / center / end of the aperiodic bands in Herz with the given options */
+std::vector<double> PyVocoder_get_aperiodic_band_starts(PySimpleOptions * pyopts);
+std::vector<double> PyVocoder_get_aperiodic_band_centers(PySimpleOptions * pyopts);
+std::vector<double> PyVocoder_get_aperiodic_band_ends(PySimpleOptions * pyopts);
+
 
 /*
 excite - generate excitation

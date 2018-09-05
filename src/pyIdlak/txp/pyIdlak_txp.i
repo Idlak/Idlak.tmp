@@ -1,4 +1,4 @@
-// pyIdlak/pyIdlak_txp.i
+// pyIdlak/txp/pyIdlak_txp.i
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
@@ -18,7 +18,17 @@
 //
 
 %module pyIdlak_txp
+
+%include "std_string.i"
+%include <std_vector.i>
 %include <argcargv.i>
+
+namespace std {
+   %template(IntVector) vector<int>;
+   %template(DoubleVector) vector<double>;
+   %template(StringVector) vector<string>;
+   %template(ConstCharVector) vector<const char*>;
+};
 
 %apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
 

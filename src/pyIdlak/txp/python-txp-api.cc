@@ -1,4 +1,4 @@
-// pyIdlak/python-txp-api.cc
+// pyIdlak/txp/python-txp-api.cc
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
@@ -19,6 +19,7 @@
 
 #include "idlaktxp/idlaktxp.h"
 
+#include "pyIdlak/pylib/pyIdlak_internal.h"
 #include "python-txp-api.h"
 
 static const char* const _module_names[] = {
@@ -41,10 +42,7 @@ struct PyPugiXMLDocument {
   pugi::xml_document * doc_;
 };
 
-struct PyIdlakBuffer {
-  char * data_;
-  int len_;
-};
+
 
 struct PyIdlakModule {
   enum IDLAKMOD modtype_;
@@ -52,29 +50,6 @@ struct PyIdlakModule {
 };
 
 
-PyIdlakBuffer * PyIdlakBuffer_newfromstr(const char * data) {
-  PyIdlakBuffer * pybuf;
-  if (data) {
-    pybuf = new PyIdlakBuffer;
-    pybuf->len_ = strlen(data);
-    pybuf->data_ = new char[pybuf->len_];
-    strcpy(pybuf->data_, data);
-  }
-  return pybuf;
-}
-
-void PyIdlakBuffer_delete(PyIdlakBuffer * pybuf) {
-  if (pybuf) {
-    delete pybuf->data_;
-    delete pybuf;
-  }
-}
-
-const char * PyIdlakBuffer_get(PyIdlakBuffer * pybuf) {
-  if (pybuf) return pybuf->data_;
-  return NULL;
-}
-    
 PyTxpParseOptions * PyTxpParseOptions_new(const char *usage) {
   PyTxpParseOptions * pypo = new PyTxpParseOptions;
   pypo->po_ = new kaldi::TxpParseOptions(usage);
@@ -110,18 +85,16 @@ int PyTxpParseOptions_NumArgs(PyTxpParseOptions * pypo) {
 }
 
 PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo) {
-  PyIdlakBuffer * pybuf;
+  PyIdlakBuffer * pybuf = nullptr;
   std::ostringstream stream;
   std::string output;
   const char * s;
   if (pypo) {
     pypo->po_->PrintConfig(stream);
     output = stream.str();
+    std::cout << output << "\n";
     s = output.c_str();
-    pybuf = new PyIdlakBuffer;
-    pybuf->len_ = strlen(s);
-    pybuf->data_ = new char[pybuf->len_ + 1];
-    strcpy(pybuf->data_, s);
+    pybuf = PyIdlakBuffer_newfromstr(s);
   }
   return pybuf;
 }
@@ -146,7 +119,7 @@ void PyPugiXMLDocument_LoadString(PyPugiXMLDocument * pypugidoc, const char * da
 }
 
 PyIdlakBuffer * PyPugiXMLDocument_SavePretty(PyPugiXMLDocument * pypugidoc) {
-  PyIdlakBuffer * pybuf;
+  PyIdlakBuffer * pybuf = nullptr;
   std::ostringstream stream;
   std::string output;
   const char * s;
@@ -154,10 +127,7 @@ PyIdlakBuffer * PyPugiXMLDocument_SavePretty(PyPugiXMLDocument * pypugidoc) {
     pypugidoc->doc_->save(stream, "\t");
     output = stream.str();
     s = output.c_str();
-    pybuf = new PyIdlakBuffer;
-    pybuf->len_ = strlen(s);
-    pybuf->data_ = new char[pybuf->len_ + 1];
-    strcpy(pybuf->data_, s);
+    pybuf = PyIdlakBuffer_newfromstr(s);
   }
   return pybuf;
 }

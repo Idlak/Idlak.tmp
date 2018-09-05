@@ -17,6 +17,7 @@
 # Excitation functions
 
 from . import pyIdlak_vocoder
+from .. import pylib
 
 def SPTK_excitation(f0s, srate = 48000, fshift = 0.005, iperiod = 1, gauss = False, seed = 1):
     """ Generates Excitation Using F0s and SPTK
@@ -38,7 +39,7 @@ def SPTK_excitation(f0s, srate = 48000, fshift = 0.005, iperiod = 1, gauss = Fal
     return excitation
 
 
-def mixed_excitation(f0s, bndaps, srate = 48000, fshift = 0.005):
+def mixed_excitation(f0s, bndaps, srate = 48000, fshift = 0.005, seed = 1):
     """ Generates mixed excitation
 
         Generates the excitation by mising a pulse train with
@@ -46,6 +47,39 @@ def mixed_excitation(f0s, bndaps, srate = 48000, fshift = 0.005):
 
         see. compute-aperiodic-feats.cc for details on the theory
     """
+    bands = get_band_info(len(bndaps[0]), srate, fshift)
+
+
     excitation = []
     return excitation
-    
+
+
+
+def get_band_info(numbands, srate, fshift, **kwargs):
+    """ Figure out where the Bands need to be
+
+        Returns a list of tuples in Hz of (start, center, end)
+    """
+    opts = pylib.PyOptions(pylib.AperiodicEnergyOptions)
+    kwargs['sample-frequency'] = float(srate)
+    kwargs['frame-shift'] = float(fshift)
+    kwargs['num-mel-bins'] = float(numbands)
+
+    for k, v in kwargs.items():
+        kw = k.replace('_', '-')
+        if kw in opts.options:
+            opts.set(kw, v)
+        else:
+            raise TypeError("get_band_info() got an unexpected keyword argument '{0}'".format(k))
+
+    band_starts  = pyIdlak_vocoder.PyVocoder_get_aperiodic_band_starts(opts.kaldiopts)
+    band_centers = pyIdlak_vocoder.PyVocoder_get_aperiodic_band_centers(opts.kaldiopts)
+    band_ends    = pyIdlak_vocoder.PyVocoder_get_aperiodic_band_ends(opts.kaldiopts)
+    return list(zip(band_starts, band_centers, band_ends))
+
+
+
+
+
+
+

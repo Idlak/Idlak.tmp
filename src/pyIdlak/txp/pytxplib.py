@@ -20,14 +20,15 @@ import sys
 import copy
 import argparse
 
+from ..pylib import c_api as pyIdlak_pylib
 from . import pyIdlak_txp
 
 
 # helper functions PyTxpParseOptions
 def PyTxpParseOptions_GetOpt(pypo, opt_name):
     configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
-    configstr = pyIdlak_txp.PyIdlakBuffer_get(configbuf)
-    pyIdlak_txp.PyIdlakBuffer_delete(configbuf)
+    configstr = pyIdlak_pylib.PyIdlakBuffer_get(configbuf)
+    pyIdlak_pylib.PyIdlakBuffer_delete(configbuf)
     lines = configstr.split('\n')
     for l in lines:
         pat = re.match("\s*([a-z_\-]+) = '([a-z_\-]+)'\s*", l)
@@ -38,8 +39,8 @@ def PyTxpParseOptions_GetOpt(pypo, opt_name):
 
 def PyTxpParseOptions_GetConfig(pypo):
     configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
-    configstr = pyIdlak_txp.PyIdlakBuffer_get(configbuf)
-    pyIdlak_txp.PyIdlakBuffer_delete(configbuf)
+    configstr = pyIdlak_pylib.PyIdlakBuffer_get(configbuf)
+    pyIdlak_pylib.PyIdlakBuffer_delete(configbuf)
     lines = configstr.split('\n')
     config = {}
     for l in lines:

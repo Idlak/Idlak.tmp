@@ -7,7 +7,7 @@ OBJFILES = python-txp-api.o pyIdlak_txp_wrap.o
 
 LIBNAME = _pyIdlak_txp
 
-ADDLIBS = ../../idlaktxp/idlak-txp.a ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a
+ADDLIBS = ../pylib/_pyIdlak_pylib.a ../../idlaktxp/idlak-txp.a ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a
 
 EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(PCREROOT)/include -I$(EXPATROOT)/include -I$(PUJIXMLROOT)/src -I../..
 EXTRA_LDLIBS = -Wl,-rpath,"$(PCREROOT)/lib" $(PCREROOT)/lib/libpcre.so $(EXPATROOT)/lib/libexpat.so

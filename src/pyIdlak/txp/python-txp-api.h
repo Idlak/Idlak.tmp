@@ -1,4 +1,4 @@
-// pyIdlak/python-txp-api.h
+// pyIdlak/txp/python-txp-api.h
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
@@ -20,10 +20,11 @@
 #ifndef KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
 #define KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
 
+#include "pyIdlak/pylib/pyIdlak_types.h"
+
 // TxpParseOptions wrappers
 typedef struct PyTxpParseOptions PyTxpParseOptions;
 typedef struct PyPugiXMLDocument PyPugiXMLDocument;
-typedef struct PyIdlakBuffer PyIdlakBuffer;
 typedef struct PyIdlakModule PyIdlakModule;
 
 // Remember to update the list of names in the .cc
@@ -36,10 +37,6 @@ enum IDLAKMOD {Empty = 0,
                Syllabify = 6,
                ContextExtraction = 7,
                NumMods = 7};
-
-PyIdlakBuffer * PyIdlakBuffer_newfromstr(const char * data);
-void PyIdlakBuffer_delete(PyIdlakBuffer * pybuf);
-const char * PyIdlakBuffer_get(PyIdlakBuffer * pybuf);
 
 PyTxpParseOptions * PyTxpParseOptions_new(const char *usage);
 void PyTxpParseOptions_delete(PyTxpParseOptions * pypo);

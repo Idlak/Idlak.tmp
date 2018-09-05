@@ -67,6 +67,7 @@ class Vocoder():
 class MCEPExcitation(enum.Enum):
     AUTO = 0
     SPTK = 1
+    MIXED = 2
 
 
 class MCEPVocoder(Vocoder):
@@ -138,12 +139,16 @@ class MCEPVocoder(Vocoder):
                 exc_type = MCEPExcitation.SPTK
             else:
                 # If it can't find anything else use SPTK
-                exc_type = MCEPExcitation.SPTK
+                exc_type = MCEPExcitation.MIXED
 
         if exc_type == MCEPExcitation.SPTK:
             exc = excitation.SPTK_excitation(f0s, self.srate, self.fshift,
                                              self.iperiod, self.gauss,
                                              self.seed)
+        elif exc_type == MCEPExcitation.MIXED:
+            exc = excitation.mixed_excitation(f0s, bndaps,
+                                              self.srate, self.fshift,
+                                              self.seed)
 
         return exc
 
