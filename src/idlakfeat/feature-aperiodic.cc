@@ -48,6 +48,7 @@ AperiodicEnergy::AperiodicEnergy(const AperiodicEnergyOptions &opts)
   if (opts_.use_hts_bands)
     opts_.banks_opts.scale_type = "bark";
   freq_banks_ = new FrequencyBanks(opts_.banks_opts, freq_frame_opts, 1.0);
+  FindBandLocations(); // Set the internal vectors for faster access
 }
 
 AperiodicEnergy::~AperiodicEnergy() {
@@ -67,6 +68,94 @@ AperiodicEnergy::~AperiodicEnergy() {
 
 #define bark(x) (1960.0 / (26.81 / ((x) + 0.53) - 1))
 
+void AperiodicEnergy::FindBandLocations() {
+
+    int32 number_bands = opts_.banks_opts.num_bins;
+    BaseFloat sample_frequency = opts_.frame_opts.samp_freq;
+
+    band_starts_.Resize(number_bands);
+    band_centers_.Resize(number_bands);
+    band_ends_.Resize(number_bands);
+    
+    if (!opts_.use_hts_bands) {
+        // The start and end of the bands depend on the scaling
+        band_centers_.CopyFromVec(freq_banks_->GetCenterFreqs());
+        
+        BaseFloat freq_delta;
+        // The center frequencies are equally spaced in the mel / bark domain
+        freq_delta = freq_banks_->Scale(band_centers_(1), opts_.banks_opts.scale_type) -
+                     freq_banks_->Scale(band_centers_(0), opts_.banks_opts.scale_type);
+        for (int32 band = 0; band < number_bands; band++) {
+            // simulating rectangular window
+            BaseFloat start_frequency, end_frequency;
+            start_frequency = freq_banks_->InverseScale(
+                freq_banks_->Scale(band_centers_(band), opts_.banks_opts.scale_type) -
+                0.5 * freq_delta, opts_.banks_opts.scale_type);
+            end_frequency = freq_banks_->InverseScale(
+                freq_banks_->Scale(band_centers_(band), opts_.banks_opts.scale_type) +
+                0.5 * freq_delta, opts_.banks_opts.scale_type);
+            band_starts_(band) = start_frequency;
+            band_ends_(band) = end_frequency;
+        }
+    } else {
+        // Compatability for HTS
+        int32 fftlen = padded_window_size_;
+        int32 band_start, band_end = 0;
+        BaseFloat start_frequency, end_frequency;
+        for (int32 band = 0; band < number_bands; band++) {
+            band_start = band_end;
+            if (number_bands == 5) {
+                // Legacy hard-coded 5 bands from straight
+                switch (band) {
+                    case 0:
+                        band_end = fftlen / 16;
+                        break;
+                    case 1:
+                        band_end = fftlen / 8;
+                        break;
+                    case 2:
+                        band_end = fftlen / 4;
+                        break;
+                    case 3:
+                        band_end = fftlen * 3 / 8;
+                        break;
+                    case 4:
+                        band_end = fftlen / 2 + 1;
+                        break;
+                }
+                start_frequency = band_start * sample_frequency / fftlen;
+                end_frequency = band_end * sample_frequency / fftlen;
+            } else {
+                // Use buggy hardcoded Bark-inspired bands from J. Yamagishi
+                // in Emime.  Note that we use bands that are less buggy,
+                // i.e. their size is strictly increasing.
+                // Compared to J. Yamagishi's implementation we fixed other bugs:
+                // - if bands higher than Nyqist are requested, their energy is set to 0
+                // - last band end always set to Nyqist frequency
+
+                // Frequency in Hertz...
+                start_frequency = bark(band);
+                end_frequency = bark(band+1);
+                if (band == 0)
+                    start_frequency = 0.0;
+
+                // Above nyqist frequency or last band?
+                if (end_frequency >= sample_frequency / 2 ||  // over Nyqist
+                    band >= 25 ||  // highest possible Bark band
+                    band == number_bands - 1) {  // last requested band
+                    end_frequency = sample_frequency / 2;
+                }
+            }
+
+            band_starts_(band) = start_frequency;
+            band_centers_(band) = (start_frequency + end_frequency) / 2.0;
+            band_ends_(band) = end_frequency;
+        }
+
+    }
+}
+
+
 /// Average the energy of a power spectrum accross a set of predefined bands,
 /// the bands are designed to be somewhat compatible with what is commonly
 /// used in the HTS community, e.g. in the "Emime" EU project.
@@ -83,53 +172,8 @@ void AperiodicEnergy::ComputeHtsBands(
 
   int32 fftlen = 2 * (power_spectrum.Dim() - 1), band_start, band_end = 0;
   for (int32 band = 0; band < number_bands; band++) {
-    // Legacy hard-coded 5 bands from straight
-    if (number_bands == 5) {
-      // Copy previous value
-      band_start = band_end;
-      switch (band) {
-      case 0:
-        band_end = fftlen / 16;
-        break;
-      case 1:
-        band_end = fftlen / 8;
-        break;
-      case 2:
-        band_end = fftlen / 4;
-        break;
-      case 3:
-        band_end = fftlen * 3 / 8;
-        break;
-      case 4:
-        band_end = fftlen / 2 + 1;
-        break;
-      }
-    } else {
-      // Use buggy hardcoded Bark-inspired bands from J. Yamagishi
-      // in Emime.  Note that we use bands that are less buggy,
-      // i.e. their size is strictly increasing.
-      // Compared to J. Yamagishi's implementation we fixed other bugs:
-      // - if bands higher than Nyqist are requested, their energy is set to 0
-      // - last band end always set to Nyqist frequency
-      BaseFloat start_frequency, end_frequency;
-      // Frequency in Hertz...
-      start_frequency = bark(band);
-      end_frequency = bark(band+1);
-      if (band == 0) start_frequency = 0.0;
-      // ... converted to an index in power_spectrum
-      band_start = static_cast<int32>(round(start_frequency *
-                                            fftlen / sample_frequency));
-      // Above nyqist frequency or last band?
-      if (end_frequency >= sample_frequency / 2 ||  // over Nyqist
-          band >= 25 ||  // highest possible Bark band
-          band == number_bands - 1) {  // last requested band
-        end_frequency = sample_frequency / 2;
-        band_end = fftlen / 2 + 1;
-      } else {
-        band_end = static_cast<int32>(round(end_frequency *
-                                            fftlen / sample_frequency));
-      }
-    }
+    band_start = round(band_starts_(band) * fftlen / sample_frequency);
+    band_end  = round(band_ends_(band) * fftlen / sample_frequency);
     // Empty band; that should never happen, but just in case...
     if (band_end <= band_start) continue;
     float sum = 0.0;
@@ -185,26 +229,12 @@ void AperiodicEnergy::Compute(const VectorBase<BaseFloat> &wave,
   Vector<BaseFloat> binned_energies(dim_out);
   Vector<BaseFloat> noise_binned_energies(dim_out);
   // Print out band frequency information
-  if (!opts_.use_hts_bands || dim_out != 5) {
-    Vector<BaseFloat> frqs = freq_banks_->GetCenterFreqs();
-    BaseFloat freq_delta;
-    // The center frequencies are equally spaced in the mel / bark domain
-    freq_delta = freq_banks_->Scale(frqs(1), opts_.banks_opts.scale_type) -
-        freq_banks_->Scale(frqs(0), opts_.banks_opts.scale_type);
 
-    for (int i = 0; i < frqs.Dim(); i++) {
-      BaseFloat low_freq, high_freq;
-      // simulating rectangular window
-      low_freq = freq_banks_->InverseScale(
-          freq_banks_->Scale(frqs(i), opts_.banks_opts.scale_type) -
-          0.5 * freq_delta, opts_.banks_opts.scale_type);
-      high_freq = freq_banks_->InverseScale(
-          freq_banks_->Scale(frqs(i), opts_.banks_opts.scale_type) +
-          0.5 * freq_delta, opts_.banks_opts.scale_type);
-      KALDI_LOG << "Band " << i <<
-         ": [ " << low_freq << " ; " << frqs(i) << " ; " << high_freq << " ]";
-    }
+  for (int i = 0; i < dim_out; i++) {
+    KALDI_LOG << "Band " << i << ": [ "
+               << band_starts_(i) << " ; " << band_centers_(i) << " ; " << band_ends_(i) << " ]";
   }
+
 
   for (int32 r = 0; r < frames_out; r++) {  // r is frame index
     SubVector<BaseFloat> this_ap_energy(output->Row(r));
@@ -252,7 +282,7 @@ void AperiodicEnergy::Compute(const VectorBase<BaseFloat> &wave,
                                         padded_window_size_/2 + 1);
 
     // Compute energy bands of noise power spectrum.
-    if (opts_.use_hts_bands && dim_out == 5)
+    if (opts_.use_hts_bands || dim_out == 5)
       ComputeHtsBands(noise_spectrum, &noise_binned_energies);
     else
       freq_banks_->Compute(noise_spectrum, &noise_binned_energies);
