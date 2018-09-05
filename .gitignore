@@ -103,6 +103,8 @@ GSYMS
 !/src/pyIdlak/*
 !/src/pyIdlak/*/*
 !/src/pyIdlak/*/*/*
+/src/pyIdlak/pylib/pyIdlak_pylib_wrap.cc
+/src/pyIdlak/pylib/pyIdlak_pylib.py
 /src/pyIdlak/txp/pyIdlak_txp_wrap.cc
 /src/pyIdlak/txp/pyIdlak_txp.py
 /src/pyIdlak/vocoder/pyIdlak_vocoder_wrap.cc
