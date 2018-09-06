@@ -41,10 +41,17 @@ enum IDLAKMOD {Empty = 0,
 PyTxpParseOptions * PyTxpParseOptions_new(const char *usage);
 void PyTxpParseOptions_delete(PyTxpParseOptions * pypo);
 
+
+std::vector<std::string> PyTxpParseOptions_keys(PyTxpParseOptions * pypo);
+std::string PyTxpParseOptions_value(PyTxpParseOptions * pypo, const std::string &key);
+std::string PyTxpParseOptions_value(PyTxpParseOptions * pypo, const std::string &module, const std::string &key);
+std::string PyTxpParseOptions_docstring(PyTxpParseOptions * pypo, const std::string &key);
+std::string PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n);
+
 void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_line = false);
 int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char * argv[]);
 int PyTxpParseOptions_NumArgs(PyTxpParseOptions * pypo);
-const char * PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n);
+
 PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo);
 
 PyPugiXMLDocument * PyPugiXMLDocument_new();

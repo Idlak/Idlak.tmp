@@ -63,17 +63,63 @@ void PyTxpParseOptions_delete(PyTxpParseOptions * pypo) {
   }
 }
 
+std::vector<std::string> PyTxpParseOptions_keys(PyTxpParseOptions * pypo) {
+  if (pypo) {
+    return pypo->po_->Keys();
+  }
+  else {
+    std::vector<std::string> empty;
+    return empty;
+  }
+}
+
+std::string PyTxpParseOptions_value(PyTxpParseOptions * pypo, const std::string &key) {
+  if (pypo) {
+    auto ret = pypo->po_->GetValue(key.c_str());
+    if (ret)
+      return std::string(ret);
+    else
+      return std::string("");
+  }
+  else {
+    return std::string("");
+  }
+}
+
+std::string PyTxpParseOptions_value(PyTxpParseOptions * pypo, const std::string &module, const std::string &key) {
+  if (pypo) {
+    auto ret = pypo->po_->GetValue(module.c_str(), key.c_str());
+    if (ret)
+      return std::string(ret);
+    else
+      return std::string("");
+  }
+  else {
+    return std::string("");
+  }
+}
+
+std::string PyTxpParseOptions_docstring(PyTxpParseOptions * pypo, const std::string &key) {
+  if (pypo) {
+    return pypo->po_->DocString(key);
+  }
+  else {
+    return std::string("");
+  }
+}
+
+
 void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_line) {
   if (pypo) {
     pypo->po_->PrintUsage(print_command_line);
   }
 }
 
-const char * PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n) {
+std::string PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n) {
   if (pypo) {
-    return pypo->po_->GetArg(n).c_str();
+    return std::string(pypo->po_->GetArg(n));
   }
-  return NULL;
+  return std::string("");
 }
 
 int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char *argv[]) {
@@ -92,7 +138,6 @@ PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo) {
   if (pypo) {
     pypo->po_->PrintConfig(stream);
     output = stream.str();
-    std::cout << output << "\n";
     s = output.c_str();
     pybuf = PyIdlakBuffer_newfromstr(s);
   }
