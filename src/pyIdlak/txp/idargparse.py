@@ -34,15 +34,10 @@ class TxpArgumentParser(argparse.ArgumentParser):
 
         iopts = pyIdlak_txp.PyTxpParseOptions_new("")
         default_config = pytxplib.PyTxpParseOptions_GetConfig(iopts)
-        pyIdlak_txp.PyTxpParseOptions_delete(iopts)
-        epilog = "Idlak TXP arguments:\n"
-        for k, v in default_config.items():
-            epilog += '  --{0:30}  default: "{1}"\n'.format(k, v)
 
         super(TxpArgumentParser, self).__init__(
             usage = usage,
-            epilog = epilog,
-            formatter_class=argparse.RawDescriptionHelpFormatter,)
+            formatter_class=argparse.RawTextHelpFormatter)
 
         # getting a list of idlak options and saving them into
         # the parser so they cannot be duplicated by accident
@@ -50,14 +45,38 @@ class TxpArgumentParser(argparse.ArgumentParser):
         # and manually created in the epilog
         self._idlakargs = {}
         self._default_config = {}
-        idlak_arg_group = self.add_argument_group()
+        idlak_arg_group = self.add_argument_group("Idlak TXP Options")
         for k, v in default_config.items():
+            if k in ['help']:
+              continue
             argname = '--' + k
             dest = k.replace('-','_')
             self._idlakargs[dest] = argname
             self._default_config[dest] = v
-            idlak_arg_group.add_argument(argname, default = v, dest = dest,
-                                         help=argparse.SUPPRESS)
+            helpstr = pyIdlak_txp.PyTxpParseOptions_docstring(iopts, k)
+            helpstr = re.sub("\s*Idlak Text Processing Option\s*", '', helpstr) # redundant in this case
+            match = re.search(r"\(\s*(?P<argtype>[^(]*)\s*,[^(]*\)$", helpstr)
+            argtype = str
+            action = 'store'
+            if match:
+              atype = match.group('argtype')
+              if atype == 'int':
+                  argtype = int
+                  try:
+                      v = int(v)
+                  except ValueError:
+                      v = 0
+              elif atype == 'bool':
+                  argtype = bool
+            # specific arguments
+            if k == 'config':
+                idlak_arg_group.add_argument('--config', action = 'append', help = helpstr)
+            else:
+                idlak_arg_group.add_argument(argname, default = v, dest = dest,
+                                             action = action,
+                                             type = argtype,
+                                             help = helpstr)
+        pyIdlak_txp.PyTxpParseOptions_delete(iopts)
 
 
     def __del__(self):
@@ -75,16 +94,19 @@ class TxpArgumentParser(argparse.ArgumentParser):
         self._pythonargs, idlakargv = super(TxpArgumentParser, self).parse_known_args(args)
         idlak_args = [sys.argv[0]]
         for dest, argname in self._idlakargs.items():
-            if vars(self._pythonargs)[dest] != self._default_config[dest]:
+            if argname == '--config': # config is a special case
+                if not self._pythonargs.config is None:
+                    for c in self._pythonargs.config:
+                        idlak_args.append('--config={0}'.format(c))
+            elif vars(self._pythonargs)[dest] != self._default_config[dest]:
                 idlak_args.append('{0}={1}'.format(argname, vars(self._pythonargs)[dest]))
         idlak_args += idlakargv
+        idlak_args = [str(i).strip() for i in idlak_args]
         if not self._idlakopts is None:
             pyIdlak_txp.PyTxpParseOptions_delete(self._idlakopts)
         self._idlakopts = pyIdlak_txp.PyTxpParseOptions_new("")
         pyIdlak_txp.PyTxpParseOptions_Read(self._idlakopts, idlak_args)
-
         return self._pythonargs, self._idlakopts
-
 
 
     def get(self, opt_name, default = None):
