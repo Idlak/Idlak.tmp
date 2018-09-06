@@ -27,91 +27,91 @@
 
 
 PySimpleOptions * PySimpleOptions_new(enum IDLAK_OPT_TYPES opttype) {
-    PySimpleOptions * pyopts = new PySimpleOptions;
-    pyopts->po_ = new kaldi::SimpleOptions;
-    pyopts->opttype_ = opttype;
-    
-    switch (opttype) {
-        case AperiodicEnergyOptions: {
-            auto aprdopts = new kaldi::AperiodicEnergyOptions;
-            aprdopts->Register(pyopts->po_);
-            pyopts->opts_ = static_cast<void*>(aprdopts);
-            break;
-        }
-        case NONE:
-            break;
-    };
+  PySimpleOptions * pyopts = new PySimpleOptions;
+  pyopts->po_ = new kaldi::SimpleOptions;
+  pyopts->opttype_ = opttype;
+  
+  switch (opttype) {
+    case AperiodicEnergyOptions: {
+        auto aprdopts = new kaldi::AperiodicEnergyOptions;
+        aprdopts->Register(pyopts->po_);
+        pyopts->opts_ = static_cast<void*>(aprdopts);
+        break;
+    }
+    case NONE:
+        break;
+  };
 
-    return pyopts;
+  return pyopts;
 }
 
 
 std::vector<std::string> PySimpleOptions_option_names(PySimpleOptions * pyopts) {
-    std::vector<std::string> ret;
-    for (auto const& x : pyopts->po_->GetOptionInfoList())
-        ret.push_back(x.first);
-    return ret;
+  std::vector<std::string> ret;
+  for (auto const& x : pyopts->po_->GetOptionInfoList())
+    ret.push_back(x.first);
+  return ret;
 }
 
 
 // Return Python types
 const char * PySimpleOptions_option_pytype(PySimpleOptions * pyopts, const char * key) {
-    enum kaldi::SimpleOptions::OptionType otype;
-    std::string keystr(key);
-    if (!pyopts->po_->GetOptionType(keystr, &otype))
-        return nullptr;
+  enum kaldi::SimpleOptions::OptionType otype;
+  std::string keystr(key);
+  if (!pyopts->po_->GetOptionType(keystr, &otype))
+    return nullptr;
 
-    switch (otype) {
-        case kaldi::SimpleOptions::kBool:
-            return "bool";
+  switch (otype) {
+    case kaldi::SimpleOptions::kBool:
+      return "bool";
 
-        case kaldi::SimpleOptions::kInt32:
-        case kaldi::SimpleOptions::kUint32:
-            return "int";
+    case kaldi::SimpleOptions::kInt32:
+    case kaldi::SimpleOptions::kUint32:
+      return "int";
 
-        case kaldi::SimpleOptions::kFloat:
-        case kaldi::SimpleOptions::kDouble:
-            return "float";
+    case kaldi::SimpleOptions::kFloat:
+    case kaldi::SimpleOptions::kDouble:
+      return "float";
 
-        case kaldi::SimpleOptions::kString:
-            return "str";
-    }
-    return "unknown";
+    case kaldi::SimpleOptions::kString:
+      return "str";
+  }
+  return "unknown";
 }
 
 
 bool PySimpleOptions_get_numeric(PySimpleOptions * pyopts, const std::string &key, double *OUTPUT) {
 
-    if(pyopts->po_->GetOption(key, OUTPUT)) {
-        return true;
-    }
+  if(pyopts->po_->GetOption(key, OUTPUT)) {
+    return true;
+  }
 
-    float tfloat;
-    if(pyopts->po_->GetOption(key, &tfloat)) {
-        *OUTPUT = tfloat;
-        return true;
-    }
+  float tfloat;
+  if(pyopts->po_->GetOption(key, &tfloat)) {
+    *OUTPUT = tfloat;
+    return true;
+  }
 
-    int32 tint32;
-    if(pyopts->po_->GetOption(key, &tint32)) {
-        *OUTPUT = tint32;
-        return true;
-    }
+  int32 tint32;
+  if(pyopts->po_->GetOption(key, &tint32)) {
+    *OUTPUT = tint32;
+    return true;
+  }
 
-    uint32 tuint32;
-    if(pyopts->po_->GetOption(key, &tuint32)) {
-        *OUTPUT = tuint32;
-        return true;
-    }
+  uint32 tuint32;
+  if(pyopts->po_->GetOption(key, &tuint32)) {
+    *OUTPUT = tuint32;
+    return true;
+  }
 
-    bool tbool;
-    if(pyopts->po_->GetOption(key, &tbool)) {
-        *OUTPUT = tbool;
-        return true;
-    }
+  bool tbool;
+  if(pyopts->po_->GetOption(key, &tbool)) {
+    *OUTPUT = tbool;
+    return true;
+  }
 
-    *OUTPUT = 0.0;
-    return false;
+  *OUTPUT = 0.0;
+  return false;
 }
 
 

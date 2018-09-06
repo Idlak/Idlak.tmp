@@ -26,8 +26,8 @@
 
 // Add to this as needed
 enum IDLAK_OPT_TYPES {
-    NONE = 0,
-    AperiodicEnergyOptions = 1
+  NONE = 0,
+  AperiodicEnergyOptions = 1
 };
 
 

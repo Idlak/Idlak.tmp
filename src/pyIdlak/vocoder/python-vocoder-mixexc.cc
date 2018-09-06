@@ -28,39 +28,39 @@
 
 
 std::vector<double> PyVocoder_get_aperiodic_band_starts(PySimpleOptions * pyopts) {
-    std::vector<double> band_starts;
-    kaldi::AperiodicEnergyOptions *opts = static_cast<kaldi::AperiodicEnergyOptions*>(pyopts->opts_);
-    kaldi::AperiodicEnergy ap_energy(*opts);
+  std::vector<double> band_starts;
+  kaldi::AperiodicEnergyOptions *opts = static_cast<kaldi::AperiodicEnergyOptions*>(pyopts->opts_);
+  kaldi::AperiodicEnergy ap_energy(*opts);
 
-    int nobands = ap_energy.Dim();
-    for (int i = 0; i < nobands; i++)
-        band_starts.push_back(static_cast<double>(ap_energy.GetBandStarts()(i)));
+  int nobands = ap_energy.Dim();
+  for (int i = 0; i < nobands; i++)
+    band_starts.push_back(static_cast<double>(ap_energy.GetBandStarts()(i)));
 
-    return band_starts;
+  return band_starts;
 }
 
 
 std::vector<double> PyVocoder_get_aperiodic_band_centers(PySimpleOptions * pyopts) {
-    std::vector<double> band_centers;
-    kaldi::AperiodicEnergyOptions *opts = static_cast<kaldi::AperiodicEnergyOptions*>(pyopts->opts_);
-    kaldi::AperiodicEnergy ap_energy(*opts);
+  std::vector<double> band_centers;
+  kaldi::AperiodicEnergyOptions *opts = static_cast<kaldi::AperiodicEnergyOptions*>(pyopts->opts_);
+  kaldi::AperiodicEnergy ap_energy(*opts);
 
-    int nobands = ap_energy.Dim();
-    for (int i = 0; i < nobands; i++)
-        band_centers.push_back(static_cast<double>(ap_energy.GetBandCenters()(i)));
+  int nobands = ap_energy.Dim();
+  for (int i = 0; i < nobands; i++)
+    band_centers.push_back(static_cast<double>(ap_energy.GetBandCenters()(i)));
 
-    return band_centers;
+  return band_centers;
 }
 
 
 std::vector<double> PyVocoder_get_aperiodic_band_ends(PySimpleOptions * pyopts) {
-    std::vector<double> band_ends;
-    kaldi::AperiodicEnergyOptions *opts = static_cast<kaldi::AperiodicEnergyOptions*>(pyopts->opts_);
-    kaldi::AperiodicEnergy ap_energy(*opts);
+  std::vector<double> band_ends;
+  kaldi::AperiodicEnergyOptions *opts = static_cast<kaldi::AperiodicEnergyOptions*>(pyopts->opts_);
+  kaldi::AperiodicEnergy ap_energy(*opts);
 
-    int nobands = ap_energy.Dim();
-    for (int i = 0; i < nobands; i++)
-        band_ends.push_back(static_cast<double>(ap_energy.GetBandEnds()(i)));
+  int nobands = ap_energy.Dim();
+  for (int i = 0; i < nobands; i++)
+    band_ends.push_back(static_cast<double>(ap_energy.GetBandEnds()(i)));
 
-    return band_ends;
+  return band_ends;
 }

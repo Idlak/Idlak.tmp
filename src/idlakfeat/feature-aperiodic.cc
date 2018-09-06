@@ -70,89 +70,88 @@ AperiodicEnergy::~AperiodicEnergy() {
 
 void AperiodicEnergy::FindBandLocations() {
 
-    int32 number_bands = opts_.banks_opts.num_bins;
-    BaseFloat sample_frequency = opts_.frame_opts.samp_freq;
+  int32 number_bands = opts_.banks_opts.num_bins;
+  BaseFloat sample_frequency = opts_.frame_opts.samp_freq;
 
-    band_starts_.Resize(number_bands);
-    band_centers_.Resize(number_bands);
-    band_ends_.Resize(number_bands);
+  band_starts_.Resize(number_bands);
+  band_centers_.Resize(number_bands);
+  band_ends_.Resize(number_bands);
+  
+  if (!opts_.use_hts_bands) {
+    // The start and end of the bands depend on the scaling
+    band_centers_.CopyFromVec(freq_banks_->GetCenterFreqs());
     
-    if (!opts_.use_hts_bands) {
-        // The start and end of the bands depend on the scaling
-        band_centers_.CopyFromVec(freq_banks_->GetCenterFreqs());
-        
-        BaseFloat freq_delta;
-        // The center frequencies are equally spaced in the mel / bark domain
-        freq_delta = freq_banks_->Scale(band_centers_(1), opts_.banks_opts.scale_type) -
-                     freq_banks_->Scale(band_centers_(0), opts_.banks_opts.scale_type);
-        for (int32 band = 0; band < number_bands; band++) {
-            // simulating rectangular window
-            BaseFloat start_frequency, end_frequency;
-            start_frequency = freq_banks_->InverseScale(
-                freq_banks_->Scale(band_centers_(band), opts_.banks_opts.scale_type) -
-                0.5 * freq_delta, opts_.banks_opts.scale_type);
-            end_frequency = freq_banks_->InverseScale(
-                freq_banks_->Scale(band_centers_(band), opts_.banks_opts.scale_type) +
-                0.5 * freq_delta, opts_.banks_opts.scale_type);
-            band_starts_(band) = start_frequency;
-            band_ends_(band) = end_frequency;
-        }
-    } else {
-        // Compatability for HTS
-        int32 fftlen = padded_window_size_;
-        int32 band_start, band_end = 0;
+    BaseFloat freq_delta;
+    // The center frequencies are equally spaced in the mel / bark domain
+    freq_delta = freq_banks_->Scale(band_centers_(1), opts_.banks_opts.scale_type) -
+                  freq_banks_->Scale(band_centers_(0), opts_.banks_opts.scale_type);
+    for (int32 band = 0; band < number_bands; band++) {
+        // simulating rectangular window
         BaseFloat start_frequency, end_frequency;
-        for (int32 band = 0; band < number_bands; band++) {
-            band_start = band_end;
-            if (number_bands == 5) {
-                // Legacy hard-coded 5 bands from straight
-                switch (band) {
-                    case 0:
-                        band_end = fftlen / 16;
-                        break;
-                    case 1:
-                        band_end = fftlen / 8;
-                        break;
-                    case 2:
-                        band_end = fftlen / 4;
-                        break;
-                    case 3:
-                        band_end = fftlen * 3 / 8;
-                        break;
-                    case 4:
-                        band_end = fftlen / 2 + 1;
-                        break;
-                }
-                start_frequency = band_start * sample_frequency / fftlen;
-                end_frequency = band_end * sample_frequency / fftlen;
-            } else {
-                // Use buggy hardcoded Bark-inspired bands from J. Yamagishi
-                // in Emime.  Note that we use bands that are less buggy,
-                // i.e. their size is strictly increasing.
-                // Compared to J. Yamagishi's implementation we fixed other bugs:
-                // - if bands higher than Nyqist are requested, their energy is set to 0
-                // - last band end always set to Nyqist frequency
-
-                // Frequency in Hertz...
-                start_frequency = bark(band);
-                end_frequency = bark(band+1);
-                if (band == 0)
-                    start_frequency = 0.0;
-
-                // Above nyqist frequency or last band?
-                if (end_frequency >= sample_frequency / 2 ||  // over Nyqist
-                    band >= 25 ||  // highest possible Bark band
-                    band == number_bands - 1) {  // last requested band
-                    end_frequency = sample_frequency / 2;
-                }
-            }
-
-            band_starts_(band) = start_frequency;
-            band_centers_(band) = (start_frequency + end_frequency) / 2.0;
-            band_ends_(band) = end_frequency;
-        }
-
+        start_frequency = freq_banks_->InverseScale(
+            freq_banks_->Scale(band_centers_(band), opts_.banks_opts.scale_type) -
+            0.5 * freq_delta, opts_.banks_opts.scale_type);
+        end_frequency = freq_banks_->InverseScale(
+            freq_banks_->Scale(band_centers_(band), opts_.banks_opts.scale_type) +
+            0.5 * freq_delta, opts_.banks_opts.scale_type);
+        band_starts_(band) = start_frequency;
+        band_ends_(band) = end_frequency;
     }
+  } else {
+    // Compatability for HTS
+    int32 fftlen = padded_window_size_;
+    int32 band_start, band_end = 0;
+    BaseFloat start_frequency, end_frequency;
+    for (int32 band = 0; band < number_bands; band++) {
+      band_start = band_end;
+      if (number_bands == 5) {
+        // Legacy hard-coded 5 bands from straight
+        switch (band) {
+          case 0:
+            band_end = fftlen / 16;
+            break;
+          case 1:
+            band_end = fftlen / 8;
+            break;
+          case 2:
+            band_end = fftlen / 4;
+            break;
+          case 3:
+            band_end = fftlen * 3 / 8;
+            break;
+          case 4:
+            band_end = fftlen / 2 + 1;
+            break;
+        }
+        start_frequency = band_start * sample_frequency / fftlen;
+        end_frequency = band_end * sample_frequency / fftlen;
+      } else {
+        // Use buggy hardcoded Bark-inspired bands from J. Yamagishi
+        // in Emime.  Note that we use bands that are less buggy,
+        // i.e. their size is strictly increasing.
+        // Compared to J. Yamagishi's implementation we fixed other bugs:
+        // - if bands higher than Nyqist are requested, their energy is set to 0
+        // - last band end always set to Nyqist frequency
+
+        // Frequency in Hertz...
+        start_frequency = bark(band);
+        end_frequency = bark(band+1);
+        if (band == 0)
+          start_frequency = 0.0;
+
+        // Above nyqist frequency or last band?
+        if (end_frequency >= sample_frequency / 2 ||  // over Nyqist
+          band >= 25 ||  // highest possible Bark band
+          band == number_bands - 1) {  // last requested band
+          end_frequency = sample_frequency / 2;
+        }
+      }
+
+      band_starts_(band) = start_frequency;
+      band_centers_(band) = (start_frequency + end_frequency) / 2.0;
+      band_ends_(band) = end_frequency;
+    }
+  }
 }
 
 
