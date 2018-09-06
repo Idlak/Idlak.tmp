@@ -19,13 +19,15 @@
 
 %module pyIdlak_vocoder
 
-%include "std_string.i"
+%include <std_string.i>
 %include <std_vector.i>
 %include <argcargv.i>
+%include <std_complex.i>
 
 namespace std {
    %template(IntVector) vector<int>;
    %template(DoubleVector) vector<double>;
+   %template(ComplexDoubleVector) vector<std::complex<double>>;
    %template(StringVector) vector<string>;
    %template(ConstCharVector) vector<const char*>;
 };
