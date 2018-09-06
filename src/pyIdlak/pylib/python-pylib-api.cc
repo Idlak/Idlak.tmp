@@ -33,13 +33,13 @@ PySimpleOptions * PySimpleOptions_new(enum IDLAK_OPT_TYPES opttype) {
   
   switch (opttype) {
     case AperiodicEnergyOptions: {
-        auto aprdopts = new kaldi::AperiodicEnergyOptions;
-        aprdopts->Register(pyopts->po_);
-        pyopts->opts_ = static_cast<void*>(aprdopts);
-        break;
+      auto aprdopts = new kaldi::AperiodicEnergyOptions;
+      aprdopts->Register(pyopts->po_);
+      pyopts->opts_ = static_cast<void*>(aprdopts);
+      break;
     }
     case NONE:
-        break;
+      break;
   };
 
   return pyopts;
