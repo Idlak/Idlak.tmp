@@ -22,6 +22,8 @@
 #include <string>
 #include <vector>
 #include <cstdio>
+#include <complex>
+
 
 extern "C" {
 #include "SPTK.h"
@@ -29,6 +31,46 @@ extern "C" {
 
 #include "python-vocoder-api.h"
 #include "python-vocoder-lib.h"
+#include "matrix/matrix-functions.h"
+
+
+std::vector<std::complex<double>> PyVocoder_FFT(const std::vector<std::complex<double>> &INPUT) {
+  // TODO: Check size and throw
+  kaldi::Vector<double> *v = new kaldi::Vector<double>(INPUT.size() * 2);
+  for (int i = 0; i < INPUT.size(); i++) {
+    (*v)(2*i) = INPUT[i].real();
+    (*v)((2*i) + 1) = INPUT[i].imag();
+  }
+  kaldi::ComplexFft(v, true);
+  std::vector<std::complex<double>> fft;
+  for (int i = 0; i < INPUT.size(); i++) {
+    double rl = (*v)(2*i),
+           im = (*v)((2*i) + 1);
+    fft.push_back(std::complex<double>(rl, im));
+  }
+  delete v;
+  return fft;
+}
+
+
+std::vector<std::complex<double>> PyVocoder_IFFT(const std::vector<std::complex<double>> &INPUT) {
+  // TODO: Check size and throw
+  kaldi::Vector<double> *v = new kaldi::Vector<double>(INPUT.size() * 2);
+  for (int i = 0; i < INPUT.size(); i++) {
+    (*v)(2*i) = INPUT[i].real();
+    (*v)((2*i) + 1) = INPUT[i].imag();
+  }
+  kaldi::ComplexFft(v, false);
+  std::vector<std::complex<double>> ifft;
+  for (int i = 0; i < INPUT.size(); i++) {
+    double rl = (*v)(2*i),
+           im = (*v)((2*i) + 1);
+    ifft.push_back(std::complex<double>(rl, im));
+  }
+  delete v;
+  return ifft;
+}
+
 
 // Adapted from SPTK source code
 std::vector<double> PySPTK_excite(const std::vector<double> &INPUT, int frame_period, int interpolation_period, bool gauss, int seed) {

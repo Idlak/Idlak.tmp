@@ -37,6 +37,11 @@ std::vector<double> PyVocoder_get_aperiodic_band_centers(PySimpleOptions * pyopt
 std::vector<double> PyVocoder_get_aperiodic_band_ends(PySimpleOptions * pyopts);
 
 
+/* Compute the FFT / IFFT */
+std::vector<std::complex<double>> PyVocoder_FFT(const std::vector<std::complex<double>> &INPUT);
+std::vector<std::complex<double>> PyVocoder_IFFT(const std::vector<std::complex<double>> &INPUT);
+
+
 /*
 excite - generate excitation
 
