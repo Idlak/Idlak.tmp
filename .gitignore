@@ -41,6 +41,9 @@ core
 # Kate files
 *.kate-swp
 
+# KDevelop Files
+*.kdev4
+
 # [ecg]tag files
 TAGS
 tags
