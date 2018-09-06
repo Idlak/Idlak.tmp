@@ -24,27 +24,14 @@ from ..pylib import c_api as pyIdlak_pylib
 from . import pyIdlak_txp
 
 
+
 # helper functions PyTxpParseOptions
 def PyTxpParseOptions_GetOpt(pypo, opt_name):
-    configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
-    configstr = pyIdlak_pylib.PyIdlakBuffer_get(configbuf)
-    pyIdlak_pylib.PyIdlakBuffer_delete(configbuf)
-    lines = configstr.split('\n')
-    for l in lines:
-        pat = re.match("\s*([a-z_\-]+) = '([a-z_\-]+)'\s*", l)
-        if pat and pat.group(1) == opt_name:
-            return pat.group(2)
-    return None
-
+    return pyIdlak_txp.PyTxpParseOptions_value(pypo, opt_name)
 
 def PyTxpParseOptions_GetConfig(pypo):
-    configbuf = pyIdlak_txp.PyTxpParseOptions_PrintConfig(pypo)
-    configstr = pyIdlak_pylib.PyIdlakBuffer_get(configbuf)
-    pyIdlak_pylib.PyIdlakBuffer_delete(configbuf)
-    lines = configstr.split('\n')
+    keys = pyIdlak_txp.PyTxpParseOptions_keys(pypo)
     config = {}
-    for l in lines:
-        pat = re.match("\s*([a-z_\-]+) = '([a-z_\-]*)'\s*", l)
-        if pat:
-            config[pat.group(1)] = pat.group(2)
+    for k in keys:
+      config[k] = pyIdlak_txp.PyTxpParseOptions_value(pypo, k)
     return config
