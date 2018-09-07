@@ -133,7 +133,7 @@ if [ $stage -le 0 ]; then
             pycmd+="random.seed(0); "
             pycmd+="files = glob.glob('*.wav'); "
             pycmd+="random.shuffle(files); "
-            pycmd+="print '\n'.join(map(lambda f: os.path.splitext(f)[0], files))"
+            pycmd+="print ('\n'.join(map(lambda f: os.path.splitext(f)[0], files)))"
             python -c "$pycmd" > $flist
         fi
 
@@ -303,40 +303,40 @@ if [ $stage -le 3 ]; then
     ###############################
     ##  3a: monophone alignment  ##
     ###############################
-    echo " #### monophone alignment ####"
-    rm -rf $dict/lexiconp.txt $lang
-    utils/prepare_lang.sh --num-nonsil-states 5 --share-silence-phones true $dict "<OOV>" $datadir/local/lang_tmp $lang
-    #utils/validate_lang.pl $lang
+#     echo " #### monophone alignment ####"
+#     rm -rf $dict/lexiconp.txt $lang
+#     utils/prepare_lang.sh --num-nonsil-states 5 --share-silence-phones true $dict "<OOV>" $datadir/local/lang_tmp $lang
+#     #utils/validate_lang.pl $lang
+#
+#     # Now running the normal kaldi recipe for forced alignment
+#     #test=$datadir/eval_mfcc
 
-    # Now running the normal kaldi recipe for forced alignment
-    #test=$datadir/eval_mfcc
-
-    rm -rf $train/split$nj
-    split_data.sh --per-utt $train $nj
-    [ -d $train/split$nj ] || mv $train/split${nj}utt $train/split$nj
-    steps/train_mono.sh --boost-silence 1.25 --nj $nj --cmd "$train_cmd" \
-        $train $lang $expa/mono || exit 1;
-    steps/align_si.sh --boost-silence 1.25 --nj $nj --cmd "$train_cmd" \
-        $train $lang $expa/mono $expa/mono_ali || exit 1;
-    steps/train_deltas.sh --boost-silence 1.25 --cmd "$train_cmd" \
-        2000 10000 $train $lang $expa/mono_ali $expa/tri1 || exit 1;
-    steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
-        $train $lang $expa/tri1 $expa/tri1_ali || exit 1;
-    steps/train_deltas.sh --cmd "$train_cmd" \
-        5000 50000 $train $lang $expa/tri1_ali $expa/tri2 || exit 1;
-
-    # Create quinphone alignments
-    steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
-        $train $lang $expa/tri2 $expa/tri2_ali_full || exit 1;
-
-    steps/train_deltas.sh --cmd "$train_cmd" \
-        --context-opts "--context-width=5 --central-position=2" \
-        5000 50000 $train $lang $expa/tri2_ali_full $expa/quin || exit 1;
-
-    # Create final alignments
-    #split_data.sh --per-utt $train 9
-    steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
-        $train $lang $expa/quin $expa/quin_ali_full || exit 1;
+#     rm -rf $train/split$nj
+#     split_data.sh --per-utt $train $nj
+#     [ -d $train/split$nj ] || mv $train/split${nj}utt $train/split$nj
+#     steps/train_mono.sh --boost-silence 1.25 --nj $nj --cmd "$train_cmd" \
+#         $train $lang $expa/mono || exit 1;
+#     steps/align_si.sh --boost-silence 1.25 --nj $nj --cmd "$train_cmd" \
+#         $train $lang $expa/mono $expa/mono_ali || exit 1;
+#     steps/train_deltas.sh --boost-silence 1.25 --cmd "$train_cmd" \
+#         2000 10000 $train $lang $expa/mono_ali $expa/tri1 || exit 1;
+#     steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
+#         $train $lang $expa/tri1 $expa/tri1_ali || exit 1;
+#     steps/train_deltas.sh --cmd "$train_cmd" \
+#         5000 50000 $train $lang $expa/tri1_ali $expa/tri2 || exit 1;
+#
+#     # Create quinphone alignments
+#     steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
+#         $train $lang $expa/tri2 $expa/tri2_ali_full || exit 1;
+#
+#     steps/train_deltas.sh --cmd "$train_cmd" \
+#         --context-opts "--context-width=5 --central-position=2" \
+#         5000 50000 $train $lang $expa/tri2_ali_full $expa/quin || exit 1;
+#
+#     # Create final alignments
+#     #split_data.sh --per-utt $train 9
+#     steps/align_si.sh  --nj $nj --cmd "$train_cmd" \
+#         $train $lang $expa/quin $expa/quin_ali_full || exit 1;
 
     ################################
     ## 3b. Align with full labels ##
