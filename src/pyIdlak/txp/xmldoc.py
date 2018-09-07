@@ -17,6 +17,7 @@
 
 import copy
 
+from ..pylib import c_api as pyIdlak_pylib
 from . import pyIdlak_txp
 
 class XMLDoc(object):
@@ -41,8 +42,8 @@ class XMLDoc(object):
     def to_string(self):
         """ Get the XML in string format """
         buf = pyIdlak_txp.PyPugiXMLDocument_SavePretty(self._doc)
-        xmlstr = copy.copy(pyIdlak_txp.PyIdlakBuffer_get(buf))
-        pyIdlak_txp.PyIdlakBuffer_delete(buf)
+        xmlstr = copy.copy(pyIdlak_pylib.PyIdlakBuffer_get(buf))
+        pyIdlak_pylib.PyIdlakBuffer_delete(buf)
         return xmlstr
 
     @property

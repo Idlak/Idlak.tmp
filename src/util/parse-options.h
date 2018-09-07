@@ -227,6 +227,8 @@ class ParseOptions : public OptionsItf {
                     bool *has_equal_sign);
 
   void NormalizeArgName(std::string *str);
+  
+  const DocMapType &DocMap() const { return doc_map_; };
 };
 
 /// This template is provided for convenience in reading config classes from

@@ -53,8 +53,8 @@ class Vocoder():
         wav.setsampwidth(2) # always using signed integer output
         wav.setframerate(self.srate)
         for w in self._waveform:
-            wout = max(min(int(w), 32000), -32000) # ensures in range
-            write_data = struct.pack("<h", int(w))
+            wout = int(max(min(w, 0x7fff), (-0x7fff - 1))) # ensures in range
+            write_data = struct.pack("<h", wout)
             wav.writeframes(write_data)
 
         wav.close()
@@ -67,6 +67,7 @@ class Vocoder():
 class MCEPExcitation(enum.Enum):
     AUTO = 0
     SPTK = 1
+    MIXED = 2
 
 
 class MCEPVocoder(Vocoder):
@@ -86,9 +87,15 @@ class MCEPVocoder(Vocoder):
         # run some experiments
 
         # Excitation
-        self.iperiod = 1
-        self.gauss = False
+        self.gauss = True
         self.seed = 1
+
+        # SPTK excitation only
+        self.iperiod = 1
+
+        # Mixed excitation only
+        self.f0min = 70.
+        self.uv_period = None # automatic
 
         # Stablisation
         self.quiet_stablisation = True
@@ -134,17 +141,19 @@ class MCEPVocoder(Vocoder):
                        exc_type = MCEPExcitation.AUTO):
         """ Generates an excitation signal for use with an MCEP vocoder """
         if exc_type == MCEPExcitation.AUTO:
-            if bndaps is None:
-                exc_type = MCEPExcitation.SPTK
+            if not bndaps is None:
+                exc_type = MCEPExcitation.MIXED
             else:
                 # If it can't find anything else use SPTK
                 exc_type = MCEPExcitation.SPTK
 
         if exc_type == MCEPExcitation.SPTK:
             exc = excitation.SPTK_excitation(f0s, self.srate, self.fshift,
-                                             self.iperiod, self.gauss,
-                                             self.seed)
-
+                    self.iperiod, self.gauss, self.seed)
+        elif exc_type == MCEPExcitation.MIXED:
+            exc = excitation.mixed_excitation(f0s, bndaps,
+                    self.srate, self.fshift,  self.f0min, self.fftlen,
+                    self.uv_period, self.gauss, self.seed)
         return exc
 
 

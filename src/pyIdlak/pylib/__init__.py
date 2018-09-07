@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett,
+# Copyright 2018 Cereproc Ltd. (author: Matthew Aylett
 #                                       David Braude)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,23 +15,11 @@
 # See the Apache 2 License for the specific language governing permissions and
 # limitations under the License.
 
-import re
-import sys
-import copy
-import argparse
+# Note that this is intended to be internal to pyIdlak and not exposed.
 
-from ..pylib import c_api as pyIdlak_pylib
-from . import pyIdlak_txp
+# SWIG wrapped API
+from . import pyIdlak_pylib as c_api
 
+from .pyIdlak_pylib import (NONE, AperiodicEnergyOptions)
 
-
-# helper functions PyTxpParseOptions
-def PyTxpParseOptions_GetOpt(pypo, opt_name):
-    return pyIdlak_txp.PyTxpParseOptions_value(pypo, opt_name)
-
-def PyTxpParseOptions_GetConfig(pypo):
-    keys = pyIdlak_txp.PyTxpParseOptions_keys(pypo)
-    config = {}
-    for k in keys:
-      config[k] = pyIdlak_txp.PyTxpParseOptions_value(pypo, k)
-    return config
+from .pyoptions import PyOptions

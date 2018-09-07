@@ -1,4 +1,4 @@
-// pyIdlak/python-vocoder-api.cc
+// pyIdlak/vocoder/python-vocoder-api.cc
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude)
 

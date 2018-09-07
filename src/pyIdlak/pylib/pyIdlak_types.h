@@ -1,7 +1,7 @@
-// pyIdlak/vocoder/pyIdlak_vocoder.i
+// pyIdlak/pylib/pyIdlak_types.h
 
-// Copyright 2018 CereProc Ltd.  (Authors: David Braude)
-
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude
+//                                         Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,28 +17,17 @@
 // limitations under the License.
 //
 
-%module pyIdlak_vocoder
 
-%include <std_string.i>
-%include <std_vector.i>
-%include <argcargv.i>
-%include <std_complex.i>
+#ifndef KALDI_PYIDLAK_PYLIB_PYIDLAK_TYPES_H_
+#define KALDI_PYIDLAK_PYLIB_PYIDLAK_TYPES_H_
 
-namespace std {
-   %template(IntVector) vector<int>;
-   %template(DoubleVector) vector<double>;
-   %template(ComplexDoubleVector) vector<std::complex<double>>;
-   %template(StringVector) vector<string>;
-   %template(ConstCharVector) vector<const char*>;
-};
+#include <cmath>
+#include <string>
+#include <vector>
+#include <cstdio>
+#include <complex>
 
-%apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
+typedef struct PySimpleOptions PySimpleOptions;
+typedef struct PyIdlakBuffer PyIdlakBuffer;
 
-%{
-#include "python-vocoder-api.h"
-%}
-
-%include "python-vocoder-api.h"
-
-
-
+#endif // KALDI_PYIDLAK_PYLIB_PYIDLAK_TYPES_H_

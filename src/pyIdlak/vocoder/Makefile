@@ -3,13 +3,15 @@ include ../../kaldi.mk
 
 ifeq ($(PYIDLAK), true)
 
-OBJFILES = python-vocoder-lib.o python-vocoder-api.o python-vocoder-mlpg.o pyIdlak_vocoder_wrap.o
+OBJFILES = python-vocoder-lib.o python-vocoder-api.o python-vocoder-mlpg.o  python-vocoder-mixexc.o pyIdlak_vocoder_wrap.o
 
 LIBNAME = _pyIdlak_vocoder
 
-# ADDLIBS = ../../idlaktxp/idlak-txp.a ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a
+ADDLIBS = ../pylib/_pyIdlak_pylib.a  ../../idlakfeat/idlak-feat.a ../../feat/kaldi-feat.a ../../transform/kaldi-transform.a \
+          ../../gmm/kaldi-gmm.a ../../tree/kaldi-tree.a ../../hmm/kaldi-hmm.a \
+          ../../util/kaldi-util.a ../../matrix/kaldi-matrix.a ../../base/kaldi-base.a \
 
-EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(SPTKROOT)/include
+EXTRA_CXXFLAGS = -fPIC -I$(PYTHONDEVINC) -I$(SPTKROOT)/include -I../..
 EXTRA_LDLIBS = $(SPTKROOT)/lib/libSPTK.a
 
 include ../../makefiles/default_rules.mk
