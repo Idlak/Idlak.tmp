@@ -25,6 +25,7 @@
 #include <string>
 #include <vector>
 #include <cstdio>
+#include <complex>
 
 typedef struct PySimpleOptions PySimpleOptions;
 typedef struct PyIdlakBuffer PyIdlakBuffer;
