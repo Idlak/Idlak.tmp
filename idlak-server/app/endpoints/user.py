@@ -1,7 +1,6 @@
 from app import api, jwt
 from app.models.user import User
-from app.middleware.auth import admin_required
-from app.middleware.log import log_request
+from app.middleware.auth import admin_required, not_expired
 from flask_restful import Resource, reqparse, abort, request
 from flask_jwt_simple import jwt_required, get_jwt_identity
 from functools import wraps
@@ -15,7 +14,7 @@ usr_parser.add_argument('admin', type=bool, \
 class Users(Resource):
     """ Class for endpoints responsible for providing information about 
         users and creating a new user """
-    decorators = [admin_required, jwt_required]
+    decorators = [admin_required, not_expired, jwt_required]
     def get(self):
         """ Get info of all users endpoint 
             To access, access token and admin permissions are required
@@ -62,7 +61,7 @@ class Users(Resource):
 
 class Users_Password(Resource):
     """ Class for generating new user password endpoint """
-    decorators = [admin_required, jwt_required]
+    decorators = [admin_required, not_expired, jwt_required]
     def post(self, user_id):
         """ Reset password endpoint 
             To reset, access token and admin permissions are required
@@ -77,7 +76,7 @@ class Users_Password(Resource):
 
 class Users_Delete(Resource):
     """ Class for deleting a user endpoint """
-    decorators = [admin_required, jwt_required]
+    decorators = [admin_required, not_expired, jwt_required]
     def delete(self, user_id):
         """ Delete user endpoint
             To delete, access token and admin permissions are required 
@@ -103,7 +102,7 @@ class Users_Delete(Resource):
     
 class Toggle_Admin(Resource):
     """ Class for toggling user admin status endpoint """
-    decorators = [admin_required, jwt_required]
+    decorators = [admin_required, not_expired, jwt_required]
     def post(self, user_id):
         """ Toggle user admin status endpoint
             To toggle, access token and admin permissions are required 
@@ -126,7 +125,7 @@ class Toggle_Admin(Resource):
         user.toggle_admin()
         
         return { 'uid': user.id, 'admin': user.admin }
-
+    
 
 api.add_resource(Users, '/users')
 api.add_resource(Users_Password, '/users/<user_id>/password')

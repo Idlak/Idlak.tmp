@@ -1,8 +1,10 @@
-from app import api, jwt
+import flask_jwt_simple
+from app import app, api, jwt
 from app.models.user import User
+from app.middleware.auth import not_expired, EXPIRED
 from flask import jsonify
 from flask_restful import Resource, reqparse, abort, request
-from flask_jwt_simple import create_jwt
+from flask_jwt_simple import create_jwt, decode_jwt, jwt_required
 from passlib.hash import pbkdf2_sha256 as sha256
 
 """ login arguments: 
@@ -29,7 +31,35 @@ class Auth(Resource):
             return {'access_token': create_jwt(identity=user.id)}, 200
         return { "message" : "Login details are incorrect" }, 401
 
+class Auth_Expire(Resource):
+    decorators = [not_expired, jwt_required]
+    def post(self):
+        """ Expire token endpoint
+        
+            Args:
+                access_token (str) : access token from header
+            Returns:
+                str: success or error message 
+        """
+        # get access token from header
+        header_name = app.config['JWT_HEADER_NAME']
+        jwt_header = request.headers.get(header_name, None)
+        if len(jwt_header.split()) == 1:
+            access_token = jwt_header
+        elif len(jwt_header.split()) == 2:
+            access_token = jwt_header.split()[1]
+            
+        user_id = decode_jwt(access_token)
+        
+        if user_id is not None:
+            EXPIRED.append(access_token)
+            app.logger.info("Expire token for user " + user_id['sub'])
+            return { "message" : "The token has been manually expired." }, 200
+        else:
+            return { "message" : "The token could not expire." }, 400
+
 api.add_resource(Auth, '/auth')
+api.add_resource(Auth_Expire, '/auth/expire')
 
 @jwt.expired_token_loader
 def expired_token():

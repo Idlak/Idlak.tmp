@@ -6,6 +6,7 @@ import uuid
 import time
 import shutil
 from app import app, api, jwt
+from app.middleware.auth import not_expired
 from flask import send_from_directory
 from flask_restful import Resource, reqparse, abort, request
 from flask_jwt_simple import jwt_required
@@ -48,7 +49,7 @@ def removeOldOutputFiles():
         
 
 class Speech(Resource):
-    decorators = [jwt_required]
+    decorators = [not_expired, jwt_required]
     def post(self):
         """ Speech endpoint
         
@@ -60,6 +61,7 @@ class Speech(Resource):
             Returns: 
                 streamed audio file of the processed speech
         """
+        
         args = spch_parser.parse_args()
         voice = Voice.query.filter_by(id=args['voice_id']).first()
         if voice is None:
