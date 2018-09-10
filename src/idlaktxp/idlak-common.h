@@ -26,6 +26,7 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include "idlaktxp/txppcre.h"
 
 #include "base/kaldi-common.h"
 
@@ -37,10 +38,6 @@ namespace kaldi {
 typedef std::map<std::string, std::string> LookupMap;
 /// Generic string/string pair
 typedef std::pair<std::string, std::string> LookupItem;
-/// Generic string to string map lookup
-typedef std::map<std::string, LookupMap> LookupMapMap;
-/// Generic string/lookupmap pair
-typedef std::pair<std::string, LookupMap> LookupMapItem;
 /// Generic string to vector index
 typedef std::map<std::string, int32> LookupInt;
 /// Generic string/vector index pair
@@ -51,6 +48,8 @@ typedef std::vector<std::string> StringVector;
 typedef std::set<std::string> StringSet;
 /// Generic vector of char*
 typedef std::vector<char* > CharPtrVector;
+/// Vector of rgxs
+typedef  std::vector<const pcre*> RgxVector;
 }  // namespace kaldi
 
 #endif  // KALDI_IDLAKTXP_IDLAK_COMMON_H__

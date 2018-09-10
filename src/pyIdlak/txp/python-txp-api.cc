@@ -1,6 +1,6 @@
 // pyIdlak/python-api.cc
 
-// Copyright 2018 CereProc Ltd.  (Authors: David A. Braude
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,19 @@
 
 #include "idlaktxp/idlaktxp.h"
 
-#include "python-api.h"
+#include "python-txp-api.h"
+
+static const char* const _module_names[] = {
+  "Empty",
+  "Tokenise",
+  "PosTag",
+  "Pauses",
+  "Phrasing",
+  "Pronounce",
+  "Syllabify",
+  "ContextExtraction",
+  nullptr
+};
 
 struct PyTxpParseOptions {
   kaldi::TxpParseOptions * po_;
@@ -69,7 +81,6 @@ PyTxpParseOptions * PyTxpParseOptions_new(const char *usage) {
   return pypo;
 }
 
-
 void PyTxpParseOptions_delete(PyTxpParseOptions * pypo) {
   if (pypo) {
     delete pypo->po_;
@@ -96,6 +107,23 @@ int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char *argv[]) {
 
 int PyTxpParseOptions_NumArgs(PyTxpParseOptions * pypo) {
   return  pypo->po_->NumArgs();
+}
+
+PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo) {
+  PyIdlakBuffer * pybuf;
+  std::ostringstream stream;
+  std::string output;
+  const char * s;
+  if (pypo) {
+    pypo->po_->PrintConfig(stream);
+    output = stream.str();
+    s = output.c_str();
+    pybuf = new PyIdlakBuffer;
+    pybuf->len_ = strlen(s);
+    pybuf->data_ = new char[pybuf->len_ + 1];
+    strcpy(pybuf->data_, s);
+  }
+  return pybuf;
 }
 
 PyPugiXMLDocument * PyPugiXMLDocument_new() {
@@ -251,4 +279,9 @@ void PyIdlakModule_process(PyIdlakModule * pymod, PyPugiXMLDocument * pypugidoc)
       break;
   }
 }
- 
+
+const char * PyIdlakModule_name(enum IDLAKMOD modtype) {
+  if (modtype > NumMods || modtype < Empty)
+    return nullptr;
+  return _module_names[modtype];
+}

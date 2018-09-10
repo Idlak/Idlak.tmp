@@ -1,6 +1,6 @@
-// idlaktxp/txpnrules.h
+// idlaktxp/txptrules.h
 
-// Copyright 2012 CereProc Ltd.  (Author: Matthew Aylett)
+// Copyright 2018 CereProc Ltd.  (Author: Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
 // limitations under the License.
 //
 
-#ifndef KALDI_IDLAKTXP_TXPNRULES_H_
-#define KALDI_IDLAKTXP_TXPNRULES_H_
+#ifndef KALDI_IDLAKTXP_TXPTRULES_H_
+#define KALDI_IDLAKTXP_TXPTRULES_H_
 
 // This file defines the normaliser rules class which holds linguistic
-// data used to convert tokens to normalised tokens
+// data used to convert character streams to tokens
 
 #include <map>
 #include <utility>
@@ -43,12 +43,9 @@ typedef std::map<std::string, LookupMap * > LookupMapMap;
 typedef std::pair<std::string, LookupMap * > LookupMapItem;
 
 
-struct TxpCaseInfo;
+struct TxpTrulesCaseInfo;
 
-/** The nrules object contains regular expressions, lookup tables and
-    normalisation rules (not implemented yet)
-    Required regular expresisons for tokenisation etc. are also available
-    as hard coded defaults
+/** The trules object contains regular expression and lookup tables
     
     Example of a regex which finds items like 39°
 
@@ -70,13 +67,12 @@ struct TxpCaseInfo;
   </lookup>
     \endverbatim
 
-    For rule information see \ref idlaktxp_norm
 */  
-class TxpNRules: public TxpXmlData {
+class TxpTrules: public TxpXmlData {
  public:
   /// Construct without loading voice data
-  explicit TxpNRules();
-  ~TxpNRules();
+  explicit TxpTrules();
+  ~TxpTrules();
   /// Set up hard coded regular expressions and lookups
   void Init(const TxpParseOptions &opts, const std::string &name);
   /// Checks to see what regexs have been found to determine whether to use
@@ -89,21 +85,22 @@ class TxpNRules: public TxpXmlData {
   const pcre* GetRgx(const std::string & name);
   /// Copies a token into token, following whitespace into wspace and returns
   /// nput pointer incremented to next token
-  const char* ConsumeToken(const char* input,
-                            std::string* token,
-                            std::string* wspace);
+  const char* ConsumeWhitespaceToken(const char* input,
+                                     std::string* token,
+                                     std::string* wspace);
   /// Takes a token as input and breaks off a token delimited by punctuation
   /// This is used in tokenise to split tokens into sub tokens based on
   /// punctuation symbols
   const char* ConsumePunc(const char* input,
-                           std::string* prepunc,
-                           std::string* token,
-                           std::string* pstpunc);
+                           std::string* punc);
+  /// Goes through a set of valid tokens and breaks off the first it finds
+  const char* ConsumeToken(const char* input,
+                           std::string* token);
   /// Replace non-ascii punctuation with an ascii equivilent
   void ReplaceUtf8Punc(const std::string & tkin, std::string* tkout);
   /// Replaces characters which are not in the languages lexicon into
   /// equivilents. Downcases upper case and sets case information structure
-  void NormCaseCharacter(std::string* norm, TxpCaseInfo & caseinfo);
+  void NormCaseCharacter(std::string* norm, TxpTrulesCaseInfo & caseinfo);
   /// True if token is only standard lexicon characters (i.e. English a-z)
   bool IsAlpha(const std::string & token);
 
@@ -138,18 +135,12 @@ class TxpNRules: public TxpXmlData {
   // Hard coded lookups overridden by normalisation rules if present
   /// Regex for finding whitespace
   const pcre* rgxwspace_default_;
-  /// Regex for finding individual symbols that separate tokens
-  const pcre* rgxsep_default_;
-  /// Regex for finding punctuation symbols
-  const pcre* rgxpunc_default_;
-  /// Regex for finding lexicon valid character (e.g. English a-z)
-  const pcre* rgxalpha_default_;
-  /// Map of hard coded lookup tables
-  LookupMapMap locallkps_;
   /// Map of lookup tables in tpdb file
   LookupMapMap lkps_;
   /// Map of Regexes in tpdb file
   RgxMap rgxs_;
+  /// List of valid tokens for tokeinisation
+  RgxVector tokrgxs_;
   /// Records type of ellement during expat parse
   std::string elementtype_;
   /// Records element name during expat parse
@@ -157,9 +148,9 @@ class TxpNRules: public TxpXmlData {
 };
 
 /// Stores all the character/case information found for a token
-struct TxpCaseInfo {
+struct TxpTrulesCaseInfo {
  public:
-  TxpCaseInfo()
+  TxpTrulesCaseInfo()
       : uppercase(false), lowercase(false), symbols(false),
         foreign(false), capitalised(false)
   {}
@@ -177,4 +168,4 @@ struct TxpCaseInfo {
 
 }  // namespace kaldi
 
-#endif  // KALDI_IDLAKTXP_TXPNRULES_H_
+#endif  // KALDI_IDLAKTXP_TXPTRULES_H_

@@ -1,6 +1,6 @@
 // pyIdlak/python-api.h
 
-// Copyright 2018 CereProc Ltd.  (Authors: David A. Braude
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,8 @@
 // limitations under the License.
 //
 
-#ifndef KALDI_PYIDLAK_PYTHON_API_H_
-#define KALDI_PYIDLAK_PYTHON_API_H_
+#ifndef KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
+#define KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_
 
 // TxpParseOptions wrappers
 typedef struct PyTxpParseOptions PyTxpParseOptions;
@@ -26,6 +26,7 @@ typedef struct PyPugiXMLDocument PyPugiXMLDocument;
 typedef struct PyIdlakBuffer PyIdlakBuffer;
 typedef struct PyIdlakModule PyIdlakModule;
 
+// Remember to update the list of names in the .cc
 enum IDLAKMOD {Empty = 0,
                Tokenise = 1,
                PosTag = 2,
@@ -47,6 +48,7 @@ void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_l
 int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char * argv[]);
 int PyTxpParseOptions_NumArgs(PyTxpParseOptions * pypo);
 const char * PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n);
+PyIdlakBuffer * PyTxpParseOptions_PrintConfig(PyTxpParseOptions * pypo);
 
 PyPugiXMLDocument * PyPugiXMLDocument_new();
 void PyPugiXMLDocument_delete(PyPugiXMLDocument * pypugidoc);
@@ -57,4 +59,6 @@ PyIdlakModule * PyIdlakModule_new(enum IDLAKMOD modtype, PyTxpParseOptions * pyp
 void PyIdlakModule_delete(PyIdlakModule * pymod);
 void PyIdlakModule_process(PyIdlakModule * pymod, PyPugiXMLDocument * pypugidoc);
 
-#endif // KALDI_PYIDLAK_PYTHON_API_H_
+const char * PyIdlakModule_name(enum IDLAKMOD modtype);
+
+#endif // KALDI_PYIDLAK_TXP_PYTHON_TXP_API_H_

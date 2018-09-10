@@ -42,7 +42,7 @@ enum TXPPOSRGX_POS {TXPPOSRGX_POS_WORD = 0,
                     TXPPOSRGX_POS_SUFFIX = 2};
 
 /// An array of tagger regular expressions
-typedef std::vector<TxpPosRgx> RgxVector;
+typedef std::vector<TxpPosRgx> PosRgxVector;
 
 /// Part of speech tagger
 /// see /ref idlaktxp_pos
@@ -67,7 +67,7 @@ class TxpPos: public TxpXmlData {
   std::string most_common_;
   /// Array of regular expression taggers. Note this doesn't use pcre
   /// because the regexs are only ever whole words, prefixes or suffixes
-  RgxVector rgxtagger_;
+  PosRgxVector rgxtagger_;
   /// unigram and POS_word bigram patterns.
   LookupMap patterntagger_;
 };

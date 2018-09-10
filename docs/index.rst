@@ -26,6 +26,9 @@ Contents:
    :maxdepth: 2
 
    language_resources
+   accents
+   tangle_voices
+   rest_server
 
 
 Indices and tables
@@ -34,4 +37,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

@@ -1,6 +1,6 @@
 // pyIdlak/pyIdlak.i
 
-// Copyright 2018 CereProc Ltd.  (Authors: David A. Braude
+// Copyright 2018 CereProc Ltd.  (Authors: David Braude
 //                                         Matthew Aylett)
 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,16 +17,16 @@
 // limitations under the License.
 //
 
-%module pyIdlak
+%module pyIdlak_txp
 %include <argcargv.i>
 
 %apply (int ARGC, char **ARGV) { (int argc, char *argv[]) }
 
 %{
-#include "python-api.h"
+#include "python-txp-api.h"
 %}
 
-%include "python-api.h"
+%include "python-txp-api.h"
 
 
 
