@@ -33,7 +33,15 @@ def cex_has_allpos(cexxml, possetxml):
     missing_pos = list(posset_pos - cex_pos)
     missing_pos.sort()
     if missing_pos:
-        sys.stderr.write('POS tags are missing:\n\t'  + '\n\t'.join(missing_pos) + '\n')
+        sys.stderr.write('POS tags are missing in CEX:\n\t'  + '\n\t'.join(missing_pos) + '\n')
+
+    extra_pos = list(cex_pos - posset_pos)
+    extra_pos.sort()
+    if extra_pos:
+        sys.stderr.write('Extra POS tags in CEX:\n\t'  + '\n\t'.join(extra_pos) + '\n')
+
+    if missing_pos or extra_pos:
+        return False
 
     return True
 
