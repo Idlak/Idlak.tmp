@@ -57,7 +57,7 @@ static void UnitTestAperiodic() {
   pov.CopyColFromMat(f0_info, 0);
 
   Matrix<BaseFloat> m;
-  ap_energy.Compute(waveform, pov, f0, &m, NULL);
+  ap_energy.Compute(waveform, pov, f0, &m);
 
   // Very basic test: we check we have the right numbers of rows and columns,
   // and that the values are within a reasonable range.

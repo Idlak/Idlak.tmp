@@ -198,8 +198,7 @@ void AperiodicEnergy::ComputeHtsBands(
 void AperiodicEnergy::Compute(const VectorBase<BaseFloat> &wave,
                               const VectorBase<BaseFloat> &voicing_prob,
                               const VectorBase<BaseFloat> &f0,
-                              Matrix<BaseFloat> *output,
-                              Vector<BaseFloat> *wave_remainder) {
+                              Matrix<BaseFloat> *output) {
   KALDI_ASSERT(output != NULL);
   KALDI_ASSERT(srfft_ != NULL &&
               "srfft_ must not be NULL if class is initialized properly.");
@@ -221,8 +220,6 @@ void AperiodicEnergy::Compute(const VectorBase<BaseFloat> &wave,
 
   frames_out = std::min(frames_out, f0.Dim());  // will be removed eventually
   output->Resize(frames_out, dim_out);
-  if (wave_remainder != NULL)
-    ExtractWaveformRemainder(wave, opts_.frame_opts, wave_remainder);
   Vector<BaseFloat> wave_window;
   Vector<BaseFloat> padded_window(padded_window_size_, kUndefined);
   Vector<BaseFloat> binned_energies(dim_out);
