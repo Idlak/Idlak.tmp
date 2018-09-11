@@ -1,3 +1,5 @@
+#!/bin/bash
+set -euo pipefail
 source cmd.sh
 source path.sh
 
@@ -247,13 +249,20 @@ if [ $stage -le 3 ]; then
 # Convert to phone-state alignement
 for step in full; do
     ali=$expa/quin_ali_$step
+
+    # some versions of gzip do not support { } expansion
+    alifiles=""
+    for n in $(seq 1 $nj); do
+      alifiles="$alifiles $ali/ali.$n.gz"
+    done
+
     # Extract phone alignment
-    ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:- \
+    ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $alifiles|" ark,t:- \
 	| utils/int2sym.pl -f 2- $lang/phones.txt > $ali/phones.txt
     # Extract state alignment
-    ali-to-hmmstate $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$ali/states.tra
+    ali-to-hmmstate $ali/final.mdl ark:"gunzip -c $alifiles|" ark,t:$ali/states.tra
     # Extract word alignment
-    linear-to-nbest ark:"gunzip -c $ali/ali.{1..$nj}.gz|" \
+    linear-to-nbest ark:"gunzip -c $alifiles|" \
 	ark:"utils/sym2int.pl --map-oov 1669 -f 2- $lang/words.txt < data/$step/text |" '' '' ark:- \
 	| lattice-align-words $lang/phones/word_boundary.int $ali/final.mdl ark:- ark:- \
 	| nbest-to-ctm --frame-shift=$FRAMESHIFT --precision=3 ark:- - \
@@ -270,7 +279,7 @@ for step in full; do
     # Merge alignment with output from idlak cex front-end => gives you a nice vector
     # NB: for triphone alignment:
     # make-fullctx-ali-dnn  --phone-context=3 --mid-context=1 --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:data/$step/cex.ark ark,t:data/$step/ali
-    make-fullctx-ali-dnn --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:data/$step/cex.ark ark,t:data/$step/ali
+    make-fullctx-ali-dnn --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $alifiles|" ark,t:data/$step/cex.ark ark,t:data/$step/ali
 
 
     # UGLY convert alignment to features
@@ -526,5 +535,3 @@ local/make_dnn_voice_pitch.sh --spk $spk --srate $srate --mcep_order $order --bn
 echo "Voice packaged successfully. Portable models have been stored in ${spk}_pmdl."
 echo "Synthesis can be performed using:
          echo \"This is a demo of D N N synthesis\" | local/synthesis_voice_pitch.sh ${spk}_pmdl <out_dir>"
-
-

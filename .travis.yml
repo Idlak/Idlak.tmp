@@ -23,6 +23,7 @@ addons:
       - clang-3.8
       - csh
       - libpython3.5-dev
+      - sox
 
 branches:
   only:
