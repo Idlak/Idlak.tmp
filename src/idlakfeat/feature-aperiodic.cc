@@ -22,6 +22,7 @@
 #include "feat/feature-window.h"
 #include "idlakfeat/banks-computations.h"
 #include "idlakfeat/feature-mcep.h"
+#include "idlakfeat/feature-window-ext.h"
 
 namespace kaldi {
 

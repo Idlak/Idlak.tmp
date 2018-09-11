@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Copyright 2018 Cereproc Ltd. (author: David Braude)
@@ -47,18 +47,25 @@ def extracted_needed_transcriptions(in_file, scp_file, out_file):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-i', '--input', required = True, type = argparse.FileType('r'),
+    parser.add_argument('-i', '--input', required = True,
                          help = 'Input transcription (normally called text.xml)')
 
     parser.add_argument('-s', '--scp', required = True, type = argparse.FileType('r'),
                          help = 'SCP file to exctract from')
 
-    parser.add_argument('-o', '--output', required = True, type = argparse.FileType('w'),
+    parser.add_argument('-o', '--output', required = True,
                          help = 'Output transcription (normally called text.xml)')
 
     args = parser.parse_args()
-    extracted_needed_transcriptions(args.input, args.scp, args.output)
-    
+
+    if not os.path.isfile(args.input):
+        parser.error("cannot find input file: '{0}'".format(args.input))
+
+    inputfile = open(args.input, 'rb')
+    outputfile = open(args.output, 'wb')
+
+    extracted_needed_transcriptions(args.input, args.scp, outputfile)
+
 
 if __name__ == "__main__":
     main()

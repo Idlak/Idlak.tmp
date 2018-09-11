@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 single_opts=
 if [ $1 == "--single" ]; then
     single_opts=1
@@ -32,7 +32,7 @@ fi
 if [ -e $exp/input_final.feature_transform ]; then
     echo "Applying feature transform on labels"
     infeats_tst="$infeats_tst nnet-forward $exp/input_final.feature_transform ark:- ark:- |"
-fi 
+fi
 
 # output options
 if [ -e $exp/reverse_final.feature_transform ] && [ ! -e $exp/final.feature_transform ]; then
