@@ -56,10 +56,16 @@ class TxpParseOptions : public ParseOptions {
   int Read(int argc, const char *const *argv);
   /// Return txp switch value used by txp modules
   const char* GetValue(const char* module, const char* key) const;
+  const char* GetValue(const char* key) const;
   /// Return path to tpdb
   const char* GetTpdb() const;
   /// Override path to tpdb
   void SetTpdb(const std::string &tpdb) {tpdb_ = tpdb;}
+  
+  /// Get all valid keys
+  std::vector<std::string> Keys();
+  /// Get the document string for the given key
+  std::string DocString(const std::string &key);
  private:
   /// Path to tpdb (text processing database) used by the voice
   std::string tpdb_;

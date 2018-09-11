@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Copyright 2018 Cereproc Ltd. (author: Matthew Aylett
 #                                       David Braude )
@@ -67,7 +67,7 @@ def main():
         inputxml = sys.stdin.read()
     else:
         if not os.path.isfile(filein):
-            sys.stderr.write("Can't open input XML file")
+            sys.stderr.write("Can't open input XML file '{0}\n".format(filein))
             sys.exit(1)
         else:
             inputxml = open(filein).read()

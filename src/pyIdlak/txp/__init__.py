@@ -16,14 +16,14 @@
 # limitations under the License.
 
 # SWIG wrapped API
-import pyIdlak_txp as c_api
+from . import pyIdlak_txp as c_api
 
 # Utility functions to access wrapped code
-import pytxplib
+from . import pytxplib
 
 # The normal Python API
-from idargparse import TxpArgumentParser
-from xmldoc import XMLDoc
+from .idargparse import TxpArgumentParser
+from .xmldoc import XMLDoc
 
-import modulefactory as modules
+from . import modulefactory as modules
 

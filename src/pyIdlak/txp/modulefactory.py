@@ -18,9 +18,9 @@
 
 # Automatically generate the C++ modules (add the python modules at the end of file)
 
-import pyIdlak_txp
-import idargparse
-import xmldoc
+from . import pyIdlak_txp
+from . import idargparse
+from . import xmldoc
 
 class CppTxpModule(object):
     """ Base class for the TxpModules that have underlying

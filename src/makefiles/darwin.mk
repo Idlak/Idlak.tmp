@@ -20,6 +20,8 @@ CXXFLAGS = -std=c++11 -I.. -I$(OPENFSTINC) $(EXTRA_CXXFLAGS) \
 
 ifeq ($(KALDI_FLAVOR), dynamic)
 CXXFLAGS += -fPIC
+else ifeq ($(IDLAK), true)
+CXXFLAGS += -fPIC
 endif
 
 # Compiler specific flags
