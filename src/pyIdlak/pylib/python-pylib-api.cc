@@ -30,7 +30,7 @@ PySimpleOptions * PySimpleOptions_new(enum IDLAK_OPT_TYPES opttype) {
   PySimpleOptions * pyopts = new PySimpleOptions;
   pyopts->po_ = new kaldi::SimpleOptions;
   pyopts->opttype_ = opttype;
-  
+
   switch (opttype) {
     case AperiodicEnergyOptions: {
       auto aprdopts = new kaldi::AperiodicEnergyOptions;
@@ -162,19 +162,24 @@ void PySimpleOptions_delete(PySimpleOptions * pyopts) {
 
 
 PyIdlakBuffer * PyIdlakBuffer_newfromstr(const char * data) {
-  PyIdlakBuffer * pybuf;
+  PyIdlakBuffer * pybuf = new PyIdlakBuffer;
+  pybuf->len_ = 0;
+  pybuf->data_ = nullptr;
   if (data) {
-    pybuf = new PyIdlakBuffer;
-    pybuf->len_ = strlen(data);
+    pybuf->len_ = strlen(data) + 1;
     pybuf->data_ = new char[pybuf->len_];
-    strcpy(pybuf->data_, data);
+    if (pybuf->data_)
+      strcpy(pybuf->data_, data);
+    else
+      fprintf(stderr, "Failed to allocate memory\n");
   }
   return pybuf;
 }
 
 void PyIdlakBuffer_delete(PyIdlakBuffer * pybuf) {
   if (pybuf) {
-    delete pybuf->data_;
+    if( pybuf->data_)
+      delete pybuf->data_;
     delete pybuf;
   }
 }

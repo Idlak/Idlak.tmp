@@ -4,7 +4,9 @@ import sys
 import os
 import traceback
 import copy
+import pdb
 import importlib.util
+from pprint import pformat
 from lxml import etree, objectify
 from xml.sax.saxutils import escape
 from re import match, compile
@@ -21,7 +23,7 @@ def importhrules(hrules_fn):
     hrules_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(hrules_module)
     NORMFUNCS = hrules_module.NORMFUNCS
-    
+
 def getlkpitem(items):
     matched = match("\s*[\'\"](.+?)[\'\"]\s*:\s*[\'\"](.*)[\'\"]\s*,\s*(.*)", items)
     if not matched:
@@ -52,14 +54,14 @@ def getpretk(tokens, i):
             return tokens[i]
         i = i - 1
     return None
-    
+
 def getpsttk(tokens, i):
     while i < len(tokens):
         if tokens[i].tag == 'tk':
             return tokens[i]
         i = i + 1
     return None
-    
+
 # search up the tree for a specific tag
 def gettagup(tk, tag):
     parent = tk.getparent()
@@ -68,7 +70,7 @@ def gettagup(tk, tag):
             return parent
         parent = tk.getparent()
     return None
-    
+
 class Match:
     type = ''
     src = ''
@@ -127,7 +129,7 @@ class RgxMatch(Match):
                 #return True, [matched.group(0)] + list(matched.groups())
             else:
                 return False, []
-            
+
 
 class XmlMatch(Match):
     xmltag = ''
@@ -178,7 +180,7 @@ class XmlMatch(Match):
                     if not intag[0].get(self.xmlatt) ==  self.xmlval:
                         return False, []
         return True, [tokens[pos + self.offset].get('norm')]
-                        
+
 class Replace:
     type = ''
     offset = None
@@ -251,7 +253,7 @@ class FixedReplace(Replace):
         if val != None:
             if str(self.offset) in replaces:
                 replaces[str(self.offset)] = replaces[str(self.offset)] + ' ' + \
-                                             val             
+                                             val
             else:
                 replaces[str(self.offset)] = val
                 tk.set('isnrm', 'true')
@@ -264,7 +266,7 @@ class FixedReplace(Replace):
             #     tk.set('nnorm',  val)
         # check for new xml to add to output
         self.insertxml(tk, self.newxml)
-        
+
 class LookupReplace(Replace):
     lkpname = None
     def __init__(self, norm, rule, xml):
@@ -290,7 +292,7 @@ class LookupReplace(Replace):
             # mark that token is normalised
             if str(self.offset) in replaces:
                 replaces[str(self.offset)] = replaces[str(self.offset)] + ' ' + \
-                                             self.norm.lkps[self.lkpname][key]             
+                                             self.norm.lkps[self.lkpname][key]
             else:
                 replaces[str(self.offset)] = self.norm.lkps[self.lkpname][key]
                 tk.set('isnrm', 'true')
@@ -302,7 +304,7 @@ class LookupReplace(Replace):
             #     tk.set('isnrm', 'true')
             #     tk.set('nnorm',  self.norm.lkps[self.lkpname][key])
         self.insertxml(tk, self.newxml)
-                
+
 class FuncReplace(Replace):
     fncname = None
     def __init__(self, norm, rule, xml):
@@ -350,7 +352,7 @@ class FuncReplace(Replace):
             #     tk.set('isnrm', 'true')
             #     tk.set('nnorm',  NORMFUNCS[self.fncname](self.norm, input, self.args))
         self.insertxml(tk, self.newxml)
-        
+
 class XmlReplace(Replace):
     maptag = None
     totag = None
@@ -400,12 +402,9 @@ class XmlReplace(Replace):
                 newtag.append(c)
             pp.replace(p, newtag)
         self.insertxml(tk, self.newxml)
-        
+
 class Rule:
-    name = ''
-    comment = ''
-    matches = []
-    replaces = []
+
     def __init__(self, name, comment):
          self.name = name
          self.comment = comment
@@ -422,8 +421,10 @@ class Rule:
             if not matched:
                 return False
             else:
+                # pdb.set_trace()
                 matches.append(groups)
-        #print (self.name, 'matched', matches)
+        # print (self.name, 'matched', matches)
+
         replaces = {}
         for r in self.replaces:
             r.apply(matches, pos, tokens, replaces)
@@ -431,7 +432,7 @@ class Rule:
             tk = tokens[pos + int(offset)]
             tk.set('nnorm', replaces[offset])
         return True
-    
+
 class Normrules:
     maxrulewin = 0
     rulesequence = []
@@ -441,14 +442,14 @@ class Normrules:
     lkps = {}
     minoffset = 0
     maxoffset = 0
-    
+
     def __init__(self, ruledir):
         self.read_normmaster(ruledir)
         self.readrgxs(ruledir)
         self.readlkps(ruledir)
         for setname in self.rulesequence:
             self.rules[setname] = self.readruleset(ruledir, setname)
-    
+
     def read_normmaster(self, ruledir):
         masterxml = etree.parse(ruledir + '/master.xml')
         rulesetxml = masterxml.find('ruleset').findall("rs")
@@ -485,7 +486,7 @@ class Normrules:
                     rule.append_replace(XmlReplace(self, rule, rep))
             ruleset.append(rule)
         return ruleset
-        
+
     def readrgxs(self, ruledir):
         parser = etree.XMLParser(remove_blank_text=True, strip_cdata=False)
         regularexpressionsxml = etree.parse(ruledir + '/regularexpressions.xml', parser=parser)
@@ -493,8 +494,8 @@ class Normrules:
             try:
                 self.rgxs[rgx.get('name')] = compile(rgx.find('exp').text)
             except:
-                sys.stderr.write('WARNING Bad regex: %s %s \n' % (rgx.get('name'), rgx.find('exp').text)) 
-        
+                sys.stderr.write('WARNING Bad regex: %s %s \n' % (rgx.get('name'), rgx.find('exp').text))
+
     def readlkps(self, ruledir):
          parser = etree.XMLParser(remove_blank_text=True, strip_cdata=False)
          lkptablesxml = etree.parse(ruledir + '/lookuptables.xml', parser=parser)
@@ -504,7 +505,7 @@ class Normrules:
                  sys.stderr.write('WARNING Bad lookup: %s\n' % (lkp.get('name')))
              else:
                  self.lkps[lkp.get('name')] = table
-                 
+
     def runrulesets(self, tokens):
         for ruleset in self.rulesequence:
             for i, tk in enumerate(tokens):
@@ -514,15 +515,14 @@ class Normrules:
                         tokensxml = []
                         for tk in tokens:
                             tokensxml.append(etree.tostring(tk, pretty_print=True, encoding='UTF-8').strip())
-                        
                         matched = rule.apply(i, tokens)
                         if matched:
                             newtokensxml = []
                             for tk in tokens:
                                 newtokensxml.append(etree.tostring(tk, pretty_print=True, encoding='UTF-8').strip())
                             break
-                           
-                           
+
+
 class Normalise(object):
     lang = ""
     acc = ""
@@ -531,13 +531,13 @@ class Normalise(object):
     arch = ""
     tpdb = ""
     ruledir = ""
-    
+
     def __init__(self, idargs):
-        """ Creates the Normalise object and finds 
+        """ Creates the Normalise object and finds
             the location of normaliser rules """
         if type(idargs) != idargparse.TxpArgumentParser:
             raise ValueError("idargs must be a TxpArgumentParser")
-        
+
         config = pytxplib.PyTxpParseOptions_GetConfig(idargs.idlakopts)
         if 'general-lang' in config:
             self.lang = config['general-lang']
@@ -550,7 +550,7 @@ class Normalise(object):
         if 'normalise-arch' in config:
             self.arch = config['normalise-arch']
         self.tpdb = pyIdlak_txp.PyTxpParseOptions_GetTpdb(idargs.idlakopts)
-            
+
         # Getting possible directories
         lastdir = [ 'normrules-' + self.arch, 'normrules-default' ]
         paths = []
@@ -562,7 +562,7 @@ class Normalise(object):
             paths.append(os.path.join(self.lang, self.region))
         if self.lang != "":
             paths.append(self.lang)
-        
+
         # Find existing directory
         for last in lastdir:
             if self.ruledir != "":
@@ -572,12 +572,12 @@ class Normalise(object):
                 if os.path.exists(path):
                     self.ruledir = path
                     break
-        
+
         if self.ruledir == "" and lastdir[0] == lastdir[1]:
             raise NameError("Directory for normaliser rules (\"" + lastdir[0] +"\") could not be found.")
         elif self.ruledir == "":
             raise NameError("Directory for normaliser rules (\"" + lastdir[0] + "\" or \"" + lastdir[1] + "\") could not be found.")
-        
+
         # getting file path of hrules and importing hardcoded rules
         lastdir = [ 'hrules-' + self.arch + '.py', 'hrules-default.py' ]
         hrule_filename = ""
@@ -595,20 +595,21 @@ class Normalise(object):
             sys.stderr.write('WARNING No hardcoded functions provided. Functions should be provided in %s or %s file. Assuming the normaliser doesn\'t need them. \n' % (lastdir[0], lastdir[1]))
         else:
             importhrules(hrule_filename)
-        
+
     def process(self, doc):
         """ process the document in place """
         if not type(doc) is xmldoc.XMLDoc:
             raise ValueError("doc must be a XMLDoc")
-        
+
         # xmldoc to lxml
-        strin = doc.to_string()
+        strin = str(doc.to_string())
         xmlin = etree.fromstring(strin)
-        
+
         normrules = Normrules(self.ruledir)
         tokens = xmlin.xpath('.//tk|.//break')
-        normrules.runrulesets(tokens)        
-        
+        normrules.runrulesets(tokens)
+
         # lxml to xmldoc
         strout = str(etree.tostring(xmlin, encoding='utf8').decode('utf8'))
         doc.load_string(strout)
+        #print(doc)

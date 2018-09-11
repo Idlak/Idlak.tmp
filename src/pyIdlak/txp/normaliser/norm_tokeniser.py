@@ -6,6 +6,11 @@ from .. import idargparse, xmldoc, pyIdlak_txp, pytxplib
 def splitNormalised(token):
     if token.get('nnorm') is None:
         return
+
+    if token.get('nnorm') == '':
+        token.getparent().remove(token)
+        return
+    #print (token.get('norm'), token.get('nnorm'), token.text)
     if ' ' not in token.get('nnorm'):
         token.set('norm', token.get('nnorm'))
         token.attrib.pop('nnorm')
