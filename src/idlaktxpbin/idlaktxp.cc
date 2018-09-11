@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     kaldi::TxpSyllabify sy;
     // Use pujiXMl to read input file
     pugi::xml_document doc;
-    pugi::xml_parse_result r = doc.load(ki.Stream(), pugi::encoding_utf8);
+    pugi::xml_parse_result r = doc.load(ki.Stream(), pugi::encoding_utf8 | pugi::parse_escapes);
     if (!r) {
       KALDI_ERR << "PugiXML Parse Error in Input Stream" << r.description()
                 << "Error offset: " << r.offset;
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
     pz.Init(po);
     ph.Init(po);
     pr.Init(po);
-    sy.Init(po);    
+    sy.Init(po);
     // Run each module on the input XML
     t.Process(&doc);
     p.Process(&doc);
