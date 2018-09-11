@@ -156,6 +156,9 @@ class TestIdlakPythonVocoder(unittest.TestCase):
                                 delta = 1e-3, msg = "values are not the same")
 
 
+    
+
+
     def test_PySPTK_mlsadf(self):
         """ Wrapper of SPTK mlsadf binary """
         with tempfile.TemporaryDirectory() as testdir:
@@ -189,6 +192,23 @@ class TestIdlakPythonVocoder(unittest.TestCase):
             for sptk_val, idlak_val in zip(sptk_waveform, idlak_waveform):
                 self.assertAlmostEqual(sptk_val, idlak_val,
                              places = 1, msg = "values are not the same")
+
+    def test_mixed_excitation(self):
+        """ Test generating mixed excitation """
+        with tempfile.TemporaryDirectory() as testdir:
+            mcep_voc = vocoder.MCEPVocoder()
+            excitation = mcep_voc.gen_excitation(self.f0s, self.bndaps)
+            wavfile = pjoin(testdir, 'test.wav')
+            mcep_voc.apply_mlsa(self.mceps, excitation)
+            mcep_voc.to_wav(wavfile)
+            self.assertTrue(os.path.isfile(wavfile),
+                            "output file not created")
+            with wave.open(wavfile, 'rb') as testwav:
+                waveform = [x for x in testwav.readframes(testwav.getnframes())]
+                rms = np.sqrt(np.mean(np.square(waveform)))
+                self.assertGreater(rms, 0.0,
+                                   "Waveform seems to be silent")
+
 
 
     def test_MCEPVocoder(self):

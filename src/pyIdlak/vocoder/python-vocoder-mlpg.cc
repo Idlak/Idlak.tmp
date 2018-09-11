@@ -1,4 +1,4 @@
-// pyIdlak/python-vocode-mlpg.cc
+// pyIdlak/vocoder/python-vocode-mlpg.cc
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude)
 

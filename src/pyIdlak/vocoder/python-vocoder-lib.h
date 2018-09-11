@@ -1,4 +1,4 @@
-// pyIdlak/python-vocode-lib.h
+// pyIdlak/vocoder/python-vocode-lib.h
 
 // Copyright 2018 CereProc Ltd.  (Authors: David Braude)
 

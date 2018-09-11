@@ -19,3 +19,5 @@ from . import pyIdlak_vocoder as c_api
 
 
 from .vocoders import MCEPVocoder, MCEPExcitation
+
+from . import excitation
