@@ -1,5 +1,8 @@
+#!/bin/bash
+set -euo pipefail
 source cmd.sh
 source path.sh
+
 
 # Idlak audio data is hosted at archive.org, while the rest of the resources are available from Github
 
@@ -42,7 +45,7 @@ testoutdir=testout/$lng/$acc
 function incr_stage(){
     stage=$(( $stage + 1 ))
     if [ $stage -gt $endstage ]; then
-        echo "##### Finsished after running step $(( $stage - 1 )) #####"
+        echo "##### Finished after running step $(( $stage - 1 )) #####"
         exit 0
     fi
 }
@@ -133,7 +136,7 @@ if [ $stage -le 0 ]; then
             pycmd+="random.seed(0); "
             pycmd+="files = glob.glob('*.wav'); "
             pycmd+="random.shuffle(files); "
-            pycmd+="print '\n'.join(map(lambda f: os.path.splitext(f)[0], files))"
+            pycmd+="print ('\n'.join(map(lambda f: os.path.splitext(f)[0], files)))"
             python -c "$pycmd" > $flist
         fi
 
@@ -346,13 +349,21 @@ if [ $stage -le 3 ]; then
     for step in full; do
         ali=$expa/quin_ali_$step
 
+        # some versions of gzip do not support { } expansion
+        alifiles=""
+        for n in $(seq 1 $nj); do
+          alifiles="$alifiles $ali/ali.$n.gz"
+        done
+
         # Extract phone alignment
-        ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:- \
+        ali-to-phones --per-frame $ali/final.mdl ark:"gunzip -c $alifiles|" ark,t:- \
             | utils/int2sym.pl -f 2- $lang/phones.txt > $ali/phones.txt
+
         # Extract state alignment
-        ali-to-hmmstate $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$ali/states.tra
+        ali-to-hmmstate $ali/final.mdl ark:"gunzip -c $alifiles|" ark,t:$ali/states.tra
+
         # Extract word alignment
-        linear-to-nbest ark:"gunzip -c $ali/ali.{1..$nj}.gz|" \
+        linear-to-nbest ark:"gunzip -c $alifiles|" \
             ark:"utils/sym2int.pl --map-oov 1669 -f 2- $lang/words.txt < $datadir/$step/text |" '' '' ark:- \
             | lattice-align-words $lang/phones/word_boundary.int $ali/final.mdl ark:- ark:- \
             | nbest-to-ctm --frame-shift=$FRAMESHIFT --precision=3 ark:- - \
@@ -369,7 +380,7 @@ if [ $stage -le 3 ]; then
         # Merge alignment with output from idlak cex front-end => gives you a nice vector
         # NB: for triphone alignment:
         # make-fullctx-ali-dnn  --phone-context=3 --mid-context=1 --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$datadir/$step/cex.ark ark,t:$datadir/$step/ali
-        make-fullctx-ali-dnn --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $ali/ali.{1..$nj}.gz|" ark,t:$datadir/$step/cex.ark ark,t:$datadir/$step/ali
+        make-fullctx-ali-dnn --max-sil-phone=15 $ali/final.mdl ark:"gunzip -c $alifiles|" ark,t:$datadir/$step/cex.ark ark,t:$datadir/$step/ali
 
 
         # UGLY convert alignment to features
@@ -557,7 +568,7 @@ BEGIN{ nv=split(lst, v, ",");
             $lblpitchdir/train $lblpitchdir/dev $acdir/train $acdir/dev $dnndir
     fi
 
-    echo " ### 4d: fake DNN for comparisons ###"
+    echo " ### Step 4d: fake DNN for comparisons ###"
     rm -rf $dnnffdir
     $cuda_cmd $dnnffdir/_train_nnet.log steps/train_nnet_basic.sh --config conf/full-nn-splice5.conf \
         $lbldir/train $lbldir/dev $acdir/train $acdir/dev $dnnffdir
