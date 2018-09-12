@@ -504,8 +504,8 @@ class Normrules:
                 self.rgxs[rgx.get('name')] = compile(rgx.find('exp').text)
             except:
                 sys.stderr.write(('WARNING Bad regex: ' +
-                                  '%s %s \n' % (rgx.get('name')),
-                                 rgx.find('exp').text))
+                                  '%s %s \n' % ((rgx.get('name')),
+                                 rgx.find('exp').text)))
 
     def readlkps(self, ruledir):
         parser = etree.XMLParser(remove_blank_text=True, strip_cdata=False)
