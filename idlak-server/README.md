@@ -38,26 +38,6 @@ Typical error response (```401 UNAUTHORIZED```):
     "message": "Login details are incorrect"
 }
 ```
----
-**Manually expire an authentication token**
-
-| [ POST ] | */auth/expire* |
-| - | - |
-
-Permissions: ```none```<br>
-Authorization Header: ```Bearer <access_token>```<br>
-Response (```200 OK```):
-```json
-{
-    "message": "The token has been manually expired."
-}
-```
-Typical error response (```400 BAD REQUEST```):
-```json
-{
-    "message": "The token could not expire."
-}
-```
 ## Users
 **Retrieve a list of currently registered users.**<br>
 
