@@ -135,6 +135,7 @@ class RgxMatch(Match):
 
 
 class XmlMatch(Match):
+
     def __init__(self, norm, rule, xml):
         Match.__init__(self, norm, rule, 'xml', xml)
         self.xmltag = xml.get('name')
@@ -183,6 +184,7 @@ class XmlMatch(Match):
 
 
 class Replace:
+
     def __init__(self, norm, rule, type, xml):
         if type not in validreplacetypes:
             sys.stderr.write('WARNING Bad replace component:' +
@@ -232,6 +234,7 @@ class Replace:
 
 # TODO: add code to deal with XML adding etc. (stray hypen for example).
 class FixedReplace(Replace):
+
     def __init__(self, norm, rule, xml):
         Replace.__init__(self, norm, rule, 'fixed', xml)
         self.value = xml.get('val')
@@ -263,6 +266,7 @@ class FixedReplace(Replace):
 
 
 class LookupReplace(Replace):
+
     def __init__(self, norm, rule, xml):
         Replace.__init__(self, norm, rule, 'lookup', xml)
         self.lkpname = xml.get('name')
@@ -296,6 +300,7 @@ class LookupReplace(Replace):
 
 
 class FuncReplace(Replace):
+
     def __init__(self, norm, rule, xml):
         self.args = {}
         Replace.__init__(self, norm, rule, 'func', xml)
@@ -341,6 +346,7 @@ class FuncReplace(Replace):
 
 
 class XmlReplace(Replace):
+
     def __init__(self, norm, rule, xml):
         Replace.__init__(self, norm, rule, 'xml', xml)
         self.fncname = xml.get('name')
@@ -385,6 +391,7 @@ class XmlReplace(Replace):
 
 
 class Rule:
+
     def __init__(self, name, comment):
         self.name = name
         self.comment = comment
@@ -416,6 +423,7 @@ class Rule:
 
 
 class Normrules:
+
     def __init__(self, ruledir, hrules):
         self.minoffset = 0
         self.maxoffset = 0
@@ -520,6 +528,7 @@ class Normrules:
 
 
 class Normalise(object):
+
     def __init__(self, idargs):
         """ Creates the Normalise object and finds
             the location of normaliser rules """
