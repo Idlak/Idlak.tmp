@@ -589,8 +589,8 @@ class Normalise(object):
         if hrule_filename == "" and self.arch == 'default':
             sys.stderr.write('WARNING No hardcoded functions provided. ' +
                              'Functions should be provided in ' +
-                             ' %s file.' % (normdir[0]) +
-                             ' Assuming the normaliser doesn\'t need them. \n')
+                             '%s file. ' % (normdir[0]) +
+                             'Assuming the normaliser doesn\'t need them. \n')
         elif hrule_filename == "":
             sys.stderr.write('WARNING No hardcoded functions provided. ' +
                              'Functions should be provided in ' +
