@@ -6,9 +6,16 @@ from .. import idargparse, xmldoc, pyIdlak_txp, pytxplib
 
 def splitNormalised(token):
     nnorm = token.get('nnorm')
-    words = nnorm.split()
+    words = []
+    if nnorm is not None:
+        words = nnorm.split()
 
     if len(words) == 0:
+        if 'prepunc' in token.attrib and token.getnext() is not None:
+            token.getnext().set('prepunc', token.get('prepunc'))
+        if 'pstpunc' in token.attrib and token.getprevious() is not None:
+            print ('something is happening')
+            token.getprevious().set('pstpunc', token.get('pstpunc'))
         token.getparent().remove(token)
         return
 
@@ -16,7 +23,6 @@ def splitNormalised(token):
         token.set('norm', nnorm)
         token.attrib.pop('nnorm')
         return
-
     # replace the original token norm with first word
     token.set('norm', words[0])
     # remove the nnorm attribute
@@ -29,6 +35,8 @@ def splitNormalised(token):
         new_tk = deepcopy(token)
         new_tk.set('norm', w)
         new_tk.text = ""
+        if 'prepunc' in new_tk.attrib:
+            new_tk.attrib.pop('prepunc')
         # append it after the previous token
         tk_parent.insert(last_index+1, new_tk)
         last_index = tk_parent.index(new_tk)

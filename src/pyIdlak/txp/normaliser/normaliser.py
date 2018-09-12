@@ -152,8 +152,8 @@ class XmlMatch(Match):
             return False, []
         # search for the tag (break tags treated differently)
         if self.xmltag == 'break':
-            if pos + self.offset + 1 < len(tokens) and \
-               tokens[pos + self.offset + 1].tag == 'break':
+            if (pos + self.offset + 1 < len(tokens) and
+                    tokens[pos + self.offset + 1].tag == 'break'):
                 intag = [tokens[pos + self.offset + 1]]
         else:
             intag = tokens[pos + self.offset].xpath('ancestor::' + self.xmltag)
@@ -567,11 +567,11 @@ class Normalise(object):
                     break
 
         if self.ruledir == "" and self.arch == 'default':
-            raise NameError("Directory for normaliser rules (\"" + normdir[0] +
-                            "\") could not be found.")
+            raise NameError("Directory for normaliser rules (\"" +
+                            "%s\") could not be found." % (normdir[0]))
         elif self.ruledir == "":
-            raise NameError("Directory for normaliser rules (\"" + normdir[0] +
-                            "\" or \"" + normdir[1] +
+            raise NameError("Directory for normaliser rules (\"" +
+                            "%s\" or \"%s" % (normdir[0], normdir[1]) +
                             "\") could not be found.")
 
         # getting file path of hrules and importing hardcoded rules
@@ -615,6 +615,7 @@ class Normalise(object):
         for tk in tokens:
             if 'nnorm' not in tk.attrib:
                 tk.set('nnorm', tk.get('norm'))
+                print (tk.get('norm'))
 
         # lxml to xmldoc
         strout = str(etree.tostring(xmlin, encoding='utf8').decode('utf8'))
