@@ -9,12 +9,12 @@ import importlib.util
 from pprint import pformat
 from lxml import etree, objectify
 from xml.sax.saxutils import escape
-from re import match, compile
+from pcre import match, compile
 from .. import idargparse, xmldoc, pyIdlak_txp, pytxplib
 
-validmatchtypes = ['rgx', 'xml']
-validreplacetypes = ['fixed', 'lookup', 'func', 'xml']
-validsrc = ['lcase', 'mcase', 'pos']
+_validmatchtypes = ['rgx', 'xml']
+_validreplacetypes = ['fixed', 'lookup', 'func', 'xml']
+_validsrc = ['lcase', 'mcase', 'pos']
 
 
 def loadhrules(hrules_fn):
@@ -79,7 +79,7 @@ def gettagup(tk, tag):
 class Match:
 
     def __init__(self, norm, rule, type, xml):
-        if type not in validmatchtypes:
+        if type not in _validmatchtypes:
             sys.stderr.write('WARNING Bad match component:' +
                              etree.tostring(xml))
             return
@@ -186,7 +186,7 @@ class XmlMatch(Match):
 class Replace:
 
     def __init__(self, norm, rule, type, xml):
-        if type not in validreplacetypes:
+        if type not in _validreplacetypes:
             sys.stderr.write('WARNING Bad replace component:' +
                              etree.tostring(xml))
             return
