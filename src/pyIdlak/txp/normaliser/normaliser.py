@@ -24,7 +24,6 @@ import traceback
 import copy
 import pdb
 import importlib.util
-from pprint import pformat
 from lxml import etree, objectify
 from xml.sax.saxutils import escape
 from pcre import match, compile
@@ -633,7 +632,6 @@ class Normalise(object):
         for tk in tokens:
             if 'nnorm' not in tk.attrib:
                 tk.set('nnorm', tk.get('norm'))
-                print (tk.get('norm'))
 
         # lxml to xmldoc
         strout = str(etree.tostring(xmlin, encoding='utf8').decode('utf8'))
