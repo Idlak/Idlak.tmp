@@ -25,7 +25,7 @@ $(error Android build does not support compiling with $(CXX).
         Supported compilers: clang++)
 endif
 
-CXXFLAGS = -std=c++11 -I.. -I$(OPENFSTINC) $(EXTRA_CXXFLAGS) \
+CXXFLAGS = -std=c++11 -I.. -I$(OPENFSTINC) -O1 $(EXTRA_CXXFLAGS) \
            -Wall -Wno-sign-compare -Wno-unused-local-typedefs \
            -Wno-deprecated-declarations -Winit-self -Wno-mismatched-tags \
            -DKALDI_DOUBLEPRECISION=$(DOUBLE_PRECISION) \
@@ -35,6 +35,8 @@ CXXFLAGS = -std=c++11 -I.. -I$(OPENFSTINC) $(EXTRA_CXXFLAGS) \
            -g # -O0 -DKALDI_PARANOID
 
 ifeq ($(KALDI_FLAVOR), dynamic)
+CXXFLAGS += -fPIC
+else ifeq ($(IDLAK), true)
 CXXFLAGS += -fPIC
 endif
 

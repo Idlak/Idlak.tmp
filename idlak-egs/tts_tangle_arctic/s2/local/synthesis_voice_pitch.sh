@@ -1,5 +1,5 @@
-#!/bin/sh
-
+#!/bin/bash
+set -euo pipefail
 extra_feats=
 input_xml=
 input_text=
@@ -36,6 +36,7 @@ var_cmp=$voice_dir/lang/var_cmp.txt
 durdnndir=$voice_dir/dur
 f0dnndir=$voice_dir/pitch
 dnndir=$voice_dir/acoustic
+cleanup=
 datadir=`mktemp -d`
 tpdb=`readlink -f $voice_dir/lang/$tpdbvar`
 
@@ -56,11 +57,13 @@ else
 fi
 
 python local/idlak_make_lang.py --mode 2 -r "test" \
-    $datadir/text_full.xml $cex_freq $datadir/cex.ark > $datadir/cex_output_dump
+    $datadir/text_full.xml $cex_freq $datadir/cex.ark #> $datadir/cex_output_dump
+
 # Generate input feature for duration modelling
 cat $datadir/cex.ark \
     | awk -v extras="$extra_feats" '{print $1, "["; $1=""; na = split($0, a, ";"); for (i = 1; i < na; i++) for (state = 0; state < 5; state++) print extras, a[i], state; print "]"}' \
     | copy-feats ark:- ark,scp:$datadir/in_durfeats.ark,$datadir/in_durfeats.scp
+
 
 # Duration based test set
 lbldurdir=$datadir/lbldur
@@ -190,5 +193,9 @@ done
 mkdir -p $outdir/wav_mlpg/; for cmp in $outdir/cmp/*.cmp; do
     local/mlsa_synthesis_pitch_mlpg.sh --mlpgf0done true --synth $synth --voice_thresh $voice_thresh --alpha $alpha --fftlen $fftlen --srate $srate --bndap_order $bndap_order --mcep_order $mcep_order --delta_order $delta_order $cmp $outdir/wav_mlpg/`basename $cmp .cmp`.wav $var_cmp
 done
+
+if [ cleanup ]; then
+  rm -rf $datadir
+fi
 
 echo "Done. Samples are in $outdir/wav_mlpg/"

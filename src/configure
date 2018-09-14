@@ -42,7 +42,7 @@
 
 # This should be incremented after any significant change to the configure
 # script, i.e. any change affecting kaldi.mk or the build system as a whole.
-CONFIGURE_VERSION=7
+CONFIGURE_VERSION=9
 
 if ! [ -x "$PWD/configure" ]; then
   echo 'You must run "configure" from the src/ directory.'
@@ -90,7 +90,11 @@ Configuration options:
                         If provided, it is prepended to all toolchain programs.
   --android-incdir=DIR  Android include directory
   --pyidlak             Build Python Wrappers [default=yes]
-  --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python2.7]
+  --pydev-incdir=DIR    Python development library include directory [default=/usr/include/python3.5m]
+  --pydev-libdir=DIR    Python development library path [default=]
+  --pydev-lib=lib       Python development library [default=python3.5m]
+  --sptk-root=DIR       SPTK root directory [default=../tools/SPTK/]
+
 
 Following environment variables can be used to override the default toolchain.
   CXX         C++ compiler [default=g++]
@@ -369,7 +373,7 @@ function linux_configure_mkl_threading {
 function configure_cuda {
   # Check for CUDA toolkit in the system
   if [ ! -d  "$CUDATKDIR" ]; then
-    for base in /Developer/NVIDIA/CUDA-6.0 /usr/local/share/cuda /usr/local/cuda /pkgs_local/cuda-3.2/ /opt/nvidia_cuda/cuda-6.0/ /usr/; do
+    for base in /usr/local/share/cuda /usr/local/cuda /usr/; do
       if [ -f $base/bin/nvcc ]; then
         CUDATKDIR=$base
       fi
@@ -397,14 +401,6 @@ function configure_cuda {
       GCC_VER=$($COMPILER -dumpversion)
       GCC_VER_NUM=$(echo $GCC_VER | sed 's/\./ /g' | xargs printf "%d%02d%02d")
       case $CUDA_VERSION in
-        5_5)
-          MIN_UNSUPPORTED_GCC_VER="5.0"
-          MIN_UNSUPPORTED_GCC_VER_NUM=50000;
-        ;;
-        6_*)
-          MIN_UNSUPPORTED_GCC_VER="5.0"
-          MIN_UNSUPPORTED_GCC_VER_NUM=50000;
-        ;;
         7_*)
           MIN_UNSUPPORTED_GCC_VER="5.0"
           MIN_UNSUPPORTED_GCC_VER_NUM=50000;
@@ -413,9 +409,13 @@ function configure_cuda {
           MIN_UNSUPPORTED_GCC_VER="6.0"
           MIN_UNSUPPORTED_GCC_VER_NUM=60000;
         ;;
-        9_*)
+        9_0 | 9_1)
           MIN_UNSUPPORTED_GCC_VER="7.0"
           MIN_UNSUPPORTED_GCC_VER_NUM=70000;
+        ;;
+        9_2 | 9_*)
+          MIN_UNSUPPORTED_GCC_VER="8.0"
+          MIN_UNSUPPORTED_GCC_VER_NUM=80000;
         ;;
         *)
           echo "Unsupported CUDA_VERSION (CUDA_VERSION=$CUDA_VERSION), please report it to Kaldi mailing list, together with 'nvcc -h' or 'ptxas -h' which lists allowed -gencode values..."; exit 1;
@@ -452,6 +452,8 @@ function configure_cuda {
       else
         cat makefiles/cuda_64bit.mk >> kaldi.mk
       fi
+    elif [ "`uname -m`" == "aarch64" ]; then
+      cat makefiles/cuda_64bit.mk >> kaldi.mk
     elif [ "`uname -m`" == "ppc64le" ]; then
       cat makefiles/cuda_64bit.mk >> kaldi.mk
     else
@@ -865,7 +867,10 @@ PCREROOT=`rel2abs ../tools/pcre-8.20/`
 PUJIXMLROOT=`rel2abs ../tools/pugixml-1.2/`
 SWIGROOT=`rel2abs ../tools/swig-3.0.12/`
 
-PYTHONDEVINC=/usr/include/python2.7
+PYTHONDEVINC=/usr/include/python3.5m
+PYTHONDEVLIB=python3.5m
+PYTHONDEVLIBDIR=
+SPTKROOT=`rel2abs ../tools/SPTK/`
 
 # Save the command line to include in kaldi.mk
 cmd_line="$0 $@"
@@ -1018,6 +1023,15 @@ do
   --pydev-incdir=*)
     PYTHONDEVINC=`read_dirname $1`;
     shift;;
+  --pydev-lib=*)
+    PYTHONDEVLIB=`expr "X$1" : '[^=]*=\(.*\)'`;
+    shift;;
+  --pydev-libdir=*)
+    PYTHONDEVLIBDIR=`read_dirname $1`;
+    shift;;
+  --sptk-root=*)
+    SPTKROOT=`read_dirname $1`
+    shift;;
   *)  echo "Unknown argument: $1, exiting"; usage; exit 1 ;;
   esac
 done
@@ -1129,7 +1143,25 @@ if [ $pyidlak ]; then
             failure "Could not find file $SWIGROOT/swig:
         you may not have installed Swig.  See ../tools/install_idlak.sh"
     fi
-    echo "REQUIRED FOR MAKE DO NOT DELETE!" > pyIdlak/txp/pyIdlak_txp_wrap.cc
+    if [ ! -f $SPTKROOT/lib/libSPTK.a  ]; then
+            failure "Could not find file $SPTKROOT/lib/libSPTK.a:
+        you may not have compiled SPTK.  See ../tools/install_idlak.sh"
+    fi
+    if [ ! -f $PYTHONDEVINC/Python.h ]; then
+        failure "Could not find file $PYTHONDEVINC/Python.h:
+        please ensure Python development libraries and includes are installed
+        and you have correctly set their paths"
+    fi
+    if [ ! -z $PYTHONDEVLIBDIR ]; then
+        if [ ! -d $PYTHONDEVLIBDIR ]; then
+            failure "Could not find directory $PYTHONDEVLIBDIR:
+        please ensure Python development libraries and includes are installed
+        and you have correctly set their paths correctly"
+        fi
+    fi
+    for d in pyIdlak/*/*.i ; do
+        echo "REQUIRED FOR MAKE DO NOT DELETE!" > ${d%.*}_wrap.cc
+    done
 fi
 
 echo IDLAK = true >> kaldi.mk
@@ -1139,7 +1171,9 @@ echo EXPATROOT = $EXPATROOT >> kaldi.mk
 echo PUJIXMLROOT = $PUJIXMLROOT >> kaldi.mk
 echo SWIGROOT = $SWIGROOT >> kaldi.mk
 echo PYTHONDEVINC = $PYTHONDEVINC >> kaldi.mk
-
+echo PYTHONDEVLIB = $PYTHONDEVLIB >> kaldi.mk
+echo PYTHONDEVLIBDIR = $PYTHONDEVLIBDIR >> kaldi.mk
+echo SPTKROOT = $SPTKROOT >> kaldi.mk
 
 echo "Checking OpenFst library in $FSTROOT ..."
 if [ ! -f $FSTROOT/include/fst/fst.h  ]; then
@@ -1372,18 +1406,36 @@ elif [ "`uname`" == "Linux" ]; then
     if [ -z "$OPENBLASROOT" ]; then
       failure "Must specify the location of OPENBLAS with --openblas-root option (and it must exist)"
     fi
-    if [ ! -f $OPENBLASROOT/lib/libopenblas.so ]; then
+    if [ -f $OPENBLASROOT/lib/libopenblas.so ]; then
+      OPENBLASLIBDIR=$OPENBLASROOT/lib
+    elif [ -f $OPENBLASROOT/lib64/libopenblas.so ]; then
+      # in REDHAT/CentOS package installs, the library is located here
+      OPENBLASLIBDIR=$OPENBLASROOT/lib64
+    else
       failure "Expected to find the file $OPENBLASROOT/lib/libopenblas.so"
+    fi
+    if [ -f $OPENBLASROOT/include/cblas.h ] ; then
+      OPENBLASINCDIR=$OPENBLASROOT/include
+    elif [ -f $OPENBLASROOT/include/openblas/cblas.h ] ; then
+      # in REDHAT/CentOS/Ubuntu package installs, the includes are located here
+      OPENBLASINCDIR=$OPENBLASROOT/include/openblas
+    else
+      echo "$0: ***** Using OpenBlas from $OPENBLASROOT but cblas.h is not found. "
+      echo " ****** Assuming openblas is aleady in a default include path, but"
+      echo " ***** if you get compilation messages about not finding files like cblas.h,"
+      echo " ***** you should look into this (e.g. make sure to install the 'openblas-dev' package,"
+      echo " ***** if it is a package-based install)."
+      OPENBLASINCDIR="/usr/include"
     fi
     echo "Your math library seems to be OpenBLAS from $OPENBLASROOT.  Configuring appropriately."
     if $static_math; then
       echo "Configuring static OpenBlas since --static-math=yes"
-      OPENBLASLIBS="$OPENBLASROOT/lib/libopenblas.a -lgfortran"
+      OPENBLASLIBS="$OPENBLASLIBDIR/libopenblas.a -lgfortran"
     else
       echo "Configuring dynamically loaded OpenBlas since --static-math=no (the default)"
-      OPENBLASLIBS="-L$OPENBLASROOT/lib -lopenblas -lgfortran -Wl,-rpath=$OPENBLASROOT/lib"
+      OPENBLASLIBS="-L$OPENBLASLIBDIR -lopenblas -lgfortran -Wl,-rpath=$OPENBLASLIBDIR"
     fi
-    echo "OPENBLASINC = $OPENBLASROOT/include" >> kaldi.mk
+    echo "OPENBLASINC = $OPENBLASINCDIR" >> kaldi.mk
     echo "OPENBLASLIBS = $OPENBLASLIBS" >> kaldi.mk
     echo >> kaldi.mk
     if [[ "$TARGET_ARCH" == arm* ]]; then

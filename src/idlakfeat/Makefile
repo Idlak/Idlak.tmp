@@ -6,7 +6,7 @@ include ../kaldi.mk
 
 TESTFILES = feature-aperiodic-test
 
-OBJFILES = feature-mcep.o banks-computations.o feature-aperiodic.o minmax.o hmm-utils-idlak.o
+OBJFILES = feature-mcep.o banks-computations.o feature-aperiodic.o minmax.o hmm-utils-idlak.o feature-window-ext.o
 
 LIBNAME = idlak-feat
 

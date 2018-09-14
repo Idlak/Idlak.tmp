@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys, os, xml.sax, re, time
 from xml.dom.minidom import parse, parseString, getDOMImplementation
@@ -96,15 +97,15 @@ class idlak_saxhandler(xml.sax.ContentHandler):
             try:
                 word = attrs['norm'].upper().encode('utf8')
             except:
-                print "Failed parsing '{0}': word {1}, 'norm' missing or not utf8, attrs: {2}".format(
-                    self.id, attrs.getValue('wordid'), ', '.join(attrs.getNames()))
+                print("Failed parsing '{0}': word {1}, 'norm' missing or not utf8, attrs: {2}".format(
+                    self.id, attrs.getValue('wordid'), ', '.join(attrs.getNames())))
                 raise
             self.data[-1].append(word)
-            if not self.lex.has_key(word):
+            if not word in self.lex:
                 self.lex[word] = {}
-            if attrs.has_key('lts') and attrs['lts'] == 'true':
+            if attrs.get('lts','false') == 'true':
                 self.oov[word] = 1
-            if attrs.has_key('altprons'):
+            if 'altprons' in attrs:
                 prons = attrs['altprons'].split(', ')
             else:
                 prons = [attrs['pron']]
@@ -131,7 +132,7 @@ def forward_context(logger, input_fname, input_freqtable_fname, cexoutput_filena
     lookuptables_len = {}
     for key in freqtables.keys():
         #print key
-        vals = freqtables[key].keys()
+        vals = list(freqtables[key].keys())
         vals.sort()
         for v in vals:
             if not re.match('[0-9]+', v):
@@ -188,7 +189,7 @@ def forward_context(logger, input_fname, input_freqtable_fname, cexoutput_filena
             output_contexts[-1][-1].append(cexs)
             last_phon_name = phon_name
 
-    print lookuptables, lookuptables_len
+    print(lookuptables, lookuptables_len)
 
     # Perform mapping of input file using freqtable
     if cexoutput_filename == None or cexoutput_filename == '-':
@@ -346,7 +347,7 @@ def make_output_kaldidnn_cex(logger, input_filename, output_filename, cexoutput_
     lookuptables_len = {}
     for i in range(len(cexs)):
         key = 'cex' + ('000' + str(i))[-3:]
-        vals = freqtables[key].keys()
+        vals = list(freqtables[key].keys())
         vals.sort()
         for v in vals:
             if not re.match('[0-9]+', v):
@@ -363,7 +364,7 @@ def make_output_kaldidnn_cex(logger, input_filename, output_filename, cexoutput_
                 if lookuptables[key].has_key('0'):
                     lookuptables_len[key] -= 1
                 break
-    print lookuptables, lookuptables_len
+    print(lookuptables, lookuptables_len)
 
     if cexoutput_filename == None or cexoutput_filename == '-':
         cexoutput_file = sys.stdout
@@ -392,8 +393,8 @@ def idlak_make_lang(textfile, datadir, langdir):
         p = xml.sax.make_parser()
         handler = idlak_saxhandler()
         p.setContentHandler(handler)
-        p.parse(open(textfile, "r"))
-        fp = open(os.path.join(datadir, "text"), 'w')
+        p.parse(open(textfile, "rb"))
+        fp = open(os.path.join(datadir, "text"), 'wb')
         for i in range(len(handler.ids)):
             #if valid_ids.has_key(handler.ids[i]):
             # If we are forcing beginning and end silences add <SIL>s
@@ -406,21 +407,21 @@ def idlak_make_lang(textfile, datadir, langdir):
 
         # lexicon and oov have all words for the corpus
         # whether selected or not by flist
-        fpoov = open(os.path.join(langdir, "oov.txt"), 'w')
-        fplex = open(os.path.join(langdir, "lexicon.txt"), 'w')
+        fpoov = open(os.path.join(langdir, "oov.txt"), 'wb')
+        fplex = open(os.path.join(langdir, "lexicon.txt"), 'wb')
         # add oov word and phone (should never be required!
-        fplex.write("<OOV> oov\n")
+        fplex.write("<OOV> oov\n".encode('utf-8'))
         # If we are forcing beginning and end silences make lexicon
         # entry for <SIL>
-        fplex.write("<SIL> sil\n")
-        fplex.write("<SIL> sp\n")
+        fplex.write("<SIL> sil\n".encode('utf-8'))
+        fplex.write("<SIL> sp\n".encode('utf-8'))
         # write transcription lexicon and oov lexicon for info
-        words = handler.lex.keys()
+        words = list(handler.lex.keys())
         words.sort()
         phones = {}
         chars = {}
         for w in words:
-            prons = handler.lex[w].keys()
+            prons = list(handler.lex[w].keys())
             prons.sort()
             utf8w = w.decode('utf8')
             # get all the characters as a check on normalisation
@@ -433,7 +434,7 @@ def idlak_make_lang(textfile, datadir, langdir):
                     for phone in pp:
                         phones[phone] = 1
                     fplex.write(("%s %s\n" % (utf8w, p)).encode('utf-8'))
-            if handler.oov.has_key(w):
+            if w in handler.oov:
                 fpoov.write(("%s %s\n" % (utf8w, prons[0])).encode('utf-8'))
         fplex.close()
         fpoov.close()
@@ -441,15 +442,16 @@ def idlak_make_lang(textfile, datadir, langdir):
         # Should throw if phone set is not conformant
         # ie. includes sp or ^a-z@
         fp = open(os.path.join(langdir, "nonsilence_phones.txt"), 'w')
-        phones = phones.keys()
+        phones = list(phones.keys())
         phones.sort()
         fp.write('\n'.join(phones) + '\n')
         fp.close()
         # write character set
-        fp = open(os.path.join(langdir, "characters.txt"), 'w')
-        chars = chars.keys()
+        fp = open(os.path.join(langdir, "characters.txt"), 'wb')
+        chars = list(chars.keys())
         chars.sort()
-        fp.write((' '.join(chars)).encode('utf8') + '\n')
+        fp.write((' '.join(chars)).encode('utf8'))
+        fp.write("\n".encode('utf-8'))
         fp.close()
         # silence models
         fp = open(os.path.join(langdir, "silence_phones.txt"), 'w')
@@ -533,7 +535,7 @@ def write_xml_textalign(breaktype, breakdef, labfile, wordfile, output, statefil
     doc_element = document.documentElement
 
     if statefile is None:
-        print "WARNING: alignment with phone identity only is not accurate enough. Please use states aligment as final argument."
+        print("WARNING: alignment with phone identity only is not accurate enough. Please use states aligment as final argument.")
 
     #labs = glob.glob(labdir + '/*.lab')
     #labs.sort()
