@@ -40,7 +40,7 @@ TxpNRules::~TxpNRules() {
   RgxMap::iterator it;
   LookupMapMap::iterator itmap;
   for (it = rgxs_.begin(); it != rgxs_.end(); it++) {
-    pcre_free(it->second);
+    pcre_free(const_cast<pcre *>(it->second));
   }
   for (itmap = lkps_.begin(); itmap != lkps_.end(); itmap++) {
     delete (itmap->second);

@@ -71,10 +71,12 @@ class TxpXmlData {
   /// Load and parse a file belonging to the object in the tpdb directory
   /// file name is based on the object type and name set on construction
   /// the system first searches spk then acc then region then lang directories
-  /// if present. i.e en/ga/bdl en/ga en/region_us en as set in the general
-  /// section of the configuration file. If not present they load from the
-  /// directory name given (tpdb).
+  /// unless marked as an idlak-data-flat with a dummy file of that name
   bool Parse(const std::string &tpdb);
+  /// Load and parse a file fname belonging to the object in the tpdb directory
+  /// the system first searches spk then acc then region then lang directories
+  /// unless marked as an idlak-data-flat with a dummy file of that name
+  bool Parse(const std::string &tpdb, const std::string &fname);
   int GetCurrentLineNumber() {return XML_GetCurrentLineNumber(parser_);}
   /// Utility to set a named attribute from an expat array of attribute
   /// key value pairs
@@ -93,7 +95,9 @@ class TxpXmlData {
   std::string name_;
   /// Directory of the tpdb (text processing database) files
   std::string tpdb_;
-  /// Final full pathname of input file
+  /// Final pathname of input file
+  std::string path_;
+  /// Final filename of input file
   std::string fname_;
   /// Input file is read line by line into this buffer for processing
   std::string buffer_;
