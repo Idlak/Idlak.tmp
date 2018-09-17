@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
   std::string filein;
   std::string fileout;
   std::string filereg;
-  std::string tpdb = "../../idlak-data/en/ga";
+  std::string tpdb = "../../idlak-data/";
   std::string configf;
   kaldi::int32 i, fno = 0;
   bool error = false, anyerror = false;

@@ -92,6 +92,38 @@ def gettagup(tk, tag):
         parent = tk.getparent()
     return None
 
+def splitNormalised(token):
+    nnorm = token.get('norm')
+    words = []
+    if nnorm is not None:
+        words = nnorm.split()
+
+    if len(words) == 0:
+        if 'prepunc' in token.attrib and token.getnext() is not None:
+            token.getnext().set('prepunc', token.get('prepunc'))
+        if 'pstpunc' in token.attrib and token.getprevious() is not None:
+            token.getprevious().set('pstpunc', token.get('pstpunc'))
+        token.getparent().remove(token)
+        return
+
+    elif len(words) == 1:
+        token.set('norm', nnorm)
+        return
+    # replace the original token norm with first word
+    token.set('norm', words[0])
+    # go through the rest of the list and save as separate tokens
+    tk_parent = token.getparent()
+    last_index = tk_parent.index(token)
+    for w in words[1:]:
+        # make a copy of original token
+        new_tk = copy.deepcopy(token)
+        new_tk.set('norm', w)
+        new_tk.text = ""
+        if 'prepunc' in new_tk.attrib:
+            new_tk.attrib.pop('prepunc')
+        # append it after the previous token
+        tk_parent.insert(last_index+1, new_tk)
+        last_index = tk_parent.index(new_tk)
 
 class Match:
 
@@ -125,7 +157,7 @@ class RgxMatch(Match):
         if self.rgxname not in self.norm.rgxs:
             return False, []
         if self.src == 'lcase':
-            val = tokens[pos + self.offset].get('norm')
+            val = tokens[pos + self.offset].get('tknorm')
             if val is None:
                 return False, []
             matched = match(self.norm.rgxs[self.rgxname], val)
@@ -197,7 +229,7 @@ class XmlMatch(Match):
                 if self.xmlval:
                     if not intag[0].get(self.xmlatt) == self.xmlval:
                         return False, []
-        return True, [tokens[pos + self.offset].get('norm')]
+        return True, [tokens[pos + self.offset].get('tknorm')]
 
 
 class Replace:
@@ -433,9 +465,11 @@ class Rule:
         replaces = {}
         for r in self.replaces:
             r.apply(matches, pos, tokens, replaces)
+        print (self.name, replaces)
         for offset in replaces:
             tk = tokens[pos + int(offset)]
-            tk.set('nnorm', replaces[offset])
+            # if 'nnorm' not in tk.attrib:
+            tk.set('norm', replaces[offset])
         return True
 
 
@@ -522,8 +556,8 @@ class Normrules:
     def runrulesets(self, tokens):
         for ruleset in self.rulesequence:
             for i, tk in enumerate(tokens):
-                norm_empty = (tk.get('nnorm') is None or
-                              not match('^[a-z ]*$', tk.get('nnorm')) or
+                norm_empty = (tk.get('norm') is None or
+                              not match('^[a-z ]*$', tk.get('norm')) or
                               ruleset[:4] == 'ssml')
                 if tk.tag == 'tk' and norm_empty:
                     for rule in self.rules[ruleset]:
@@ -626,12 +660,14 @@ class Normalise(object):
         xmlin = etree.fromstring(strin)
 
         normrules = Normrules(self.ruledir, self.hrules)
+        print(etree.tostring(xmlin, pretty_print=True))
         tokens = xmlin.xpath('.//tk|.//break')
         normrules.runrulesets(tokens)
 
         for tk in tokens:
-            if 'nnorm' not in tk.attrib:
-                tk.set('nnorm', tk.get('norm'))
+            if 'norm' not in tk.attrib:
+                tk.set('norm', tk.get('tknorm'))
+            splitNormalised(tk)
 
         # lxml to xmldoc
         strout = str(etree.tostring(xmlin, encoding='utf8').decode('utf8'))

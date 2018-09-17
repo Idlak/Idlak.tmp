@@ -56,7 +56,6 @@ def main():
     modules.append(txp.modules.Tokenise(args))
     modules.append(txp.modules.PosTag(args))
     modules.append(txp.modules.Normalise(args))
-    modules.append(txp.modules.Norm_Tokenise(args))
     modules.append(txp.modules.Pauses(args))
     modules.append(txp.modules.Phrasing(args))
     modules.append(txp.modules.Pronounce(args))

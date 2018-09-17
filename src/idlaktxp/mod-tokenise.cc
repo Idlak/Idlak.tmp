@@ -58,13 +58,13 @@ bool TxpTokenise::Process(pugi::xml_document* input) {
         n += 1;
         trules_.ReplaceUtf8Punc(token, &tmp);
         /// check for full token matches without partial punctuation
-        /// i.e. :-) but not (US) 
+        /// i.e. :-) but not (US)
         abbrev_info = abbrev_.LookupAbbrev(token.c_str());
         if (abbrev_info) {
           for(int32 i = 0; i < abbrev_info->expansions.size(); i++) {
             if (!i) {
-              tk.append_attribute("norm");
-              tk.attribute("norm").set_value(abbrev_info->expansions[0].c_str());
+              tk.append_attribute("tknorm");
+              tk.attribute("tknorm").set_value(abbrev_info->expansions[0].c_str());
               if (!abbrev_info->lexentries[0].empty()) {
                 lex = tk.parent().insert_child_after("lex", tk);
                 lex.append_attribute("type").set_value(abbrev_info->lexentries[0].c_str());
@@ -78,12 +78,12 @@ bool TxpTokenise::Process(pugi::xml_document* input) {
                 lex = tk.parent().insert_child_after("lex", tk);
                 lex.append_attribute("type").set_value(abbrev_info->lexentries[i].c_str());
                 tk = lex.append_child("tk");
-                tk.append_attribute("norm").set_value(abbrev_info->expansions[i].c_str());
+                tk.append_attribute("tknorm").set_value(abbrev_info->expansions[i].c_str());
                 tk = lex; //so we add new tokens after the lex tag not inside it
               }
               else {
                 tk = tk.parent().insert_child_after("tk", tk);
-                tk.append_attribute("norm").set_value(abbrev_info->expansions[i].c_str());
+                tk.append_attribute("tknorm").set_value(abbrev_info->expansions[i].c_str());
               }
             }
           }
@@ -149,8 +149,8 @@ int32 TxpTokenise::SetPuncCaseInfo(std::string* tkin, pugi::xml_node* tk) {
                                                                                           abbrev_info));
       for(int32 i = 0; i < abbrev_info->expansions.size(); i++) {
         if (!i) {
-          tk->append_attribute("norm");
-          tk->attribute("norm").set_value(abbrev_info->expansions[0].c_str());
+          tk->append_attribute("tknorm");
+          tk->attribute("tknorm").set_value(abbrev_info->expansions[0].c_str());
           if (!abbrev_info->lexentries[0].empty()) {
             lex = tk->parent().insert_child_after("lex", *tk);
             lex.append_attribute("type").set_value(abbrev_info->lexentries[0].c_str());
@@ -168,12 +168,12 @@ int32 TxpTokenise::SetPuncCaseInfo(std::string* tkin, pugi::xml_node* tk) {
             lex = tk->parent().insert_child_after("lex", *tk);
             lex.append_attribute("type").set_value(abbrev_info->lexentries[i].c_str());
             *tk = lex.append_child("tk");
-            tk->append_attribute("norm").set_value(abbrev_info->expansions[i].c_str());
+            tk->append_attribute("tknorm").set_value(abbrev_info->expansions[i].c_str());
             *tk = lex;
           }
           else {
             *tk = tk->parent().insert_child_after("tk", *tk);
-            tk->append_attribute("norm").set_value(abbrev_info->expansions[i].c_str());
+            tk->append_attribute("tknorm").set_value(abbrev_info->expansions[i].c_str());
           }
         }
       }
@@ -188,9 +188,9 @@ int32 TxpTokenise::SetPuncCaseInfo(std::string* tkin, pugi::xml_node* tk) {
         tk->attribute("prepunc").set_value(prepunc.c_str());
       }
       if (token.length()) {
-        tk->append_attribute("norm");
+        tk->append_attribute("tknorm");
         trules_.NormCaseCharacter(&token, caseinfo);
-        tk->attribute("norm").set_value(token.c_str());
+        tk->attribute("tknorm").set_value(token.c_str());
       }
       if (pstpunc.length()) {
         tk->append_attribute("pstpunc");
