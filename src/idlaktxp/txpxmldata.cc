@@ -91,79 +91,102 @@ static const char * _get_str_field(std::string work, char sep, int pos) {
 }
 
 bool TxpXmlData::Parse(const std::string &tpdb) {
+  return Parse(tpdb, std::string(""));
+}
+
+bool TxpXmlData::Parse(const std::string &tpdb, const std::string &fname) {
   const char *lang, *region, *acc, *spk;
-  bool binary, indataroot = false;
+  bool binary, fileopen = false;
   enum XML_Status r;
   Input ki;
   std::string dataroot;
-  tpdb_.clear();
-  tpdb_.append(tpdb);
+  tpdb_ = tpdb;
   fname_.clear();
+  // if no fname specified use architecture and default type name
+  if (!fname.empty()) fname_ = fname;
+  else fname_ = type_ + "-" + name_ + ".xml";
   // get general settings from the configuration
   lang = GetOptValue("lang");
   region = GetOptValue("region");
   acc = GetOptValue("acc");
   spk = GetOptValue("spk");
-  // See if we are in a kaldi-data directory structure by checking
-  // directories .. and ../.. and ../../.. for the file idlak-data-trunk
-  if (!ki.Open((tpdb + "/idlak-data-flat").c_str())) {
-    dataroot = tpdb;
-    if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
-      indataroot = true;
-    } else {
-      dataroot = tpdb + std::string("/..");
-      if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
-        indataroot = true;
-        lang = _get_str_field(tpdb, '/', -1);
-      } else {
-        dataroot = tpdb + std::string("/../..");
-        if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
-          indataroot = true;
-          lang = _get_str_field(tpdb, '/', -2);
-          acc = _get_str_field(tpdb, '/', -1);
-        } else {
-          dataroot = tpdb + std::string("/../../..");
-          if (ki.Open((dataroot + "/idlak-data-trunk").c_str())) {
-            indataroot = true;
-            lang = _get_str_field(tpdb, '/', -3);
-            acc = _get_str_field(tpdb, '/', -2);
-            spk = _get_str_field(tpdb, '/', -1);
-          } else {
-            // not flat and not a kaldi-trunk error
-            KALDI_ERR << "Missing idlak-data-trunk or idlak-data-flat file";
-          }
-        }
-      }
-    }
+  if (!lang) {
+    KALDI_ERR << "No language specified: i.e. --general-lang=en";
   }
-  if (indataroot) {
-    // search speaker specific directory
-    fname_ = dataroot + "/" + lang + "/" + acc + "/" + spk + "/" +
-             type_ + "-" + name_ + ".xml";
-    if (!ki.Open(fname_.c_str(), &binary)) {
-      // search accent specific directory
-      fname_ = dataroot + "/" + lang + "/" + acc + "/" + type_ + "-" +
-               name_ + ".xml";
-      if (!ki.Open(fname_.c_str(), &binary)) {
-        // search region specific directory
-        fname_ = dataroot + "/" + lang + "/region_" + region + "/" + type_ +
-                 "-" + name_ + ".xml";
-        if (!ki.Open(fname_.c_str(), &binary)) {
-          // search language directory
-          fname_ = dataroot + "/" + lang + "/" + type_ + "-" + name_ + ".xml";
-          if (!ki.Open(fname_.c_str(), &binary)) {
-            KALDI_ERR << "Can't find xml data:" << type_ << "-" << name_
-                      << ".xml";
-          }
-        }
-      }
+  // if fname specified override architecture and default type name
+  // and only accept this file (no default names)
+  if (!fname.empty()) {
+    fname_ = fname;
+  } else {
+    // first search for architecture file <type_>-<name_>.xml
+    fname_ = type_ + "-" + name_ + ".xml";
+  }
+  
+  // If we are in a kaldi flat directory structure look for the file
+  // first as fname_ and second as default value
+  if (ki.Open((tpdb + "/idlak-data-flat").c_str())) {
+    path_ = tpdb_;
+    // search in this directory only
+    if (!ki.Open((path_ + "/" + fname_).c_str(), &binary)) {
+      KALDI_WARN << "Can't find xml data:" << path_ << "/" << fname_;
     }
   } else {
-    fname_ = tpdb + "/" + type_ + "-" + name_ + ".xml";
-    if (!ki.Open(fname_.c_str(), &binary)) {
-      KALDI_ERR << "Can't find xml data:" << type_ << "-" << name_ << ".xml";
+    if (spk && *spk) {
+      path_ = tpdb_ + "/" + lang + "/" + acc + "/" + spk;
+      fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);
+    }
+    if (!fileopen && acc && *acc) {
+      path_ = tpdb_ + "/" + lang + "/" + acc;
+      fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);
+    }
+    if (!fileopen && region && *region) {
+      path_ = tpdb_ + "/" + lang + "/" + region;
+        fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);
+    }
+    if (!fileopen) {
+      path_ = tpdb_ + "/" + lang;
+      fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);      
+    }
+    if (!fileopen)  KALDI_WARN << "Can't find xml data in " <<
+                        "speaker/accent/region/language directories:" <<
+                        "tpdb root:" << path_ << " fname:" << fname_;
+  }
+  
+  // if still not found and fname is not overridden
+  // try to open a default data file
+  if (!fileopen && fname.empty() && name_ != "default") {
+    fname_.clear();
+    fname_ = type_ + "-default.xml";
+    if (ki.Open((tpdb + "/idlak-data-flat").c_str())) {
+      path_ = tpdb_;
+      // search in this directory only
+      if (!ki.Open((path_ + "/" + fname_).c_str(), &binary)) {
+        KALDI_ERR << "Can't find xml data:" << path_ << "/" << fname_;
+      }
+    } else {
+      if (spk && *spk) {
+        path_ = tpdb_ + "/" + lang + "/" + acc + "/" + spk;
+        fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);
+      }
+      if (!fileopen && acc && *acc) {
+        path_ = tpdb_ + "/" + lang + "/" + acc;
+        fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);
+      }
+      if (!fileopen && region && *region) {
+        path_ = tpdb_ + "/" + lang + "/" + region;
+        fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);
+      }
+      if (!fileopen) {
+        path_ = tpdb_ + "/" + lang;
+        fileopen = ki.Open((path_ + "/" + fname_).c_str(), &binary);      
+      }
     }
   }
+  
+  if (!fileopen) KALDI_ERR << "Can't find xml data in speaker/accent/region/language directories:" <<
+                     "tpdb root:" << tpdb_ << " fname:" << fname_;
+  
+  KALDI_VLOG(1) << "Loading: " << path_ << "/" << fname_;
   while (getline(ki.Stream(), buffer_)) {
     // Reappend line break to get correct error reporting
     buffer_.append("\n");

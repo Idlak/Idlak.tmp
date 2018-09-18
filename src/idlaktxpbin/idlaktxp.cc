@@ -28,13 +28,14 @@
 int main(int argc, char *argv[]) {
   const char *usage =
       "Tokenise utf8 input xml\n"
-      "Usage:  idlaktxp [options] xml_input xml_output\n"
-      "e.g.: ./idlaktxp --pretty --tpdb=../../idlak-data/en/ga ../idlaktxp/test_data/mod-test001.xml output.xml\n" //NOLINT
-      "e.g.: cat  ../idlaktxp/test_data/mod-test001.xml output.xml | idlaktxp --pretty --tpdb=../../idlak-data/en/ga - - > output.xml\n"; //NOLINT
+      "Usage:  idlaktxp --tpdb=<idlak-data-root> --general-lang=<language iso code> [options] xml_input xml_output\n"
+      "e.g.: ./idlaktxp --pretty --tpdb=../../idlak-data --general-lang=en ../idlaktxp/test_data/mod-test001.xml output.xml\n" //NOLINT
+      "e.g.: cat  ../idlaktxp/test_data/mod-test001.xml output.xml | idlaktxp --pretty --tpdb=../../idlak-data --general-lang=en --general-acc=ga - - > output.xml\n" //NOLINT
+      "language and tpdb must be set and for most modules with accent specific data accent must also be set"; //NOLINT
   // input output variables
   std::string filein;
   std::string fileout;
-  std::string tpdb;
+  //std::string tpdb;
   std::string input;
   std::ofstream fout;
   // defaults to non-pretty XML output
@@ -42,7 +43,7 @@ int main(int argc, char *argv[]) {
 
   try {
     kaldi::TxpParseOptions po(usage);
-    po.SetTpdb(tpdb);
+    //po.SetTpdb(tpdb);
     po.Register("pretty", &pretty,
                 "Output XML with tabbing and line breaks to make it readable");
     po.Read(argc, argv);
@@ -66,7 +67,7 @@ int main(int argc, char *argv[]) {
     kaldi::TxpSyllabify sy;
     // Use pujiXMl to read input file
     pugi::xml_document doc;
-    pugi::xml_parse_result r = doc.load(ki.Stream(), pugi::encoding_utf8);
+    pugi::xml_parse_result r = doc.load(ki.Stream(), pugi::encoding_utf8 | pugi::parse_escapes);
     if (!r) {
       KALDI_ERR << "PugiXML Parse Error in Input Stream" << r.description()
                 << "Error offset: " << r.offset;
@@ -77,7 +78,7 @@ int main(int argc, char *argv[]) {
     pz.Init(po);
     ph.Init(po);
     pr.Init(po);
-    sy.Init(po);    
+    sy.Init(po);
     // Run each module on the input XML
     t.Process(&doc);
     p.Process(&doc);

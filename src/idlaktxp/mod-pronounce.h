@@ -50,9 +50,6 @@ class TxpPronounce : public TxpModule {
   /// and appends it to the lex lookup structure
   void AppendPron(const char* entry, const std::string &word,
                   TxpLexiconLkp* lexlkp);
-  /// A normalisation rules object is required to allow the default
-  /// pronunciation of symbol and digit characters
-  TxpNRules nrules_;
   /// A pronuciation lexicon object
   TxpLexicon lex_;
   /// A cart based letter to sound rul object

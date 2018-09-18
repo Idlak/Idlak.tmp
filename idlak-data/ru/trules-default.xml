@@ -12,6 +12,16 @@
   </exp>
 </regex>
 
+<regex name="punctuation">
+  <comment>
+    Used by the tokeniser.
+    Strip punctuation of the front and back of tokens.
+  </comment>
+  <exp>
+    <![CDATA[^([()\[\]{}"'!?.,;:|]*)]]>
+  </exp>
+</regex>
+
   <regex name="separators">
     <comment>
       Important: DO NOT REMOVE
@@ -30,6 +40,34 @@
     </comment>
     <exp>
       <![CDATA[^[а-яА-Я_']+$]]>
+    </exp>
+  </regex>
+
+
+  <regex name="token1">
+    <comment>
+      It is used by the tokeniser to tokenise these characters separately
+    </comment>
+    <exp>
+      <![CDATA[^([\-+\/\*=$£€¥₩@&%|\\#~^¬])]]>
+    </exp>
+  </regex>
+
+  <regex name="token2">
+    <comment>
+      Internally punctuated numbers
+    </comment>
+    <exp>
+      <![CDATA[^([0-9]+[0-9\.,]*[0-9]+(s|m|M)?)]]>
+    </exp>
+  </regex>
+
+  <regex name="token3">
+    <comment>
+      Not punctuation
+    </comment>
+    <exp>
+      <![CDATA[^([^()\[\]{}"'!?.,;:|]*)]]>
     </exp>
   </regex>
 

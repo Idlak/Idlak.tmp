@@ -44,6 +44,7 @@ const std::string txpconfigdefault =
     "--phrasing-phrase-length-window=10\n"
     "--normalise-trace=0\n"
     "--normalise-active=True\n"
+    "--normalise-arch=default\n"
     "--pronounce-arch=default\n"
     "--pronounce-novowel-spell=True\n"
     "--syllabify-arch=default\n"
@@ -112,7 +113,7 @@ int TxpParseOptions::Read(int argc, const char *const *argv) {
   return ParseOptions::Read(argc, argv);
 }
 
-// key --<key> is treated as --general-<key> 
+// key --<key> is treated as --general-<key>
 const char* TxpParseOptions::GetValue(const char* module, const char* key) const {
   LookupMapPtr::const_iterator lookup;
   std::string optkey(module);
@@ -125,7 +126,7 @@ const char* TxpParseOptions::GetValue(const char* module, const char* key) const
       optkey = key;
       lookup = txpoptions_.find(optkey);
       if (lookup == txpoptions_.end()) return NULL;
-      else return (lookup->second)->c_str();   
+      else return (lookup->second)->c_str();
     }
   }
   return (lookup->second)->c_str();
