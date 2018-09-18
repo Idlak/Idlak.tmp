@@ -48,7 +48,7 @@ bool TxpPosTag::Process(pugi::xml_document* input) {
       pugi::xml_node pnode = (*(it - 1)).node();
       ptag = pnode.attribute("pos").value();
     }
-    tag = tagger_.GetPos(ptag, node.attribute("norm").value());
+    tag = tagger_.GetPos(ptag, node.attribute("tknorm").value());
     if (!node.attribute("pos")) node.append_attribute("pos");
     node.attribute("pos").set_value(tag);
     set = posset_.GetPosSet(tag);

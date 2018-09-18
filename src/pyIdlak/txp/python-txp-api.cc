@@ -122,6 +122,10 @@ std::string PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n) {
   return std::string("");
 }
 
+const char* PyTxpParseOptions_GetTpdb(PyTxpParseOptions * pypo) {
+  return pypo->po_->GetTpdb();
+}
+
 int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char *argv[]) {
   return pypo->po_->Read(argc, argv);
 }
@@ -187,7 +191,7 @@ PyIdlakModule * PyIdlakModule_new(enum IDLAKMOD modtype, PyTxpParseOptions * pyp
   kaldi::TxpPronounce * pr;
   kaldi::TxpSyllabify * sy;
   kaldi::TxpCex * cx;
-  
+
   if (!pypo) return NULL;
   PyIdlakModule * pymod = new PyIdlakModule;
   pymod->modtype_ = modtype;

@@ -36,7 +36,7 @@ class XMLDoc(object):
 
     def load_string(self, xmlstr):
         """ Loads a string containing XML """
-        pyIdlak_txp.PyPugiXMLDocument_LoadString(self._doc, xmlstr)
+        pyIdlak_txp.PyPugiXMLDocument_LoadString(self._doc, str(xmlstr))
 
 
     def to_string(self):
@@ -50,8 +50,3 @@ class XMLDoc(object):
     def idlak_doc(self):
         """ Get the underlying Idlak PugiXML document """
         return self._doc
-
-
-
-
-

@@ -4,8 +4,8 @@
 
 <regex name="whitespace">
   <comment>
-    Used by the tokeniser.
-    Whitespace characters.
+    Overide default to regard hypens as wspace until norm rules added
+    to deal with hypenation.
   </comment>
   <exp>
     <![CDATA[^([ \n\t\r]+)]]>
@@ -14,44 +14,24 @@
 
   <regex name="separators">
     <comment>
+      Important: DO NOT REMOVE
       It is used by the tokeniser to tokenise these characters separately
     </comment>
     <exp>
-      <![CDATA[^([\-+\/\*=$£€¥₩@&%|\\#~^¬])$]]>
+      <![CDATA[^([+\/\*=$£€¥₩@&%|\\#~^¬])$]]>
     </exp>
   </regex>
 
   <regex name="alpha">
     <comment>
-      Used by the tokeniser.
-      Also, extend it with the language-specific letters as required.
+      Important: Do not delete this regex, as it is used by the normaliser
+      internally.
+      Also, extend it with the language-specific letters.
     </comment>
     <exp>
       <![CDATA[^[a-zA-Z_']+$]]>
     </exp>
   </regex>
-
-  <regex name="punc_strip">
-    <comment>
-      Used by the tokeniser.
-      Strip punctuation of the front and back and leave the rest as a token.
-    </comment>
-    <exp>
-      <![CDATA[^([()\[\]{}"'!?.,;:|]*)(.*?)([()\[\]{}"'!?.,;:|]*$)]]>
-    </exp>
-  </regex>
-
-  <!-- <regex name="punc_strip">
-    <comment>
-      Used by the tokeniser.      
-      Decompose tokens into separate tokens seprated by punctuation
-      Currently this will break number normalisation. e.g. 12,345 -> '12' ',' '345'
-    </comment>
-    <exp>
-      <![CDATA[^([()\[\]{}"'!?.,;:|]*)([^()\[\]{}"'!?.,;:|]*)([()\[\]{}"'!?.,;:|]*)]]>
-    </exp>
-  </regex> -->
-
 
   <lookup name="downcase">
     <comment>
@@ -87,7 +67,7 @@
       This is used for 'H:asdigits'.
     </comment>
     <exp>
-      <![CDATA[{'0':'oh', '1':'one', '2':'two', '3':'three', '4':'four', '5':'five', '6':'six', '7':'seven', '8':'eight', '9':'nine'}]]>
+      <![CDATA[{'0':'nul', '1':'een', '2':'twee', '3':'drie', '4':'vier', '5':'vijf', '6':'zes', '7':'zeven', '8':'acht', '9':'negen'}]]>
     </exp>
   </lookup>
 
@@ -96,7 +76,7 @@
       Important, do not delete: Used by the hard-coded rule "H:aschars"
     </comment>
     <exp>
-      <![CDATA[{"\":"backslash", "_": "underscore", "*":"asterisk", "#":"hash", "@":"at", ".":"dot", "~":"tilde", "%":"percent", "<":"less than", ">":"more than", "=":"equals", "&":"ampersand", "+":"plus", "÷": "divided by", "¢": "cents", ":":"colon", "/":"slash", ",":"comma", "°":"degrees", "?":"question mark", "!":"exclamation mark", "½":"half", "¼":"quarter", "¾":"three quarters", "©":"copyright", "²":"squared", "³":"cubed", "×":"times", "·":"point", "√":"square root"}]]>
+      <![CDATA[{"\":"backslash", "_": "lag streepjt", "*":"sterretje", "#":"hekje", "@":"at", ".":"punt", "~":"tilde", "%":"procent", "<":"minder dan", ">":"meer dan", "=":"gelijk aan", "&":"en", "+":"plus", "÷": "gedeeld door", "¢": "cents", ":":"dubbele punt", "/":"slash", ",":"komma", "°":"graden", "?":"vraagteken", "!":"uitroepteken", "½":"half", "¼":"kwart", "¾":"driekwart", "©":"copyright", "²":"kwadraat", "³":"tot de derde macht", "×":"keer", "·":"punt", "√":"wortel"}]]>
     </exp>
   </lookup>
 

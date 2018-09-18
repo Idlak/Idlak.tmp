@@ -47,6 +47,7 @@ std::string PyTxpParseOptions_value(PyTxpParseOptions * pypo, const std::string 
 std::string PyTxpParseOptions_value(PyTxpParseOptions * pypo, const std::string &module, const std::string &key);
 std::string PyTxpParseOptions_docstring(PyTxpParseOptions * pypo, const std::string &key);
 std::string PyTxpParseOptions_GetArg(PyTxpParseOptions * pypo, int n);
+const char * PyTxpParseOptions_GetTpdb(PyTxpParseOptions * pypo);
 
 void PyTxpParseOptions_PrintUsage(PyTxpParseOptions * pypo, bool print_command_line = false);
 int PyTxpParseOptions_Read(PyTxpParseOptions * pypo, int argc, char * argv[]);

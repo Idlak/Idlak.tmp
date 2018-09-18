@@ -74,7 +74,7 @@ language
       Internally punctuated numbers
     </comment>
     <exp>
-      <![CDATA[^([0-9]+[0-9\.,]*[0-9]+)]]>
+      <![CDATA[^([0-9]+[0-9\.,]*[0-9]+(s|m|M)?)]]>
     </exp>
   </regex>
 
