@@ -121,6 +121,8 @@ def splitNormalised(token):
         new_tk.text = ""
         if 'prepunc' in new_tk.attrib:
             new_tk.attrib.pop('prepunc')
+        if w not in words[-1:] and 'pstpunc' in new_tk.attrib:
+            new_tk.attrib.pop('pstpunc')
         # append it after the previous token
         tk_parent.insert(last_index+1, new_tk)
         last_index = tk_parent.index(new_tk)
@@ -465,7 +467,6 @@ class Rule:
         replaces = {}
         for r in self.replaces:
             r.apply(matches, pos, tokens, replaces)
-        print (self.name, replaces)
         for offset in replaces:
             tk = tokens[pos + int(offset)]
             # if 'nnorm' not in tk.attrib:
@@ -660,12 +661,11 @@ class Normalise(object):
         xmlin = etree.fromstring(strin)
 
         normrules = Normrules(self.ruledir, self.hrules)
-        print(etree.tostring(xmlin, pretty_print=True))
         tokens = xmlin.xpath('.//tk|.//break')
         normrules.runrulesets(tokens)
 
         for tk in tokens:
-            if 'norm' not in tk.attrib:
+            if 'norm' not in tk.attrib and 'tknorm' in tk.attrib:
                 tk.set('norm', tk.get('tknorm'))
             splitNormalised(tk)
 
