@@ -26,6 +26,7 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include "idlaktxp/txppcre.h"
 
 #include "base/kaldi-common.h"
 
@@ -47,6 +48,8 @@ typedef std::vector<std::string> StringVector;
 typedef std::set<std::string> StringSet;
 /// Generic vector of char*
 typedef std::vector<char* > CharPtrVector;
+/// Vector of rgxs
+typedef  std::vector<const pcre*> RgxVector;
 }  // namespace kaldi
 
 #endif  // KALDI_IDLAKTXP_IDLAK_COMMON_H__

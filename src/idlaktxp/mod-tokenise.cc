@@ -25,9 +25,9 @@ TxpTokenise::TxpTokenise() : TxpModule("tokenise") {}
 bool TxpTokenise::Init(const TxpParseOptions &opts) {
   opts_ = &opts;
   tpdb_ = opts.GetTpdb();
-  nrules_.Init(opts, std::string(opts_->GetValue(GetName().c_str(), "arch")));
+  trules_.Init(opts, std::string(opts_->GetValue(GetName().c_str(), "arch")));
   abbrev_.Init(opts, std::string(GetOptValue("arch")));
-  return nrules_.Parse(tpdb_) && abbrev_.Parse(tpdb_);
+  return trules_.Parse(tpdb_) && abbrev_.Parse(tpdb_);
 }
 
 bool TxpTokenise::Process(pugi::xml_document* input) {
@@ -49,14 +49,14 @@ bool TxpTokenise::Process(pugi::xml_document* input) {
     p = node.value();
     while (*p) {
       // break off tokens and spacing and add as an element
-      p = nrules_.ConsumeToken(p, &token, &wspace);
+      p = trules_.ConsumeWhitespaceToken(p, &token, &wspace);
       if (token.length()) {
         col += token.length();
         tkroot = tk = node.parent().insert_child_before("tk", node);
         ntxt = tk.append_child(pugi::node_pcdata);
         ntxt.set_value(token.c_str());
         n += 1;
-        nrules_.ReplaceUtf8Punc(token, &tmp);
+        trules_.ReplaceUtf8Punc(token, &tmp);
         /// check for full token matches without partial punctuation
         /// i.e. :-) but not (US) 
         abbrev_info = abbrev_.LookupAbbrev(token.c_str());
@@ -123,7 +123,7 @@ bool TxpTokenise::Process(pugi::xml_document* input) {
 // Analyses the characters and sets flags giving case, foriegn character info
 int32 TxpTokenise::SetPuncCaseInfo(std::string* tkin, pugi::xml_node* tk) {
   const char* p;
-  TxpCaseInfo caseinfo;
+  TxpTrulesCaseInfo caseinfo;
   pugi::xml_node node, lex, tkcopy;
   int32 n = 0;
   std::string token;
@@ -132,7 +132,9 @@ int32 TxpTokenise::SetPuncCaseInfo(std::string* tkin, pugi::xml_node* tk) {
   TxpAbbrevInfo * abbrev_info;
   p = tkin->c_str();
   while (*p) {
-    p = nrules_.ConsumePunc(p, &prepunc, &token, &pstpunc);
+    p = trules_.ConsumePunc(p, &prepunc);
+    p = trules_.ConsumeToken(p, &token);
+    p = trules_.ConsumePunc(p, &pstpunc);
     if (n) {
       *tk = tk->parent().insert_child_after("tk", *tk);
     }
@@ -187,7 +189,7 @@ int32 TxpTokenise::SetPuncCaseInfo(std::string* tkin, pugi::xml_node* tk) {
       }
       if (token.length()) {
         tk->append_attribute("norm");
-        nrules_.NormCaseCharacter(&token, caseinfo);
+        trules_.NormCaseCharacter(&token, caseinfo);
         tk->attribute("norm").set_value(token.c_str());
       }
       if (pstpunc.length()) {

@@ -32,7 +32,7 @@ bool TxpPos::Parse(const std::string &tpdb) {
 }
 
 const char* TxpPos::GetPos(const char* ptag, const char* word) {
-  RgxVector::iterator it;
+  PosRgxVector::iterator it;
   LookupMap::iterator lkp;
   const char* current_tag;
   current_tag =  most_common_.c_str();
