@@ -51,6 +51,8 @@ bool TxpPronounce::Process(pugi::xml_document* input) {
        ++it) {
     pugi::xml_node node = (*it).node();
     word = node.attribute("norm").value();
+    if (word.compare("") == 0)
+        word = node.attribute("tknorm").value();
     lexlkp.Reset();
     // Check to see if token is first daughter of a lex tag
     parent = node.parent();
