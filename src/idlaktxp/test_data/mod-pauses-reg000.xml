@@ -4,49 +4,49 @@
 </ws>
 	<lex pron="k+">
 		<break type="4" time="0.011" />
-		<tk norm="k" lc="true" uc="true">K</tk>
+		<tk tknorm="k" lc="true" uc="true">K</tk>
 	</lex>
 	<ws> </ws>
-	<tk norm="an" lc="true">an</tk>
+	<tk tknorm="an" lc="true">an</tk>
 	<break type="4" time="0.4" />
 	<ws col="5">
 
 </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<break type="4" time="0.4" />
 	<ws col="3">
 </ws>
-	<tk norm="http" pstpunc=":" lc="true">http:</tk>
+	<tk tknorm="http" pstpunc=":" lc="true">http://www.big.site</tk>
 	<break type="3" time="0.3" />
-	<tk norm="/" symbols="true">/</tk>
+	<tk tknorm="/" lc="true" symbols="true" />
 	<break type="4" time="0.4" />
-	<tk norm="/" symbols="true">/</tk>
+	<tk tknorm="/" lc="true" symbols="true" />
 	<break type="4" time="0.4" />
-	<tk norm="www.big.site" lc="true" symbols="true">www.big.site</tk>
+	<tk tknorm="www" pstpunc="." lc="true" symbols="true" />
+	<break type="4" time="0.4" />
+	<tk tknorm="big" pstpunc="." lc="true" symbols="true" />
+	<break type="4" time="0.4" />
+	<tk tknorm="site" lc="true" symbols="true" />
 	<ws> </ws>
-	<tk norm="2" symbols="true">2</tk>
-	<tk norm="=" symbols="true">=</tk>
-	<tk norm="4" symbols="true">4</tk>
-	<tk norm="-" symbols="true">-</tk>
-	<tk norm="2" symbols="true">2</tk>
+	<tk tknorm="2=4-2" symbols="true">2=4-2</tk>
 	<ws> </ws>
-	<tk norm="full" lc="true" uc="true">FULL</tk>
+	<tk tknorm="full" lc="true" uc="true">FULL</tk>
 	<ws> </ws>
-	<tk norm="power" lc="true" uc="true">Power</tk>
+	<tk tknorm="power" lc="true" uc="true">Power</tk>
 	<ws> </ws>
-	<tk norm="cafe" lc="true" foreign="true">café</tk>
+	<tk tknorm="cafe" lc="true" foreign="true">café</tk>
 	<break type="2" time="0.1" />
 	<ws> </ws>
-	<tk prepunc="&quot;" norm="okay" pstpunc="&quot;" lc="true">“okay”</tk>
+	<tk prepunc="&quot;" tknorm="okay" pstpunc="&quot;" lc="true">“okay”</tk>
 	<break type="2" time="0.1" />
 	<ws col="54">
 
 </ws>
-	<tk norm="and" lc="true" uc="true">And</tk>
+	<tk tknorm="and" lc="true" uc="true">And</tk>
 	<ws> </ws>
-	<tk norm="another" lc="true">another</tk>
+	<tk tknorm="another" lc="true">another</tk>
 	<ws> </ws>
-	<tk norm="sentence" pstpunc="." lc="true">sentence.</tk>
+	<tk tknorm="sentence" pstpunc="." lc="true">sentence.</tk>
 	<break type="4" time="0.4" />
 	<ws col="23">
 

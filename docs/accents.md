@@ -1,9 +1,3 @@
-.. _accents:
-
-#######
-Accents
-#######
-
 Idlak includes accents for specific languages to account for regional variations
 of the language. These accents are represented by 2 ascii letter codes that can
 be repeated across multiple languages, but are unique for each language.
@@ -12,34 +6,24 @@ there is a reason not to.
 
 The following sections cover the accents and phonesets for each language.
 
-
-*******
-English
-*******
+## English
 
 rp - Received Pronunciation
----------------------------
-
 
 ga - General American
----------------------
 
 
-******************
-Dutch - Nederlands
-******************
+
+## Dutch - Nederlands
 
 nl - Netherlands
 
-**********************
-Irish Gaelic - Gaeilge
-**********************
+
+## Irish Gaelic - Gaeilge
 
 ie - An Caighdeán
 
-*******
-Russian
-*******
+
+## Russian
 
 ru - Russian
-
