@@ -867,8 +867,8 @@ PCREROOT=`rel2abs ../tools/pcre-8.20/`
 PUJIXMLROOT=`rel2abs ../tools/pugixml-1.2/`
 SWIGROOT=`rel2abs ../tools/swig-3.0.12/`
 
-PYTHONDEVINC=/usr/include/python3.5m
-PYTHONDEVLIB=python3.5m
+PYTHONDEVINC= #/usr/include/python3.5m
+PYTHONDEVLIB= #python3.5m
 PYTHONDEVLIBDIR=
 SPTKROOT=`rel2abs ../tools/SPTK/`
 
@@ -1146,6 +1146,29 @@ if [ $pyidlak ]; then
     if [ ! -f $SPTKROOT/lib/libSPTK.a  ]; then
             failure "Could not find file $SPTKROOT/lib/libSPTK.a:
         you may not have compiled SPTK.  See ../tools/install_idlak.sh"
+    fi
+    # Look for python3 executable
+    if which python3.5 >&/dev/null; then
+        PYTHONEXE=`which python3.5`
+    else
+        if which python3 >&/dev/null; then
+            PYTHONEXE=`which python3`
+        else
+            if which python >&/dev/null; then
+                PYTHONEXE=`which python`
+                pymajorver=`$PYTONEXE --version | cut -c 8`
+                if [ $pymajorver != 3 ]; then
+                    failure "Could not find python3 as either 'python3.5', 'python3' or 'python'"
+                fi
+            else
+                failure "Could not find python3 as either 'python3.5' or 'python3'."
+            fi
+        fi
+    fi
+    if [ -z $PYTHONDEVINC ]; then
+        PYTHONDEVINC=`$PYTHONEXE -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())"`
+        PYTHONDEVLIB=python`$PYTHONEXE -c "from distutils.sysconfig import get_config_var; print(get_config_var('LDVERSION'))"`
+        PYTHONDEVLIBDIR=`$PYTHONEXE -c "from distutils.sysconfig import get_config_var; print(get_config_var('LIBDIR'))"`
     fi
     if [ ! -f $PYTHONDEVINC/Python.h ]; then
         failure "Could not find file $PYTHONDEVINC/Python.h:
