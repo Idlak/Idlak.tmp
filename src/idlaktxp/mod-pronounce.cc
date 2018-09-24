@@ -73,6 +73,7 @@ bool TxpPronounce::Process(pugi::xml_document* input) {
     } else {
       // standard lookup of word
       AppendPron(lex_entry, std::string(word), &lexlkp);
+      // TODO: put out a warning if any phonemes are not from the phoneme set
       node.append_attribute("pron").set_value(lexlkp.pron.c_str());
       if (lexlkp.lts) {
         node.append_attribute("lts").set_value("true");

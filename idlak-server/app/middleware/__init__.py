@@ -1,1 +1,1 @@
-from app.middleware import auth, log
+from app.middleware import auth

@@ -5,6 +5,7 @@ from datetime import datetime
 from flask import jsonify
 import uuid
 
+
 class Voice(db.Model):
     """ A voice model used in speech sythesising. """
     id = db.Column(db.String(3), primary_key=True)
@@ -16,7 +17,7 @@ class Voice(db.Model):
 
     def __init__(self, id, name, language, accent, gender, directory):
         """ __init__ method for Voice class.
-        
+
         Args:
             id (str): an id of the voice
             name (str): the name of the voice
@@ -33,16 +34,18 @@ class Voice(db.Model):
         self.directory = directory
 
     def __repr__(self):
-        return '<Voice {}:{}:{}:{}>'.format(self.name, self.id, self.language, self.accent)
+        return '<Voice {}:{}:{}:{}>'.format(self.name, self.id, self.language,
+                                            self.accent)
 
     def to_dict(self):
         """ Turns object into a representable key value dictionary. """
         exceptions = ['directory']
-        di = { c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
+        di = {c.key: getattr(self, c.key) for c in inspect(self).mapper
+                                                                .column_attrs}
         for e in exceptions:
             del di[e]
-        return di   
-    
+        return di
+
     def delete(self):
         """ Removes voice from the database """
         db.session.delete(self)
@@ -52,22 +55,23 @@ class Voice(db.Model):
     @classmethod
     def new_voice(self, id, name, lang, acc, gndr, directory):
         """ Creates a new voice.
-        
+
         A static method.
-        
+
         Args:
             name (str): the name of the voice
             lang (str): the language the voice speaks in, ISO format
             acc (str): the accent the voice speaks in, 2 letter format
             gndr (str): gender of the voice (male|female)
             directory (str): directory of the voice files
-            
+
         Returns:
-            :obj:'Voice': the newly created voice that was stored in the database
+            :obj:'Voice': the newly created voice that was stored
+                          in the database
         """
         exists = Voice.query.filter_by(id=id).first()
         if exists is not None:
-            return { 'error':'Voice already exists', 'voice':exists }
+            return {'error': 'Voice already exists', 'voice': exists}
         voice = Voice(id, name, lang, acc, gndr, directory)
         db.session.add(voice)
         db.session.commit()
@@ -78,5 +82,6 @@ class Voice(db.Model):
                          "\taccent: {}\n"
                          "\tgender: {}\n"
                          "\tdirectory: {}\n}}"
-                         .format(datetime.now(), id, name, lang, acc, gndr, directory))
+                         .format(datetime.now(), id, name, lang, acc, gndr,
+                                 directory))
         return voice
