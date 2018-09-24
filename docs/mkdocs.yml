@@ -1,0 +1,29 @@
+site_name: Idlak documentation
+
+nav:
+    - Home: 'index.md'
+    - Languages: 'language_resources.md'
+    - Accents: 'accents.md'
+    - Tangle Voices: 'tangle_voices.md'
+    - Rest Server: 'rest_server.md'
+
+markdown_extensions:
+    - codehilite
+    - toc:
+        permalink: "#"
+        baselevel: 2
+
+theme:
+    name: material
+    hljs_languages:
+        - xml
+    palette:
+        primary: 'teal'
+        accent: 'teal'
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/Idlak/idlak'
+
+repo_name: 'idlak/idlak'
+repo_url: 'https://github.com/Idlak/idlak'

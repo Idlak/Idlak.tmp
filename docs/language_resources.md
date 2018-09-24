@@ -1,14 +1,8 @@
-.. _language-resources:
-
-#########
-Languages
-#########
-
 Idlak has been designed to work with and provide examples in multiple languages.
 Generally languages are refered to by their languages codes in programs.
 
-* Language (lng) codes are `2 letter ISO_639-1 codes <https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>`_
-* Accent (acc) codes are 2 ASCII letters, see :ref:`accents`
+* Language (lng) codes are [2 letter ISO_639-1 codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+* Accent (acc) codes are 2 ASCII letters, see [accents](accents.md)
 
 A note on archectures: In Idlak we allow for multiple versions of resources to
 sit along side one another. These are called archectures and are
@@ -17,21 +11,15 @@ Idlak requires that the default archecture be defined so the file
 names below all have a ``-default.xml`` ending. In general Idlak
 can choose alternative archectures for individual resources.
 
-***********************
-Creating a new language
-***********************
-
+## Creating a new language
 The sections below explain the required resources for languages.
 Some of the resources are accent specific, these have been marked.
 In general all language resources can be overridden by specific accents.
 
-Phoneset
-========
-
-.. code-block:: none
-
-    idlak-data/<lng>/<acc>/phoneset-default.xml
-
+### Phoneset
+```
+idlak-data/<lng>/<acc>/phoneset-default.xml
+```
 *Accent specific*
 
 In IPA there would be multiple ways to write "r" in English, that are from a comprehension
@@ -46,15 +34,13 @@ of a phoneme name. As much as possible different accents should use the same
 symbols for equivalent phonemes.
 
 The format for the phoneset is as follows:
-
-.. code-block:: xml
-
-  <?xml version="1.0"? encoding="utf-8">
-  <phoneset language="" accent="" >
-      <phone name="" ipa="" example-word="" example-pron="" syllabic="" />
-      ...
-  </phoneset>
-
+``` xml
+<?xml version="1.0"? encoding="utf-8">
+<phoneset language="" accent="" >
+    <phone name="" ipa="" example-word="" example-pron="" syllabic="" />
+    ...
+</phoneset>
+```
 
 Where
 
@@ -66,30 +52,23 @@ Where
 * **example-pron** - The full pronounciation for the example
 * **syllabic** - True if the phoneme is syllabic
 
-Lexicon
-=======
-
-.. code-block:: none
-
-    idlak-data/<lng>/<acc>/lexicon-default.xml
-
+### Lexicon
+```
+idlak-data/<lng>/<acc>/lexicon-default.xml
+```
 *Accent specific*
 
 The lexicon or pronounciation dictionary lists words that have known pronounciations
 using the accent specific phoneset. It is possible to have multiple pronounciations for the
 same word (grapheme). The lexicon format for a single entry is as follows:
-
-.. code-block:: xml
-
-    <lex pron="" entry="" default="">grapheme</lex>
+```xml
+<lex pron="" entry="" default="">grapheme</lex>
+```
 
 for example
-
-.. code-block:: xml
-
-    <lex pron="ih0 g z ae1 m p ah0 l" entry="full" default="true">example</lex>
-
-
+```xml
+<lex pron="ih0 g z ae1 m p ah0 l" entry="full" default="true">example</lex>
+```
 Where
 
 * **pron** - The correct pronounciation, including stress, using the Idlak phoneset.
@@ -102,65 +81,51 @@ Where
                 one and only one entry must be true.
 
 The overall format for the lexicon is:
-
-.. code-block:: xml
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <lexicon>
-        <lex pron="a0" entry="full" default="true">а</lex>
-        ..
-    </lexicon>
-
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<lexicon>
+    <lex pron="a0" entry="full" default="true">а</lex>
+    ..
+</lexicon>
+```
 The lexicon has an optional ``name`` attribute.
 
-
-LTS rules
-=========
-
-.. code-block:: none
-
-    idlak-data/<lng>/<acc>/ccart-default.xml
-
+### LTS rules
+```
+idlak-data/<lng>/<acc>/ccart-default.xml
+```
 *Accent specific*
 
 Currently the Idlak front-end uses cart trees for letter-to-sound rules.
 
 We have a script that can automatically generate this file from the lexicon, using
-`Phonetisaurus <https://github.com/AdolfVonKleist/Phonetisaurus>`_.
+[Phonetisaurus](https://github.com/AdolfVonKleist/Phonetisaurus)
 (Fill in the path, language code, and accent code)
 
-.. code-block:: none
+```bash
+IDIR=<path to idlak>
+cd $IDIR/idlak-misc/cart_lts
+./run.sh -i $IDIR/idlak-data/<lng>/<acc>/lexicon-default.xml -o $IDIR/idlak-data/<lng>/<acc>/ccart-default.xml
+```
 
-    IDIR=<path to idlak>
-    cd $IDIR/idlak-misc/cart_lts
-    ./run.sh -i $IDIR/idlak-data/<lng>/<acc>/lexicon-default.xml -o $IDIR/idlak-data/<lng>/<acc>/ccart-default.xml
-
-
-
-Tokeniser rules
-===============
-
-.. code-block:: none
-
-    idlak-data/<lng>/trules-default.xml
-
+### Tokeniser rules
+```
+idlak-data/<lng>/trules-default.xml
+```
 The tokeniser rules govern how text is split into individual tokens. These
 are a series of regular expression (PCRE) that govern what is considered to be
 letters, numbers, etc. All of the rules are manditory. A rule is of the form:
-
-.. code-block:: xml
-
-    <regex name="matches a name in the tokeniser">
-        <comment>
-            Description as to the purpose of the rule and any interesting
-            things about this language's version.
-        </comment>
-        <exp>
-            <![CDATA[regex]>
-        </exp>
-    </regex>
-
-
+``` xml
+<regex name="matches a name in the tokeniser">
+    <comment>
+        Description as to the purpose of the rule and any interesting
+        things about this language's version.
+    </comment>
+    <exp>
+        <![CDATA[regex]>
+    </exp>
+</regex>
+```
 The list of rules understood and required by the tokeniser is as follows:
 
 * **whitespace** what is considered to be whitespace in the language
@@ -168,7 +133,7 @@ The list of rules understood and required by the tokeniser is as follows:
 * **alpha** the lower and uppercase letters of that lanugage, note that you do not need to include diacritics
 * **downcase** the mapping from uppercase to lowercase letters
 * **decompose** lookup for utf8 decomposition into NFD form see
-    `Unicode_equivalence <https://en.wikipedia.org/wiki/Unicode_equivalence>`_.
+    [Unicode_equivalence](https://en.wikipedia.org/wiki/Unicode_equivalence).
     This can be generated automatically from the lexicon.
 * **convertillegal** a lookup for changing characters from one form to another
     espically useful for converting utf8 characters to ascii versions, and for
@@ -179,59 +144,29 @@ The list of rules understood and required by the tokeniser is as follows:
 
 In general you can copy the English one and make a few modifications.
 
-
-Normalizer rules
-================
+### Normalizer rules
 
 **Whole langauge**:
-
-.. code-block:: none
-
-    idlak-data/<lng>/nrules-default/*.xml
-
+```
+idlak-data/<lng>/nrules-default/*.xml
+```
 **Accent specific**:
-
-.. code-block:: none
-
-    idlak-data/<lng>/<acc>/nrules-default/*.xml
-
+```
+idlak-data/<lng>/<acc>/nrules-default/*.xml
+```
 **NB** Unlike other resources the accent specific rules are *appended* to the lanugage rules.
 
+### Part of speech set and rules
+
+### Abbreviations
+
+### Phrasing rules
+
+### Context extraction rules
 
 
-
-
-
-
-Part of speech set and rules
-============================
-
-
-
-
-Abbreviations
-=============
-
-
-
-
-Phrasing rules
-==============
-
-
-
-
-Context extraction rules
-========================
-
-
-
-
-*******************
-Available languages
-*******************
+## Available languages
 
 * English
 * Dutch
 * Russian
-
