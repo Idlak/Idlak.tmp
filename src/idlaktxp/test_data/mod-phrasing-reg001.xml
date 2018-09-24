@@ -1,758 +1,882 @@
 <?xml version="1.0"?>
 <parent>
-	<ws col="0">
+	<utt uttid="1" no_phrases="1">
+		<spt phraseid="1" no_wrds="8">
+			<ws col="0">
 </ws>
-	<tk tknorm="helen" lc="true" uc="true" pos="NN" posset="1" norm="helen">Helen</tk>
-	<ws> </ws>
-	<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" norm="duncan">Duncan</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="tried" lc="true" pos="VVN" posset="1" norm="tried">tried</tk>
-	<ws> </ws>
-	<tk tknorm="under" lc="true" pos="IN" posset="3" norm="under">under</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" norm="witchcraft">Witchcraft</tk>
-	<ws> </ws>
-	<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" norm="act">Act</tk>
-	<ws col="48">
+			<break type="4" time="0.011" />
+			<tk tknorm="helen" lc="true" uc="true" pos="NN" posset="1" wordid="1">Helen</tk>
+			<ws> </ws>
+			<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" wordid="2">Duncan</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="3">was</tk>
+			<ws> </ws>
+			<tk tknorm="tried" lc="true" pos="VVN" posset="1" wordid="4">tried</tk>
+			<ws> </ws>
+			<tk tknorm="under" lc="true" pos="IN" posset="3" wordid="5">under</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="6">the</tk>
+			<ws> </ws>
+			<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" wordid="7">Witchcraft</tk>
+			<ws> </ws>
+			<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" wordid="8">Act</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="2" no_phrases="1">
+		<spt phraseid="1" no_wrds="30">
+			<break type="4" time="0.2" />
+			<ws col="48">
 </ws>
-	<tk tknorm="the" lc="true" uc="true" pos="DT" posset="3" norm="the">The</tk>
-	<ws> </ws>
-	<tk tknorm="family" lc="true" pos="RB" posset="1" norm="family">family</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="last" lc="true" pos="JJ" posset="1" norm="last">last</tk>
-	<ws> </ws>
-	<tk tknorm="person" lc="true" pos="NN" posset="1" norm="person">person</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="uk" lc="true" uc="true" pos="NN" posset="1" isnrm="true" norm="u">UK</tk>
-	<tk tknorm="uk" lc="true" uc="true" pos="NN" posset="1" isnrm="true" norm="k" />
-	<ws> </ws>
-	<tk tknorm="to" lc="true" pos="TO" posset="3" norm="to">to</tk>
-	<ws> </ws>
-	<tk tknorm="be" lc="true" pos="VB" posset="3" norm="be">be</tk>
-	<ws> </ws>
-	<tk tknorm="prosecuted" lc="true" pos="VVN" posset="1" norm="prosecuted">prosecuted</tk>
-	<ws> </ws>
-	<tk tknorm="under" lc="true" pos="IN" posset="3" norm="under">under</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" norm="witchcraft">Witchcraft</tk>
-	<ws> </ws>
-	<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" norm="act">Act</tk>
-	<ws> </ws>
-	<tk tknorm="will" lc="true" pos="MD" posset="3" norm="will">will</tk>
-	<ws> </ws>
-	<tk tknorm="mark" lc="true" pos="NN" posset="1" norm="mark">mark</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="50" symbols="true" pos="NN" posset="1" isnrm="true" norm="fifty">50th</tk>
-	<tk tknorm="th" lc="true" symbols="true" pos="NN" posset="1" norm="th" />
-	<ws> </ws>
-	<tk tknorm="anniversary" lc="true" pos="NN" posset="1" norm="anniversary">anniversary</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="her" lc="true" pos="PP$" posset="3" norm="her">her</tk>
-	<ws> </ws>
-	<tk tknorm="death" lc="true" pos="NN" posset="1" norm="death">death</tk>
-	<ws> </ws>
-	<tk tknorm="by" lc="true" pos="IN" posset="3" norm="by">by</tk>
-	<ws> </ws>
-	<tk tknorm="calling" lc="true" pos="VVG" posset="1" norm="calling">calling</tk>
-	<ws> </ws>
-	<tk tknorm="for" lc="true" pos="IN" posset="3" norm="for">for</tk>
-	<ws> </ws>
-	<tk tknorm="her" lc="true" pos="PP$" posset="3" norm="her">her</tk>
-	<ws> </ws>
-	<tk tknorm="pardon" pstpunc="." lc="true" pos="NN" posset="1" norm="pardon">pardon.</tk>
-	<ws col="153">
+			<tk tknorm="the" lc="true" uc="true" pos="DT" posset="3" wordid="1">The</tk>
+			<ws> </ws>
+			<tk tknorm="family" lc="true" pos="RB" posset="1" wordid="2">family</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="3">of</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="4">the</tk>
+			<ws> </ws>
+			<tk tknorm="last" lc="true" pos="JJ" posset="1" wordid="5">last</tk>
+			<ws> </ws>
+			<tk tknorm="person" lc="true" pos="NN" posset="1" wordid="6">person</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="7">in</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="8">the</tk>
+			<ws> </ws>
+			<tk tknorm="uk" lc="true" uc="true" pos="NN" posset="1" wordid="9">UK</tk>
+			<ws> </ws>
+			<tk tknorm="to" lc="true" pos="TO" posset="3" wordid="10">to</tk>
+			<ws> </ws>
+			<tk tknorm="be" lc="true" pos="VB" posset="3" wordid="11">be</tk>
+			<ws> </ws>
+			<tk tknorm="prosecuted" lc="true" pos="VVN" posset="1" wordid="12">prosecuted</tk>
+			<ws> </ws>
+			<tk tknorm="under" lc="true" pos="IN" posset="3" wordid="13">under</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="14">the</tk>
+			<ws> </ws>
+			<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" wordid="15">Witchcraft</tk>
+			<ws> </ws>
+			<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" wordid="16">Act</tk>
+			<ws> </ws>
+			<tk tknorm="will" lc="true" pos="MD" posset="3" wordid="17">will</tk>
+			<ws> </ws>
+			<tk tknorm="mark" lc="true" pos="NN" posset="1" wordid="18">mark</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="19">the</tk>
+			<ws> </ws>
+			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20">50th</tk>
+			<tk tknorm="th" lc="true" symbols="true" pos="NN" posset="1" wordid="21" />
+			<ws> </ws>
+			<tk tknorm="anniversary" lc="true" pos="NN" posset="1" wordid="22">anniversary</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="23">of</tk>
+			<ws> </ws>
+			<tk tknorm="her" lc="true" pos="PP$" posset="3" wordid="24">her</tk>
+			<ws> </ws>
+			<tk tknorm="death" lc="true" pos="NN" posset="1" wordid="25">death</tk>
+			<ws> </ws>
+			<tk tknorm="by" lc="true" pos="IN" posset="3" wordid="26">by</tk>
+			<ws> </ws>
+			<tk tknorm="calling" lc="true" pos="VVG" posset="1" wordid="27">calling</tk>
+			<ws> </ws>
+			<tk tknorm="for" lc="true" pos="IN" posset="3" wordid="28">for</tk>
+			<ws> </ws>
+			<tk tknorm="her" lc="true" pos="PP$" posset="3" wordid="29">her</tk>
+			<ws> </ws>
+			<tk tknorm="pardon" pstpunc="." lc="true" pos="NN" posset="1" wordid="30">pardon.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="3" no_phrases="4">
+		<spt phraseid="1" no_wrds="3">
+			<break type="4" time="0.2" />
+			<ws col="153">
 </ws>
-	<tk tknorm="medium" lc="true" uc="true" pos="NN" posset="1" norm="medium">Medium</tk>
-	<ws> </ws>
-	<tk tknorm="helen" lc="true" uc="true" pos="NN" posset="1" norm="helen">Helen</tk>
-	<ws> </ws>
-	<tk tknorm="duncan" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="duncan">Duncan,</tk>
-	<ws> </ws>
-	<tk tknorm="who" lc="true" pos="WP" posset="3" norm="who">who</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="born" lc="true" pos="NN" posset="1" norm="born">born</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="callander" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="callander">Callander,</tk>
-	<ws> </ws>
-	<tk tknorm="perthshire" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="perthshire">Perthshire,</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="imprisoned" lc="true" pos="VVN" posset="1" norm="imprisoned">imprisoned</tk>
-	<ws> </ws>
-	<tk tknorm="using" lc="true" pos="VVG" posset="1" norm="using">using</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="law" lc="true" pos="NN" posset="1" norm="law">law</tk>
-	<ws> </ws>
-	<tk tknorm="during" lc="true" pos="IN" posset="3" norm="during">during</tk>
-	<ws> </ws>
-	<tk tknorm="world" lc="true" uc="true" pos="NN" posset="1" norm="world">World</tk>
-	<ws> </ws>
-	<tk tknorm="war" lc="true" uc="true" pos="NN" posset="1" norm="war">War</tk>
-	<ws> </ws>
-	<tk tknorm="ii" pstpunc="." lc="true" uc="true" pos="NN" posset="1" isnrm="true" norm="two">II.</tk>
-	<ws col="110">
+			<tk tknorm="medium" lc="true" uc="true" pos="NN" posset="1" wordid="1">Medium</tk>
+			<ws> </ws>
+			<tk tknorm="helen" lc="true" uc="true" pos="NN" posset="1" wordid="2">Helen</tk>
+			<ws> </ws>
+			<tk tknorm="duncan" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="3">Duncan,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="2" no_wrds="5">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="who" lc="true" pos="WP" posset="3" wordid="1">who</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="2">was</tk>
+			<ws> </ws>
+			<tk tknorm="born" lc="true" pos="NN" posset="1" wordid="3">born</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="4">in</tk>
+			<ws> </ws>
+			<tk tknorm="callander" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="5">Callander,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="3" no_wrds="1">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="perthshire" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="1">Perthshire,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="4" no_wrds="9">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="1">was</tk>
+			<ws> </ws>
+			<tk tknorm="imprisoned" lc="true" pos="VVN" posset="1" wordid="2">imprisoned</tk>
+			<ws> </ws>
+			<tk tknorm="using" lc="true" pos="VVG" posset="1" wordid="3">using</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="4">the</tk>
+			<ws> </ws>
+			<tk tknorm="law" lc="true" pos="NN" posset="1" wordid="5">law</tk>
+			<ws> </ws>
+			<tk tknorm="during" lc="true" pos="IN" posset="3" wordid="6">during</tk>
+			<ws> </ws>
+			<tk tknorm="world" lc="true" uc="true" pos="NN" posset="1" wordid="7">World</tk>
+			<ws> </ws>
+			<tk tknorm="war" lc="true" uc="true" pos="NN" posset="1" wordid="8">War</tk>
+			<ws> </ws>
+			<tk tknorm="ii" pstpunc="." lc="true" uc="true" pos="NN" posset="1" wordid="9">II.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="4" no_phrases="1">
+		<spt phraseid="1" no_wrds="26">
+			<break type="4" time="0.2" />
+			<ws col="110">
 </ws>
-	<tk tknorm="she" lc="true" uc="true" pos="PP" posset="3" norm="she">She</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="targeted" lc="true" pos="VVN" posset="1" norm="targeted">targeted</tk>
-	<ws> </ws>
-	<tk tknorm="by" lc="true" pos="IN" posset="3" norm="by">by</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="government" lc="true" pos="NN" posset="1" norm="government">government</tk>
-	<ws> </ws>
-	<tk tknorm="after" lc="true" pos="IN" posset="3" norm="after">after</tk>
-	<ws> </ws>
-	<tk tknorm="revealing" lc="true" pos="VVG" posset="1" norm="revealing">revealing</tk>
-	<ws> </ws>
-	<tk tknorm="to" lc="true" pos="TO" posset="3" norm="to">to</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="seance" lc="true" foreign="true" pos="NN" posset="1" norm="seance">séance</tk>
-	<ws> </ws>
-	<tk tknorm="audience" lc="true" pos="NN" posset="1" norm="audience">audience</tk>
-	<ws> </ws>
-	<tk tknorm="that" lc="true" pos="IN/that" posset="3" norm="that">that</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="warship" lc="true" pos="NN" posset="1" norm="warship">warship</tk>
-	<ws> </ws>
-	<tk tknorm="had" lc="true" pos="VHD" posset="3" norm="had">had</tk>
-	<ws> </ws>
-	<tk tknorm="sunk" lc="true" pos="NN" posset="1" norm="sunk">sunk</tk>
-	<ws> </ws>
-	<tk tknorm="before" lc="true" pos="IN" posset="3" norm="before">before</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="news" lc="true" pos="NN" posset="1" norm="news">news</tk>
-	<ws> </ws>
-	<tk tknorm="had" lc="true" pos="VHD" posset="3" norm="had">had</tk>
-	<ws> </ws>
-	<tk tknorm="been" lc="true" pos="VBN" posset="3" norm="been">been</tk>
-	<ws> </ws>
-	<tk tknorm="released" lc="true" pos="VVN" posset="1" norm="released">released</tk>
-	<ws> </ws>
-	<tk tknorm="to" lc="true" pos="TO" posset="3" norm="to">to</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="public" pstpunc="." lc="true" pos="JJ" posset="1" norm="public">public.</tk>
-	<ws col="146">
+			<tk tknorm="she" lc="true" uc="true" pos="PP" posset="3" wordid="1">She</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="2">was</tk>
+			<ws> </ws>
+			<tk tknorm="targeted" lc="true" pos="VVN" posset="1" wordid="3">targeted</tk>
+			<ws> </ws>
+			<tk tknorm="by" lc="true" pos="IN" posset="3" wordid="4">by</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="5">the</tk>
+			<ws> </ws>
+			<tk tknorm="government" lc="true" pos="NN" posset="1" wordid="6">government</tk>
+			<ws> </ws>
+			<tk tknorm="after" lc="true" pos="IN" posset="3" wordid="7">after</tk>
+			<ws> </ws>
+			<tk tknorm="revealing" lc="true" pos="VVG" posset="1" wordid="8">revealing</tk>
+			<ws> </ws>
+			<tk tknorm="to" lc="true" pos="TO" posset="3" wordid="9">to</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="10">a</tk>
+			<ws> </ws>
+			<tk tknorm="seance" lc="true" foreign="true" pos="NN" posset="1" wordid="11">séance</tk>
+			<ws> </ws>
+			<tk tknorm="audience" lc="true" pos="NN" posset="1" wordid="12">audience</tk>
+			<ws> </ws>
+			<tk tknorm="that" lc="true" pos="IN/that" posset="3" wordid="13">that</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="14">a</tk>
+			<ws> </ws>
+			<tk tknorm="warship" lc="true" pos="NN" posset="1" wordid="15">warship</tk>
+			<ws> </ws>
+			<tk tknorm="had" lc="true" pos="VHD" posset="3" wordid="16">had</tk>
+			<ws> </ws>
+			<tk tknorm="sunk" lc="true" pos="NN" posset="1" wordid="17">sunk</tk>
+			<ws> </ws>
+			<tk tknorm="before" lc="true" pos="IN" posset="3" wordid="18">before</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="19">the</tk>
+			<ws> </ws>
+			<tk tknorm="news" lc="true" pos="NN" posset="1" wordid="20">news</tk>
+			<ws> </ws>
+			<tk tknorm="had" lc="true" pos="VHD" posset="3" wordid="21">had</tk>
+			<ws> </ws>
+			<tk tknorm="been" lc="true" pos="VBN" posset="3" wordid="22">been</tk>
+			<ws> </ws>
+			<tk tknorm="released" lc="true" pos="VVN" posset="1" wordid="23">released</tk>
+			<ws> </ws>
+			<tk tknorm="to" lc="true" pos="TO" posset="3" wordid="24">to</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="25">the</tk>
+			<ws> </ws>
+			<tk tknorm="public" pstpunc="." lc="true" pos="JJ" posset="1" wordid="26">public.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="5" no_phrases="1">
+		<spt phraseid="1" no_wrds="10">
+			<break type="4" time="0.2" />
+			<ws col="146">
 </ws>
-	<tk tknorm="her" lc="true" uc="true" pos="PP$" posset="3" norm="her">Her</tk>
-	<ws> </ws>
-	<tk tknorm="grand-daughter" lc="true" symbols="true" pos="NN" posset="1" isnrm="true" norm="grand">grand-daughter</tk>
-	<tk tknorm="grand-daughter" lc="true" symbols="true" pos="NN" posset="1" isnrm="true" norm="minus" />
-	<tk tknorm="grand-daughter" lc="true" symbols="true" pos="NN" posset="1" isnrm="true" norm="daughter" />
-	<ws> </ws>
-	<tk tknorm="is" lc="true" pos="VBZ" posset="3" norm="is">is</tk>
-	<ws> </ws>
-	<tk tknorm="particularly" lc="true" pos="RB" posset="1" norm="particularly">particularly</tk>
-	<ws> </ws>
-	<tk tknorm="angry" lc="true" pos="NN" posset="1" norm="angry">angry</tk>
-	<ws> </ws>
-	<tk tknorm="at" lc="true" pos="IN" posset="3" norm="at">at</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="accusations" lc="true" pos="NNS" posset="1" norm="accusations">accusations</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="treason" pstpunc="." lc="true" pos="NN" posset="1" norm="treason">treason.</tk>
-	<ws col="72">
+			<tk tknorm="her" lc="true" uc="true" pos="PP$" posset="3" wordid="1">Her</tk>
+			<ws> </ws>
+			<tk tknorm="grand-daughter" lc="true" symbols="true" pos="NN" posset="1" wordid="2">grand-daughter</tk>
+			<ws> </ws>
+			<tk tknorm="is" lc="true" pos="VBZ" posset="3" wordid="3">is</tk>
+			<ws> </ws>
+			<tk tknorm="particularly" lc="true" pos="RB" posset="1" wordid="4">particularly</tk>
+			<ws> </ws>
+			<tk tknorm="angry" lc="true" pos="NN" posset="1" wordid="5">angry</tk>
+			<ws> </ws>
+			<tk tknorm="at" lc="true" pos="IN" posset="3" wordid="6">at</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="7">the</tk>
+			<ws> </ws>
+			<tk tknorm="accusations" lc="true" pos="NNS" posset="1" wordid="8">accusations</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="9">of</tk>
+			<ws> </ws>
+			<tk tknorm="treason" pstpunc="." lc="true" pos="NN" posset="1" wordid="10">treason.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="6" no_phrases="3">
+		<spt phraseid="1" no_wrds="2">
+			<break type="4" time="0.2" />
+			<ws col="72">
 </ws>
-	<tk tknorm="mary" lc="true" uc="true" pos="NN" posset="1" norm="mary">Mary</tk>
-	<ws> </ws>
-	<tk tknorm="martin" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="martin">Martin,</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="edinburgh" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="edinburgh">Edinburgh,</tk>
-	<ws> </ws>
-	<tk tknorm="said" lc="true" pos="VVD" posset="1" norm="said">said</tk>
-	<ws> </ws>
-	<tk tknorm="missis" pos="NN" posset="1" norm="missis">Mrs</tk>
-	<ws> </ws>
-	<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" norm="duncan">Duncan</tk>
-	<ws> </ws>
-	<tk tknorm="had" lc="true" pos="VHD" posset="3" norm="had">had</tk>
-	<ws> </ws>
-	<tk tknorm="been" lc="true" pos="VBN" posset="3" norm="been">been</tk>
-	<ws> </ws>
-	<tk tknorm="accused" lc="true" pos="VVN" posset="1" norm="accused">accused</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="being" lc="true" pos="VBG" posset="2" norm="being">being</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="traitor" pstpunc="." lc="true" pos="NN" posset="1" norm="traitor">traitor.</tk>
-	<ws col="80">
+			<tk tknorm="mary" lc="true" uc="true" pos="NN" posset="1" wordid="1">Mary</tk>
+			<ws> </ws>
+			<tk tknorm="martin" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="2">Martin,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="2" no_wrds="2">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="1">of</tk>
+			<ws> </ws>
+			<tk tknorm="edinburgh" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="2">Edinburgh,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="3" no_wrds="10">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="said" lc="true" pos="VVD" posset="1" wordid="1">said</tk>
+			<ws> </ws>
+			<tk tknorm="missis" pos="NN" posset="1" wordid="2">Mrs</tk>
+			<ws> </ws>
+			<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" wordid="3">Duncan</tk>
+			<ws> </ws>
+			<tk tknorm="had" lc="true" pos="VHD" posset="3" wordid="4">had</tk>
+			<ws> </ws>
+			<tk tknorm="been" lc="true" pos="VBN" posset="3" wordid="5">been</tk>
+			<ws> </ws>
+			<tk tknorm="accused" lc="true" pos="VVN" posset="1" wordid="6">accused</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="7">of</tk>
+			<ws> </ws>
+			<tk tknorm="being" lc="true" pos="VBG" posset="2" wordid="8">being</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="9">a</tk>
+			<ws> </ws>
+			<tk tknorm="traitor" pstpunc="." lc="true" pos="NN" posset="1" wordid="10">traitor.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="7" no_phrases="1">
+		<spt phraseid="1" no_wrds="13">
+			<break type="4" time="0.2" />
+			<ws col="80">
 </ws>
-	<tk prepunc="&quot;" tknorm="when" lc="true" uc="true" pos="WRB" posset="3" norm="when">"When</tk>
-	<ws> </ws>
-	<tk tknorm="she" lc="true" pos="PP" posset="3" norm="she">she</tk>
-	<ws> </ws>
-	<tk tknorm="first" lc="true" pos="JJ" posset="1" norm="first">first</tk>
-	<ws> </ws>
-	<tk tknorm="came" lc="true" pos="VVD" posset="1" norm="came">came</tk>
-	<ws> </ws>
-	<tk tknorm="back" lc="true" pos="NN" posset="1" norm="back">back</tk>
-	<ws> </ws>
-	<tk tknorm="home" lc="true" pos="NN" posset="1" norm="home">home</tk>
-	<ws> </ws>
-	<tk tknorm="after" lc="true" pos="IN" posset="3" norm="after">after</tk>
-	<ws> </ws>
-	<tk tknorm="prison" lc="true" pos="NN" posset="1" norm="prison">prison</tk>
-	<ws> </ws>
-	<tk tknorm="she" lc="true" pos="PP" posset="3" norm="she">she</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="never" lc="true" pos="RB" posset="1" norm="never">never</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="same" pstpunc="." lc="true" pos="JJ" posset="1" norm="same">same.</tk>
-	<ws col="68">
+			<tk prepunc="&quot;" tknorm="when" lc="true" uc="true" pos="WRB" posset="3" wordid="1">"When</tk>
+			<ws> </ws>
+			<tk tknorm="she" lc="true" pos="PP" posset="3" wordid="2">she</tk>
+			<ws> </ws>
+			<tk tknorm="first" lc="true" pos="JJ" posset="1" wordid="3">first</tk>
+			<ws> </ws>
+			<tk tknorm="came" lc="true" pos="VVD" posset="1" wordid="4">came</tk>
+			<ws> </ws>
+			<tk tknorm="back" lc="true" pos="NN" posset="1" wordid="5">back</tk>
+			<ws> </ws>
+			<tk tknorm="home" lc="true" pos="NN" posset="1" wordid="6">home</tk>
+			<ws> </ws>
+			<tk tknorm="after" lc="true" pos="IN" posset="3" wordid="7">after</tk>
+			<ws> </ws>
+			<tk tknorm="prison" lc="true" pos="NN" posset="1" wordid="8">prison</tk>
+			<ws> </ws>
+			<tk tknorm="she" lc="true" pos="PP" posset="3" wordid="9">she</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="10">was</tk>
+			<ws> </ws>
+			<tk tknorm="never" lc="true" pos="RB" posset="1" wordid="11">never</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="12">the</tk>
+			<ws> </ws>
+			<tk tknorm="same" pstpunc="." lc="true" pos="JJ" posset="1" wordid="13">same.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="8" no_phrases="1">
+		<spt phraseid="1" no_wrds="17">
+			<break type="4" time="0.2" />
+			<ws col="68">
 </ws>
-	<tk prepunc="&quot;" tknorm="she" lc="true" uc="true" pos="PP" posset="3" norm="she">"She</tk>
-	<ws> </ws>
-	<tk tknorm="always" lc="true" pos="RB" posset="1" norm="always">always</tk>
-	<ws> </ws>
-	<tk tknorm="had" lc="true" pos="VHD" posset="3" norm="had">had</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="bit" lc="true" pos="NN" posset="1" norm="bit">bit</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="glow" lc="true" pos="NN" posset="1" norm="glow">glow</tk>
-	<ws> </ws>
-	<tk tknorm="about" lc="true" pos="IN" posset="3" norm="about">about</tk>
-	<ws> </ws>
-	<tk tknorm="her" lc="true" pos="PP$" posset="3" norm="her">her</tk>
-	<ws> </ws>
-	<tk tknorm="but" lc="true" pos="CC" posset="3" norm="but">but</tk>
-	<ws> </ws>
-	<tk tknorm="she" lc="true" pos="PP" posset="3" norm="she">she</tk>
-	<ws> </ws>
-	<tk tknorm="seemed" lc="true" pos="VVN" posset="1" norm="seemed">seemed</tk>
-	<ws> </ws>
-	<tk tknorm="to" lc="true" pos="TO" posset="3" norm="to">to</tk>
-	<ws> </ws>
-	<tk tknorm="have" lc="true" pos="VHP" posset="3" norm="have">have</tk>
-	<ws> </ws>
-	<tk tknorm="lost" lc="true" pos="NN" posset="1" norm="lost">lost</tk>
-	<ws> </ws>
-	<tk tknorm="that" pstpunc="." lc="true" pos="IN/that" posset="3" norm="that">that.</tk>
-	<ws col="76">
+			<tk prepunc="&quot;" tknorm="she" lc="true" uc="true" pos="PP" posset="3" wordid="1">"She</tk>
+			<ws> </ws>
+			<tk tknorm="always" lc="true" pos="RB" posset="1" wordid="2">always</tk>
+			<ws> </ws>
+			<tk tknorm="had" lc="true" pos="VHD" posset="3" wordid="3">had</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="4">a</tk>
+			<ws> </ws>
+			<tk tknorm="bit" lc="true" pos="NN" posset="1" wordid="5">bit</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="6">of</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="7">a</tk>
+			<ws> </ws>
+			<tk tknorm="glow" lc="true" pos="NN" posset="1" wordid="8">glow</tk>
+			<ws> </ws>
+			<tk tknorm="about" lc="true" pos="IN" posset="3" wordid="9">about</tk>
+			<ws> </ws>
+			<tk tknorm="her" lc="true" pos="PP$" posset="3" wordid="10">her</tk>
+			<ws> </ws>
+			<tk tknorm="but" lc="true" pos="CC" posset="3" wordid="11">but</tk>
+			<ws> </ws>
+			<tk tknorm="she" lc="true" pos="PP" posset="3" wordid="12">she</tk>
+			<ws> </ws>
+			<tk tknorm="seemed" lc="true" pos="VVN" posset="1" wordid="13">seemed</tk>
+			<ws> </ws>
+			<tk tknorm="to" lc="true" pos="TO" posset="3" wordid="14">to</tk>
+			<ws> </ws>
+			<tk tknorm="have" lc="true" pos="VHP" posset="3" wordid="15">have</tk>
+			<ws> </ws>
+			<tk tknorm="lost" lc="true" pos="NN" posset="1" wordid="16">lost</tk>
+			<ws> </ws>
+			<tk tknorm="that" pstpunc="." lc="true" pos="IN/that" posset="3" wordid="17">that.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="9" no_phrases="1">
+		<spt phraseid="1" no_wrds="6">
+			<break type="4" time="0.2" />
+			<ws col="76">
 </ws>
-	<tk prepunc="&quot;" tknorm="some" lc="true" uc="true" pos="DT" posset="3" norm="some">"Some</tk>
-	<ws> </ws>
-	<tk tknorm="people" lc="true" pos="NNS" posset="1" norm="people">people</tk>
-	<ws> </ws>
-	<tk tknorm="said" lc="true" pos="VVD" posset="1" norm="said">said</tk>
-	<ws> </ws>
-	<tk tknorm="it" lc="true" pos="PP" posset="3" norm="it">it</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="treason" pstpunc="." lc="true" pos="NN" posset="1" norm="treason">treason.</tk>
-	<ws> </ws>
-	<tk tknorm="my" lc="true" uc="true" pos="PP$" posset="3" norm="my">My</tk>
-	<ws> </ws>
-	<tk tknorm="grandmother" lc="true" pos="NN" posset="1" norm="grandmother">grandmother</tk>
-	<ws> </ws>
-	<tk tknorm="had" lc="true" pos="VHD" posset="3" norm="had">had</tk>
-	<ws> </ws>
-	<tk tknorm="two" lc="true" pos="CD" posset="3" norm="two">two</tk>
-	<ws> </ws>
-	<tk tknorm="sons" lc="true" pos="NNS" posset="1" norm="sons">sons</tk>
-	<ws> </ws>
-	<tk tknorm="and" lc="true" pos="CC" posset="3" norm="and">and</tk>
-	<ws> </ws>
-	<tk tknorm="two" lc="true" pos="CD" posset="3" norm="two">two</tk>
-	<ws> </ws>
-	<tk tknorm="son" lc="true" pos="NN" posset="1" norm="son">son</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="laws" lc="true" pos="NN" posset="1" norm="laws">laws</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="forces" lc="true" pos="NNS" posset="1" norm="forces">forces</tk>
-	<ws> </ws>
-	<ws prepunc="..."> </ws>
-	<tk tknorm="and" lc="true" pos="CC" posset="3" norm="and">and</tk>
-	<ws> </ws>
-	<tk tknorm="there" lc="true" pos="EX" posset="3" norm="there">there</tk>
-	<ws> </ws>
-	<tk tknorm="is" lc="true" pos="VBZ" posset="3" norm="is">is</tk>
-	<ws> </ws>
-	<tk tknorm="no" lc="true" pos="DT" posset="3" norm="no">no</tk>
-	<ws> </ws>
-	<tk tknorm="way" lc="true" pos="NN" posset="1" norm="way">way</tk>
-	<ws> </ws>
-	<tk tknorm="she" lc="true" pos="PP" posset="3" norm="she">she</tk>
-	<ws> </ws>
-	<tk tknorm="would" lc="true" pos="MD" posset="3" norm="would">would</tk>
-	<ws> </ws>
-	<tk tknorm="have" lc="true" pos="VHP" posset="3" norm="have">have</tk>
-	<ws> </ws>
-	<tk tknorm="given" lc="true" pos="VVN" posset="1" norm="given">given</tk>
-	<ws> </ws>
-	<tk tknorm="anybody" lc="true" pos="NN" posset="1" norm="anybody">anybody</tk>
-	<ws> </ws>
-	<tk tknorm="information" pstpunc=".&quot;" lc="true" pos="NN" posset="1" norm="information">information."</tk>
-	<ws col="163">
+			<tk prepunc="&quot;" tknorm="some" lc="true" uc="true" pos="DT" posset="3" wordid="1">"Some</tk>
+			<ws> </ws>
+			<tk tknorm="people" lc="true" pos="NNS" posset="1" wordid="2">people</tk>
+			<ws> </ws>
+			<tk tknorm="said" lc="true" pos="VVD" posset="1" wordid="3">said</tk>
+			<ws> </ws>
+			<tk tknorm="it" lc="true" pos="PP" posset="3" wordid="4">it</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="5">was</tk>
+			<ws> </ws>
+			<tk tknorm="treason" pstpunc="." lc="true" pos="NN" posset="1" wordid="6">treason.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="10" no_phrases="1">
+		<spt phraseid="1" no_wrds="25">
+			<break type="4" time="0.2" />
+			<ws> </ws>
+			<tk tknorm="my" lc="true" uc="true" pos="PP$" posset="3" wordid="1">My</tk>
+			<ws> </ws>
+			<tk tknorm="grandmother" lc="true" pos="NN" posset="1" wordid="2">grandmother</tk>
+			<ws> </ws>
+			<tk tknorm="had" lc="true" pos="VHD" posset="3" wordid="3">had</tk>
+			<ws> </ws>
+			<tk tknorm="two" lc="true" pos="CD" posset="3" wordid="4">two</tk>
+			<ws> </ws>
+			<tk tknorm="sons" lc="true" pos="NNS" posset="1" wordid="5">sons</tk>
+			<ws> </ws>
+			<tk tknorm="and" lc="true" pos="CC" posset="3" wordid="6">and</tk>
+			<ws> </ws>
+			<tk tknorm="two" lc="true" pos="CD" posset="3" wordid="7">two</tk>
+			<ws> </ws>
+			<tk tknorm="son" lc="true" pos="NN" posset="1" wordid="8">son</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="9">in</tk>
+			<ws> </ws>
+			<tk tknorm="laws" lc="true" pos="NN" posset="1" wordid="10">laws</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="11">in</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="12">the</tk>
+			<ws> </ws>
+			<tk tknorm="forces" lc="true" pos="NNS" posset="1" wordid="13">forces</tk>
+			<ws> </ws>
+			<tk prepunc="..." pos="MD" posset="3" wordid="14">...</tk>
+			<ws> </ws>
+			<tk tknorm="and" lc="true" pos="CC" posset="3" wordid="15">and</tk>
+			<ws> </ws>
+			<tk tknorm="there" lc="true" pos="EX" posset="3" wordid="16">there</tk>
+			<ws> </ws>
+			<tk tknorm="is" lc="true" pos="VBZ" posset="3" wordid="17">is</tk>
+			<ws> </ws>
+			<tk tknorm="no" lc="true" pos="DT" posset="3" wordid="18">no</tk>
+			<ws> </ws>
+			<tk tknorm="way" lc="true" pos="NN" posset="1" wordid="19">way</tk>
+			<ws> </ws>
+			<tk tknorm="she" lc="true" pos="PP" posset="3" wordid="20">she</tk>
+			<ws> </ws>
+			<tk tknorm="would" lc="true" pos="MD" posset="3" wordid="21">would</tk>
+			<ws> </ws>
+			<tk tknorm="have" lc="true" pos="VHP" posset="3" wordid="22">have</tk>
+			<ws> </ws>
+			<tk tknorm="given" lc="true" pos="VVN" posset="1" wordid="23">given</tk>
+			<ws> </ws>
+			<tk tknorm="anybody" lc="true" pos="NN" posset="1" wordid="24">anybody</tk>
+			<ws> </ws>
+			<tk tknorm="information" pstpunc=".&quot;" lc="true" pos="NN" posset="1" wordid="25">information."</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="11" no_phrases="2">
+		<spt phraseid="1" no_wrds="12">
+			<break type="4" time="0.2" />
+			<ws col="163">
 </ws>
-	<tk tknorm="missis" pos="NN" posset="1" norm="missis">Mrs</tk>
-	<ws> </ws>
-	<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" norm="duncan">Duncan</tk>
-	<ws> </ws>
-	<tk tknorm="became" lc="true" pos="NN" posset="1" norm="became">became</tk>
-	<ws> </ws>
-	<tk tknorm="one" lc="true" pos="CD" posset="3" norm="one">one</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="most" lc="true" pos="RBS" posset="2" norm="most">most</tk>
-	<ws> </ws>
-	<tk tknorm="famous" lc="true" pos="JJ" posset="1" norm="famous">famous</tk>
-	<ws> </ws>
-	<tk tknorm="mediums" lc="true" pos="NNS" posset="1" norm="mediums">mediums</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="her" lc="true" pos="PP$" posset="3" norm="her">her</tk>
-	<ws> </ws>
-	<tk tknorm="time" pstpunc="," lc="true" pos="NN" posset="1" norm="time">time,</tk>
-	<ws> </ws>
-	<tk tknorm="heading" lc="true" pos="VVG" posset="1" norm="heading">heading</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="network" lc="true" pos="NN" posset="1" norm="network">network</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="spiritualist" lc="true" pos="NN" posset="1" norm="spiritualist">spiritualist</tk>
-	<ws> </ws>
-	<tk tknorm="churches" pstpunc="." lc="true" pos="NNS" posset="1" norm="churches">churches.</tk>
-	<ws col="106">
+			<tk tknorm="missis" pos="NN" posset="1" wordid="1">Mrs</tk>
+			<ws> </ws>
+			<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" wordid="2">Duncan</tk>
+			<ws> </ws>
+			<tk tknorm="became" lc="true" pos="NN" posset="1" wordid="3">became</tk>
+			<ws> </ws>
+			<tk tknorm="one" lc="true" pos="CD" posset="3" wordid="4">one</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="5">of</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="6">the</tk>
+			<ws> </ws>
+			<tk tknorm="most" lc="true" pos="RBS" posset="2" wordid="7">most</tk>
+			<ws> </ws>
+			<tk tknorm="famous" lc="true" pos="JJ" posset="1" wordid="8">famous</tk>
+			<ws> </ws>
+			<tk tknorm="mediums" lc="true" pos="NNS" posset="1" wordid="9">mediums</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="10">of</tk>
+			<ws> </ws>
+			<tk tknorm="her" lc="true" pos="PP$" posset="3" wordid="11">her</tk>
+			<ws> </ws>
+			<tk tknorm="time" pstpunc="," lc="true" pos="NN" posset="1" wordid="12">time,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="2" no_wrds="6">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="heading" lc="true" pos="VVG" posset="1" wordid="1">heading</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="2">a</tk>
+			<ws> </ws>
+			<tk tknorm="network" lc="true" pos="NN" posset="1" wordid="3">network</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="4">of</tk>
+			<ws> </ws>
+			<tk tknorm="spiritualist" lc="true" pos="NN" posset="1" wordid="5">spiritualist</tk>
+			<ws> </ws>
+			<tk tknorm="churches" pstpunc="." lc="true" pos="NNS" posset="1" wordid="6">churches.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="12" no_phrases="2">
+		<spt phraseid="1" no_wrds="7">
+			<break type="4" time="0.2" />
+			<ws col="106">
 </ws>
-	<tk tknorm="during" lc="true" uc="true" pos="IN" posset="3" norm="during">During</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="war" lc="true" pos="NN" posset="1" norm="war">war</tk>
-	<ws> </ws>
-	<tk tknorm="she" lc="true" pos="PP" posset="3" norm="she">she</tk>
-	<ws> </ws>
-	<tk tknorm="lived" lc="true" pos="VVN" posset="1" norm="lived">lived</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="portsmouth" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="portsmouth">Portsmouth,</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="home" lc="true" pos="NN" posset="1" norm="home">home</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="royal" lc="true" uc="true" pos="JJ" posset="1" norm="royal">Royal</tk>
-	<ws> </ws>
-	<tk tknorm="navy" pstpunc="." lc="true" uc="true" pos="NN" posset="1" norm="navy">Navy.</tk>
-	<ws col="68">
+			<tk tknorm="during" lc="true" uc="true" pos="IN" posset="3" wordid="1">During</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="2">the</tk>
+			<ws> </ws>
+			<tk tknorm="war" lc="true" pos="NN" posset="1" wordid="3">war</tk>
+			<ws> </ws>
+			<tk tknorm="she" lc="true" pos="PP" posset="3" wordid="4">she</tk>
+			<ws> </ws>
+			<tk tknorm="lived" lc="true" pos="VVN" posset="1" wordid="5">lived</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="6">in</tk>
+			<ws> </ws>
+			<tk tknorm="portsmouth" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="7">Portsmouth,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="2" no_wrds="6">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="1">the</tk>
+			<ws> </ws>
+			<tk tknorm="home" lc="true" pos="NN" posset="1" wordid="2">home</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="3">of</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="4">the</tk>
+			<ws> </ws>
+			<tk tknorm="royal" lc="true" uc="true" pos="JJ" posset="1" wordid="5">Royal</tk>
+			<ws> </ws>
+			<tk tknorm="navy" pstpunc="." lc="true" uc="true" pos="NN" posset="1" wordid="6">Navy.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="13" no_phrases="1">
+		<spt phraseid="1" no_wrds="17">
+			<break type="4" time="0.2" />
+			<ws col="68">
 </ws>
-	<tk tknorm="she" lc="true" uc="true" pos="PP" posset="3" norm="she">She</tk>
-	<ws> </ws>
-	<tk tknorm="has" lc="true" pos="VHZ" posset="3" norm="has">has</tk>
-	<ws> </ws>
-	<tk tknorm="put" lc="true" pos="NN" posset="1" norm="put">put</tk>
-	<ws> </ws>
-	<tk tknorm="us" lc="true" pos="PP" posset="3" norm="us">us</tk>
-	<ws> </ws>
-	<tk tknorm="on" lc="true" pos="RB" posset="1" norm="on">on</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="right" lc="true" pos="NN" posset="1" norm="right">right</tk>
-	<ws> </ws>
-	<tk tknorm="side" lc="true" pos="NN" posset="1" norm="side">side</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="law" lc="true" pos="NN" posset="1" norm="law">law</tk>
-	<ws> </ws>
-	<tk tknorm="by" lc="true" pos="IN" posset="3" norm="by">by</tk>
-	<ws> </ws>
-	<tk tknorm="bringing" lc="true" pos="VVG" posset="1" norm="bringing">bringing</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<say-as internal="year">
-		<tk tknorm="1952" symbols="true" pos="NN" posset="1" isnrm="true" norm="nineteen">1952</tk>
-		<tk tknorm="1952" symbols="true" pos="NN" posset="1" isnrm="true" norm="fifty" />
-		<tk tknorm="1952" symbols="true" pos="NN" posset="1" isnrm="true" norm="two" />
-	</say-as>
-
-
-	<ws> </ws>
-	<tk tknorm="act" pstpunc="." lc="true" pos="NN" posset="1" norm="act">act.</tk>
-	<ws col="73">
+			<tk tknorm="she" lc="true" uc="true" pos="PP" posset="3" wordid="1">She</tk>
+			<ws> </ws>
+			<tk tknorm="has" lc="true" pos="VHZ" posset="3" wordid="2">has</tk>
+			<ws> </ws>
+			<tk tknorm="put" lc="true" pos="NN" posset="1" wordid="3">put</tk>
+			<ws> </ws>
+			<tk tknorm="us" lc="true" pos="PP" posset="3" wordid="4">us</tk>
+			<ws> </ws>
+			<tk tknorm="on" lc="true" pos="RB" posset="1" wordid="5">on</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="6">the</tk>
+			<ws> </ws>
+			<tk tknorm="right" lc="true" pos="NN" posset="1" wordid="7">right</tk>
+			<ws> </ws>
+			<tk tknorm="side" lc="true" pos="NN" posset="1" wordid="8">side</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="9">of</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="10">the</tk>
+			<ws> </ws>
+			<tk tknorm="law" lc="true" pos="NN" posset="1" wordid="11">law</tk>
+			<ws> </ws>
+			<tk tknorm="by" lc="true" pos="IN" posset="3" wordid="12">by</tk>
+			<ws> </ws>
+			<tk tknorm="bringing" lc="true" pos="VVG" posset="1" wordid="13">bringing</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="14">in</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="15">the</tk>
+			<ws> </ws>
+			<tk tknorm="1952" symbols="true" pos="NN" posset="1" wordid="16">1952</tk>
+			<ws> </ws>
+			<tk tknorm="act" pstpunc="." lc="true" pos="NN" posset="1" wordid="17">act.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="14" no_phrases="1">
+		<spt phraseid="1" no_wrds="19">
+			<break type="4" time="0.2" />
+			<ws col="73">
 </ws>
-	<tk tknorm="at" lc="true" uc="true" pos="IN" posset="3" norm="at">At</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="seance" lc="true" foreign="true" pos="NN" posset="1" norm="seance">séance</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" isnrm="true" norm="in">in</tk>
-	<ws> </ws>
-	<say-as internal="year">
-		<tk tknorm="1943" symbols="true" pos="NN" posset="1" isnrm="true" norm="nineteen">1943</tk>
-		<tk tknorm="1943" symbols="true" pos="NN" posset="1" isnrm="true" norm="forty" />
-		<tk tknorm="1943" symbols="true" pos="NN" posset="1" isnrm="true" norm="three" />
-	</say-as>
-
-
-	<ws> </ws>
-	<tk tknorm="it" lc="true" pos="PP" posset="3" norm="it">it</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="claimed" lc="true" pos="VVN" posset="1" norm="claimed">claimed</tk>
-	<ws> </ws>
-	<tk tknorm="that" lc="true" pos="IN/that" posset="3" norm="that">that</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="spirit" lc="true" pos="NN" posset="1" norm="spirit">spirit</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="sailor" lc="true" pos="NN" posset="1" norm="sailor">sailor</tk>
-	<ws> </ws>
-	<tk tknorm="from" lc="true" pos="IN" posset="3" norm="from">from</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="hms" lc="true" uc="true" pos="NNS" posset="1" isnrm="true" norm="h">HMS</tk>
-	<tk tknorm="hms" lc="true" uc="true" pos="NNS" posset="1" isnrm="true" norm="m" />
-	<tk tknorm="hms" lc="true" uc="true" pos="NNS" posset="1" isnrm="true" norm="s" />
-	<ws> </ws>
-	<tk tknorm="barham" lc="true" uc="true" pos="NN" posset="1" norm="barham">Barham</tk>
-	<ws> </ws>
-	<tk tknorm="appeared" pstpunc="." lc="true" pos="VVN" posset="1" norm="appeared">appeared.</tk>
-	<ws col="94">
+			<tk tknorm="at" lc="true" uc="true" pos="IN" posset="3" wordid="1">At</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="2">a</tk>
+			<ws> </ws>
+			<tk tknorm="seance" lc="true" foreign="true" pos="NN" posset="1" wordid="3">séance</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="4">in</tk>
+			<ws> </ws>
+			<tk tknorm="1943" symbols="true" pos="NN" posset="1" wordid="5">1943</tk>
+			<ws> </ws>
+			<tk tknorm="it" lc="true" pos="PP" posset="3" wordid="6">it</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="7">was</tk>
+			<ws> </ws>
+			<tk tknorm="claimed" lc="true" pos="VVN" posset="1" wordid="8">claimed</tk>
+			<ws> </ws>
+			<tk tknorm="that" lc="true" pos="IN/that" posset="3" wordid="9">that</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="10">the</tk>
+			<ws> </ws>
+			<tk tknorm="spirit" lc="true" pos="NN" posset="1" wordid="11">spirit</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="12">of</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="13">a</tk>
+			<ws> </ws>
+			<tk tknorm="sailor" lc="true" pos="NN" posset="1" wordid="14">sailor</tk>
+			<ws> </ws>
+			<tk tknorm="from" lc="true" pos="IN" posset="3" wordid="15">from</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="16">the</tk>
+			<ws> </ws>
+			<tk tknorm="hms" lc="true" uc="true" pos="NNS" posset="1" wordid="17">HMS</tk>
+			<ws> </ws>
+			<tk tknorm="barham" lc="true" uc="true" pos="NN" posset="1" wordid="18">Barham</tk>
+			<ws> </ws>
+			<tk tknorm="appeared" pstpunc="." lc="true" pos="VVN" posset="1" wordid="19">appeared.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="15" no_phrases="1">
+		<spt phraseid="1" no_wrds="10">
+			<break type="4" time="0.2" />
+			<ws col="94">
 </ws>
-	<tk tknorm="the" lc="true" uc="true" pos="DT" posset="3" norm="the">The</tk>
-	<ws> </ws>
-	<tk tknorm="vessel" lc="true" pos="NN" posset="1" norm="vessel">vessel</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="only" lc="true" pos="RB" posset="1" norm="only">only</tk>
-	<ws> </ws>
-	<tk tknorm="officially" lc="true" pos="RB" posset="1" norm="officially">officially</tk>
-	<ws> </ws>
-	<tk tknorm="declared" lc="true" pos="VVN" posset="1" norm="declared">declared</tk>
-	<ws> </ws>
-	<tk tknorm="lost" lc="true" pos="NN" posset="1" norm="lost">lost</tk>
-	<ws> </ws>
-	<tk tknorm="several" lc="true" pos="JJ" posset="1" norm="several">several</tk>
-	<ws> </ws>
-	<tk tknorm="months" lc="true" pos="NNS" posset="1" norm="months">months</tk>
-	<ws> </ws>
-	<tk tknorm="later" pstpunc="." lc="true" pos="RBR" posset="1" norm="later">later.</tk>
-	<ws col="67">
+			<tk tknorm="the" lc="true" uc="true" pos="DT" posset="3" wordid="1">The</tk>
+			<ws> </ws>
+			<tk tknorm="vessel" lc="true" pos="NN" posset="1" wordid="2">vessel</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="3">was</tk>
+			<ws> </ws>
+			<tk tknorm="only" lc="true" pos="RB" posset="1" wordid="4">only</tk>
+			<ws> </ws>
+			<tk tknorm="officially" lc="true" pos="RB" posset="1" wordid="5">officially</tk>
+			<ws> </ws>
+			<tk tknorm="declared" lc="true" pos="VVN" posset="1" wordid="6">declared</tk>
+			<ws> </ws>
+			<tk tknorm="lost" lc="true" pos="NN" posset="1" wordid="7">lost</tk>
+			<ws> </ws>
+			<tk tknorm="several" lc="true" pos="JJ" posset="1" wordid="8">several</tk>
+			<ws> </ws>
+			<tk tknorm="months" lc="true" pos="NNS" posset="1" wordid="9">months</tk>
+			<ws> </ws>
+			<tk tknorm="later" pstpunc="." lc="true" pos="RBR" posset="1" wordid="10">later.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="16" no_phrases="1">
+		<spt phraseid="1" no_wrds="24">
+			<break type="4" time="0.2" />
+			<ws col="67">
 </ws>
-	<tk tknorm="she" lc="true" uc="true" pos="PP" posset="3" norm="she">She</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="arrested" lc="true" pos="VVN" posset="1" norm="arrested">arrested</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" isnrm="true" norm="in">in</tk>
-	<ws> </ws>
-	<say-as internal="year">
-		<tk tknorm="1944" symbols="true" pos="NN" posset="1" isnrm="true" norm="nineteen">1944</tk>
-		<tk tknorm="1944" symbols="true" pos="NN" posset="1" isnrm="true" norm="forty" />
-		<tk tknorm="1944" symbols="true" pos="NN" posset="1" isnrm="true" norm="four" />
-	</say-as>
-
-
-	<ws> </ws>
-	<tk tknorm="and" lc="true" pos="CC" posset="3" norm="and">and</tk>
-	<ws> </ws>
-	<tk tknorm="sentenced" lc="true" pos="VVN" posset="1" norm="sentenced">sentenced</tk>
-	<ws> </ws>
-	<tk tknorm="to" lc="true" pos="TO" posset="3" norm="to">to</tk>
-	<ws> </ws>
-	<tk tknorm="nine" lc="true" pos="CD" posset="3" norm="nine">nine</tk>
-	<ws> </ws>
-	<tk tknorm="months" lc="true" pos="NNS" posset="1" norm="months">months</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="prison" lc="true" pos="NN" posset="1" norm="prison">prison</tk>
-	<ws> </ws>
-	<tk tknorm="at" lc="true" pos="IN" posset="3" norm="at">at</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="old" lc="true" uc="true" pos="JJ" posset="1" norm="old">Old</tk>
-	<ws> </ws>
-	<tk tknorm="bailey" lc="true" uc="true" pos="NN" posset="1" norm="bailey">Bailey</tk>
-	<ws> </ws>
-	<tk tknorm="for" lc="true" pos="IN" posset="3" norm="for">for</tk>
-	<ws> </ws>
-	<tk tknorm="crimes" lc="true" pos="NNS" posset="1" norm="crimes">crimes</tk>
-	<ws> </ws>
-	<tk tknorm="under" lc="true" pos="IN" posset="3" norm="under">under</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" norm="witchcraft">Witchcraft</tk>
-	<ws> </ws>
-	<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" norm="act">Act</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="1735" pstpunc="." symbols="true" pos="NN" posset="1" isnrm="true" norm="one">1735.</tk>
-	<tk tknorm="1735" symbols="true" pos="NN" posset="1" isnrm="true" norm="thousand" />
-	<tk tknorm="1735" symbols="true" pos="NN" posset="1" isnrm="true" norm="seven" />
-	<tk tknorm="1735" symbols="true" pos="NN" posset="1" isnrm="true" norm="hundred" />
-	<tk tknorm="1735" symbols="true" pos="NN" posset="1" isnrm="true" norm="and" />
-	<tk tknorm="1735" symbols="true" pos="NN" posset="1" isnrm="true" norm="thirty" />
-	<tk tknorm="1735" pstpunc="." symbols="true" pos="NN" posset="1" isnrm="true" norm="five" />
-	<ws col="127">
+			<tk tknorm="she" lc="true" uc="true" pos="PP" posset="3" wordid="1">She</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="2">was</tk>
+			<ws> </ws>
+			<tk tknorm="arrested" lc="true" pos="VVN" posset="1" wordid="3">arrested</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="4">in</tk>
+			<ws> </ws>
+			<tk tknorm="1944" symbols="true" pos="NN" posset="1" wordid="5">1944</tk>
+			<ws> </ws>
+			<tk tknorm="and" lc="true" pos="CC" posset="3" wordid="6">and</tk>
+			<ws> </ws>
+			<tk tknorm="sentenced" lc="true" pos="VVN" posset="1" wordid="7">sentenced</tk>
+			<ws> </ws>
+			<tk tknorm="to" lc="true" pos="TO" posset="3" wordid="8">to</tk>
+			<ws> </ws>
+			<tk tknorm="nine" lc="true" pos="CD" posset="3" wordid="9">nine</tk>
+			<ws> </ws>
+			<tk tknorm="months" lc="true" pos="NNS" posset="1" wordid="10">months</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="11">in</tk>
+			<ws> </ws>
+			<tk tknorm="prison" lc="true" pos="NN" posset="1" wordid="12">prison</tk>
+			<ws> </ws>
+			<tk tknorm="at" lc="true" pos="IN" posset="3" wordid="13">at</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="14">the</tk>
+			<ws> </ws>
+			<tk tknorm="old" lc="true" uc="true" pos="JJ" posset="1" wordid="15">Old</tk>
+			<ws> </ws>
+			<tk tknorm="bailey" lc="true" uc="true" pos="NN" posset="1" wordid="16">Bailey</tk>
+			<ws> </ws>
+			<tk tknorm="for" lc="true" pos="IN" posset="3" wordid="17">for</tk>
+			<ws> </ws>
+			<tk tknorm="crimes" lc="true" pos="NNS" posset="1" wordid="18">crimes</tk>
+			<ws> </ws>
+			<tk tknorm="under" lc="true" pos="IN" posset="3" wordid="19">under</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="20">the</tk>
+			<ws> </ws>
+			<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" wordid="21">Witchcraft</tk>
+			<ws> </ws>
+			<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" wordid="22">Act</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="23">of</tk>
+			<ws> </ws>
+			<tk tknorm="1735" pstpunc="." symbols="true" pos="NN" posset="1" wordid="24">1735.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="17" no_phrases="1">
+		<spt phraseid="1" no_wrds="9">
+			<break type="4" time="0.2" />
+			<ws col="127">
 </ws>
-	<tk tknorm="while" lc="true" uc="true" pos="IN" posset="3" norm="while">While</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="prison" lc="true" pos="NN" posset="1" norm="prison">prison</tk>
-	<ws> </ws>
-	<tk tknorm="she" lc="true" pos="PP" posset="3" norm="she">she</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="visited" lc="true" pos="VVN" posset="1" norm="visited">visited</tk>
-	<ws> </ws>
-	<tk tknorm="by" lc="true" pos="IN" posset="3" norm="by">by</tk>
-	<ws> </ws>
-	<tk tknorm="winston" lc="true" uc="true" pos="NN" posset="1" norm="winston">Winston</tk>
-	<ws> </ws>
-	<tk tknorm="churchill" pstpunc="." lc="true" uc="true" pos="NN" posset="1" norm="churchill">Churchill.</tk>
-	<ws col="54">
+			<tk tknorm="while" lc="true" uc="true" pos="IN" posset="3" wordid="1">While</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="2">in</tk>
+			<ws> </ws>
+			<tk tknorm="prison" lc="true" pos="NN" posset="1" wordid="3">prison</tk>
+			<ws> </ws>
+			<tk tknorm="she" lc="true" pos="PP" posset="3" wordid="4">she</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="5">was</tk>
+			<ws> </ws>
+			<tk tknorm="visited" lc="true" pos="VVN" posset="1" wordid="6">visited</tk>
+			<ws> </ws>
+			<tk tknorm="by" lc="true" pos="IN" posset="3" wordid="7">by</tk>
+			<ws> </ws>
+			<tk tknorm="winston" lc="true" uc="true" pos="NN" posset="1" wordid="8">Winston</tk>
+			<ws> </ws>
+			<tk tknorm="churchill" pstpunc="." lc="true" uc="true" pos="NN" posset="1" wordid="9">Churchill.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="18" no_phrases="1">
+		<spt phraseid="1" no_wrds="22">
+			<break type="4" time="0.2" />
+			<ws col="54">
 </ws>
-	<tk tknorm="when" lc="true" uc="true" pos="WRB" posset="3" norm="when">When</tk>
-	<ws> </ws>
-	<tk tknorm="he" lc="true" pos="PP" posset="3" norm="he">he</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="re-elected" lc="true" symbols="true" pos="VVN" posset="1" isnrm="true" norm="re">re-elected</tk>
-	<tk tknorm="re-elected" lc="true" symbols="true" pos="VVN" posset="1" isnrm="true" norm="minus" />
-	<tk tknorm="re-elected" lc="true" symbols="true" pos="VVN" posset="1" isnrm="true" norm="elected" />
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" isnrm="true" norm="in">in</tk>
-	<ws> </ws>
-	<say-as internal="year">
-		<tk tknorm="1951" symbols="true" pos="NN" posset="1" isnrm="true" norm="nineteen">1951</tk>
-		<tk tknorm="1951" symbols="true" pos="NN" posset="1" isnrm="true" norm="fifty" />
-		<tk tknorm="1951" symbols="true" pos="NN" posset="1" isnrm="true" norm="one" />
-	</say-as>
-
-
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" norm="witchcraft">Witchcraft</tk>
-	<ws> </ws>
-	<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" norm="act">Act</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="repealed" lc="true" pos="VVN" posset="1" norm="repealed">repealed</tk>
-	<ws> </ws>
-	<tk tknorm="and" lc="true" pos="CC" posset="3" norm="and">and</tk>
-	<ws> </ws>
-	<tk tknorm="three" lc="true" pos="CD" posset="3" norm="three">three</tk>
-	<ws> </ws>
-	<tk tknorm="years" lc="true" pos="NNS" posset="1" norm="years">years</tk>
-	<ws> </ws>
-	<tk tknorm="later" lc="true" pos="RBR" posset="1" norm="later">later</tk>
-	<ws> </ws>
-	<tk tknorm="spiritualism" lc="true" pos="NN" posset="1" norm="spiritualism">spiritualism</tk>
-	<ws> </ws>
-	<tk tknorm="was" lc="true" pos="VBD" posset="3" norm="was">was</tk>
-	<ws> </ws>
-	<tk tknorm="officially" lc="true" pos="RB" posset="1" norm="officially">officially</tk>
-	<ws> </ws>
-	<tk tknorm="recognised" lc="true" pos="VVN" posset="1" norm="recognised">recognised</tk>
-	<ws> </ws>
-	<tk tknorm="as" lc="true" pos="IN" posset="3" norm="as">as</tk>
-	<ws> </ws>
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a">a</tk>
-	<ws> </ws>
-	<tk tknorm="religion" pstpunc="." lc="true" pos="NN" posset="1" norm="religion">religion.</tk>
-	<ws col="139">
+			<tk tknorm="when" lc="true" uc="true" pos="WRB" posset="3" wordid="1">When</tk>
+			<ws> </ws>
+			<tk tknorm="he" lc="true" pos="PP" posset="3" wordid="2">he</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="3">was</tk>
+			<ws> </ws>
+			<tk tknorm="re-elected" lc="true" symbols="true" pos="VVN" posset="1" wordid="4">re-elected</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="5">in</tk>
+			<ws> </ws>
+			<tk tknorm="1951" symbols="true" pos="NN" posset="1" wordid="6">1951</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="7">the</tk>
+			<ws> </ws>
+			<tk tknorm="witchcraft" lc="true" uc="true" pos="NN" posset="1" wordid="8">Witchcraft</tk>
+			<ws> </ws>
+			<tk tknorm="act" lc="true" uc="true" pos="NN" posset="1" wordid="9">Act</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="10">was</tk>
+			<ws> </ws>
+			<tk tknorm="repealed" lc="true" pos="VVN" posset="1" wordid="11">repealed</tk>
+			<ws> </ws>
+			<tk tknorm="and" lc="true" pos="CC" posset="3" wordid="12">and</tk>
+			<ws> </ws>
+			<tk tknorm="three" lc="true" pos="CD" posset="3" wordid="13">three</tk>
+			<ws> </ws>
+			<tk tknorm="years" lc="true" pos="NNS" posset="1" wordid="14">years</tk>
+			<ws> </ws>
+			<tk tknorm="later" lc="true" pos="RBR" posset="1" wordid="15">later</tk>
+			<ws> </ws>
+			<tk tknorm="spiritualism" lc="true" pos="NN" posset="1" wordid="16">spiritualism</tk>
+			<ws> </ws>
+			<tk tknorm="was" lc="true" pos="VBD" posset="3" wordid="17">was</tk>
+			<ws> </ws>
+			<tk tknorm="officially" lc="true" pos="RB" posset="1" wordid="18">officially</tk>
+			<ws> </ws>
+			<tk tknorm="recognised" lc="true" pos="VVN" posset="1" wordid="19">recognised</tk>
+			<ws> </ws>
+			<tk tknorm="as" lc="true" pos="IN" posset="3" wordid="20">as</tk>
+			<ws> </ws>
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="21">a</tk>
+			<ws> </ws>
+			<tk tknorm="religion" pstpunc="." lc="true" pos="NN" posset="1" wordid="22">religion.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="19" no_phrases="1">
+		<spt phraseid="1" no_wrds="11">
+			<break type="4" time="0.2" />
+			<ws col="139">
 </ws>
-	<tk tknorm="campaigners" lc="true" uc="true" pos="NNS" posset="1" norm="campaigners">Campaigners</tk>
-	<ws> </ws>
-	<tk tknorm="to" lc="true" pos="TO" posset="3" norm="to">to</tk>
-	<ws> </ws>
-	<tk tknorm="pardon" lc="true" pos="NN" posset="1" norm="pardon">pardon</tk>
-	<ws> </ws>
-	<tk tknorm="missis" pos="NN" posset="1" norm="missis">Mrs</tk>
-	<ws> </ws>
-	<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" norm="duncan">Duncan</tk>
-	<ws> </ws>
-	<tk tknorm="have" lc="true" pos="VHP" posset="3" norm="have">have</tk>
-	<ws> </ws>
-	<tk tknorm="set" lc="true" pos="NN" posset="1" norm="set">set</tk>
-	<ws> </ws>
-	<tk tknorm="up" lc="true" pos="RP" posset="3" norm="up">up</tk>
-	<ws> </ws>
-	<tk tknorm="an" lc="true" pos="DT" posset="3" norm="an">an</tk>
-	<ws> </ws>
-	<tk tknorm="online" lc="true" pos="RB" posset="1" norm="online">online</tk>
-	<ws> </ws>
-	<tk tknorm="petition" pstpunc="." lc="true" pos="NN" posset="1" norm="petition">petition.</tk>
-	<ws col="65">
+			<tk tknorm="campaigners" lc="true" uc="true" pos="NNS" posset="1" wordid="1">Campaigners</tk>
+			<ws> </ws>
+			<tk tknorm="to" lc="true" pos="TO" posset="3" wordid="2">to</tk>
+			<ws> </ws>
+			<tk tknorm="pardon" lc="true" pos="NN" posset="1" wordid="3">pardon</tk>
+			<ws> </ws>
+			<tk tknorm="missis" pos="NN" posset="1" wordid="4">Mrs</tk>
+			<ws> </ws>
+			<tk tknorm="duncan" lc="true" uc="true" pos="NN" posset="1" wordid="5">Duncan</tk>
+			<ws> </ws>
+			<tk tknorm="have" lc="true" pos="VHP" posset="3" wordid="6">have</tk>
+			<ws> </ws>
+			<tk tknorm="set" lc="true" pos="NN" posset="1" wordid="7">set</tk>
+			<ws> </ws>
+			<tk tknorm="up" lc="true" pos="RP" posset="3" wordid="8">up</tk>
+			<ws> </ws>
+			<tk tknorm="an" lc="true" pos="DT" posset="3" wordid="9">an</tk>
+			<ws> </ws>
+			<tk tknorm="online" lc="true" pos="RB" posset="1" wordid="10">online</tk>
+			<ws> </ws>
+			<tk tknorm="petition" pstpunc="." lc="true" pos="NN" posset="1" wordid="11">petition.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="20" no_phrases="1">
+		<spt phraseid="1" no_wrds="11">
+			<break type="4" time="0.2" />
+			<ws col="65">
 </ws>
-	<tk tknorm="the" lc="true" uc="true" pos="DT" posset="3" norm="the">The</tk>
-	<ws> </ws>
-	<tk tknorm="campaign" lc="true" pos="NN" posset="1" norm="campaign">campaign</tk>
-	<ws> </ws>
-	<tk tknorm="is" lc="true" pos="VBZ" posset="3" norm="is">is</tk>
-	<ws> </ws>
-	<tk tknorm="backed" lc="true" pos="VVN" posset="1" norm="backed">backed</tk>
-	<ws> </ws>
-	<tk tknorm="by" lc="true" pos="IN" posset="3" norm="by">by</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="british" lc="true" uc="true" pos="JJ" posset="1" norm="british">British</tk>
-	<ws> </ws>
-	<tk tknorm="society" lc="true" uc="true" pos="NN" posset="1" norm="society">Society</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="paranormal" lc="true" uc="true" pos="JJ" posset="1" norm="paranormal">Paranormal</tk>
-	<ws> </ws>
-	<tk tknorm="studies" pstpunc="." lc="true" uc="true" pos="NNS" posset="1" norm="studies">Studies.</tk>
-	<ws col="69">
+			<tk tknorm="the" lc="true" uc="true" pos="DT" posset="3" wordid="1">The</tk>
+			<ws> </ws>
+			<tk tknorm="campaign" lc="true" pos="NN" posset="1" wordid="2">campaign</tk>
+			<ws> </ws>
+			<tk tknorm="is" lc="true" pos="VBZ" posset="3" wordid="3">is</tk>
+			<ws> </ws>
+			<tk tknorm="backed" lc="true" pos="VVN" posset="1" wordid="4">backed</tk>
+			<ws> </ws>
+			<tk tknorm="by" lc="true" pos="IN" posset="3" wordid="5">by</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="6">the</tk>
+			<ws> </ws>
+			<tk tknorm="british" lc="true" uc="true" pos="JJ" posset="1" wordid="7">British</tk>
+			<ws> </ws>
+			<tk tknorm="society" lc="true" uc="true" pos="NN" posset="1" wordid="8">Society</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="9">of</tk>
+			<ws> </ws>
+			<tk tknorm="paranormal" lc="true" uc="true" pos="JJ" posset="1" wordid="10">Paranormal</tk>
+			<ws> </ws>
+			<tk tknorm="studies" pstpunc="." lc="true" uc="true" pos="NNS" posset="1" wordid="11">Studies.</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="21" no_phrases="4">
+		<spt phraseid="1" no_wrds="3">
+			<break type="4" time="0.2" />
+			<ws col="69">
 </ws>
-	<tk tknorm="medium" lc="true" uc="true" pos="NN" posset="1" norm="medium">Medium</tk>
-	<ws> </ws>
-	<tk tknorm="mary" lc="true" uc="true" pos="NN" posset="1" norm="mary">Mary</tk>
-	<ws> </ws>
-	<tk tknorm="armour" pstpunc="," lc="true" uc="true" pos="NN" posset="1" norm="armour">Armour,</tk>
-	<ws> </ws>
-	<tk tknorm="who" lc="true" pos="WP" posset="3" norm="who">who</tk>
-	<ws> </ws>
-	<tk tknorm="wrote" lc="true" pos="NN" posset="1" norm="wrote">wrote</tk>
-	<ws> </ws>
-	<tk tknorm="her" lc="true" pos="PP$" posset="3" norm="her">her</tk>
-	<ws> </ws>
-	<tk tknorm="biography" pstpunc="," lc="true" pos="NN" posset="1" norm="biography">biography,</tk>
-	<ws> </ws>
-	<tk tknorm="said" pstpunc=":" lc="true" pos="VVD" posset="1" norm="said">said:</tk>
-	<ws> </ws>
-	<tk prepunc="&quot;" tknorm="she" lc="true" uc="true" pos="PP" posset="3" norm="she">"She</tk>
-	<ws> </ws>
-	<tk tknorm="has" lc="true" pos="VHZ" posset="3" norm="has">has</tk>
-	<ws> </ws>
-	<tk tknorm="put" lc="true" pos="NN" posset="1" norm="put">put</tk>
-	<ws> </ws>
-	<tk tknorm="us" lc="true" pos="PP" posset="3" norm="us">us</tk>
-	<ws> </ws>
-	<tk tknorm="on" lc="true" pos="RB" posset="1" norm="on">on</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="right" lc="true" pos="NN" posset="1" norm="right">right</tk>
-	<ws> </ws>
-	<tk tknorm="side" lc="true" pos="NN" posset="1" norm="side">side</tk>
-	<ws> </ws>
-	<tk tknorm="of" lc="true" pos="IN" posset="3" norm="of">of</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<tk tknorm="law" lc="true" pos="NN" posset="1" norm="law">law</tk>
-	<ws> </ws>
-	<tk tknorm="by" lc="true" pos="IN" posset="3" norm="by">by</tk>
-	<ws> </ws>
-	<tk tknorm="bringing" lc="true" pos="VVG" posset="1" norm="bringing">bringing</tk>
-	<ws> </ws>
-	<tk tknorm="in" lc="true" pos="IN" posset="3" norm="in">in</tk>
-	<ws> </ws>
-	<tk tknorm="the" lc="true" pos="DT" posset="3" norm="the">the</tk>
-	<ws> </ws>
-	<say-as internal="year">
-		<tk tknorm="1952" symbols="true" pos="NN" posset="1" isnrm="true" norm="nineteen">1952</tk>
-		<tk tknorm="1952" symbols="true" pos="NN" posset="1" isnrm="true" norm="fifty" />
-		<tk tknorm="1952" symbols="true" pos="NN" posset="1" isnrm="true" norm="two" />
-	</say-as>
-
-
-	<ws> </ws>
-	<tk tknorm="act" pstpunc=".&quot;" lc="true" pos="NN" posset="1" norm="act">act."</tk>
-	<ws col="126">
+			<tk tknorm="medium" lc="true" uc="true" pos="NN" posset="1" wordid="1">Medium</tk>
+			<ws> </ws>
+			<tk tknorm="mary" lc="true" uc="true" pos="NN" posset="1" wordid="2">Mary</tk>
+			<ws> </ws>
+			<tk tknorm="armour" pstpunc="," lc="true" uc="true" pos="NN" posset="1" wordid="3">Armour,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="2" no_wrds="4">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="who" lc="true" pos="WP" posset="3" wordid="1">who</tk>
+			<ws> </ws>
+			<tk tknorm="wrote" lc="true" pos="NN" posset="1" wordid="2">wrote</tk>
+			<ws> </ws>
+			<tk tknorm="her" lc="true" pos="PP$" posset="3" wordid="3">her</tk>
+			<ws> </ws>
+			<tk tknorm="biography" pstpunc="," lc="true" pos="NN" posset="1" wordid="4">biography,</tk>
+			<break type="3" time="0.1" />
+		</spt>
+		<spt phraseid="3" no_wrds="1">
+			<break type="3" time="0.1" />
+			<ws> </ws>
+			<tk tknorm="said" pstpunc=":" lc="true" pos="VVD" posset="1" wordid="1">said:</tk>
+			<break type="3" time="0.15" />
+		</spt>
+		<spt phraseid="4" no_wrds="17">
+			<break type="3" time="0.15" />
+			<ws> </ws>
+			<tk prepunc="&quot;" tknorm="she" lc="true" uc="true" pos="PP" posset="3" wordid="1">"She</tk>
+			<ws> </ws>
+			<tk tknorm="has" lc="true" pos="VHZ" posset="3" wordid="2">has</tk>
+			<ws> </ws>
+			<tk tknorm="put" lc="true" pos="NN" posset="1" wordid="3">put</tk>
+			<ws> </ws>
+			<tk tknorm="us" lc="true" pos="PP" posset="3" wordid="4">us</tk>
+			<ws> </ws>
+			<tk tknorm="on" lc="true" pos="RB" posset="1" wordid="5">on</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="6">the</tk>
+			<ws> </ws>
+			<tk tknorm="right" lc="true" pos="NN" posset="1" wordid="7">right</tk>
+			<ws> </ws>
+			<tk tknorm="side" lc="true" pos="NN" posset="1" wordid="8">side</tk>
+			<ws> </ws>
+			<tk tknorm="of" lc="true" pos="IN" posset="3" wordid="9">of</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="10">the</tk>
+			<ws> </ws>
+			<tk tknorm="law" lc="true" pos="NN" posset="1" wordid="11">law</tk>
+			<ws> </ws>
+			<tk tknorm="by" lc="true" pos="IN" posset="3" wordid="12">by</tk>
+			<ws> </ws>
+			<tk tknorm="bringing" lc="true" pos="VVG" posset="1" wordid="13">bringing</tk>
+			<ws> </ws>
+			<tk tknorm="in" lc="true" pos="IN" posset="3" wordid="14">in</tk>
+			<ws> </ws>
+			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="15">the</tk>
+			<ws> </ws>
+			<tk tknorm="1952" symbols="true" pos="NN" posset="1" wordid="16">1952</tk>
+			<ws> </ws>
+			<tk tknorm="act" pstpunc=".&quot;" lc="true" pos="NN" posset="1" wordid="17">act."</tk>
+			<break type="4" time="0.4" />
+			<ws col="126">
 </ws>
+		</spt>
+	</utt>
 </parent>

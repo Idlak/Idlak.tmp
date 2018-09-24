@@ -1,130 +1,97 @@
 <?xml version="1.0"?>
 <parent>
-
-
-	<ws col="0">
+	<utt uttid="1" no_phrases="1">
+		<spt phraseid="1" no_wrds="2">
+			<ws col="0">
 </ws>
-
-
-	<lex pron="k+">
-
-
-		<tk tknorm="k" lc="true" uc="true" pos="NN" posset="1" norm="k" pron="k+">K</tk>
-
-
-	</lex>
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="an" lc="true" pos="DT" posset="3" norm="an" pron="ae1 n" altprons="ah0 n, ae1 n">an</tk>
-
-
-	<ws col="5">
+			<lex pron="k+">
+				<break type="4" time="0.011" />
+				<tk tknorm="k" lc="true" uc="true" pos="NN" posset="1" wordid="1" pron="k+">K</tk>
+			</lex>
+			<ws> </ws>
+			<tk tknorm="an" lc="true" pos="DT" posset="3" wordid="2" pron="ae1 n" altprons="ah0 n, ae1 n">an</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="2" no_phrases="1">
+		<spt phraseid="1" no_wrds="1">
+			<break type="4" time="0.2" />
+			<ws col="5">
 
 </ws>
-
-
-	<tk tknorm="a" lc="true" pos="DT" posset="3" norm="a" pron="ah0" altprons="ey1, ah0">a</tk>
-
-
-	<ws col="3">
+			<tk tknorm="a" lc="true" pos="DT" posset="3" wordid="1" pron="ah0" altprons="ey1, ah0">a</tk>
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="3" no_phrases="2">
+		<spt phraseid="1" no_wrds="1">
+			<break type="4" time="0.2" />
+			<ws col="3">
 </ws>
-
-
-	<tk tknorm="http" pstpunc=":" lc="true" pos="NN" posset="1" norm="http" pron="hh t p" lts="true">http://www.big.site</tk>
-
-
-	<tk tknorm="/" lc="true" symbols="true" pos="NN" posset="1" isnrm="true" norm="slash" pron="s l ae1 sh" />
-
-
-	<tk tknorm="/" lc="true" symbols="true" pos="NN" posset="1" isnrm="true" norm="slash" pron="s l ae1 sh" />
-
-
-	<tk tknorm="www" pstpunc="." lc="true" symbols="true" pos="NN" posset="1" norm="www" pron="w w w" lts="true" />
-
-
-	<tk tknorm="big" pstpunc="." lc="true" symbols="true" pos="JJ" posset="1" norm="big" pron="b ih1 g" />
-
-
-	<tk tknorm="site" lc="true" symbols="true" pos="NN" posset="1" norm="site" pron="s ay1 t" />
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="2=4-2" symbols="true" pos="NN" posset="1" isnrm="true" norm="two" pron="t uw1">2=4-2</tk>
-
-
-	<tk tknorm="2=4-2" symbols="true" pos="NN" posset="1" isnrm="true" norm="equals" pron="iy1 k w ah0 l z" />
-
-
-	<tk tknorm="2=4-2" symbols="true" pos="NN" posset="1" isnrm="true" norm="four" pron="f ao1 r" />
-
-
-	<tk tknorm="2=4-2" symbols="true" pos="NN" posset="1" isnrm="true" norm="minus" pron="m ay1 n ah0 s" />
-
-
-	<tk tknorm="2=4-2" symbols="true" pos="NN" posset="1" isnrm="true" norm="two" pron="t uw1" />
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="full" lc="true" uc="true" pos="JJ" posset="1" isnrm="true" norm="f" pron="eh1 f">FULL</tk>
-
-
-	<tk tknorm="full" lc="true" uc="true" pos="JJ" posset="1" isnrm="true" norm="u" pron="y uw1" />
-
-
-	<tk tknorm="full" lc="true" uc="true" pos="JJ" posset="1" isnrm="true" norm="l" pron="eh1 l" />
-
-
-	<tk tknorm="full" lc="true" uc="true" pos="JJ" posset="1" isnrm="true" norm="l" pron="eh1 l" />
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="power" lc="true" uc="true" pos="NN" posset="1" norm="power" pron="p aw1 er0">Power</tk>
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="cafe" lc="true" foreign="true" pos="NN" posset="1" norm="cafe" pron="k ah0 f ey1" altprons="k ae0 f ey1, k ah0 f ey1">café</tk>
-
-
-	<ws> </ws>
-
-
-	<tk prepunc="&quot;" tknorm="okay" pstpunc="&quot;" lc="true" pos="NN" posset="1" norm="okay" pron="ow2 k ey1">“okay”</tk>
-
-
-	<ws col="54">
+			<tk tknorm="http" pstpunc=":" lc="true" pos="NN" posset="1" wordid="1" pron="hh t p" lts="true">http://www.big.site</tk>
+			<break type="3" time="0.15" />
+		</spt>
+		<spt phraseid="2" no_wrds="1">
+			<break type="3" time="0.15" />
+			<tk tknorm="/" lc="true" symbols="true" pos="NN" posset="1" wordid="1" pron="" lts="true" />
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="4" no_phrases="1">
+		<spt phraseid="1" no_wrds="1">
+			<break type="4" time="0.2" />
+			<tk tknorm="/" lc="true" symbols="true" pos="NN" posset="1" wordid="1" pron="" lts="true" />
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="5" no_phrases="1">
+		<spt phraseid="1" no_wrds="1">
+			<break type="4" time="0.2" />
+			<tk tknorm="www" pstpunc="." lc="true" symbols="true" pos="NN" posset="1" wordid="1" pron="w w w" lts="true" />
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="6" no_phrases="1">
+		<spt phraseid="1" no_wrds="1">
+			<break type="4" time="0.2" />
+			<tk tknorm="big" pstpunc="." lc="true" symbols="true" pos="JJ" posset="1" wordid="1" pron="b ih1 g" />
+			<break type="4" time="0.2" />
+		</spt>
+	</utt>
+	<utt uttid="7" no_phrases="3">
+		<spt phraseid="1" no_wrds="5">
+			<break type="4" time="0.2" />
+			<tk tknorm="site" lc="true" symbols="true" pos="NN" posset="1" wordid="1" pron="s ay1 t" />
+			<ws> </ws>
+			<tk tknorm="2=4-2" symbols="true" pos="NN" posset="1" wordid="2" pron="" lts="true">2=4-2</tk>
+			<ws> </ws>
+			<tk tknorm="full" lc="true" uc="true" pos="JJ" posset="1" wordid="3" pron="f uh1 l">FULL</tk>
+			<ws> </ws>
+			<tk tknorm="power" lc="true" uc="true" pos="NN" posset="1" wordid="4" pron="p aw1 er0">Power</tk>
+			<ws> </ws>
+			<tk tknorm="cafe" lc="true" foreign="true" pos="NN" posset="1" wordid="5" pron="k ah0 f ey1" altprons="k ae0 f ey1, k ah0 f ey1">café</tk>
+			<break type="2" time="0.05" />
+		</spt>
+		<spt phraseid="2" no_wrds="1">
+			<break type="2" time="0.05" />
+			<ws> </ws>
+			<tk prepunc="&quot;" tknorm="okay" pstpunc="&quot;" lc="true" pos="NN" posset="1" wordid="1" pron="ow2 k ey1">“okay”</tk>
+			<break type="2" time="0.05" />
+		</spt>
+		<spt phraseid="3" no_wrds="3">
+			<break type="2" time="0.05" />
+			<ws col="54">
 
 </ws>
-
-
-	<tk tknorm="and" lc="true" uc="true" pos="CC" posset="3" norm="and" pron="ah0 n d" altprons="ae1 n d, ah0 n d">And</tk>
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="another" lc="true" pos="DT" posset="3" norm="another" pron="ah0 n ah1 dh er0">another</tk>
-
-
-	<ws> </ws>
-
-
-	<tk tknorm="sentence" pstpunc="." lc="true" pos="NN" posset="1" norm="sentence" pron="s eh1 n t ah0 n s">sentence.</tk>
-
-
-	<ws col="23">
+			<tk tknorm="and" lc="true" uc="true" pos="CC" posset="3" wordid="1" pron="ah0 n d" altprons="ae1 n d, ah0 n d">And</tk>
+			<ws> </ws>
+			<tk tknorm="another" lc="true" pos="DT" posset="3" wordid="2" pron="ah0 n ah1 dh er0">another</tk>
+			<ws> </ws>
+			<tk tknorm="sentence" pstpunc="." lc="true" pos="NN" posset="1" wordid="3" pron="s eh1 n t ah0 n s">sentence.</tk>
+			<break type="4" time="0.4" />
+			<ws col="23">
 
 </ws>
-
-
+		</spt>
+	</utt>
 </parent>
