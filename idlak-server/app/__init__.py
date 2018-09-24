@@ -21,12 +21,10 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 
 logging.basicConfig()
-handler = RotatingFileHandler(app.config['LOG_FILE'],
-                              maxBytes=100000,
-                              backupCount=1)
-handler.setLevel(app.config['LOGGING'])
+handler = RotatingFileHandler('idlak-server.log', maxBytes=100000, backupCount=1)
+handler.setLevel(logging.DEBUG)
 app.logger.addHandler(handler)
-app.logger.setLevel(app.config['LOGGING'])
+app.logger.setLevel(logging.DEBUG)
 
 from app import models, endpoints, reqlogging
 from app.models.user import User
@@ -45,12 +43,11 @@ def db_setup():
 # this is the only way to make the initial db setup work since after running it, it shuts down the program
 if db_setup():
     show()
-
+    
 # check if there are any users, if there are none, create an admin
 if len(User.query.all()) == 0:
     admin_user = User.new_user_full('admin', 'admin', True)
     app.logger.info("An initial admin user has been created: {}".format(admin_user))
-
 
 if __name__ == '__main__':
     app.run()
