@@ -103,11 +103,12 @@ class AperiodicEnergy {
 
   int32 Dim() { return opts_.banks_opts.num_bins; }
 
+  Vector<BaseFloat> CenterFreqs() { return freq_banks_->GetCenterFreqs(); }
+
   void Compute(const VectorBase<BaseFloat> &wave,
                const VectorBase<BaseFloat> &voicing_prob,
                const VectorBase<BaseFloat> &f0,
-               Matrix<BaseFloat> *output,
-               Vector<BaseFloat> *wave_remainder = NULL);
+               Matrix<BaseFloat> *output);
   
   const Vector<BaseFloat> &GetBandStarts() const { return band_starts_; }
   const Vector<BaseFloat> &GetBandCenters() const { return band_centers_; }
