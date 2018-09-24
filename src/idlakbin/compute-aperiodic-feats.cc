@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
       // Output data
       Matrix<BaseFloat> features;
       try {
-        ap_energy.Compute(waveform, pov, f0, &features, NULL);
+        ap_energy.Compute(waveform, pov, f0, &features);
       } catch(...) {
         KALDI_WARN << "Failed to compute bndap for utterance "
                    << utt;

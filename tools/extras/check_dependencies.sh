@@ -65,7 +65,7 @@ if ! echo "#include <zlib.h>" | $CXX -E - >&/dev/null; then
   add_packages zlib-devel zlib1g-dev zlib-devel
 fi
 
-for f in make automake autoconf patch grep bzip2 gzip wget git sox; do
+for f in make automake autoconf patch grep bzip2 gzip wget git sox cmake; do
   if ! which $f >&/dev/null; then
     echo "$0: $f is not installed."
     add_packages $f $f $f
@@ -87,6 +87,11 @@ if ! which awk >&/dev/null; then
   add_packages gawk gawk gawk
 fi
 
+if ! which csh >&/dev/null; then
+  echo "$0: csh is not installed"
+  add_packages tcsh csh tcsh
+fi
+
 pythonok=true
 if ! which python2.7 >&/dev/null; then
   echo "$0: python2.7 is not installed"
@@ -94,11 +99,25 @@ if ! which python2.7 >&/dev/null; then
   pythonok=false
 fi
 
-#if ! which python3 >&/dev/null; then
-#  echo "$0: python3 is not installed"
-#  add_packages python3
-#  pythonok=false
-#fi
+function verlte()
+{
+    [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+}
+
+if ! which python3.5 >&/dev/null; then
+  if which python3 >&/dev/null; then
+     python_ver=`python3 --version | awk '{print $2}'` 
+     verlte 3.5.0 $python_ver && pythonok=true || pythonok=false
+     if [ $pythonok = "false" ]; then
+        echo "$0: python3 has a version which is too low. Please install python3.5 or higher"
+        add_packages python3.5
+     fi
+  else
+     echo "$0: python3.5 is not installed"
+     add_packages python3.5
+     pythonok=false
+  fi
+fi
 
 (
 #Use a subshell so that sourcing env.sh does not have an influence on the rest of the script
