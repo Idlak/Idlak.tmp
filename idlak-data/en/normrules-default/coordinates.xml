@@ -1,0 +1,56 @@
+<nrules>
+
+  <rules>
+
+    <rule name="coord_lat_long">
+      <comment>
+       E.g. N23:14:23.2 -&gt;  North, twenty three, fourteen, twenty three
+       Can be expanded for additional formats
+     </comment>
+      <match>
+        <rgx id="m0" name="coord_lat_long" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="nsew" from="m0" grp="0" offset="0">
+          <break type="3"/>
+        </lkp>
+        <fnc name="number" from="m0" grp="1" offset="0">
+          <break type="3"/>
+        </fnc>
+        <fnc name="number" from="m0" grp="2" offset="0">
+          <break type="3"/>
+        </fnc>
+        <fnc name="number" from="m0" grp="3" offset="0">
+          <break type="3"/>
+        </fnc>
+        <lkp name="point" from="m0" grp="4" offset="0">
+          <break type="3"/>
+        </lkp>
+        <fnc name="asdigits" from="m0" grp="5" offset="0">
+          <break type="3"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="coord_mgrs">
+      <comment>
+       NATO-style coordintes
+       E.g. 4QFJ12346789 -&gt; four Q F J one two three four six seven eight nine
+     </comment>
+      <match>
+        <rgx id="m0" name="coord_mgrs" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0">
+          <break type="3"/>
+        </fnc>
+        <fnc name="aschars" from="m0" grp="1" offset="0">
+          <break type="3"/>
+        </fnc>
+        <fnc name="asdigits" from="m0" grp="2" offset="0">
+          <break type="3"/>
+        </fnc>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

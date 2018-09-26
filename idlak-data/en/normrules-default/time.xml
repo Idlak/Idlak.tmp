@@ -1,0 +1,813 @@
+<nrules>
+
+  <rules>
+
+    <rule name="time_midnight">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_midnight" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="midnight" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_pm_zero_split">
+      <comment>
+      e.g 9-00PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_pm_zero" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+        <fnc name="aschars" from="m2" grp="1" offset="2"/>
+        <fnc name="aschars" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_pm_zero">
+      <comment>
+      e.g 9:00PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_am_pm_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_pm_one_to_nine_split">
+      <comment>
+      e.g 9-08PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_pm_one_to_nine" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="asdigits" from="m2" grp="0" offset="2"/>
+        <fnc name="aschars" from="m2" grp="1" offset="2"/>
+        <fnc name="aschars" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_pm_one_to_nine">
+      <comment>
+      e.g 9:08PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_am_pm_one_to_nine" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_pm_split">
+      <comment>
+      e.g 9-30PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_pm" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <fnc name="aschars" from="m2" grp="1" offset="2"/>
+        <fnc name="aschars" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_pm">
+      <comment>
+      e.g 9:30PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_am_pm" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_zero_split">
+      <comment>
+      e.g 9:00 PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="-2"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m2" name="time_zero" src="lcase" offset="0"/>
+        <rgx id="m3" name="am_pm_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_zero">
+      <comment>
+      e.g 9:00 PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_12h_zero" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_required" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_one_to_nine_split">
+      <comment>
+      e.g 9:09 PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="-1"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="0"/>
+        <rgx id="m2" name="time_zero_minutes" src="lcase" offset="1"/>
+        <rgx id="m3" name="am_pm_dots_opt" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <fnc name="asdigits" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_one_to_nine">
+      <comment>
+      e.g 9:09 PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_12h_one_to_nine" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_split">
+      <comment>
+      e.g 9:11 PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="-1"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="0"/>
+        <rgx id="m2" name="time_minutes" src="lcase" offset="1"/>
+        <rgx id="m3" name="am_pm_dots_opt" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <fnc name="number" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm">
+      <comment>
+      e.g 9:11 PM
+    </comment>
+      <match>
+        <rgx id="m0" name="time_12h" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_zero_dotted">
+      <comment>
+      e.g 9:00 P.M.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_12h_zero" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_dotted" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_one_to_nine_dotted">
+      <comment>
+      e.g 9:09 P.M. -&gt;
+    </comment>
+      <match>
+        <rgx id="m0" name="time_12h_one_to_nine" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_dotted" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_am_pm_dotted">
+      <comment>
+      e.g 9:11 P.M.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_12h" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_dotted" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00_oclock_split">
+      <comment/>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="-2"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m2" name="time_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="-2"/>
+        <cpy val="o" offset="-1"/>
+        <cpy val="clock" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00_oclock">
+      <comment/>
+      <match>
+        <rgx id="m0" name="time_h00" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="o" offset="0"/>
+        <cpy val="clock" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00_1to9">
+      <comment/>
+      <match>
+        <rgx id="m0" name="time_h00_h_1to9" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="oh" offset="0"/>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hundred hours" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00">
+      <comment/>
+      <match>
+        <rgx id="m0" name="time_h00_h" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="standarddigits"/>
+        <cpy val="hundred hours" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_10h_10m_one_token">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_10h10m_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_10h_10m">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_10h10m_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_0h_10m_onetoken">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_0h10m_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_0h_10m">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_0h10m_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_10h_0m_one_token">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_10h0m_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_10h_0m">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_10h0m_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_0h_0m_one_token">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_0h0m_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0" case="standarddigits"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0" case="standarddigits"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_0h_0m">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="time_0h0m_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0" case="standarddigits"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="time_m2s2_colon">
+      <comment>
+      This cover all times of the format 'mm:ss Minuten', with the exeception
+      of either minutes or seconds being '1' as in this case the '1' gets
+      expressed differently depending on the context.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_2m2s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="minutes" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="seconds" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_m2s1_colon">
+      <comment>
+      This cover all times of the format 'mm:ss Minuten', with the exeception
+      of either minutes or seconds being '1' as in this case the '1' gets
+      expressed differently depending on the context.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_2m1s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="minutes" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="second" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_m1s2_colon">
+      <comment>
+      This cover all times of the format 'mm:ss Minuten', with the exeception
+      of either minutes or seconds being '1' as in this case the '1' gets
+      expressed differently depending on the context.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_1m2s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="minute" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="seconds" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_m1s1_colon">
+      <comment>
+      This cover all times of the format 'mm:ss Minuten', with the exeception
+      of either minutes or seconds being '1' as in this case the '1' gets
+      expressed differently depending on the context.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_1m1s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="minute" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="second" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_hyphen_zero_minutes">
+      <comment>
+      Covers times of the form 'hh-mm' and transforms it to 'hour minutes'., e.g. 06-05
+    </comment>
+      <match>
+        <rgx id="m0" name="time_h_zero_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_zero_minutes" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="oh" offset="0"/>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="oh" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_zero_minutes">
+      <comment>
+      Covers times of the form 'hh.mm' and transforms it to 'hour minutes'., e.g. 06:05
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hm_with_zero_minutes" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="oh" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <cpy val="oh" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_hyphen_zero">
+      <comment>
+      Covers times of the form 'hh-mm' and transforms it to 'hour minutes'., e.g. 06-30
+    </comment>
+      <match>
+        <rgx id="m0" name="time_h_zero_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="oh" offset="0"/>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <fnc name="aschars" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_zero">
+      <comment>
+      Covers times of the form 'hh.mm' and transforms it to 'hour minutes'., e.g. 06:30
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hm_with_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="oh" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_hyphen_zero_minutes">
+      <comment>
+      Covers times of the form 'hh-mm' and transforms it to 'hour minutes'., e.g. 15-05
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours_24" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_zero_minutes" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="oh" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <fnc name="aschars" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_zero_minutes">
+      <comment>
+      Covers times of the form 'hh.mm' and transforms it to 'hour minutes'., e.g. 15:05
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hm_zero_mins" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="oh" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_hyphen">
+      <comment>
+      Covers times of the form 'hh.mm' and transforms it to 'hour minutes'.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hours_24" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <fnc name="aschars" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm">
+      <comment>
+      Covers times of the form 'hh:mm' and transforms it to 'hour minutes'.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hm" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_any_split">
+      <comment>
+      Covers times of the form 'hh-mm' and transforms it to 'hour minutes'.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hrs_less_than_10" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="time_minutes" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m1" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_any_split_g10">
+      <comment>
+      Covers times of the form 'hh-mm' and transforms it to 'hour minutes'.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hours_24" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="time_minutes" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_any">
+      <comment>
+      Covers times of the form 'hh-mm' and transforms it to 'hour minutes'.
+    </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hm_any" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="0" offset="0"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_hr_min_sec">
+      <comment>
+      1:01.01 -&gt; one hour one minute and one second
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_all_one" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hour" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minute" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="second" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_hr_one_min">
+      <comment>
+      1:01.30 -&gt;  one hour one minute and thirty seconds
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_one_hr_one_min" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hour" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minute" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="seconds" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_hr_one_sec">
+      <comment>
+      1:42.01 -&gt; one hour forty-two minutes and one second
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_one_hr_one_sec" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hour" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minutes" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="second" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_min_one_sec">
+      <comment>
+      2:01.01 -&gt; two hours one minute and one second
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_one_min_one_sec" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hours" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minute" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="second" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_hr">
+      <comment>
+      1:42.10 -&gt; one hour forty two minutes and ten seconds
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_one_hr" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hour" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minutes" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="seconds" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_min">
+      <comment>
+      4:01.11 -&gt; four hours one minute and eleven seconds
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_one_min" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hours" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minute" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="seconds" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_one_sec">
+      <comment>
+      4:42.01 -&gt; four hours forty two minutes and one second
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_one_sec" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hours" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minutes" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="second" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms">
+      <comment>
+      4:42.01 -&gt; four hours forty two minutes and one second
+    </comment>
+      <match>
+        <rgx id="m0" name="duration_hms" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hours" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="minutes" offset="0"/>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <cpy val="seconds" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="am_pm">
+      <comment>
+      Speak a.m. and p.m.s still remaining as letters
+    </comment>
+      <match>
+        <rgx id="m0" name="am_pm_lowercase_dotted" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="aschars" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

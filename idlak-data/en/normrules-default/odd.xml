@@ -1,0 +1,240 @@
+<nrules>
+
+  <rules>
+
+    <rule name="listed_building">
+      <comment>
+      E.g. Grade II* listed
+    </comment>
+      <match>
+        <rgx id="m0" name="grade" src="lcase" offset="-1"/>
+        <rgx id="m1" name="grading" src="mcase" offset="0"/>
+        <rgx id="m2" name="star" src="lcase" offset="1"/>
+        <rgx id="m3" name="listed" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="roman_num" from="m1" grp="0" offset="0"/>
+        <lkp name="star" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="listed_building_2">
+      <comment>
+      E.g. Grade II listed
+    </comment>
+      <match>
+        <rgx id="m0" name="grade" src="lcase" offset="-1"/>
+        <rgx id="m1" name="grading" src="mcase" offset="0"/>
+        <rgx id="m2" name="listed" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="roman_num" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="world_war">
+      <comment>
+      This rule is used for roman numbers preceded by a name, should be read as ordinal
+    </comment>
+      <match>
+        <rgx id="m0" name="war_name" src="mcase" offset="-1"/>
+        <rgx id="m1" name="roman_numerals_lt20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="roman" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roman_ordinal_a">
+      <comment>
+      This rule is used for roman numbers preceded by a name, should be read as ordinal
+    </comment>
+      <match>
+        <rgx id="m0" name="proper_name" src="mcase" offset="-1"/>
+        <rgx id="m1" name="roman_numerals_lt20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="the" offset="0"/>
+        <fnc name="roman" from="m1" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="roman_ordinal_s">
+      <comment>
+      This rule is used for roman numbers with possessive s, preceded by a name, e.g. Henry VIII's
+    </comment>
+      <match>
+        <rgx id="m0" name="proper_name" src="mcase" offset="-1"/>
+        <rgx id="m1" name="roman_numerals_lt20_s" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="the" offset="0"/>
+        <lkp name="numerallkp_s" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="iv_exception1">
+      <comment>
+      In some cases, IV is not 4, e.g. IV drip
+    </comment>
+      <match>
+        <rgx id="m0" name="roman_numerals_iv" src="lcase" offset="0"/>
+        <rgx id="m1" name="iv_exceptions" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="iv_exception2">
+      <comment>
+      In some cases, IV is not 4, e.g. push IV
+    </comment>
+      <match>
+        <rgx id="m0" name="iv_exceptions" src="lcase" offset="-1"/>
+        <rgx id="m1" name="roman_numerals_iv" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roman_ordinal_o">
+      <comment>
+      This rule is a fallback rule for ordinal numbers. It uses the 'o'-declination.
+    </comment>
+      <match>
+        <rgx id="m0" name="roman_numerals_lt20_safe" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="roman" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="acronyms_dot_2">
+      <comment>
+      Handles 'semi'-acronyms, strings of upper-case characters with dots between then.
+      Example: "S.A."
+    </comment>
+      <match>
+        <rgx id="m0" name="upper_case_2dotted" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex lts="spell"/>
+        </cpy>
+        <lkp name="downcase" from="m0" offset="0"/>
+        <lkp name="downcase" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="acronyms_dot_3">
+      <comment>
+      Handles 'semi'-acronyms, strings of upper-case characters with dots between then.
+      Example: "S.A."
+    </comment>
+      <match>
+        <rgx id="m0" name="upper_case_3dotted" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex lts="spell"/>
+        </cpy>
+        <lkp name="downcase" from="m0" offset="0"/>
+        <lkp name="downcase" from="m0" grp="1" offset="0"/>
+        <lkp name="downcase" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="acronyms">
+      <comment>
+      Handles acronyms by splitting them up via 'H:aschars'.
+      Acronyms which should not be split, e.g. 'TUI' in German, have to
+      added to the abbreviations list (abb.txt).
+    </comment>
+      <match>
+        <rgx id="m0" name="not_upper_case" src="mcase" offset="-1"/>
+        <rgx id="m1" name="upper_case_2_4" src="mcase" offset="0"/>
+        <rgx id="m2" name="not_upper_case" src="mcase" offset="1"/>
+        <rgx id="m3" name="word_2_4" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="acronyms_start">
+      <comment>
+      Handles acronyms by splitting them up via 'H:aschars'.
+      Acronyms which should not be split, e.g. 'TUI' in German, have to
+      added to the abbreviations list (abb.txt).
+    </comment>
+      <match>
+        <rgx id="m0" name="upper_case_2_4" src="mcase" offset="0"/>
+        <rgx id="m1" name="not_upper_case" src="mcase" offset="1"/>
+        <rgx id="m2" name="word_2_4" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="acronyms_end">
+      <comment>
+      Handles acronyms by splitting them up via 'H:aschars'.
+      Acronyms which should not be split, e.g. 'TUI' in German, have to
+      added to the abbreviations list (abb.txt).
+    </comment>
+      <match>
+        <rgx id="m0" name="not_upper_case" src="mcase" offset="-1"/>
+        <rgx id="m1" name="upper_case_2_4" src="mcase" offset="0"/>
+        <rgx id="m2" name="word_2_4" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="file_names_pdf">
+      <comment>
+      When strings ending in a dot followed by a well known file suffix,
+      the file name is spoken as word and the file suffix as single characters.
+    </comment>
+      <match>
+        <rgx id="m0" name="file_name_pdf" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="file_names_doc">
+      <comment>
+      When strings ending in a dot followed by a well known file suffix which is spoken as word,
+      both parts are spoken as words.
+    </comment>
+      <match>
+        <rgx id="m0" name="file_name_doc" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <cpy from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="number_er">
+      <comment>
+      Cover cases the '7th', as in '7th time'.
+    </comment>
+      <match>
+        <rgx id="m0" name="snumber_er" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

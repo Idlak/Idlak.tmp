@@ -1,0 +1,1119 @@
+<nrules>
+
+  <rules>
+
+    <rule name="apostrophe_number">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DD_to_DDMMYYYY">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYYYY_reverse">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DD_to_DDMMYYYY_pre_2000">
+      <comment>
+      Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYYYY_reverse_pre_2000">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYYYY">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYYYY_pre_2000">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYY_two_thousand">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYY_zero_year">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMMYY">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_DDMM">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_BBYEAR">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_2_digit_21c">
+      <comment>
+      E.g. In 2002-10
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_2_digit_zero_21c">
+      <comment>
+      E.g. In 2002-08
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year_zero" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2" case="standarddigits"/>
+        <fnc name="number" from="m2" grp="1" offset="2" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_2_digit_zero">
+      <comment>
+      E.g. In 1999-02
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year_zero" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2" case="standarddigits"/>
+        <fnc name="number" from="m2" grp="1" offset="2" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_2_digit">
+      <comment>
+      E.g. In 1932-33
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="year21c_to_year21c_4_digit">
+      <comment>
+      E.g. In 2006-2010
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="year_21c" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year21c_4_digit">
+      <comment>
+      E.g. In 1999-2001
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="year_21c" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_4_digit">
+      <comment>
+      E.g. In 1932-1933
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_and_year_4_digit">
+      <comment>
+      E.g. In 1996 and 1997
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="and" src="lcase" offset="1"/>
+        <rgx id="m2" name="year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="and" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year21c_to_year_zero_slash_two_digits">
+      <comment>
+      E.g. In the winter of 2001/03
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash_or_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year_zero" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2" case="standarddigits"/>
+        <fnc name="number" from="m2" grp="1" offset="2" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_zero_slash_two_digits">
+      <comment>
+      E.g. In the winter of 1902/03
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash_or_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year_zero" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2" case="standarddigits"/>
+        <fnc name="number" from="m2" grp="1" offset="2" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_slash_two_digits">
+      <comment>
+      E.g. In the winter of 1932/33
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash_or_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_slash_two_digits_21c">
+      <comment>
+      E.g. In the winter of 2032/33
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash_or_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="short_year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year2_to_year_slash_digit">
+      <comment>
+      E.g. In the winter of 1962/3
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash_or_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="single_digit" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="asdigits" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="year_to_year_slash_digit">
+      <comment>
+      E.g. In the winter of 1962/3
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash_or_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="single_digit" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+        <cpy val="to" offset="1"/>
+        <fnc name="asdigits" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="in_year_21c">
+      <comment/>
+      <match>
+        <rgx id="m0" name="year_prep" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="in_year">
+      <comment/>
+      <match>
+        <rgx id="m0" name="year_prep" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="-1"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_colon">
+      <comment>
+      Should be safe to assume this is a year, e.g. '1999: sentenced to hard labour'
+    </comment>
+      <match>
+        <rgx id="m0" name="max_04_digits_colon" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_zero">
+      <comment>
+      e.g. 10/25/08
+    </comment>
+      <match>
+        <rgx id="m0" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year_zero" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m0" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <fnc name="asdigits" from="m4" grp="0" offset="4"/>
+        <fnc name="asdigits" from="m4" grp="1" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear">
+      <comment>
+      e.g. 25/10/99
+    </comment>
+      <match>
+        <rgx id="m0" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m0" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <fnc name="number" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_zero_reversed">
+      <comment>
+      e.g. 25/10/08
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year_zero" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <fnc name="asdigits" from="m4" grp="0" offset="4"/>
+        <fnc name="asdigits" from="m4" grp="1" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_months_reversed">
+      <comment>
+      e.g. 25/10/99
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <fnc name="number" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c_reversed">
+      <comment>
+      e.g. 10/25/2008
+    </comment>
+      <match>
+        <rgx id="m0" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m0" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <fnc name="number" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c">
+      <comment>
+      e.g. 25/10/2008
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <fnc name="number" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok">
+      <comment>
+      e.g. 25/10/1998 (for years pre-2000)
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="of" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_reversed">
+      <comment>
+      e.g.10/18/1998 (for years pre-2000)
+    </comment>
+      <match>
+        <rgx id="m0" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <cpy val="of" offset="1"/>
+        <lkp name="months_n" from="m0" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dm_threetok">
+      <comment>
+      e.g. on 10/25
+    </comment>
+      <match>
+        <rgx id="m0" name="date_prep" src="lcase" offset="-1"/>
+        <rgx id="m1" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep_strict" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m3" grp="0" offset="0" case="ordinal"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m1" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="date_er_range">
+      <comment>
+      Covers the cases like '20s'. Looks only at a single token
+      and uses a look-up.
+    </comment>
+      <match>
+        <rgx id="m0" name="number_er" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="number_er" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="number_er" from="m0" grp="2" offset="0"/>
+        <cpy val="to the" offset="1"/>
+        <cpy from="m2" grp="0" offset="2"/>
+        <fnc name="number" from="m2" grp="1" offset="2"/>
+        <lkp name="number_er" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="date_er">
+      <comment>
+      Covers the cases like '20s'. Looks only at a single token
+      and uses a look-up.
+    </comment>
+      <match>
+        <rgx id="m0" name="number_er" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="number_er" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="dmdy_nom_21c">
+      <comment>
+       e.g. Sat Aug 26 2006  -&gt; Saturday the 26th of August two thousand and six
+    </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="year_21c" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <fnc name="number" from="m3" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dmdy_nom">
+      <comment>
+       e.g. Sat Aug 26 1998  -&gt; Saturday the 26th of August nineteen ninety eight
+    </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="year" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <cpy offset="1">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="ymd_21c_hyphen">
+      <comment>
+       e.g. 2003-Aug-03  -&gt;  the third of August two thousand three
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_hyphen_day_of_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="2" offset="0" case="ordinal"/>
+        <lkp name="months" from="m2" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m0" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen">
+      <comment>
+       e.g. 19-Aug-03  -&gt;  the nineteenth of August oh three
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_hyphen_short_year_zero" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <lkp name="months" from="m2" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="asdigits" from="m2" grp="2" offset="2"/>
+        <fnc name="asdigits" from="m2" grp="3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen">
+      <comment>
+       e.g. 19-Aug-93  -&gt;  the nineteenth of August ninety three
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_hyphen_short_year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <lkp name="months" from="m2" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="mdy_21c_nom">
+      <comment>
+       e.g. Jan 26 2010  -&gt;  January the 26th two thousand and ten
+    </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="year_21c" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <fnc name="number" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="mdy_nom">
+      <comment>
+       e.g. Jan 26 1998  -&gt;  January the 26th nineteen ninety eight
+    </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="year" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <cpy offset="1">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="ddm_nom_full">
+      <comment>
+       e.g. Sat the 26th of Aug.  -&gt; Saturday the 26th of August
+    </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="of" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <cpy val="the" offset="-1"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+        <cpy val="of" offset="1"/>
+        <lkp name="months" from="m4" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="ddm_nom">
+      <comment>
+       e.g. Sat 26 Aug.  -&gt; Saturday the 26th of August
+    </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dmd_nom">
+      <comment>
+       e.g. Sat Aug 26  -&gt; Saturday the 26th of August
+    </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="dd_nom_excluding_commas">
+      <comment>
+      e.g. on Friday, 26 men are to be sentenced  -&gt; on Friday, twenty-six men
+    </comment>
+      <match>
+        <rgx id="m0" name="days_dot" src="mcase" offset="-1"/>
+        <rgx id="m1" name="days_dot" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m1" grp="0" offset="-1"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="md_d">
+      <comment>
+      e.g. Oct 23-25  -&gt; October the twenty third to the twenty fifth
+    </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m3" grp="0" offset="2" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="md_range">
+      <comment>
+      e.g. between Oct 25 and 28 -&gt; between October twenty fifth and twenty eighth
+    </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="and" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <cpy val="and" offset="1"/>
+        <fnc name="number" from="m3" grp="0" offset="2" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="md_nom_excluding_commas">
+      <comment>
+      e.g. on Friday, 26 men are to be sentenced  -&gt; on Friday, twenty-six men
+    </comment>
+      <match>
+        <rgx id="m0" name="months_dot" src="mcase" offset="-1"/>
+        <rgx id="m1" name="months_dot" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="dd_nom">
+      <comment>
+      e.g. Sat the 26  -&gt; Saturday the 26th
+    </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <fnc name="number" from="m2" grp="0" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="d_d">
+      <comment>
+      23rd-25th  -&gt; twenty third to twenty fifth
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month_ordinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month_ordinal" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_full">
+      <comment>
+      e.g. the 25 of Oct  -&gt; the 25th of October
+    </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="of" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <cpy val="of" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_with_of">
+      <comment>
+      e.g. 25 of Oct  -&gt; the 25th of October
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="of" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="of" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_pre">
+      <comment>
+      e.g. the 25 Oct  -&gt; the 25th of October
+      Catch any dates preceded by the or that, and don't insert 'the'
+    </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="0" offset="0" case="ordinal"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_range">
+      <comment>
+      e.g. 24-25 Oct  -&gt; 24th to 25th October
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2" case="ordinal"/>
+        <lkp name="months" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_dot">
+      <comment>
+      e.g. 25. Oct  -&gt; the 25th of October
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month_dot" src="mcase" offset="0"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal">
+          <break type="0" time="0"/>
+        </fnc>
+        <lkp name="months" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom">
+      <comment>
+      e.g. 25 Oct  -&gt; the 25th of October
+    </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="ordinal"/>
+        <lkp name="months" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year_21c">
+      <comment/>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year">
+      <comment/>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" offset="-1"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_01_to_99">
+      <comment>
+      Read range 1901 to 1999 as a year
+    </comment>
+      <match>
+        <rgx id="m0" name="year_01_to_99" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_genitive_2000">
+      <comment/>
+      <match>
+        <rgx id="m0" name="year_genitive_2000" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="two thousands" offset="0"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="year_genitive">
+      <comment/>
+      <match>
+        <rgx id="m0" name="year_genitive" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0" case="digitlkp_s"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="year_genitive_21c">
+      <comment/>
+      <match>
+        <rgx id="m0" name="year_genitive_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="two thousand and" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0" case="digitlkp_s_21c"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_range">
+      <comment/>
+      <match>
+        <rgx id="m0" name="month_name_range" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="0"/>
+        <cpy val="to" offset="0"/>
+        <lkp name="months" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

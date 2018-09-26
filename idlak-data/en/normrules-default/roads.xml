@@ -1,0 +1,83 @@
+<nrules>
+
+  <rules>
+
+    <rule name="roads_4digits">
+      <comment>
+       E.g. A3050
+     </comment>
+      <match>
+        <rgx id="m0" name="roads_4digits" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0" case="standarddigits"/>
+      </replace>
+    </rule>
+
+    <rule name="roads_2digits">
+      <comment>
+       E.g. A68
+     </comment>
+      <match>
+        <rgx id="m0" name="roads_2digits" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roads_us_state_long">
+      <comment>
+       E.g. TX-610
+     </comment>
+      <match>
+        <rgx id="m0" name="us_state_routes_long" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="american_state_list" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roads_us_state_routes">
+      <comment>
+       E.g. TX-61
+     </comment>
+      <match>
+        <rgx id="m0" name="us_state_routes" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="american_state_list" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roads_us_numbered_highway_long">
+      <comment>
+       E.g. US-830 (note that US 830 will work correctly without running this rule)
+     </comment>
+      <match>
+        <rgx id="m0" name="us_numbered_highway_long" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roads_us_numbered_highway">
+      <comment>
+       E.g. US-830 (note that US 830 will work correctly without running this rule)
+     </comment>
+      <match>
+        <rgx id="m0" name="us_numbered_highway" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

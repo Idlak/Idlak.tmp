@@ -1,0 +1,19 @@
+<nrules>
+
+  <rules>
+
+    <rule name="range_hyphen">
+      <comment/>
+      <match>
+        <rgx id="m0" name="pre_range" src="lcase" offset="-1"/>
+        <rgx id="m1" name="number" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="number" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="pre_range_look" from="m0" offset="-1"/>
+        <cpy val="to" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

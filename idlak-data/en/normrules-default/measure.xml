@@ -1,0 +1,511 @@
+<nrules>
+
+  <rules>
+
+    <rule name="frac_measures_small_plusminus">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m2" name="slash" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_exc_post" from="m3" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m4" offset="2"/>
+        <lkp name="measure" from="m4" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="frac_measures_small">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_exc_post" from="m2" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m3" offset="2"/>
+        <lkp name="measure" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="frac_measure_smallb_plusminus">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_2_4" src="lcase" offset="0"/>
+        <rgx id="m2" name="slash" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <fnc name="number" from="m1" offset="1"/>
+        <lkp name="small_frac_exc_pl" from="m3" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m4" offset="2"/>
+        <lkp name="measure" from="m4" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="frac_measure_smallb">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinal_2_4" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <fnc name="number" from="m0" offset="1"/>
+        <lkp name="small_frac_exc_pl" from="m2" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m3" offset="2"/>
+        <lkp name="measure" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="frac_measure_sq">
+      <comment>
+      Read measures with fractions. Only replace the unit, the number will be read by the fractions rules.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinalr" src="lcase" offset="2"/>
+        <rgx id="m3" name="square" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc_full" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <lkp name="square" from="m3" offset="3"/>
+        <cpy val="" offset="4"/>
+        <lkp name="measure_pl" from="m4" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="int_big_measure_split_sq">
+      <comment/>
+      <match>
+        <rgx id="m0" name="thousandscomma_withpoint" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+        <rgx id="m2" name="measure_masc_full" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="square" from="m1" offset="1"/>
+        <lkp name="measure_pl" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="one_measure_split_sq">
+      <comment/>
+      <match>
+        <rgx id="m0" name="one" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+        <rgx id="m2" name="measure_masc_full" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="square" from="m1" offset="1"/>
+        <lkp name="measure" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_sq">
+      <comment/>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+        <rgx id="m2" name="measure_masc_full" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="square" from="m1" offset="1"/>
+        <lkp name="measure_pl" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_float_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="float_null_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <cpy val="point" offset="2"/>
+        <fnc name="asdigits" from="m2" grp="2" offset="2"/>
+        <lkp name="measure_pl" from="m2" grp="3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_float_measure_split">
+      <comment>
+     5%-5.5% -&gt; five percent to five point five percent
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="float" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="0" offset="1"/>
+        <cpy val="to" offset="2"/>
+        <fnc name="number" from="m3" grp="1" offset="3"/>
+        <cpy val="point" offset="3"/>
+        <fnc name="asdigits" from="m3" grp="2" offset="3"/>
+        <lkp name="measure_pl" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_float_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="float_null_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <cpy val="point" offset="2"/>
+        <fnc name="asdigits" from="m2" grp="2" offset="2"/>
+        <lkp name="measure_pl" from="m2" grp="3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="frac_measure">
+      <comment>
+      Read measures with fractions. Only replace the unit, the number will be read by the fractions rules.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinalr" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="3"/>
+        <lkp name="measure_pl" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_int_measure_split">
+      <comment>
+      5.5%-6% -&gt; five point five percent to six percent
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="integer" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="0" offset="1"/>
+        <cpy val="to" offset="2"/>
+        <fnc name="number" from="m3" grp="0" offset="3"/>
+        <lkp name="measure_pl" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_int_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <lkp name="measure_pl" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_int_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+        <lkp name="measure_pl" from="m2" grp="2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="generic_hyphen_mesure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="measure_masc_full" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="measure_pl" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_1_per_hour">
+      <comment/>
+      <match>
+        <rgx id="m0" name="one" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="time_unit" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure" from="m1" offset="1"/>
+        <cpy val="per" offset="2"/>
+        <lkp name="time_unit" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_per_hour">
+      <comment/>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="time_unit" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m1" offset="1"/>
+        <cpy val="per" offset="2"/>
+        <lkp name="time_unit" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_range">
+      <comment>
+      1%-2% -&gt; one percent to two percent
+      Let the numbers and measures be handled below but
+      output the hyphen as 'to'
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="integer" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="to" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_plusminus_split_1">
+      <comment>
+      1 kg -&gt; one kilogramme
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="one" src="lcase" offset="0"/>
+        <rgx id="m2" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+        <lkp name="measure" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_1">
+      <comment>
+      1 kg -&gt; one kilogramme
+    </comment>
+      <match>
+        <rgx id="m0" name="one" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_plusminus_split">
+      <comment/>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer" src="lcase" offset="0"/>
+        <rgx id="m2" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split">
+      <comment>
+      2 kg -&gt; two kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_1_plusminus">
+      <comment/>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0"/>
+        <lkp name="measure" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_1">
+      <comment/>
+      <match>
+        <rgx id="m0" name="cardinal_measure_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <lkp name="measure" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_plusminus">
+      <comment/>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="cardinal_measure" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <lkp name="measure_pl" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus">
+      <comment/>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="0" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="float_null_measure" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0"/>
+        <lkp name="measure_pl" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_split_square">
+      <comment/>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+        <rgx id="m2" name="measure_masc_full" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <lkp name="square" from="m1" offset="1"/>
+        <lkp name="measure_pl" from="m2" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_split_no_whole_number">
+      <comment>
+      .9 miles -&gt; point nine miles
+    </comment>
+      <match>
+        <rgx id="m0" name="float_no_whole_number" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

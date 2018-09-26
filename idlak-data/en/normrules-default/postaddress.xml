@@ -1,0 +1,35 @@
+<nrules>
+
+  <rules>
+
+    <rule name="american_state">
+      <comment>
+      Replace common addresses abbreviations in city names.
+      In can be up to three words before the code, so we have to write three rules for that...
+    </comment>
+      <match>
+        <rgx id="m0" name="american_big_city" src="lcase" offset="-1"/>
+        <rgx id="m1" name="american_state_abb" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="-1"/>
+        <lkp name="american_state_list" from="m1" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="canadian_state">
+      <comment>
+    </comment>
+      <match>
+        <rgx id="m0" name="canadian_big_city" src="lcase" offset="-1"/>
+        <rgx id="m1" name="canadian_state_abb" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="-1"/>
+        <lkp name="canadian_state_list" from="m1" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

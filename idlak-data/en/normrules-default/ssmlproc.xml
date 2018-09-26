@@ -1,0 +1,444 @@
+<nrules>
+
+  <rules>
+
+    <rule name="say_as_boolean">
+      <comment>
+	        Convert say-as tag, interpreting as boolean
+	    </comment>
+      <match>
+        <rgx id="m0" name="boolean_ssml" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:boolean" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="boolean_ssml" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_currency_one">
+      <comment>
+	        Convert say-as tag, interpreting as boolean
+	    </comment>
+      <match>
+        <rgx id="m0" name="currency_ssml_one" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:currency" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="currency_ssml" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_currency_plural">
+      <comment>
+	        Convert say-as tag, interpreting as boolean
+	    </comment>
+      <match>
+        <rgx id="m0" name="currency_ssml_plural" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:currency" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="currency_ssml_plural" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_currency_with_units">
+      <comment>
+	        Convert say-as tag, interpreting as boolean
+	    </comment>
+      <match>
+        <rgx id="m0" name="currency_ssml" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:currency" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0"/>
+        <lkp name="currency_ssml_plural" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date_mdy">
+      <comment>
+	        Convert say-as tag, interpreting as date
+		Note: these are the "advanced" ssml say-as tags. The SSML format is not finalised yet.
+		Proposed formats are: mdy, dmy, ymd, md, dm, ym, my, d, m, y.
+	    </comment>
+      <match>
+        <xml id="m0" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+        <xml id="m1" name="say-as" attribute="format" val="mdy" offset="0"/>
+        <rgx id="m2" name="date_ssml_mdy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_n" from="m2" grp="1" offset="0"/>
+        <fnc name="number" from="m2" grp="3" offset="0" case="ordinal"/>
+        <cpy from="m2" grp="5" offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date">
+      <comment>
+	        Convert say-as tag, interpreting as date. This implements the "built-in" say-as support from vxml
+	        Works for 200323 and ????0323
+	    </comment>
+      <match>
+        <rgx id="m0" name="date_ssml" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_n" from="m0" grp="3" offset="0"/>
+        <fnc name="number" from="m0" grp="5" offset="0" case="ordinal"/>
+        <cpy from="m0" grp="1" offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date_year">
+      <comment>
+	        Convert say-as tag, interpreting as date. This implements the "built-in" say-as support from vxml
+	        Works for 2010????
+	    </comment>
+      <match>
+        <rgx id="m0" name="date_ssml_year" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="1" offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date_year_day">
+      <comment>
+	        Convert say-as tag, interpreting as date. This implements the "built-in" say-as support from vxml
+	        Works for 2010??23 - probably never used, but still legitimate
+	    </comment>
+      <match>
+        <rgx id="m0" name="date_ssml_year_day" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="the" offset="0"/>
+        <fnc name="number" from="m0" grp="3" offset="0" case="ordinal"/>
+        <cpy val="of" offset="0"/>
+        <cpy from="m0" grp="1" offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date_year_month">
+      <comment>
+	        Convert say-as tag, interpreting as date. This implements the "built-in" say-as support from vxml
+	        Works for 201003??
+	    </comment>
+      <match>
+        <rgx id="m0" name="date_ssml_year_month" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_n" from="m0" grp="2" offset="0"/>
+        <cpy from="m0" grp="1" offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date_month">
+      <comment>
+	        Convert say-as tag, interpreting as date. This implements the "built-in" say-as support from vxml
+	        Works for ????03??
+	    </comment>
+      <match>
+        <rgx id="m0" name="date_ssml_month" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_n" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_date_day">
+      <comment>
+	        Convert say-as tag, interpreting as date. This implements the "built-in" say-as support from vxml
+	        Works for ??????23
+	    </comment>
+      <match>
+        <rgx id="m0" name="date_ssml_day" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:date" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="the" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0" case="ordinal"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_digits">
+      <comment>
+	        Convert say-as tag, interpreting as digits
+	    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:digits" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_characters">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="characters" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="characters" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_4_zero">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="truncate_num_four_digits_zero" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_4_zero_float">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="float_truncate_num_four_digits_zero" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_4">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="truncate_num_four_digits" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_4_float">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="float_truncate_num_four_digits" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_3_zero">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="truncate_num_three_digits_zero" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_3_zero_float">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="float_truncate_num_three_digits_zero" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_3">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="truncate_num_three_digits" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_truncated_number_3_float">
+      <comment>
+      Convert say-as tag, interpreting as digits
+    </comment>
+      <match>
+        <rgx id="m0" name="float_truncate_num_three_digits" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="shortnum" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_number_float_sign">
+      <comment>
+	        Convert say-as tag, interpreting as a number
+	    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="0"/>
+        <rgx id="m1" name="float" src="lcase" offset="1"/>
+        <xml id="m2" name="say-as" attribute="interpret-as" val="vxml:number" offset="0"/>
+        <xml id="m3" name="say-as" attribute="interpret-as" val="vxml:number" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m1" grp="1" offset="1"/>
+        <cpy val="point" offset="1"/>
+        <fnc name="aschars" from="m1" grp="3" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_number_float">
+      <comment>
+	        Convert say-as tag, interpreting as a number
+	    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:number" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_number_sign">
+      <comment>
+	        Convert say-as tag, interpreting as a number
+	    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="0"/>
+        <rgx id="m1" name="number_ssml" src="lcase" offset="1"/>
+        <xml id="m2" name="say-as" attribute="interpret-as" val="vxml:number" offset="0"/>
+        <xml id="m3" name="say-as" attribute="interpret-as" val="vxml:number" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="0"/>
+        <fnc name="number" from="m1" grp="1" offset="1"/>
+        <lkp name="signs" from="m1" grp="3" offset="1"/>
+        <fnc name="number" from="m1" grp="5" offset="1"/>
+        <fnc name="aschars" from="m1" grp="6" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_number">
+      <comment>
+	        Convert say-as tag, interpreting as a number
+	    </comment>
+      <match>
+        <rgx id="m0" name="number_ssml" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:number" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="signs" from="m0" grp="3" offset="0"/>
+        <fnc name="number" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say_as_phone">
+      <comment>
+	        Convert say-as tag, interpreting as a phone number
+		! this needs to be translated !
+	  </comment>
+      <match>
+        <rgx id="m0" name="telephone3_g1" src="lcase" offset="0"/>
+        <rgx id="m1" name="telephone3_ext" src="lcase" offset="0"/>
+        <xml id="m2" name="say-as" attribute="interpret-as" val="vxml:phone" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0">
+          <break type="2"/>
+        </fnc>
+        <fnc name="number" from="m0" grp="1" offset="0">
+          <break type="2"/>
+        </fnc>
+        <fnc name="asdigits" from="m0" grp="2" offset="0">
+          <break type="2"/>
+        </fnc>
+        <lkp name="ext_ssml" from="m1" grp="3" offset="0">
+          <break type="2"/>
+        </lkp>
+        <fnc name="asdigits" from="m1" grp="4" offset="0">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="say_as_time">
+      <comment>
+	        Convert say-as tag, interpreting as a time
+		! This needs to be translated !
+	    </comment>
+      <match>
+        <rgx id="m0" name="ssml_time" src="mcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="interpret-as" val="vxml:time" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+        <lkp name="ssml_hour" from="m0" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="4" offset="0"/>
+        <fnc name="number" from="m0" grp="5" offset="0"/>
+        <lkp name="ssml_time_ext" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

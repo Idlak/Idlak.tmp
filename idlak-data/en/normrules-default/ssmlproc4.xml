@@ -1,0 +1,101 @@
+<nrules>
+
+  <rules>
+
+    <rule name="prosody_rate_x-slow">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" val="x-slow" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig rate="0.8"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_rate_slow">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" val="slow" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig rate="0.9"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_rate_med">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" val="medium" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig rate="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_rate_def">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" val="default" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig rate="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_rate_fast">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" val="fast" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig rate="1.1"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_rate_x-fast">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" val="x-fast" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig rate="1.2"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_rate_MAP">
+      <comment>
+	        Handles the emphasis:map ssml tag.
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="rate" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="prosody" totag="sig" mapatt="rate" toatt="rate" from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

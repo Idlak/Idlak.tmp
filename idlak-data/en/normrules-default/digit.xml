@@ -1,0 +1,257 @@
+<nrules>
+
+  <rules>
+
+    <rule name="billions_comma">
+      <comment>
+      1,132,102,234 -&gt; one billion, one hundred and thirty two million one hundred and two thousand two hundred and thirty four
+    </comment>
+      <match>
+        <rgx id="m0" name="billionscomma_no_point" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="millions_comma_with_point">
+      <comment>
+      2,102,234.09 -&gt; two million one hundred and two thousand two hundred and thirty four point zero nine
+    </comment>
+      <match>
+        <rgx id="m0" name="millionscomma_withpoint" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="millions_comma">
+      <comment>
+      2,102,234.89 -&gt; two million one hundred and two thousand two hundred and thirty four pii
+    </comment>
+      <match>
+        <rgx id="m0" name="millionscomma_no_point" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="thousands_comma_withzero">
+      <comment>
+      102,234.99 -&gt; one hundred and two thousand two hundred and thirty four point nine nine
+    </comment>
+      <match>
+        <rgx id="m0" name="thousandscomma_withpoint" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="thousands_comma">
+      <comment>
+      102,234 -&gt; one hundred and two thousand two hundred and thirty four
+    </comment>
+      <match>
+        <rgx id="m0" name="thousandscomma" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_scale_plusminus">
+      <comment>
+      12.3bn -&gt; twelve point three billon
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0"/>
+        <lkp name="currency_scale" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_scale">
+      <comment>
+      12.3bn -&gt; twelve point three billon
+    </comment>
+      <match>
+        <rgx id="m0" name="float_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0"/>
+        <lkp name="currency_scale" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="number_scale">
+      <comment>
+      12bn -&gt; twelve billon
+    </comment>
+      <match>
+        <rgx id="m0" name="number_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="currency_scale" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="number_yr">
+      <comment>
+      30-yr -&gt; thirty year
+    </comment>
+      <match>
+        <rgx id="m0" name="num_years" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="ymwd_abb" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <lkp name="ymwd" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="number_yr_no_hyphen">
+      <comment>
+      30YR -&gt; thirty year
+    </comment>
+      <match>
+        <rgx id="m0" name="num_years_ymwd_abb" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <lkp name="ymwd" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_plusminus">
+      <comment/>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_no_whole_number">
+      <comment>
+      .9 -&gt; point nine
+    </comment>
+      <match>
+        <rgx id="m0" name="float_no_whole_number" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float">
+      <comment/>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="centuries_ending_s">
+      <comment>
+      1900s 1800s, etc
+    </comment>
+      <match>
+        <rgx id="m0" name="century_s" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="hundreds" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="basic_ending_s">
+      <comment/>
+      <match>
+        <rgx id="m0" name="cardinal_s" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0" case="digitlkp_s"/>
+      </replace>
+    </rule>
+
+    <rule name="basic_ord">
+      <comment>
+       Dummy rule
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="basic_car">
+      <comment/>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="zero">
+      <comment>
+      Zero on its own should be read 'zero' rather than 'oh'
+    </comment>
+      <match>
+        <rgx id="m0" name="zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="zero_card">
+      <comment/>
+      <match>
+        <rgx id="m0" name="zeros_card" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,95 @@
+<nrules>
+
+  <rules>
+
+    <rule name="emo_laughing_1">
+      <comment>
+      Covers ':)'.
+    </comment>
+      <match>
+        <rgx id="m0" name="colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="bracket_right" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="smile" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="emo_laughing_2">
+      <comment>
+      Covers ':-)'.
+    </comment>
+      <match>
+        <rgx id="m0" name="colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="bracket_right" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="laugh" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="emo_sad_1">
+      <comment>
+      Covers ':('.
+    </comment>
+      <match>
+        <rgx id="m0" name="colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="bracket_left" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="sad" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="emo_sad_2">
+      <comment>
+      Covers ':-('.
+    </comment>
+      <match>
+        <rgx id="m0" name="colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="bracket_left" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="sad" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="emo_wink_1">
+      <comment>
+      Covers ';)'.
+    </comment>
+      <match>
+        <rgx id="m0" name="apostrophe" src="lcase" offset="0"/>
+        <rgx id="m1" name="bracket_right" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="wink" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="emo_wink_2">
+      <comment>
+      Covers ';-)'.
+    </comment>
+      <match>
+        <rgx id="m0" name="apostrophe" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="bracket_right" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="wink" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

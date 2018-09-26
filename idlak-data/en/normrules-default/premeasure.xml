@@ -1,0 +1,317 @@
+<nrules>
+
+  <rules>
+
+    <rule name="per_second">
+      <comment>
+      E.g. 2 metres/sec
+    </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_second" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="second" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_minute">
+      <comment>
+      E.g. 2 miles/min
+    </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_minute" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="minute" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_litre">
+      <comment>
+      E.g. 2 Mol/l
+    </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_litre" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="litre" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_kilometre">
+      <comment/>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_kilometre" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="kilometre" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_kilogramme">
+      <comment/>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_kilogramme" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="kilogramme" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_share">
+      <comment/>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_share" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="share" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_barrel">
+      <comment/>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_barrel" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="per" offset="0"/>
+        <cpy val="barrel" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="square">
+      <comment/>
+      <match>
+        <rgx id="m0" name="thousandscomma" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+        <rgx id="m2" name="area" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="square" offset="1"/>
+        <lkp name="measure_pl" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_to_int_measure_split">
+      <comment>
+      5 kg - 10 kg -&gt; five kilogrammes to ten kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="integer" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m1" offset="1"/>
+        <cpy val="to" offset="2"/>
+        <fnc name="number" from="m3" grp="1" offset="3"/>
+        <lkp name="measure_pl" from="m4" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_to_int_measure_split">
+      <comment>
+      5.5 kg - 10 kg -&gt; five point five kilogrammes to ten kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="integer" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <lkp name="measure_pl" from="m1" offset="1"/>
+        <cpy val="to" offset="2"/>
+        <fnc name="number" from="m3" grp="1" offset="3"/>
+        <lkp name="measure_pl" from="m4" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_to_float_measure_split">
+      <comment>
+      5 kg - 10.5 kg -&gt; five kilogrammes to ten point five kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="float" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="measure_pl" from="m1" offset="1"/>
+        <cpy val="to" offset="2"/>
+        <fnc name="number" from="m3" grp="1" offset="3"/>
+        <cpy val="point" offset="3"/>
+        <fnc name="asdigits" from="m3" grp="3" offset="3"/>
+        <lkp name="measure_pl" from="m4" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_float_measure_split">
+      <comment>
+      5.5 kg - 5.6 kg -&gt; five point five kilogrammes to five point six kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m3" name="float" src="lcase" offset="3"/>
+        <rgx id="m4" name="measure_masc" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="0" offset="1"/>
+        <cpy val="to" offset="2"/>
+        <fnc name="number" from="m3" grp="1" offset="3"/>
+        <cpy val="point" offset="3"/>
+        <fnc name="asdigits" from="m3" grp="3" offset="3"/>
+        <lkp name="measure_pl" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="float_to_float_measure_split">
+      <comment>
+      5.5-10.5 kg -&gt; five point five to ten point five kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="float" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <lkp name="plusminus" from="m2" grp="0" offset="2"/>
+        <fnc name="number" from="m2" grp="1" offset="2"/>
+        <cpy val="point" offset="2"/>
+        <fnc name="asdigits" from="m2" grp="3" offset="2"/>
+        <lkp name="measure_pl" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="float_to_int_measure_split">
+      <comment>
+      5.5-10 kg -&gt; five point five to ten kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="integer" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="1" offset="2"/>
+        <lkp name="measure_pl" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="int_to_float_measure_split">
+      <comment>
+      5-10.5 kg -&gt; five to ten point five kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="float" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <lkp name="plusminus" from="m0" grp="0" offset="2"/>
+        <fnc name="number" from="m0" grp="1" offset="2"/>
+        <cpy val="point" offset="2"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="2"/>
+        <lkp name="measure_pl" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="int_to_int_measure_split">
+      <comment>
+      5-10 kg -&gt; five to ten kilogrammes
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="integer" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="1" offset="2"/>
+        <lkp name="measure_pl" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_split_plusminus">
+      <comment>
+      -0.75% -&gt; minus zero point seven five percent.
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float" src="lcase" offset="0"/>
+        <rgx id="m2" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m1" grp="3" offset="0"/>
+        <lkp name="measure_pl" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_split">
+      <comment>
+      Made this a premeasure to fix an issue for Bloomberg but
+      it can maybe be kept for all customers.
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="aschars" from="m0" grp="3" offset="0"/>
+        <lkp name="measure_pl" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

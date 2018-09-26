@@ -66,7 +66,7 @@
 			<ws> </ws>
 			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="19" pron="dh ah0" altprons="dh ah1, dh iy0, dh ah0">the</tk>
 			<ws> </ws>
-			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20" pron="1" lts="true">50th</tk>
+			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20" pron="" lts="true">50th</tk>
 			<tk tknorm="th" lc="true" symbols="true" pos="NN" posset="1" wordid="21" pron="t iy1 ey1 ch" />
 			<ws> </ws>
 			<tk tknorm="anniversary" lc="true" pos="NN" posset="1" wordid="22" pron="ae2 n ah0 v er1 s er0 iy0">anniversary</tk>

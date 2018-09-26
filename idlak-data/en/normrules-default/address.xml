@@ -1,0 +1,190 @@
+<nrules>
+
+  <rules>
+
+    <rule name="canadian_state_zip">
+      <comment>
+      Fairly straightforward and constrained.
+      two letter code + zip =&gt; state + digit-by-digit number
+    </comment>
+      <match>
+        <rgx id="m0" name="canadian_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="canadian_zip_1_tok" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val=" " offset="-1"/>
+        <lkp name="canadian_state_list" from="m0" offset="-1"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="aschars" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="canadian_state_zip2">
+      <comment>
+      Fairly straightforward and constrained.
+      two letter code + zip =&gt; state + digit-by-digit number
+    </comment>
+      <match>
+        <rgx id="m0" name="canadian_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="canadian_zip_t1" src="lcase" offset="0"/>
+        <rgx id="m2" name="canadian_zip_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val=" " offset="-1"/>
+        <lkp name="canadian_state_list" from="m0" offset="-1"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="aschars" from="m1" offset="0"/>
+        <cpy val=" " offset="1"/>
+        <fnc name="aschars" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="canadian_state_zip_space">
+      <comment>
+      Fairly straightforward and constrained.
+      two letter code + zip =&gt; state + digit-by-digit number
+    </comment>
+      <match>
+        <rgx id="m0" name="canadian_state_abb" src="lcase" offset="-2"/>
+        <rgx id="m1" name="canadian_zip_1_tok" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val=" " offset="-2"/>
+        <lkp name="canadian_state_list" from="m0" offset="-2"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="aschars" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="canadian_state_zip_space2">
+      <comment>
+      Fairly straightforward and constrained.
+      two letter code + zip =&gt; state + digit-by-digit number
+    </comment>
+      <match>
+        <rgx id="m0" name="canadian_state_abb" src="lcase" offset="-2"/>
+        <rgx id="m1" name="canadian_zip_t1" src="lcase" offset="0"/>
+        <rgx id="m2" name="canadian_zip_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val=" " offset="-2"/>
+        <lkp name="canadian_state_list" from="m0" offset="-2"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="aschars" from="m1" offset="0"/>
+        <cpy val=" " offset="1"/>
+        <fnc name="aschars" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="american_state_zip_ext1">
+      <comment>
+      Fairly straightforward and constrained. two letter code + zip =&gt; state + digit-by-digit number In the replacement, we had a " " to the input to ensure that the american state is not recognised later on as an acronym.
+    </comment>
+      <match>
+        <rgx id="m0" name="american_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="american_zip" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="integer" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val=" " offset="-1"/>
+        <lkp name="american_state_list" from="m0" offset="-1"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="asdigits" from="m1" offset="0"/>
+        <cpy val=" " offset="1"/>
+        <fnc name="asdigits" from="m3" grp="1" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="american_state_zip_ext2">
+      <comment>
+      Fairly straightforward and constrained.
+      two letter code + zip =&gt; state + digit-by-digit number
+      In the replacement, we had a " " to the input to ensure that
+      the american state is not recognised later on as an acronym.
+    </comment>
+      <match>
+        <rgx id="m0" name="american_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="zip_5" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="zip_plus_4" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="american_state_list" from="m0" offset="-1"/>
+        <fnc name="asdigits" from="m1" offset="0"/>
+        <cpy val=" " offset="1"/>
+        <fnc name="asdigits" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="american_state_zip_dc">
+      <comment>
+      Washington, DC 20005 -&gt; washington d c two oh oh oh five
+    </comment>
+      <match>
+        <rgx id="m0" name="american_state_abb_d" src="lcase" offset="-2"/>
+        <rgx id="m1" name="american_state_abb_c" src="lcase" offset="-1"/>
+        <rgx id="m2" name="american_zip" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="d" offset="-2"/>
+        <cpy val="c" offset="-1"/>
+        <fnc name="asdigits" from="m2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="american_state_zip">
+      <comment>
+      Fairly straightforward and constrained.
+      two letter code + zip =&gt; state + digit-by-digit number
+      In the replacement, we had a " " to the input to ensure that
+      the american state is not recognised later on as an acronym.
+    </comment>
+      <match>
+        <rgx id="m0" name="american_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="american_zip" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val=" " offset="-1"/>
+        <lkp name="american_state_list" from="m0" offset="-1"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="asdigits" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="uk_postcode_gt9">
+      <comment/>
+      <match>
+        <rgx id="m0" name="uk_postcode_t1_gt9" src="lcase" offset="0"/>
+        <rgx id="m1" name="uk_postcode_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0">
+          <break type="2"/>
+        </fnc>
+        <cpy val=" " offset="1"/>
+        <fnc name="aschars" from="m1" offset="1">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="uk_postcode">
+      <comment/>
+      <match>
+        <rgx id="m0" name="uk_postcode_t1" src="lcase" offset="0"/>
+        <rgx id="m1" name="uk_postcode_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0">
+          <break type="2"/>
+        </fnc>
+        <cpy val=" " offset="1"/>
+        <fnc name="aschars" from="m1" offset="1">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+  </rules>
+</nrules>
