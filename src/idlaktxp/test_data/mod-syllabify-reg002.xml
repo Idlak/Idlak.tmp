@@ -5,7 +5,7 @@
 			<ws col="0">
 </ws>
 			<break type="4" time="0.011" />
-			<tk norm="hello" lc="true" uc="true" pos="NN" posset="1" wordid="1" pron="hh ah0 l ow1" altprons="hh eh0 l ow1, hh ah0 l ow1" spron="hh+ah0|l+ow1|" nosyl="2">
+			<tk tknorm="hello" lc="true" uc="true" pos="NN" posset="1" wordid="1" pron="hh ah0 l ow1" altprons="hh eh0 l ow1, hh ah0 l ow1" spron="hh+ah0|l+ow1|" nosyl="2">
 				Hello
 				<syl val="hh+ah0" stress="0" sylid="1" nophons="2">
 					<phon val="hh" type="onset" phonid="1" />
@@ -17,7 +17,7 @@
 				</syl>
 			</tk>
 			<ws> </ws>
-			<tk norm="there" pstpunc="," lc="true" pos="EX" posset="3" wordid="2" pron="dh eh1 r" spron="dh+eh1+r|" nosyl="1">
+			<tk tknorm="there" pstpunc="," lc="true" pos="EX" posset="3" wordid="2" pron="dh eh1 r" spron="dh+eh1+r|" nosyl="1">
 				there,
 				<syl val="dh+eh1+r" stress="1" sylid="1" nophons="3">
 					<phon val="dh" type="onset" phonid="1" />
@@ -30,31 +30,11 @@
 		<spt phraseid="2" no_wrds="3">
 			<break type="3" time="0.1" />
 			<ws> </ws>
-			<tk norm="1" symbols="true" pos="NN" posset="1" wordid="1" pron="w ah1 n" spron="w+ah1+n|" nosyl="1">
-				1
-				<syl val="w+ah1+n" stress="1" sylid="1" nophons="3">
-					<phon val="w" type="onset" phonid="1" />
-					<phon val="ah" type="nucleus" phonid="2" />
-					<phon val="n" type="coda" phonid="3" />
-				</syl>
-			</tk>
+			<tk tknorm="1" symbols="true" pos="NN" posset="1" wordid="1" pron="" lts="true" spron="">1</tk>
 			<ws> </ws>
-			<tk norm="2" symbols="true" pos="NN" posset="1" wordid="2" pron="t uw1" spron="t+uw1|" nosyl="1">
-				2
-				<syl val="t+uw1" stress="1" sylid="1" nophons="2">
-					<phon val="t" type="onset" phonid="1" />
-					<phon val="uw" type="nucleus" phonid="2" />
-				</syl>
-			</tk>
+			<tk tknorm="2" symbols="true" pos="NN" posset="1" wordid="2" pron="" lts="true" spron="">2</tk>
 			<ws> </ws>
-			<tk norm="3" pstpunc="." symbols="true" pos="NN" posset="1" wordid="3" pron="th r iy1" spron="th_r+iy1|" nosyl="1">
-				3.
-				<syl val="th_r+iy1" stress="1" sylid="1" nophons="3">
-					<phon val="th" type="onset" phonid="1" />
-					<phon val="r" type="onset" phonid="2" />
-					<phon val="iy" type="nucleus" phonid="3" />
-				</syl>
-			</tk>
+			<tk tknorm="3" pstpunc="." symbols="true" pos="NN" posset="1" wordid="3" pron="" lts="true" spron="">3.</tk>
 			<break type="4" time="0.4" />
 			<ws col="20">
 </ws>

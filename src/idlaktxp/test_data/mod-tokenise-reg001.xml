@@ -2,718 +2,715 @@
 <parent>
 	<ws col="0">
 </ws>
-	<tk norm="helen" lc="true" uc="true">Helen</tk>
+	<tk tknorm="helen" lc="true" uc="true">Helen</tk>
 	<ws> </ws>
-	<tk norm="duncan" lc="true" uc="true">Duncan</tk>
+	<tk tknorm="duncan" lc="true" uc="true">Duncan</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="tried" lc="true">tried</tk>
+	<tk tknorm="tried" lc="true">tried</tk>
 	<ws> </ws>
-	<tk norm="under" lc="true">under</tk>
+	<tk tknorm="under" lc="true">under</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="witchcraft" lc="true" uc="true">Witchcraft</tk>
+	<tk tknorm="witchcraft" lc="true" uc="true">Witchcraft</tk>
 	<ws> </ws>
-	<tk norm="act" lc="true" uc="true">Act</tk>
+	<tk tknorm="act" lc="true" uc="true">Act</tk>
 	<ws col="48">
 </ws>
-	<tk norm="the" lc="true" uc="true">The</tk>
+	<tk tknorm="the" lc="true" uc="true">The</tk>
 	<ws> </ws>
-	<tk norm="family" lc="true">family</tk>
+	<tk tknorm="family" lc="true">family</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="last" lc="true">last</tk>
+	<tk tknorm="last" lc="true">last</tk>
 	<ws> </ws>
-	<tk norm="person" lc="true">person</tk>
+	<tk tknorm="person" lc="true">person</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="uk" lc="true" uc="true">UK</tk>
+	<tk tknorm="uk" lc="true" uc="true">UK</tk>
 	<ws> </ws>
-	<tk norm="to" lc="true">to</tk>
+	<tk tknorm="to" lc="true">to</tk>
 	<ws> </ws>
-	<tk norm="be" lc="true">be</tk>
+	<tk tknorm="be" lc="true">be</tk>
 	<ws> </ws>
-	<tk norm="prosecuted" lc="true">prosecuted</tk>
+	<tk tknorm="prosecuted" lc="true">prosecuted</tk>
 	<ws> </ws>
-	<tk norm="under" lc="true">under</tk>
+	<tk tknorm="under" lc="true">under</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="witchcraft" lc="true" uc="true">Witchcraft</tk>
+	<tk tknorm="witchcraft" lc="true" uc="true">Witchcraft</tk>
 	<ws> </ws>
-	<tk norm="act" lc="true" uc="true">Act</tk>
+	<tk tknorm="act" lc="true" uc="true">Act</tk>
 	<ws> </ws>
-	<tk norm="will" lc="true">will</tk>
+	<tk tknorm="will" lc="true">will</tk>
 	<ws> </ws>
-	<tk norm="mark" lc="true">mark</tk>
+	<tk tknorm="mark" lc="true">mark</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="50th" lc="true" symbols="true">50th</tk>
+	<tk tknorm="50" symbols="true">50th</tk>
+	<tk tknorm="th" lc="true" symbols="true" />
 	<ws> </ws>
-	<tk norm="anniversary" lc="true">anniversary</tk>
+	<tk tknorm="anniversary" lc="true">anniversary</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="her" lc="true">her</tk>
+	<tk tknorm="her" lc="true">her</tk>
 	<ws> </ws>
-	<tk norm="death" lc="true">death</tk>
+	<tk tknorm="death" lc="true">death</tk>
 	<ws> </ws>
-	<tk norm="by" lc="true">by</tk>
+	<tk tknorm="by" lc="true">by</tk>
 	<ws> </ws>
-	<tk norm="calling" lc="true">calling</tk>
+	<tk tknorm="calling" lc="true">calling</tk>
 	<ws> </ws>
-	<tk norm="for" lc="true">for</tk>
+	<tk tknorm="for" lc="true">for</tk>
 	<ws> </ws>
-	<tk norm="her" lc="true">her</tk>
+	<tk tknorm="her" lc="true">her</tk>
 	<ws> </ws>
-	<tk norm="pardon" pstpunc="." lc="true">pardon.</tk>
+	<tk tknorm="pardon" pstpunc="." lc="true">pardon.</tk>
 	<ws col="153">
 </ws>
-	<tk norm="medium" lc="true" uc="true">Medium</tk>
+	<tk tknorm="medium" lc="true" uc="true">Medium</tk>
 	<ws> </ws>
-	<tk norm="helen" lc="true" uc="true">Helen</tk>
+	<tk tknorm="helen" lc="true" uc="true">Helen</tk>
 	<ws> </ws>
-	<tk norm="duncan" pstpunc="," lc="true" uc="true">Duncan,</tk>
+	<tk tknorm="duncan" pstpunc="," lc="true" uc="true">Duncan,</tk>
 	<ws> </ws>
-	<tk norm="who" lc="true">who</tk>
+	<tk tknorm="who" lc="true">who</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="born" lc="true">born</tk>
+	<tk tknorm="born" lc="true">born</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="callander" pstpunc="," lc="true" uc="true">Callander,</tk>
+	<tk tknorm="callander" pstpunc="," lc="true" uc="true">Callander,</tk>
 	<ws> </ws>
-	<tk norm="perthshire" pstpunc="," lc="true" uc="true">Perthshire,</tk>
+	<tk tknorm="perthshire" pstpunc="," lc="true" uc="true">Perthshire,</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="imprisoned" lc="true">imprisoned</tk>
+	<tk tknorm="imprisoned" lc="true">imprisoned</tk>
 	<ws> </ws>
-	<tk norm="using" lc="true">using</tk>
+	<tk tknorm="using" lc="true">using</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="law" lc="true">law</tk>
+	<tk tknorm="law" lc="true">law</tk>
 	<ws> </ws>
-	<tk norm="during" lc="true">during</tk>
+	<tk tknorm="during" lc="true">during</tk>
 	<ws> </ws>
-	<tk norm="world" lc="true" uc="true">World</tk>
+	<tk tknorm="world" lc="true" uc="true">World</tk>
 	<ws> </ws>
-	<tk norm="war" lc="true" uc="true">War</tk>
+	<tk tknorm="war" lc="true" uc="true">War</tk>
 	<ws> </ws>
-	<tk norm="ii" pstpunc="." lc="true" uc="true">II.</tk>
+	<tk tknorm="ii" pstpunc="." lc="true" uc="true">II.</tk>
 	<ws col="110">
 </ws>
-	<tk norm="she" lc="true" uc="true">She</tk>
+	<tk tknorm="she" lc="true" uc="true">She</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="targeted" lc="true">targeted</tk>
+	<tk tknorm="targeted" lc="true">targeted</tk>
 	<ws> </ws>
-	<tk norm="by" lc="true">by</tk>
+	<tk tknorm="by" lc="true">by</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="government" lc="true">government</tk>
+	<tk tknorm="government" lc="true">government</tk>
 	<ws> </ws>
-	<tk norm="after" lc="true">after</tk>
+	<tk tknorm="after" lc="true">after</tk>
 	<ws> </ws>
-	<tk norm="revealing" lc="true">revealing</tk>
+	<tk tknorm="revealing" lc="true">revealing</tk>
 	<ws> </ws>
-	<tk norm="to" lc="true">to</tk>
+	<tk tknorm="to" lc="true">to</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="seance" lc="true" foreign="true">séance</tk>
+	<tk tknorm="seance" lc="true" foreign="true">séance</tk>
 	<ws> </ws>
-	<tk norm="audience" lc="true">audience</tk>
+	<tk tknorm="audience" lc="true">audience</tk>
 	<ws> </ws>
-	<tk norm="that" lc="true">that</tk>
+	<tk tknorm="that" lc="true">that</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="warship" lc="true">warship</tk>
+	<tk tknorm="warship" lc="true">warship</tk>
 	<ws> </ws>
-	<tk norm="had" lc="true">had</tk>
+	<tk tknorm="had" lc="true">had</tk>
 	<ws> </ws>
-	<tk norm="sunk" lc="true">sunk</tk>
+	<tk tknorm="sunk" lc="true">sunk</tk>
 	<ws> </ws>
-	<tk norm="before" lc="true">before</tk>
+	<tk tknorm="before" lc="true">before</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="news" lc="true">news</tk>
+	<tk tknorm="news" lc="true">news</tk>
 	<ws> </ws>
-	<tk norm="had" lc="true">had</tk>
+	<tk tknorm="had" lc="true">had</tk>
 	<ws> </ws>
-	<tk norm="been" lc="true">been</tk>
+	<tk tknorm="been" lc="true">been</tk>
 	<ws> </ws>
-	<tk norm="released" lc="true">released</tk>
+	<tk tknorm="released" lc="true">released</tk>
 	<ws> </ws>
-	<tk norm="to" lc="true">to</tk>
+	<tk tknorm="to" lc="true">to</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="public" pstpunc="." lc="true">public.</tk>
+	<tk tknorm="public" pstpunc="." lc="true">public.</tk>
 	<ws col="146">
 </ws>
-	<tk norm="her" lc="true" uc="true">Her</tk>
+	<tk tknorm="her" lc="true" uc="true">Her</tk>
 	<ws> </ws>
-	<tk norm="grand" lc="true">grand</tk>
-	<tk norm="-" symbols="true">-</tk>
-	<tk norm="daughter" lc="true">daughter</tk>
+	<tk tknorm="grand-daughter" lc="true" symbols="true">grand-daughter</tk>
 	<ws> </ws>
-	<tk norm="is" lc="true">is</tk>
+	<tk tknorm="is" lc="true">is</tk>
 	<ws> </ws>
-	<tk norm="particularly" lc="true">particularly</tk>
+	<tk tknorm="particularly" lc="true">particularly</tk>
 	<ws> </ws>
-	<tk norm="angry" lc="true">angry</tk>
+	<tk tknorm="angry" lc="true">angry</tk>
 	<ws> </ws>
-	<tk norm="at" lc="true">at</tk>
+	<tk tknorm="at" lc="true">at</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="accusations" lc="true">accusations</tk>
+	<tk tknorm="accusations" lc="true">accusations</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="treason" pstpunc="." lc="true">treason.</tk>
+	<tk tknorm="treason" pstpunc="." lc="true">treason.</tk>
 	<ws col="72">
 </ws>
-	<tk norm="mary" lc="true" uc="true">Mary</tk>
+	<tk tknorm="mary" lc="true" uc="true">Mary</tk>
 	<ws> </ws>
-	<tk norm="martin" pstpunc="," lc="true" uc="true">Martin,</tk>
+	<tk tknorm="martin" pstpunc="," lc="true" uc="true">Martin,</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="edinburgh" pstpunc="," lc="true" uc="true">Edinburgh,</tk>
+	<tk tknorm="edinburgh" pstpunc="," lc="true" uc="true">Edinburgh,</tk>
 	<ws> </ws>
-	<tk norm="said" lc="true">said</tk>
+	<tk tknorm="said" lc="true">said</tk>
 	<ws> </ws>
-	<tk norm="missis">Mrs</tk>
+	<tk tknorm="missis">Mrs</tk>
 	<ws> </ws>
-	<tk norm="duncan" lc="true" uc="true">Duncan</tk>
+	<tk tknorm="duncan" lc="true" uc="true">Duncan</tk>
 	<ws> </ws>
-	<tk norm="had" lc="true">had</tk>
+	<tk tknorm="had" lc="true">had</tk>
 	<ws> </ws>
-	<tk norm="been" lc="true">been</tk>
+	<tk tknorm="been" lc="true">been</tk>
 	<ws> </ws>
-	<tk norm="accused" lc="true">accused</tk>
+	<tk tknorm="accused" lc="true">accused</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="being" lc="true">being</tk>
+	<tk tknorm="being" lc="true">being</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="traitor" pstpunc="." lc="true">traitor.</tk>
+	<tk tknorm="traitor" pstpunc="." lc="true">traitor.</tk>
 	<ws col="80">
 </ws>
-	<tk prepunc="&quot;" norm="when" lc="true" uc="true">"When</tk>
+	<tk prepunc="&quot;" tknorm="when" lc="true" uc="true">"When</tk>
 	<ws> </ws>
-	<tk norm="she" lc="true">she</tk>
+	<tk tknorm="she" lc="true">she</tk>
 	<ws> </ws>
-	<tk norm="first" lc="true">first</tk>
+	<tk tknorm="first" lc="true">first</tk>
 	<ws> </ws>
-	<tk norm="came" lc="true">came</tk>
+	<tk tknorm="came" lc="true">came</tk>
 	<ws> </ws>
-	<tk norm="back" lc="true">back</tk>
+	<tk tknorm="back" lc="true">back</tk>
 	<ws> </ws>
-	<tk norm="home" lc="true">home</tk>
+	<tk tknorm="home" lc="true">home</tk>
 	<ws> </ws>
-	<tk norm="after" lc="true">after</tk>
+	<tk tknorm="after" lc="true">after</tk>
 	<ws> </ws>
-	<tk norm="prison" lc="true">prison</tk>
+	<tk tknorm="prison" lc="true">prison</tk>
 	<ws> </ws>
-	<tk norm="she" lc="true">she</tk>
+	<tk tknorm="she" lc="true">she</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="never" lc="true">never</tk>
+	<tk tknorm="never" lc="true">never</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="same" pstpunc="." lc="true">same.</tk>
+	<tk tknorm="same" pstpunc="." lc="true">same.</tk>
 	<ws col="68">
 </ws>
-	<tk prepunc="&quot;" norm="she" lc="true" uc="true">"She</tk>
+	<tk prepunc="&quot;" tknorm="she" lc="true" uc="true">"She</tk>
 	<ws> </ws>
-	<tk norm="always" lc="true">always</tk>
+	<tk tknorm="always" lc="true">always</tk>
 	<ws> </ws>
-	<tk norm="had" lc="true">had</tk>
+	<tk tknorm="had" lc="true">had</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="bit" lc="true">bit</tk>
+	<tk tknorm="bit" lc="true">bit</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="glow" lc="true">glow</tk>
+	<tk tknorm="glow" lc="true">glow</tk>
 	<ws> </ws>
-	<tk norm="about" lc="true">about</tk>
+	<tk tknorm="about" lc="true">about</tk>
 	<ws> </ws>
-	<tk norm="her" lc="true">her</tk>
+	<tk tknorm="her" lc="true">her</tk>
 	<ws> </ws>
-	<tk norm="but" lc="true">but</tk>
+	<tk tknorm="but" lc="true">but</tk>
 	<ws> </ws>
-	<tk norm="she" lc="true">she</tk>
+	<tk tknorm="she" lc="true">she</tk>
 	<ws> </ws>
-	<tk norm="seemed" lc="true">seemed</tk>
+	<tk tknorm="seemed" lc="true">seemed</tk>
 	<ws> </ws>
-	<tk norm="to" lc="true">to</tk>
+	<tk tknorm="to" lc="true">to</tk>
 	<ws> </ws>
-	<tk norm="have" lc="true">have</tk>
+	<tk tknorm="have" lc="true">have</tk>
 	<ws> </ws>
-	<tk norm="lost" lc="true">lost</tk>
+	<tk tknorm="lost" lc="true">lost</tk>
 	<ws> </ws>
-	<tk norm="that" pstpunc="." lc="true">that.</tk>
+	<tk tknorm="that" pstpunc="." lc="true">that.</tk>
 	<ws col="76">
 </ws>
-	<tk prepunc="&quot;" norm="some" lc="true" uc="true">"Some</tk>
+	<tk prepunc="&quot;" tknorm="some" lc="true" uc="true">"Some</tk>
 	<ws> </ws>
-	<tk norm="people" lc="true">people</tk>
+	<tk tknorm="people" lc="true">people</tk>
 	<ws> </ws>
-	<tk norm="said" lc="true">said</tk>
+	<tk tknorm="said" lc="true">said</tk>
 	<ws> </ws>
-	<tk norm="it" lc="true">it</tk>
+	<tk tknorm="it" lc="true">it</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="treason" pstpunc="." lc="true">treason.</tk>
+	<tk tknorm="treason" pstpunc="." lc="true">treason.</tk>
 	<ws> </ws>
-	<tk norm="my" lc="true" uc="true">My</tk>
+	<tk tknorm="my" lc="true" uc="true">My</tk>
 	<ws> </ws>
-	<tk norm="grandmother" lc="true">grandmother</tk>
+	<tk tknorm="grandmother" lc="true">grandmother</tk>
 	<ws> </ws>
-	<tk norm="had" lc="true">had</tk>
+	<tk tknorm="had" lc="true">had</tk>
 	<ws> </ws>
-	<tk norm="two" lc="true">two</tk>
+	<tk tknorm="two" lc="true">two</tk>
 	<ws> </ws>
-	<tk norm="sons" lc="true">sons</tk>
+	<tk tknorm="sons" lc="true">sons</tk>
 	<ws> </ws>
-	<tk norm="and" lc="true">and</tk>
+	<tk tknorm="and" lc="true">and</tk>
 	<ws> </ws>
-	<tk norm="two" lc="true">two</tk>
+	<tk tknorm="two" lc="true">two</tk>
 	<ws> </ws>
-	<tk norm="son" lc="true">son</tk>
+	<tk tknorm="son" lc="true">son</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="laws" lc="true">laws</tk>
+	<tk tknorm="laws" lc="true">laws</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="forces" lc="true">forces</tk>
+	<tk tknorm="forces" lc="true">forces</tk>
 	<ws> </ws>
 	<tk prepunc="...">...</tk>
 	<ws> </ws>
-	<tk norm="and" lc="true">and</tk>
+	<tk tknorm="and" lc="true">and</tk>
 	<ws> </ws>
-	<tk norm="there" lc="true">there</tk>
+	<tk tknorm="there" lc="true">there</tk>
 	<ws> </ws>
-	<tk norm="is" lc="true">is</tk>
+	<tk tknorm="is" lc="true">is</tk>
 	<ws> </ws>
-	<tk norm="no" lc="true">no</tk>
+	<tk tknorm="no" lc="true">no</tk>
 	<ws> </ws>
-	<tk norm="way" lc="true">way</tk>
+	<tk tknorm="way" lc="true">way</tk>
 	<ws> </ws>
-	<tk norm="she" lc="true">she</tk>
+	<tk tknorm="she" lc="true">she</tk>
 	<ws> </ws>
-	<tk norm="would" lc="true">would</tk>
+	<tk tknorm="would" lc="true">would</tk>
 	<ws> </ws>
-	<tk norm="have" lc="true">have</tk>
+	<tk tknorm="have" lc="true">have</tk>
 	<ws> </ws>
-	<tk norm="given" lc="true">given</tk>
+	<tk tknorm="given" lc="true">given</tk>
 	<ws> </ws>
-	<tk norm="anybody" lc="true">anybody</tk>
+	<tk tknorm="anybody" lc="true">anybody</tk>
 	<ws> </ws>
-	<tk norm="information" pstpunc=".&quot;" lc="true">information."</tk>
+	<tk tknorm="information" pstpunc=".&quot;" lc="true">information."</tk>
 	<ws col="163">
 </ws>
-	<tk norm="missis">Mrs</tk>
+	<tk tknorm="missis">Mrs</tk>
 	<ws> </ws>
-	<tk norm="duncan" lc="true" uc="true">Duncan</tk>
+	<tk tknorm="duncan" lc="true" uc="true">Duncan</tk>
 	<ws> </ws>
-	<tk norm="became" lc="true">became</tk>
+	<tk tknorm="became" lc="true">became</tk>
 	<ws> </ws>
-	<tk norm="one" lc="true">one</tk>
+	<tk tknorm="one" lc="true">one</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="most" lc="true">most</tk>
+	<tk tknorm="most" lc="true">most</tk>
 	<ws> </ws>
-	<tk norm="famous" lc="true">famous</tk>
+	<tk tknorm="famous" lc="true">famous</tk>
 	<ws> </ws>
-	<tk norm="mediums" lc="true">mediums</tk>
+	<tk tknorm="mediums" lc="true">mediums</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="her" lc="true">her</tk>
+	<tk tknorm="her" lc="true">her</tk>
 	<ws> </ws>
-	<tk norm="time" pstpunc="," lc="true">time,</tk>
+	<tk tknorm="time" pstpunc="," lc="true">time,</tk>
 	<ws> </ws>
-	<tk norm="heading" lc="true">heading</tk>
+	<tk tknorm="heading" lc="true">heading</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="network" lc="true">network</tk>
+	<tk tknorm="network" lc="true">network</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="spiritualist" lc="true">spiritualist</tk>
+	<tk tknorm="spiritualist" lc="true">spiritualist</tk>
 	<ws> </ws>
-	<tk norm="churches" pstpunc="." lc="true">churches.</tk>
+	<tk tknorm="churches" pstpunc="." lc="true">churches.</tk>
 	<ws col="106">
 </ws>
-	<tk norm="during" lc="true" uc="true">During</tk>
+	<tk tknorm="during" lc="true" uc="true">During</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="war" lc="true">war</tk>
+	<tk tknorm="war" lc="true">war</tk>
 	<ws> </ws>
-	<tk norm="she" lc="true">she</tk>
+	<tk tknorm="she" lc="true">she</tk>
 	<ws> </ws>
-	<tk norm="lived" lc="true">lived</tk>
+	<tk tknorm="lived" lc="true">lived</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="portsmouth" pstpunc="," lc="true" uc="true">Portsmouth,</tk>
+	<tk tknorm="portsmouth" pstpunc="," lc="true" uc="true">Portsmouth,</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="home" lc="true">home</tk>
+	<tk tknorm="home" lc="true">home</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="royal" lc="true" uc="true">Royal</tk>
+	<tk tknorm="royal" lc="true" uc="true">Royal</tk>
 	<ws> </ws>
-	<tk norm="navy" pstpunc="." lc="true" uc="true">Navy.</tk>
+	<tk tknorm="navy" pstpunc="." lc="true" uc="true">Navy.</tk>
 	<ws col="68">
 </ws>
-	<tk norm="she" lc="true" uc="true">She</tk>
+	<tk tknorm="she" lc="true" uc="true">She</tk>
 	<ws> </ws>
-	<tk norm="has" lc="true">has</tk>
+	<tk tknorm="has" lc="true">has</tk>
 	<ws> </ws>
-	<tk norm="put" lc="true">put</tk>
+	<tk tknorm="put" lc="true">put</tk>
 	<ws> </ws>
-	<tk norm="us" lc="true">us</tk>
+	<tk tknorm="us" lc="true">us</tk>
 	<ws> </ws>
-	<tk norm="on" lc="true">on</tk>
+	<tk tknorm="on" lc="true">on</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="right" lc="true">right</tk>
+	<tk tknorm="right" lc="true">right</tk>
 	<ws> </ws>
-	<tk norm="side" lc="true">side</tk>
+	<tk tknorm="side" lc="true">side</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="law" lc="true">law</tk>
+	<tk tknorm="law" lc="true">law</tk>
 	<ws> </ws>
-	<tk norm="by" lc="true">by</tk>
+	<tk tknorm="by" lc="true">by</tk>
 	<ws> </ws>
-	<tk norm="bringing" lc="true">bringing</tk>
+	<tk tknorm="bringing" lc="true">bringing</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="1952" symbols="true">1952</tk>
+	<tk tknorm="1952" symbols="true">1952</tk>
 	<ws> </ws>
-	<tk norm="act" pstpunc="." lc="true">act.</tk>
+	<tk tknorm="act" pstpunc="." lc="true">act.</tk>
 	<ws col="73">
 </ws>
-	<tk norm="at" lc="true" uc="true">At</tk>
+	<tk tknorm="at" lc="true" uc="true">At</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="seance" lc="true" foreign="true">séance</tk>
+	<tk tknorm="seance" lc="true" foreign="true">séance</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="1943" symbols="true">1943</tk>
+	<tk tknorm="1943" symbols="true">1943</tk>
 	<ws> </ws>
-	<tk norm="it" lc="true">it</tk>
+	<tk tknorm="it" lc="true">it</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="claimed" lc="true">claimed</tk>
+	<tk tknorm="claimed" lc="true">claimed</tk>
 	<ws> </ws>
-	<tk norm="that" lc="true">that</tk>
+	<tk tknorm="that" lc="true">that</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="spirit" lc="true">spirit</tk>
+	<tk tknorm="spirit" lc="true">spirit</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="sailor" lc="true">sailor</tk>
+	<tk tknorm="sailor" lc="true">sailor</tk>
 	<ws> </ws>
-	<tk norm="from" lc="true">from</tk>
+	<tk tknorm="from" lc="true">from</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="hms" lc="true" uc="true">HMS</tk>
+	<tk tknorm="hms" lc="true" uc="true">HMS</tk>
 	<ws> </ws>
-	<tk norm="barham" lc="true" uc="true">Barham</tk>
+	<tk tknorm="barham" lc="true" uc="true">Barham</tk>
 	<ws> </ws>
-	<tk norm="appeared" pstpunc="." lc="true">appeared.</tk>
+	<tk tknorm="appeared" pstpunc="." lc="true">appeared.</tk>
 	<ws col="94">
 </ws>
-	<tk norm="the" lc="true" uc="true">The</tk>
+	<tk tknorm="the" lc="true" uc="true">The</tk>
 	<ws> </ws>
-	<tk norm="vessel" lc="true">vessel</tk>
+	<tk tknorm="vessel" lc="true">vessel</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="only" lc="true">only</tk>
+	<tk tknorm="only" lc="true">only</tk>
 	<ws> </ws>
-	<tk norm="officially" lc="true">officially</tk>
+	<tk tknorm="officially" lc="true">officially</tk>
 	<ws> </ws>
-	<tk norm="declared" lc="true">declared</tk>
+	<tk tknorm="declared" lc="true">declared</tk>
 	<ws> </ws>
-	<tk norm="lost" lc="true">lost</tk>
+	<tk tknorm="lost" lc="true">lost</tk>
 	<ws> </ws>
-	<tk norm="several" lc="true">several</tk>
+	<tk tknorm="several" lc="true">several</tk>
 	<ws> </ws>
-	<tk norm="months" lc="true">months</tk>
+	<tk tknorm="months" lc="true">months</tk>
 	<ws> </ws>
-	<tk norm="later" pstpunc="." lc="true">later.</tk>
+	<tk tknorm="later" pstpunc="." lc="true">later.</tk>
 	<ws col="67">
 </ws>
-	<tk norm="she" lc="true" uc="true">She</tk>
+	<tk tknorm="she" lc="true" uc="true">She</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="arrested" lc="true">arrested</tk>
+	<tk tknorm="arrested" lc="true">arrested</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="1944" symbols="true">1944</tk>
+	<tk tknorm="1944" symbols="true">1944</tk>
 	<ws> </ws>
-	<tk norm="and" lc="true">and</tk>
+	<tk tknorm="and" lc="true">and</tk>
 	<ws> </ws>
-	<tk norm="sentenced" lc="true">sentenced</tk>
+	<tk tknorm="sentenced" lc="true">sentenced</tk>
 	<ws> </ws>
-	<tk norm="to" lc="true">to</tk>
+	<tk tknorm="to" lc="true">to</tk>
 	<ws> </ws>
-	<tk norm="nine" lc="true">nine</tk>
+	<tk tknorm="nine" lc="true">nine</tk>
 	<ws> </ws>
-	<tk norm="months" lc="true">months</tk>
+	<tk tknorm="months" lc="true">months</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="prison" lc="true">prison</tk>
+	<tk tknorm="prison" lc="true">prison</tk>
 	<ws> </ws>
-	<tk norm="at" lc="true">at</tk>
+	<tk tknorm="at" lc="true">at</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="old" lc="true" uc="true">Old</tk>
+	<tk tknorm="old" lc="true" uc="true">Old</tk>
 	<ws> </ws>
-	<tk norm="bailey" lc="true" uc="true">Bailey</tk>
+	<tk tknorm="bailey" lc="true" uc="true">Bailey</tk>
 	<ws> </ws>
-	<tk norm="for" lc="true">for</tk>
+	<tk tknorm="for" lc="true">for</tk>
 	<ws> </ws>
-	<tk norm="crimes" lc="true">crimes</tk>
+	<tk tknorm="crimes" lc="true">crimes</tk>
 	<ws> </ws>
-	<tk norm="under" lc="true">under</tk>
+	<tk tknorm="under" lc="true">under</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="witchcraft" lc="true" uc="true">Witchcraft</tk>
+	<tk tknorm="witchcraft" lc="true" uc="true">Witchcraft</tk>
 	<ws> </ws>
-	<tk norm="act" lc="true" uc="true">Act</tk>
+	<tk tknorm="act" lc="true" uc="true">Act</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="1735" pstpunc="." symbols="true">1735.</tk>
+	<tk tknorm="1735" pstpunc="." symbols="true">1735.</tk>
 	<ws col="127">
 </ws>
-	<tk norm="while" lc="true" uc="true">While</tk>
+	<tk tknorm="while" lc="true" uc="true">While</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="prison" lc="true">prison</tk>
+	<tk tknorm="prison" lc="true">prison</tk>
 	<ws> </ws>
-	<tk norm="she" lc="true">she</tk>
+	<tk tknorm="she" lc="true">she</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="visited" lc="true">visited</tk>
+	<tk tknorm="visited" lc="true">visited</tk>
 	<ws> </ws>
-	<tk norm="by" lc="true">by</tk>
+	<tk tknorm="by" lc="true">by</tk>
 	<ws> </ws>
-	<tk norm="winston" lc="true" uc="true">Winston</tk>
+	<tk tknorm="winston" lc="true" uc="true">Winston</tk>
 	<ws> </ws>
-	<tk norm="churchill" pstpunc="." lc="true" uc="true">Churchill.</tk>
+	<tk tknorm="churchill" pstpunc="." lc="true" uc="true">Churchill.</tk>
 	<ws col="54">
 </ws>
-	<tk norm="when" lc="true" uc="true">When</tk>
+	<tk tknorm="when" lc="true" uc="true">When</tk>
 	<ws> </ws>
-	<tk norm="he" lc="true">he</tk>
+	<tk tknorm="he" lc="true">he</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="re" lc="true">re</tk>
-	<tk norm="-" symbols="true">-</tk>
-	<tk norm="elected" lc="true">elected</tk>
+	<tk tknorm="re-elected" lc="true" symbols="true">re-elected</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="1951" symbols="true">1951</tk>
+	<tk tknorm="1951" symbols="true">1951</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="witchcraft" lc="true" uc="true">Witchcraft</tk>
+	<tk tknorm="witchcraft" lc="true" uc="true">Witchcraft</tk>
 	<ws> </ws>
-	<tk norm="act" lc="true" uc="true">Act</tk>
+	<tk tknorm="act" lc="true" uc="true">Act</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="repealed" lc="true">repealed</tk>
+	<tk tknorm="repealed" lc="true">repealed</tk>
 	<ws> </ws>
-	<tk norm="and" lc="true">and</tk>
+	<tk tknorm="and" lc="true">and</tk>
 	<ws> </ws>
-	<tk norm="three" lc="true">three</tk>
+	<tk tknorm="three" lc="true">three</tk>
 	<ws> </ws>
-	<tk norm="years" lc="true">years</tk>
+	<tk tknorm="years" lc="true">years</tk>
 	<ws> </ws>
-	<tk norm="later" lc="true">later</tk>
+	<tk tknorm="later" lc="true">later</tk>
 	<ws> </ws>
-	<tk norm="spiritualism" lc="true">spiritualism</tk>
+	<tk tknorm="spiritualism" lc="true">spiritualism</tk>
 	<ws> </ws>
-	<tk norm="was" lc="true">was</tk>
+	<tk tknorm="was" lc="true">was</tk>
 	<ws> </ws>
-	<tk norm="officially" lc="true">officially</tk>
+	<tk tknorm="officially" lc="true">officially</tk>
 	<ws> </ws>
-	<tk norm="recognised" lc="true">recognised</tk>
+	<tk tknorm="recognised" lc="true">recognised</tk>
 	<ws> </ws>
-	<tk norm="as" lc="true">as</tk>
+	<tk tknorm="as" lc="true">as</tk>
 	<ws> </ws>
-	<tk norm="a" lc="true">a</tk>
+	<tk tknorm="a" lc="true">a</tk>
 	<ws> </ws>
-	<tk norm="religion" pstpunc="." lc="true">religion.</tk>
+	<tk tknorm="religion" pstpunc="." lc="true">religion.</tk>
 	<ws col="139">
 </ws>
-	<tk norm="campaigners" lc="true" uc="true">Campaigners</tk>
+	<tk tknorm="campaigners" lc="true" uc="true">Campaigners</tk>
 	<ws> </ws>
-	<tk norm="to" lc="true">to</tk>
+	<tk tknorm="to" lc="true">to</tk>
 	<ws> </ws>
-	<tk norm="pardon" lc="true">pardon</tk>
+	<tk tknorm="pardon" lc="true">pardon</tk>
 	<ws> </ws>
-	<tk norm="missis">Mrs</tk>
+	<tk tknorm="missis">Mrs</tk>
 	<ws> </ws>
-	<tk norm="duncan" lc="true" uc="true">Duncan</tk>
+	<tk tknorm="duncan" lc="true" uc="true">Duncan</tk>
 	<ws> </ws>
-	<tk norm="have" lc="true">have</tk>
+	<tk tknorm="have" lc="true">have</tk>
 	<ws> </ws>
-	<tk norm="set" lc="true">set</tk>
+	<tk tknorm="set" lc="true">set</tk>
 	<ws> </ws>
-	<tk norm="up" lc="true">up</tk>
+	<tk tknorm="up" lc="true">up</tk>
 	<ws> </ws>
-	<tk norm="an" lc="true">an</tk>
+	<tk tknorm="an" lc="true">an</tk>
 	<ws> </ws>
-	<tk norm="online" lc="true">online</tk>
+	<tk tknorm="online" lc="true">online</tk>
 	<ws> </ws>
-	<tk norm="petition" pstpunc="." lc="true">petition.</tk>
+	<tk tknorm="petition" pstpunc="." lc="true">petition.</tk>
 	<ws col="65">
 </ws>
-	<tk norm="the" lc="true" uc="true">The</tk>
+	<tk tknorm="the" lc="true" uc="true">The</tk>
 	<ws> </ws>
-	<tk norm="campaign" lc="true">campaign</tk>
+	<tk tknorm="campaign" lc="true">campaign</tk>
 	<ws> </ws>
-	<tk norm="is" lc="true">is</tk>
+	<tk tknorm="is" lc="true">is</tk>
 	<ws> </ws>
-	<tk norm="backed" lc="true">backed</tk>
+	<tk tknorm="backed" lc="true">backed</tk>
 	<ws> </ws>
-	<tk norm="by" lc="true">by</tk>
+	<tk tknorm="by" lc="true">by</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="british" lc="true" uc="true">British</tk>
+	<tk tknorm="british" lc="true" uc="true">British</tk>
 	<ws> </ws>
-	<tk norm="society" lc="true" uc="true">Society</tk>
+	<tk tknorm="society" lc="true" uc="true">Society</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="paranormal" lc="true" uc="true">Paranormal</tk>
+	<tk tknorm="paranormal" lc="true" uc="true">Paranormal</tk>
 	<ws> </ws>
-	<tk norm="studies" pstpunc="." lc="true" uc="true">Studies.</tk>
+	<tk tknorm="studies" pstpunc="." lc="true" uc="true">Studies.</tk>
 	<ws col="69">
 </ws>
-	<tk norm="medium" lc="true" uc="true">Medium</tk>
+	<tk tknorm="medium" lc="true" uc="true">Medium</tk>
 	<ws> </ws>
-	<tk norm="mary" lc="true" uc="true">Mary</tk>
+	<tk tknorm="mary" lc="true" uc="true">Mary</tk>
 	<ws> </ws>
-	<tk norm="armour" pstpunc="," lc="true" uc="true">Armour,</tk>
+	<tk tknorm="armour" pstpunc="," lc="true" uc="true">Armour,</tk>
 	<ws> </ws>
-	<tk norm="who" lc="true">who</tk>
+	<tk tknorm="who" lc="true">who</tk>
 	<ws> </ws>
-	<tk norm="wrote" lc="true">wrote</tk>
+	<tk tknorm="wrote" lc="true">wrote</tk>
 	<ws> </ws>
-	<tk norm="her" lc="true">her</tk>
+	<tk tknorm="her" lc="true">her</tk>
 	<ws> </ws>
-	<tk norm="biography" pstpunc="," lc="true">biography,</tk>
+	<tk tknorm="biography" pstpunc="," lc="true">biography,</tk>
 	<ws> </ws>
-	<tk norm="said" pstpunc=":" lc="true">said:</tk>
+	<tk tknorm="said" pstpunc=":" lc="true">said:</tk>
 	<ws> </ws>
-	<tk prepunc="&quot;" norm="she" lc="true" uc="true">"She</tk>
+	<tk prepunc="&quot;" tknorm="she" lc="true" uc="true">"She</tk>
 	<ws> </ws>
-	<tk norm="has" lc="true">has</tk>
+	<tk tknorm="has" lc="true">has</tk>
 	<ws> </ws>
-	<tk norm="put" lc="true">put</tk>
+	<tk tknorm="put" lc="true">put</tk>
 	<ws> </ws>
-	<tk norm="us" lc="true">us</tk>
+	<tk tknorm="us" lc="true">us</tk>
 	<ws> </ws>
-	<tk norm="on" lc="true">on</tk>
+	<tk tknorm="on" lc="true">on</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="right" lc="true">right</tk>
+	<tk tknorm="right" lc="true">right</tk>
 	<ws> </ws>
-	<tk norm="side" lc="true">side</tk>
+	<tk tknorm="side" lc="true">side</tk>
 	<ws> </ws>
-	<tk norm="of" lc="true">of</tk>
+	<tk tknorm="of" lc="true">of</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="law" lc="true">law</tk>
+	<tk tknorm="law" lc="true">law</tk>
 	<ws> </ws>
-	<tk norm="by" lc="true">by</tk>
+	<tk tknorm="by" lc="true">by</tk>
 	<ws> </ws>
-	<tk norm="bringing" lc="true">bringing</tk>
+	<tk tknorm="bringing" lc="true">bringing</tk>
 	<ws> </ws>
-	<tk norm="in" lc="true">in</tk>
+	<tk tknorm="in" lc="true">in</tk>
 	<ws> </ws>
-	<tk norm="the" lc="true">the</tk>
+	<tk tknorm="the" lc="true">the</tk>
 	<ws> </ws>
-	<tk norm="1952" symbols="true">1952</tk>
+	<tk tknorm="1952" symbols="true">1952</tk>
 	<ws> </ws>
-	<tk norm="act" pstpunc=".&quot;" lc="true">act."</tk>
+	<tk tknorm="act" pstpunc=".&quot;" lc="true">act."</tk>
 	<ws col="126">
 </ws>
 </parent>

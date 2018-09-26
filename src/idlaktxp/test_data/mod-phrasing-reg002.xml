@@ -5,19 +5,19 @@
 			<ws col="0">
 </ws>
 			<break type="4" time="0.011" />
-			<tk norm="hello" lc="true" uc="true" pos="NN" posset="1" wordid="1">Hello</tk>
+			<tk tknorm="hello" lc="true" uc="true" pos="NN" posset="1" wordid="1">Hello</tk>
 			<ws> </ws>
-			<tk norm="there" pstpunc="," lc="true" pos="EX" posset="3" wordid="2">there,</tk>
+			<tk tknorm="there" pstpunc="," lc="true" pos="EX" posset="3" wordid="2">there,</tk>
 			<break type="3" time="0.1" />
 		</spt>
 		<spt phraseid="2" no_wrds="3">
 			<break type="3" time="0.1" />
 			<ws> </ws>
-			<tk norm="1" symbols="true" pos="NN" posset="1" wordid="1">1</tk>
+			<tk tknorm="1" symbols="true" pos="NN" posset="1" wordid="1">1</tk>
 			<ws> </ws>
-			<tk norm="2" symbols="true" pos="NN" posset="1" wordid="2">2</tk>
+			<tk tknorm="2" symbols="true" pos="NN" posset="1" wordid="2">2</tk>
 			<ws> </ws>
-			<tk norm="3" pstpunc="." symbols="true" pos="NN" posset="1" wordid="3">3.</tk>
+			<tk tknorm="3" pstpunc="." symbols="true" pos="NN" posset="1" wordid="3">3.</tk>
 			<break type="4" time="0.4" />
 			<ws col="20">
 </ws>

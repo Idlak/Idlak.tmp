@@ -51,6 +51,8 @@ bool TxpPronounce::Process(pugi::xml_document* input) {
        ++it) {
     pugi::xml_node node = (*it).node();
     word = node.attribute("norm").value();
+    if (std::string(word).compare("") == 0)
+        word = node.attribute("tknorm").value();
     lexlkp.Reset();
     // Check to see if token is first daughter of a lex tag
     parent = node.parent();
@@ -73,6 +75,7 @@ bool TxpPronounce::Process(pugi::xml_document* input) {
     } else {
       // standard lookup of word
       AppendPron(lex_entry, std::string(word), &lexlkp);
+      // TODO: put out a warning if any phonemes are not from the phoneme set
       node.append_attribute("pron").set_value(lexlkp.pron.c_str());
       if (lexlkp.lts) {
         node.append_attribute("lts").set_value("true");
