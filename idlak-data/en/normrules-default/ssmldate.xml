@@ -1,0 +1,21 @@
+<nrules>
+
+  <rules>
+
+    <rule name="month_range_dots">
+      <comment/>
+      <match>
+        <rgx id="m0" name="month_name" src="mcase" offset="-1"/>
+        <rgx id="m1" name="alpha" src="lcase" offset="-1"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name" src="mcase" offset="1"/>
+        <rgx id="m4" name="alpha" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <cpy val="to" offset="0"/>
+        <lkp name="months" from="m4" grp="0" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

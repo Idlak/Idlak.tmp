@@ -1,0 +1,101 @@
+<nrules>
+
+  <rules>
+
+    <rule name="prosody_range_x-low">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" val="x-low" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0range="0.8"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_range_low">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" val="low" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0range="0.9"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_range_med">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" val="medium" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0range="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_range_def">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" val="default" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0range="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_range_high">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" val="high" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0range="1.1"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_range_x-high">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" val="x-high" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0range="1.2"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_range_MAP">
+      <comment>
+	        Handles the emphasis:map ssml tag.
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="range" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="prosody" totag="sig" mapatt="f0range" toatt="range" from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

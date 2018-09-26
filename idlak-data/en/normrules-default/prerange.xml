@@ -1,0 +1,20 @@
+<nrules>
+
+  <rules>
+
+    <rule name="math_operators_all">
+      <comment>
+      Handle math operators in arithmetic expressions (only +-*/= followed by a number)
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="mcase" offset="0"/>
+        <rgx id="m1" name="operator" src="lcase" offset="1"/>
+        <rgx id="m2" name="number" src="lcase" offset="2"/>
+        <rgx id="m3" name="equals" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="operator" from="m1" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

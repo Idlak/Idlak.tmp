@@ -1,0 +1,87 @@
+<nrules>
+
+  <rules>
+
+    <rule name="phoneme_alphabet_start">
+      <comment>
+                Convert phoneme tag; should keep it only on the first token, the others should be set to "".
+            </comment>
+      <match>
+        <xml id="m0" name="phoneme" attribute="ph" tag="open" offset="0"/>
+        <xml id="m1" name="phoneme" attribute="alphabet" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="phoneme" totag="lex" mapatt="phonemes" toatt="ph" from="m0" offset="0"/>
+        <xml maptag="phoneme" totag="lex" mapatt="phoneset" toatt="alphabet" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phoneme_start">
+      <comment>
+	        Convert phoneme tag; should keep it only on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="phoneme" attribute="ph" tag="open" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="phoneme" totag="lex" mapatt="phonemes" toatt="ph" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phoneme_alphabet_startend">
+      <comment>
+	        Convert phoneme tag; should keep it only on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="phoneme" attribute="ph" tag="openclosed" offset="0"/>
+        <xml id="m1" name="phoneme" attribute="alphabet" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="phoneme" totag="lex" mapatt="phonemes" toatt="ph" from="m0" offset="0"/>
+        <xml maptag="phoneme" totag="lex" mapatt="phoneset" toatt="alphabet" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phoneme_startend">
+      <comment>
+                Convert phoneme tag; should keep it only on the first token, the others should be set to "".
+            </comment>
+      <match>
+        <xml id="m0" name="phoneme" attribute="ph" tag="openclosed" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="phoneme" totag="lex" mapatt="phonemes" toatt="ph" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phoneme_alphabet_default">
+      <comment>
+                Convert phoneme tag; should keep it only on the first token, the others should be set to "".
+            </comment>
+      <match>
+        <xml id="m0" name="phoneme" attribute="ph" offset="0"/>
+        <xml id="m1" name="phoneme" attribute="alphabet" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex phonemes=""/>
+        </cpy>
+        <xml maptag="phoneme" totag="lex" mapatt="phoneset" toatt="alphabet" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phoneme_default">
+      <comment>
+	        Convert phoneme tag; should keep it only on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="phoneme" attribute="ph" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex phonemes=""/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,115 @@
+<nrules>
+
+  <rules>
+
+    <rule name="prosody_volume_silent">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="silent" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="0.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_x-soft">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="x-soft" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="0.5"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_soft">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="soft" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="0.75"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_med">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="medium" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_def">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="default" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_loud">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="loud" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="2.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_x-loud">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" val="x-loud" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig amplitude="5.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_volume_MAPPING">
+      <comment>
+	        Handles one of the prosody:volume ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="volume" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="prosody" totag="sig" mapatt="amplitude" toatt="volume" range="0:100" from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

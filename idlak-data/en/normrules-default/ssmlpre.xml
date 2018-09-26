@@ -1,0 +1,58 @@
+<nrules>
+
+  <rules>
+
+    <rule name="sub_start">
+      <comment>
+	        Convert sub tag; replacement done on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="sub" attribute="alias" tag="open" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="@sub:alias" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="sub_startend">
+      <comment>
+	        Convert sub tag; replacement done on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="sub" attribute="alias" tag="openclosed" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="@sub:alias" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="sub_default">
+      <comment>
+	        Convert sub tag; replacement done on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="sub" attribute="alias" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="strip_final_apostrophe">
+      <comment>
+	      In English, there is no difference in pronunciation between devices' and devices,
+	      so strip the final apostrophe so that the word is found in the lexicon.
+	    </comment>
+      <match>
+        <rgx id="m0" name="ends_in_apostrophe" src="mcase" offset="0"/>
+        <rgx id="m1" name="alpha" src="lcase" offset="0"/>
+        <rgx id="m2" name="alpha" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy from="m1" grp="0" offset="0">
+          <break type="0" time="0"/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

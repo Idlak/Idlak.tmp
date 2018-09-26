@@ -1,0 +1,43 @@
+<nrules>
+
+  <rules>
+
+    <rule name="phonemes_start">
+      <comment>
+	        Convert lex phonemes tag; should keep it only on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="lex" attribute="phonemes" tag="open" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="lex" totag="lex" mapatt="phonemes" toatt="phonemes" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phonemes_startend">
+      <comment>
+	        Convert lex phonemes tag; should keep it only on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="lex" attribute="phonemes" tag="openclosed" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="lex" totag="lex" mapatt="phonemes" toatt="phonemes" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="phonemes_default">
+      <comment>
+	        Convert lex phonemes tag; should keep it only on the first token, the others should be set to "".
+	    </comment>
+      <match>
+        <xml id="m0" name="lex" attribute="phonemes" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex phonemes=""/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

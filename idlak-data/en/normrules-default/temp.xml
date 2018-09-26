@@ -1,0 +1,155 @@
+<nrules>
+
+  <rules>
+
+    <rule name="temp_float_sign">
+      <comment>
+      Covers temperatures.
+      Example: "-16.2°C"
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="temp_float" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="number" from="m1" grp="3" offset="0"/>
+        <cpy val="degrees" offset="0"/>
+        <lkp name="temp" from="m1" grp="5" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_float">
+      <comment>
+      Covers temperatures.
+      Example: "16.2°C"
+    </comment>
+      <match>
+        <rgx id="m0" name="temp_float" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="number" from="m0" grp="3" offset="0"/>
+        <cpy val="degrees" offset="0"/>
+        <lkp name="temp" from="m0" grp="5" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_int_sign_split">
+      <comment>
+      Covers temperatures.
+      Example: "-16° C".
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="int_degree" src="lcase" offset="0"/>
+        <rgx id="m2" name="temp_unit" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+        <lkp name="symbols" from="m1" grp="1" offset="0"/>
+        <lkp name="temp" from="m2" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_split">
+      <comment>
+      Covers temperatures.
+      Example: "-16° C".
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="degree" src="lcase" offset="1"/>
+        <rgx id="m2" name="temp_unit" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="lkp_degree_pl" from="m1" offset="1"/>
+        <lkp name="temp" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_int_split">
+      <comment>
+      Covers temperatures.
+      Example: "16° C".
+    </comment>
+      <match>
+        <rgx id="m0" name="int_degree" src="lcase" offset="0"/>
+        <rgx id="m1" name="temp_unit" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <lkp name="temp" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_int_sign">
+      <comment>
+      Covers temperatures. The preceding sign ('+'/'-') gets tokenized.
+      Example: "-16°C"
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="temp_int" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+        <lkp name="symbols" from="m1" grp="1" offset="0"/>
+        <lkp name="temp" from="m1" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_int_sign_no_degree">
+      <comment>
+      Covers temperatures. The preceding sign ('+'/'-') gets tokenized.
+      Example: "-16C"
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="temp_int_no_degree" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+        <cpy val="degrees" offset="0"/>
+        <lkp name="temp" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_int">
+      <comment>
+      Covers temperatures.
+      Example: "16°C"
+    </comment>
+      <match>
+        <rgx id="m0" name="temp_int" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <lkp name="temp" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="temp_int_no_degree">
+      <comment>
+      Covers temperatures.
+      Example: "16C"
+    </comment>
+      <match>
+        <rgx id="m0" name="temp_int_no_degree" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="degrees" offset="0"/>
+        <lkp name="temp" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

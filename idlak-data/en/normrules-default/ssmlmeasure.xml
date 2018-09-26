@@ -1,0 +1,16 @@
+<nrules>
+
+  <rules>
+
+    <rule name="ssml_measure">
+      <comment/>
+      <match>
+        <rgx id="m0" name="article_a" src="mcase" offset="-1"/>
+        <rgx id="m1" name="measure_masc_full" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="measure" from="m1" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>
