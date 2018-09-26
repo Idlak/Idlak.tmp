@@ -1,0 +1,35 @@
+body {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.content, .page-edit, .page-nav {
+    margin: 0 !important;
+    max-width: 850px !important;
+}
+.highlight {
+    background-color: rgba(236, 236, 236, 0.5);
+    color: #37474F;
+}
+
+pre {
+    font-family: "Roboto Mono", "Courier New", Courier, monospace;
+    font-feature-settings: "kern";
+    font-size: 85%;
+    line-height: 1.4;
+}
+
+table.docutils{
+    border: 0;
+}
+
+.source-icon{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.source-icon svg{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.1rem;
+    margin-right: 0.1rem;
+}
