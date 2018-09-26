@@ -301,10 +301,7 @@
 				</syl>
 			</tk>
 			<ws> </ws>
-			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20" pron="1" lts="true" spron="1|" nosyl="1">
-				50th
-				<syl />
-			</tk>
+			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20" pron="" lts="true" spron="">50th</tk>
 			<tk tknorm="th" lc="true" symbols="true" pos="NN" posset="1" wordid="21" pron="t iy1 ey1 ch" spron="t+iy1|ey1+ch|" nosyl="2">
 				<syl val="t+iy1" stress="1" sylid="1" nophons="2">
 					<phon val="t" type="onset" phonid="1" />

@@ -339,23 +339,20 @@
 			<tk tknorm="the" lc="true" pos="DT" posset="3" wordid="19" pron="dh ah0" altprons="dh ah1, dh iy0, dh ah0" spron="dh+ah0|" nosyl="1">
 				the
 				<syl val="dh+ah0" stress="0" sylid="1" nophons="2">
-					<phon val="dh" type="onset" phonid="1">^r~k-dh+ah=t 0 1 1 0 0 NN DT NN 4 2 0 1 1 1 30 LL</phon>
-					<phon val="ah" type="nucleus" phonid="2">^k~dh-ah+t=iy 1 0 1 0 0 NN DT NN 4 2 0 1 1 1 30 LL</phon>
+					<phon val="dh" type="onset" phonid="1">^r~k-dh+ah=t 0 1 1 0 1 NN DT NN 4 2 2 1 1 0 30 LL</phon>
+					<phon val="ah" type="nucleus" phonid="2">^k~dh-ah+t=iy 1 0 1 0 1 NN DT NN 4 2 2 1 1 0 30 LL</phon>
 				</syl>
 			</tk>
 			<ws> </ws>
-			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20" pron="1" lts="true" spron="1|" nosyl="1">
-				50th
-				<syl />
-			</tk>
+			<tk tknorm="50" symbols="true" pos="NN" posset="1" wordid="20" pron="" lts="true" spron="">50th</tk>
 			<tk tknorm="th" lc="true" symbols="true" pos="NN" posset="1" wordid="21" pron="t iy1 ey1 ch" spron="t+iy1|ey1+ch|" nosyl="2">
 				<syl val="t+iy1" stress="1" sylid="1" nophons="2">
-					<phon val="t" type="onset" phonid="1">^dh~ah-t+iy=ey 0 1 0 1 1 NN NN NN 0 2 2 1 2 5 30 LL</phon>
-					<phon val="iy" type="nucleus" phonid="2">^ah~t-iy+ey=ch 1 0 0 1 1 NN NN NN 0 2 2 1 2 5 30 LL</phon>
+					<phon val="t" type="onset" phonid="1">^dh~ah-t+iy=ey 0 1 0 1 1 NN NN NN 2 2 2 0 2 5 30 LL</phon>
+					<phon val="iy" type="nucleus" phonid="2">^ah~t-iy+ey=ch 1 0 0 1 1 NN NN NN 2 2 2 0 2 5 30 LL</phon>
 				</syl>
 				<syl val="ey1+ch" stress="1" sylid="2" nophons="2">
-					<phon val="ey" type="nucleus" phonid="1">^t~iy-ey+ch=ae 0 1 1 1 1 NN NN NN 2 2 1 1 2 5 30 LL</phon>
-					<phon val="ch" type="coda" phonid="2">^iy~ey-ch+ae=n 1 0 1 1 1 NN NN NN 2 2 1 1 2 5 30 LL</phon>
+					<phon val="ey" type="nucleus" phonid="1">^t~iy-ey+ch=ae 0 1 1 1 1 NN NN NN 2 2 1 0 2 5 30 LL</phon>
+					<phon val="ch" type="coda" phonid="2">^iy~ey-ch+ae=n 1 0 1 1 1 NN NN NN 2 2 1 0 2 5 30 LL</phon>
 				</syl>
 			</tk>
 			<ws> </ws>
