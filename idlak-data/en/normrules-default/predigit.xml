@@ -1,0 +1,101 @@
+<nrules>
+
+  <rules>
+
+    <rule name="circa">
+      <comment>
+      Has to be ca. 
+    </comment>
+      <match>
+        <rgx id="m0" name="circa" src="mcase" offset="-1"/>
+        <rgx id="m1" name="cardinalr" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="circa" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="range_hyphen2">
+      <comment/>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinalr" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="basic_car_plusminus">
+      <comment/>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_plusminus" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <fnc name="number" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="tokenise_lt_gt_float_signed">
+      <comment/>
+      <match>
+        <rgx id="m0" name="lt_gt_plusminus" src="mcase" offset="0"/>
+        <rgx id="m1" name="float" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" grp="0" offset="0"/>
+        <lkp name="plusminus" from="m0" grp="1" offset="0"/>
+        <fnc name="number" from="m1" grp="1" offset="1"/>
+        <cpy val="point" offset="1"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="tokenise_lt_gt_float">
+      <comment/>
+      <match>
+        <rgx id="m0" name="lt_gt_float1" src="mcase" offset="0"/>
+        <rgx id="m1" name="lt_gt_float2" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="tokenise_lt_gt_integer">
+      <comment>
+      &gt;20 should be tokenised correctly
+    </comment>
+      <match>
+        <rgx id="m0" name="lt_gt_integer" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" grp="0" offset="0"/>
+        <lkp name="plusminus" from="m0" grp="1" offset="0"/>
+        <fnc name="number" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="tokenise_integer_lt_gt">
+      <comment>
+      21&gt; be tokenised correctly
+    </comment>
+      <match>
+        <rgx id="m0" name="integer_lt_gt" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

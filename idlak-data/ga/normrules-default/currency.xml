@@ -1,0 +1,1380 @@
+<nrules>
+
+  <rules>
+
+    <rule name="currency_scale_billions_to20_no_symbol">
+      <comment>
+            12bn punt -&gt; dhá bhilliún déag punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="integer_currency_scale_billion_to20" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_no_symb" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_compl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_millions_to20_no_symbol">
+      <comment>
+            12m punt -&gt; dhá mhilliún déag punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="integer_currency_scale_million_to20" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_no_symb" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_compl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_no_symbol">
+      <comment>
+            21m dollar -&gt; fiche a haon milliún dollar 
+        </comment>
+      <match>
+        <rgx id="m0" name="integer_currency_scale" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_no_symb" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_scale" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_billions_to20">
+      <comment>
+            £14 billiún -&gt; ceithre bhilliún déag punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_to20" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_scale_billions" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_millions_to20">
+      <comment>
+            £14 milliún -&gt; ceithre mhilliún déag punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_to20" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_scale_millions" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale">
+      <comment>
+            £21 milliún -&gt; fiche a haon milliún punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_scale" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_scale" from="m2" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_billion_no_space_to20">
+      <comment>
+            £2bn -&gt; dhá bhilliún punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_scale_billion_to20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_million_no_space_to20">
+      <comment>
+            £2m -&gt; dhá mhilliún punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_scale_million_to20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_no_space">
+      <comment>
+            £22m -&gt; fiche a dó milliún punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_scale" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_with_comma">
+      <comment>
+            £12.3 mln -&gt; dó dhéag ponc a trí milliún punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_scale" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_with_comma_no_space">
+      <comment>
+            £12.3mln -&gt; dó dhéag ponc a trí milliún punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float_currency_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="3" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_with_comma_no_space_reverse">
+      <comment>
+            2.3mln $ -&gt; dó ponc a trí milliún dollar 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="1"/>
+        <rgx id="m1" name="currency_scale_float_currency_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0"/>
+        <lkp name="currency_scale" from="m1" grp="3" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions_cents_11to12">
+      <comment>
+            £12,999,999.12 -&gt; dhá mhilliún déag naoi gcéad is nócha a naoi míle naoi gcéad is nócha a naoi punt agus dhá phingin déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions_cents_11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions_cents_13to16">
+      <comment>
+            £12,999,999.13 -&gt; dhá mhilliún déag naoi gcéad is nócha a naoi míle naoi gcéad is nócha a naoi punt agus trí pingine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions_cents_13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions_cents_17to19">
+      <comment>
+            £12,999,999.17 -&gt; dhá mhilliún déag naoi gcéad is nócha a naoi míle naoi gcéad is nócha a naoi punt agus seacht bpingine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions_cents_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions_cents">
+      <comment>
+            £12999999.99 -&gt; dhá mhilliún déag naoi gcéad is nócha a naoi míle naoi gcéad is nócha a naoi punt agus nócha a naoi pingin 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions_cents" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_cents_11to12">
+      <comment>
+            £12999.11 -&gt; dhá mhíle déag naoi gcéad is nócha a naoi punt agus aon phingin déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_cents_11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_cents_13to16">
+      <comment>
+            £12999.13 -&gt; dhá mhíle déag naoi gcéad is nócha a naoi punt agus trí pingine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_cents_13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_cents_17to19">
+      <comment>
+            £12999.17 -&gt; dhá mhíle déag naoi gcéad is nócha a naoi punt agus seacht bpingine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_cents_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_cents">
+      <comment>
+            £12999.99 -&gt; dhá mhíle déag naoi gcéad is nócha a naoi punt agus nócha a naoi pingin 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_cents" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions">
+      <comment>
+            £12999999 -&gt; dhá mhilliún déag naoi gcéad is nócha a naoi míle naoi gcéad is nócha a naoi punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency">
+      <comment>
+            £12999 -&gt; dhá mhíle déag naoi gcéad is nócha a naoi punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_k_to20">
+      <comment>
+            £12k -&gt; dhá mhíle déag punt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_up_to_20_k" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_k">
+      <comment>
+            €21k -&gt; fiche a haon míle euro 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_up_to_1000_k" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="míle" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number_2to6">
+      <comment>
+            $us4.00 -&gt; ceithre dhollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_2to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number_7to10">
+      <comment>
+            £us7.00 -&gt; seacht ndollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number_11">
+      <comment>
+            $us11.00 -&gt; aon dhollar na stát aontaithe déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_11" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="aon" offset="-1"/>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number_12to16">
+      <comment>
+            $us14.00 -&gt; ceithre dhollar na stát aontaithe déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_12to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number_17to19">
+      <comment>
+            $us17.00 -&gt; seacht ndollar na stát aontaithe déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number">
+      <comment>
+            €34 -&gt; tríocha a ceathair euro 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unit1to2">
+      <comment>
+            £1.02 -&gt; punt amháin agus dhá phingin 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unit1to2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unit3to6">
+      <comment>
+            £1.06 -&gt; punt amháin agus sé pingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unit3to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unit7to10">
+      <comment>
+            £1.07 -&gt; punt amháin agus seacht bpingine 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unit7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unit11to12">
+      <comment>
+            £1.11 -&gt; punt amháin agus aon phingin déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unit11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unit13to16">
+      <comment>
+            £1.13 -&gt; punt amháin agus trí pingine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unit13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unit17to19">
+      <comment>
+            £1.17 -&gt; punt amháin agus seacht bpingine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unit17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole1_unitgt19">
+      <comment>
+            £1.21 -&gt; punt amháin agus fiche a haon pingin 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole1_unitgt19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unit1to2">
+      <comment>
+            £2.02 -&gt; dhá phunt agus dhá phingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unit1to2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unit3to6">
+      <comment>
+            £2.06 -&gt; dhá phunt agus sé pingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unit3to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unit7to10">
+      <comment>
+            £2.07 -&gt; dhá phunt agus seacht bpingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unit7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unit11to12">
+      <comment>
+            £2.11 -&gt; dhá phunt agus aon phingin déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unit11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unit13to16">
+      <comment>
+            £2.13 -&gt; dhá phunt agus trí pingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unit13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unit17to19">
+      <comment>
+            £2.17 -&gt; dhá phunt agus seacht bpingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unit17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole2to6_unitgt19">
+      <comment>
+            £2.21 -&gt; dhá phunt agus fiche a haon pingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole2to6_unitgt19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unit1to2">
+      <comment>
+            £7.02 -&gt; seacht bpunt agus dhá phingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unit1to2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unit3to6">
+      <comment>
+            £7.06 -&gt; seacht bpunt agus sé pingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unit3to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unit7to10">
+      <comment>
+            £7.07 -&gt; seacht bpunt agus seacht bpingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unit7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unit11to12">
+      <comment>
+            £7.11 -&gt; seacht bpunt agus aon phingin déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unit11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unit13to16">
+      <comment>
+            £7.13 -&gt; seacht bpunt agus trí pingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unit13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unit17to19">
+      <comment>
+            £7.17 -&gt; seacht bpunt agus seacht bpingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unit17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole7to10_unitgt19">
+      <comment>
+            £7.21 -&gt; seacht bpunt agus fiche a haon pingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole7to10_unitgt19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unit1to2">
+      <comment>
+            £11.02 -&gt; aon phunt déag agus dhá phingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unit1to2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unit3to6">
+      <comment>
+            £11.06 -&gt; aon phunt déag agus sé pingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unit3to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unit7to10">
+      <comment>
+            £11.07 -&gt; aon phunt déag agus seacht bpingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unit7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unit11to12">
+      <comment>
+            £11.11 -&gt; aon phunt déag agus aon phingin déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unit11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unit13to16">
+      <comment>
+            £11.13 -&gt; aon phunt déag agus trí pingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unit13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unit17to19">
+      <comment>
+            £11.17 -&gt; aon phunt déag agus seacht bpingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unit17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole11to16_unitgt19">
+      <comment>
+            £11.21 -&gt; aon phunt déag agus fiche a haon pingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole11to16_unitgt19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unit1to2">
+      <comment>
+            £17.02 -&gt; seacht bpunt déag agus dhá phingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unit1to2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unit3to6">
+      <comment>
+            £17.06 -&gt; seacht bpunt déag agus sé pingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unit3to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unit7to10">
+      <comment>
+            £17.07 -&gt; seacht bpunt déag agus seacht bpingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unit7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unit11to12">
+      <comment>
+            £17.11 -&gt; seacht bpunt déag agus aon phingin déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unit11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unit13to16">
+      <comment>
+            £17.13 -&gt; seacht bpunt déag agus trí pingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unit13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unit17to19">
+      <comment>
+            £17.17 -&gt; seacht bpunt déag agus seacht bpingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unit17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_whole17to19_unitgt19">
+      <comment>
+            £17.21 -&gt; seacht bpunt déag agus fiche a haon pingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_whole17to19_unitgt19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unit1to2">
+      <comment>
+            £21.02 -&gt; fiche a haon punt agus dhá phingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unit1to2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unit3to6">
+      <comment>
+            £21.06 -&gt; fiche a haon punt agus sé pingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unit3to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unit7to10">
+      <comment>
+            £21.07 -&gt; fiche a haon punt agus seacht bpingine
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unit7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unit11to12">
+      <comment>
+            £21.11 -&gt; fiche a haon punt agus aon phingin déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unit11to12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_11to12" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unit13to16">
+      <comment>
+            £21.13 -&gt; fiche a haon punt agus trí pingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unit13to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_13to16" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unit17to19">
+      <comment>
+            £21.17 -&gt; fiche a haon punt agus seacht bpingine déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unit17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl_17to19" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2d_postcomma_cur_wholegt19_unitgt19">
+      <comment>
+            £21.21 -&gt; fiche a haon punt agus fiche a haon pingin
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_wholegt19_unitgt19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="agus" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_1">
+      <comment>
+            The case where the post-comma digits of a currency-related expression
+            are said as "asdigits".
+            £1.3456 -&gt; punt amháin ponc a trí a ceathair a cúig a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="amháin ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_2to6">
+      <comment>
+            The case where the post-comma digits of a currency-related expression
+            are said as "asdigits".
+            £2.3456 -&gt; dhá phunt ponc a trí a ceathair a cúig a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur_2to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_7to10">
+      <comment>
+            The case where the post-comma digits of a currency-related expression
+            are said as "asdigits".
+            £7.3456 -&gt; dhá phunt ponc a trí a ceathair a cúig a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur_7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_11to16">
+      <comment>
+            The case where the post-comma digits of a currency-related expression
+            are said as "asdigits".
+            £11.3456 -&gt; dhá phunt ponc a trí a ceathair a cúig a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur_11to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_17to19">
+      <comment>
+            The case where the post-comma digits of a currency-related expression
+            are said as "asdigits".
+            £17.3456 -&gt; dhá phunt ponc a trí a ceathair a cúig a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits">
+      <comment>
+            The case where the post-comma digits of a currency-related expression
+            are said as "asdigits".
+            £21.3456 -&gt; deich punt ponc a trí a ceathair a cúig a sé
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_pre">
+      <comment>
+            Last resort rule for single token currency (such as USD25.03)
+            We leave the handling of the number for later.
+            USD10 -&gt; deich dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="number_currency_pre" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="1" offset="0"/>
+        <lkp name="currency_compl_full" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_post0">
+      <comment>
+            Last resort rule for single token currency preced by curency sign (such as $ 25.03US)
+            We leave the handling of the number for later.
+            $10US -&gt; deich dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="number_currency_post" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_post">
+      <comment>
+            Last resort rule for single token currency (such as 25.03USD)
+            We leave the handling of the number for later.
+            10USD -&gt; deich dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="number_currency_post" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl_full" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs">
+      <comment>
+            Remove left over currency signs
+            $US 10 -&gt; deich dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement" src="lcase" offset="1"/>
+        <rgx id="m2" name="number" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy from="m2" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" offset="1"/>
+        <lkp name="currency_compl" from="m1" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb">
+      <comment>
+            Remove left over currency signs
+            US$25.03 -&gt; fiche a cúig ponc a náid a trí dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m2" name="number" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy from="m2" offset="-1"/>
+        <lkp name="currency_pl" from="m1" offset="0"/>
+        <lkp name="currency_compl" from="m0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs2">
+      <comment>
+            Remove left over currency signs
+            $US -&gt; dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m0" offset="0"/>
+        <lkp name="currency_compl" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs2b">
+      <comment>
+            Remove left over currency signs
+            US$ -&gt; dollar na stát aontaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl" from="m1" offset="-1"/>
+        <lkp name="currency_compl" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,62 @@
+<nrules>
+
+  <rules>
+
+    <rule name="roman_context">
+      <comment>
+            caibidil I -&gt; caibidil a haon
+        </comment>
+      <match>
+        <rgx id="m0" name="roman_context" src="lcase" offset="-1"/>
+        <rgx id="m1" name="roman_numerals_lt20_case" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="roman_context" from="m0" offset="-1"/>
+        <lkp name="roman_num" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say-as_year_21c">
+      <comment>
+            Internally, a "year"-token (e.g. "1982") is marked as
+            "&lt;say-as interpret-as="year"&gt; 1982 &lt;/say-as&gt;".
+        </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="internal" val="year" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="century" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say-as_year">
+      <comment>
+            Internally, a "year"-token (e.g. "1982") is marked as
+            "&lt;say-as interpret-as="year"&gt; 1982 &lt;/say-as&gt;".
+        </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="internal" val="year" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="century" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roman_numeral_index">
+      <comment>
+            This isn't an ssml rule, but has been put here as no normalisation is
+            taking place on, for example, (iii), as no rules are being triggered.
+            Should maybe be moved in future.
+            (iv) -&gt; a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="bracketed_roman_numerals" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="roman_num" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

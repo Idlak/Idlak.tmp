@@ -1,0 +1,67 @@
+<nrules>
+
+  <rules>
+
+    <rule name="telephone_prefix">
+      <comment/>
+      <match>
+        <rgx id="m0" name="telephone_prefix" src="lcase" offset="-1"/>
+        <rgx id="m1" name="tele_international_or_digits" src="lcase" offset="0"/>
+        <rgx id="m2" name="tele_digits_or_hyphen" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="telephone_prefix_table" from="m0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="telephone_prefix_plus">
+      <comment/>
+      <match>
+        <rgx id="m0" name="telephone_prefix" src="lcase" offset="-2"/>
+        <rgx id="m1" name="plus" src="lcase" offset="-1"/>
+        <rgx id="m2" name="tele_digits" src="lcase" offset="0"/>
+        <rgx id="m3" name="tele_digits_or_hyphen" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="telephone_prefix_table" from="m0" offset="-2"/>
+        <lkp name="plusminus" from="m1" offset="-1"/>
+        <cpy val=" " offset="0"/>
+        <fnc name="asdigits" from="m2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="telephon_generic_extension">
+      <comment>
+      Matches all dots separated numbers as telephone numbers provided there is a "tel" prefix.
+    </comment>
+      <match>
+        <rgx id="m0" name="telephone_ssml_generic_full" src="lcase" offset="-1"/>
+        <rgx id="m1" name="tele_extension_int_full" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="telephone_extension" from="m1" grp="0" offset="0">
+          <break type="2"/>
+        </lkp>
+        <fnc name="asdigits" from="m1" grp="1" offset="0">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="telephone_prefix_extension">
+      <comment/>
+      <match>
+        <rgx id="m0" name="tele_digits_or_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m1" name="tele_extension_int_full" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="telephone_extension" from="m1" grp="0" offset="0">
+          <break type="2"/>
+        </lkp>
+        <fnc name="asdigits" from="m1" grp="1" offset="0">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

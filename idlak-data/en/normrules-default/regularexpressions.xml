@@ -1,0 +1,2059 @@
+<nrules>
+
+  <regexs>
+
+    <regex name="alpha">
+      <comment usedby="ssmlpre ssmldate">
+			Important: Do not delete this regex, as it is used by the normaliser
+			internally.
+			Also, extend it with the language-specific letters.
+		</comment>
+      <exp><![CDATA[^[a-zA-Z_']+$]]></exp>
+    </regex>
+
+    <regex name="alpha_hyphen_alpha">
+      <comment usedby="rest">
+            Just lower-case alphabetical characters.
+        </comment>
+      <exp><![CDATA[^([a-zA-Z]+)\-([a-zA-Z\']+)$]]></exp>
+    </regex>
+
+    <regex name="alpha_hyphen_alpha_email">
+      <comment usedby="rest">
+        Fix for emails with hyphenated urls, e.g.
+	james@ngfl-cymru.org.uk
+      </comment>
+      <exp><![CDATA[^([a-zA-Z]+)\-([a-zA-Z\']+)\.$]]></exp>
+    </regex>
+
+    <regex name="alpha_hyphen_alpha_hyphen_alpha">
+      <comment usedby="rest">
+            Just lower-case alphabetical characters.
+        </comment>
+      <exp><![CDATA[^([a-zA-Z]+)\-([a-zA-Z]+)\-([a-zA-Z\']+)$]]></exp>
+    </regex>
+
+    <regex name="alpha_hyphen_alpha_hyphen_alpha_email">
+      <comment usedby="rest">
+        Fix for emails with hyphenated urls, e.g.
+	james@rsc-south-west.ac.uk
+      </comment>
+      <exp><![CDATA[^([a-zA-Z]+)\-([a-zA-Z\']+)\-([a-zA-Z\']+)\.$]]></exp>
+    </regex>
+
+    <regex name="alpha_numeric">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^([a-z']+)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="am_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(am|pm)?$]]></exp>
+    </regex>
+
+    <regex name="am_pm_dots_opt">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([AaPp]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="am_pm_dotted">
+      <comment usedby="time">
+    </comment>
+      <exp><![CDATA[^([AaPp])\.([Mm])\.$]]></exp>
+    </regex>
+
+    <regex name="am_pm_lowercase_dotted">
+      <comment usedby="time">
+    </comment>
+      <exp><![CDATA[^([ap])\.(m)\.$]]></exp>
+    </regex>
+
+    <regex name="am_pm_required">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(am|pm)$]]></exp>
+    </regex>
+
+    <regex name="american_address_misc">
+      <comment usedby="postaddress1 postaddress10"/>
+      <exp><![CDATA[^(ste|flr|apt|bsmt|bldg|fl|frnt|gate|hwy|hngr|lbby|key|lot|lowr|ofc|ph|pier|rear|rm|side|slip|spc|stop|trlr|unit|uppr|po|pob)$]]></exp>
+    </regex>
+
+    <regex name="american_big_city">
+      <comment usedby="postaddress ssml"> Big regex listing the 100 most important city in the US </comment>
+      <exp><![CDATA[^(york|angeles|chicago|houston|phoenix|philadelphia|antonio|diego|dallas|jose|detroit|francisco|jacksonville|indianapolis|austin|columbus|worth|charlotte|memphis|boston|baltimore|paso|seattle|denver|nashville|milwaukee|washington|vegas|louisville|portland|city|tucson|atlanta|albuquerque|city|fresno|mesa|sacramento|beach|omaha|beach|miami|cleveland|oakland|raleigh|springs|tulsa|minneapolis|arlington|honolulu|wichita|louis|orleans|tampa|ana|anaheim|cincinnati|bakersfield|aurora|toledo|pittsburgh|riverside|lexington|stockton|christi|anchorage|paul|newark|plano|buffalo|henderson|wayne|greensboro|lincoln|glendale|chandler|petersburg|city|scottsdale|orlando|madison|norfolk|birmingham|winston-salem|durham|laredo|lubbock|rouge|vegas|vista|chesapeake|gilbert|garland|reno|hialeah|arlington|irvine|rochester|akron|boise|irving|fremont|richmond|spokane|modesto|montgomery|yonkers|moines|tacoma|shreveport|bernardino|fayetteville|glendale|augusta|rapids|beach|champaign-urbana)[,]?$]]></exp>
+    </regex>
+
+    <regex name="american_house_number">
+      <comment usedby="postaddress0 postaddress0a postaddress0b postaddress0c postaddress1 postaddress2 postaddress3 postaddress4"/>
+      <exp><![CDATA[^(\d{1,5})$]]></exp>
+    </regex>
+
+    <regex name="american_num">
+      <comment usedby="postaddress1 postaddress10"/>
+      <exp><![CDATA[^([a-z]?[0-9]*)$]]></exp>
+    </regex>
+
+    <regex name="american_state_abb">
+      <comment usedby="preaddress address postaddress"/>
+      <exp><![CDATA[^(al|ak|as|az|ar|ca|cf|cl|dl|ha|ka|mc|nb|wn|ws|cm|co|ct|de|dc|fm|fl|ga|gu|hi|id|il|in|ia|ks|ky|la|me|mh|md|ma|mi|mn|ms|mo\
+mt|ne|nv|nh|nj|nm|ny|nc|nd|mp|oh|ok|or|pw|pa|pr|ri|sc|sd|tn|tx|ut|vt|va|wa|wv|wi|wy)$]]></exp>
+    </regex>
+
+    <regex name="american_state_abb_c">
+      <comment usedby="address"/>
+      <exp><![CDATA[^(c)$]]></exp>
+    </regex>
+
+    <regex name="american_state_abb_d">
+      <comment usedby="address"/>
+      <exp><![CDATA[^(d)$]]></exp>
+    </regex>
+
+    <regex name="american_state_long_abb">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^([Aa]la|[Aa]riz|[Aa]rk|[Cc]alif|[Cc]olo|[Cc]onn|[Dd]el|[Ff]la|[Gg]a|[Ii]ll|[Ii]nd|[Kk]an|[Kk]ans|[Kk]y|[Ll]a|[Mm]d|[Mm]ass|[Mm]ich|[Mm]inn|[Mm]iss|[Mm]o|[Mm]ont|[Nn]eb|[Nn]ebr|[Nn]ev|[Oo]kla|[Oo]reg|[Oo]re|[Pp]a|[Tt]enn|[Tt]ex|[Vv]t|[Vv]a|[Ww]ash|[Ww]is|[Ww]yo)\.$]]></exp>
+    </regex>
+
+    <regex name="american_street_name">
+      <comment usedby="preaddress postaddress0 postaddress0a postaddress0b postaddress0c postaddress1 postaddress2 postaddress3 postaddress4"> Massive regex, because we want to be able to match all "official" abbreviations </comment>
+      <exp><![CDATA[^((aly|anx|ave|arc|byu|bch|bnd|blf|blvd|blfs|btm|br|brg|brk|brks|bg|bgs|byp|cp|cyn|cpe|cswy|ctr|ctrs|cir|cirs|clf|clfs|clb|cmn|cmns|cor|cors|crse|ct|cts|cv|cvs|crk|cres|crst|xing|xrd|xrds|curv|dl|dm|dv|dr|drs|est|ests|expy|ext|exts|fall|fls|fry|fld|flds|flt|flts|frd|frds|frst|frg|frgs|frk|frks|ft|fwy|gdn|gdns|gtwy|gln|glns|grn|grns|grv|grva|hbr|hbrs|hvn|hts|hwy|hl|hls|holw|inlt|is|iss|isle|jct|jcts|ky|kys|knl|knls|lk|lks|land|lndg|ln|lgt|lgts|lf|lck|lcks|ldg|loop|mall|mnr|mnrs|mdw|mdws|mews|ml|mls|msn|mtwy|mt|mtn|mtns|nck|orch|oval|opas|park|park|pkwy|pkwy|pass|psge|path|pike|pne|pnes|pl|pln|plns|plz|pt|pts|prt|prts|pr|radl|ramp|rnch|rpd|rpds|rst|rdg|rdgs|riv|rd|rds|rte|row|rue|run|shl|shls|shr|shrs|skwy|spg|spgs|spur|spur|sq|sqs|sta|stra|strm|st|sts|smt|ter|terre|trwy|trce|trak|trfy|trl|trlr|tunl|tpke|upas|un|uns|vly|vlys|via|vw|vws|vlg|vlgs|vl|vis|walk|walks|wall|way|ways|wl|wls|terr|wy)|(n|e|s|w|ne|nw|se|sw)|(ste|flr|apt|bsmt|bldg|fl|frnt|hngr|lbby|key|lot|lowr|ofc|ph|pier|rear|rm|side|slip|spc|stop|trlr|unit|uppr)|([a-z0-9]?[a-z_]+))$]]></exp>
+    </regex>
+
+    <regex name="american_street_name_abb">
+      <comment usedby="preaddress postaddress1 postaddress2 postaddress3 postaddress4"> Massive regex, because we want to be able to match all "official" abbreviations </comment>
+      <exp><![CDATA[^((aly|anx|ave|byu|bch|bnd|blf|blvd|blfs|btm|br|brg|brk|brks|bgs|byp|cyn|cpe|cswy|ctr|ctrs|cir|cirs|clf|clfs|clb|cmn|cmns|cor|cors|crse|ct|cts|cvs|crk|cres|crst|xing|xrd|xrds|curv|dm|drs|ests|expy|ext|exts|fall|fls|fld|flds|flt|flts|frd|frds|frst|frg|frgs|frk|frks|fwy|gdn|gdns|gtwy|gln|glns|grn|grns|grv|grva|hbr|hbrs|hvn|hts|hwy|hl|hls|holw|inlt|iss|isle|jct|jcts|ky|kys|knl|knls|lk|lks|land|lndg|ln|lgt|lgts|lf|lck|lcks|ldg|loop|mall|mnr|mnrs|mdw|mdws|mews|mls|mtwy|mt|mtn|mtns|nck|orch|oval|opas|park|pkwy|pass|psge|path|pike|pne|pnes|pl|pln|plns|prt|prts|pr|pt|pts|radl|ramp|rnch|rpd|rpds|rst|rdg|rdgs|riv|rd|rds|rte|row|rue|run|shl|shls|shr|shrs|skwy|spg|spgs|spur|sq|sqs|sta|stra|strm|sts|smt|terre|trwy|trce|trak|trfy|trl|trlr|tunl|tpke|upas|vly|vlys|vw|vws|vlg|vlgs|vl|walk|walks|wall|way|ways|wl|wls|terr|wy)|(ne|nw|se|sw)|(ste|flr|apt|bsmt|bldg|frnt|hngr|lbby|key|lot|lowr|ofc|pier|rear|side|slip|spc|stop|trlr|unit|uppr))$]]></exp>
+    </regex>
+
+    <regex name="american_street_name_hard">
+      <comment usedby="postaddress0 postaddress0a postaddress0b postaddress0c"> To "repair" the tokens that have been destroyed by abbreviation lookup. Only Dr. and Ft. for now... </comment>
+      <exp><![CDATA[^((Dr|DR|Ft|FT|Arc|Bg|Cp|Cv|Dl|Dv|Est|Fry|Is|Ln|Ml|Msn|Plz|St|Ter|Terre|Un|Uns|Via|Vis|Fl|Rm|Ph|N|E|W|S)[.])([^a-z0-9A-Z]*)$]]></exp>
+    </regex>
+
+    <regex name="american_zip">
+      <comment usedby="preaddress address"/>
+      <exp><![CDATA[^(\d{5})([-](\d{3}))?$]]></exp>
+    </regex>
+
+    <regex name="ampersand">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^&$]]></exp>
+    </regex>
+
+    <regex name="and">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(and|&)$]]></exp>
+    </regex>
+
+    <regex name="apostrophe">
+      <comment usedby="emot"/>
+      <exp><![CDATA[^;$]]></exp>
+    </regex>
+
+    <regex name="area">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(m|metre|meter|metres|meters|mm|millimetre|millimeter|millimetres|millimeters|km|kilometre|kilometer|kilometres|kilometers|cm|centimetre|centimeter|centimetres|centimeters|mi|mile|miles|in|inch|inches)$]]></exp>
+    </regex>
+
+    <regex name="area_code">
+      <comment usedby="tele">
+            The area code of a telephone number.
+            Start with '0' followed by 2 to four digits, with the second not a '0'.
+        </comment>
+      <exp><![CDATA[^(0[1-9][0-9]{1,3})$]]></exp>
+    </regex>
+
+    <regex name="article_a">
+      <comment usedby="ssmlmeasure"/>
+      <exp><![CDATA[^(A|a|An|an|One|one)$]]></exp>
+    </regex>
+
+    <regex name="asrnews_abbrev">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^([Ee]|[Ww]|Dr)\.?$]]></exp>
+    </regex>
+
+    <regex name="asrnews_street_name">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(centre|center|centennial)$]]></exp>
+    </regex>
+
+    <regex name="asrnews_town_name">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(brunswick|orange)$]]></exp>
+    </regex>
+
+    <regex name="at_symbol">
+      <comment usedby="www rest"/>
+      <exp><![CDATA[^@$]]></exp>
+    </regex>
+
+    <regex name="big_currency">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_cents">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])\.([1-9][0-9]|0[02-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([1-9][0-9]{0,2}\,[0-9][0-9][0-9]\,[0-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions_cents">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([1-9][0-9]{0,2}\,[0-9][0-9][0-9]\,[0-9][0-9][0-9])\.([1-9][0-9]|0[02-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions_one_cent">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([1-9][0-9]{0,2}\,[0-9][0-9][0-9]\,[0-9][0-9][0-9])\.(01)$]]></exp>
+    </regex>
+
+    <regex name="big_currency_one_cent">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])\.(01)$]]></exp>
+    </regex>
+
+    <regex name="billionscomma_no_point">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([+\-]?)([1-9]\d{0,2},[0-9]{3},[0-9]{3},[0-9]{3})$]]></exp>
+    </regex>
+
+    <regex name="book_number">
+      <comment usedby="pretime">
+    </comment>
+      <exp><![CDATA[^([12])?$]]></exp>
+    </regex>
+
+    <regex name="bookmaking_colon">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^(([1-9]\d*)[:](1))$]]></exp>
+    </regex>
+
+    <regex name="books_of_the_bible">
+      <comment usedby="pretime">
+    </comment>
+      <exp><![CDATA[^(genesis|gen|gn|exodus|exod|ex|leviticus|lev|lv|numbers|num|nm|joshua|josh|jo|judges|judg|jgs|ruth|ru|samuel|sam|sm|kings|kgs|chronicles|chron|chr|ezra|ez|nehemiah|neh|esther|est|job|jb|psalms|pss|ps|proverbs|prov|prv|ecclesiastes|eccles|eccl|solomon|sg|isaiah|isa|is|jeremiah|jer|lamentations|lam|ezekiel|ezek|ez|daniel|dan|dn|hosea|hos|joel|jl|amos|am|obadiah|obad|ob|jonah|jon|micah|mic|mi|nahum|nah|na|habakkuk|hab|hb|zephaniah|zeph|zep|haggai|hag|hg|zechariah|zech|zec|malachi|mal|matthew|matt|mt|mark|mk|luke|lk|john|jn|acts|romans|rom|corinthians|cor|galatians|gal|ephesians|eph|colossians|col|thessalonians|thess|thes|timothy|tim|tm|titus|ti|philemon|phil|hebrews|heb|james|jas|peter|pt|jude|revelation|rev|rv|deuteronomy|deut|dt)$]]></exp>
+    </regex>
+
+    <regex name="boolean_ssml">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(true|false)$]]></exp>
+    </regex>
+
+    <regex name="bracket_left">
+      <comment usedby="emot"/>
+      <exp><![CDATA[^\($]]></exp>
+    </regex>
+
+    <regex name="bracket_right">
+      <comment usedby="emot"/>
+      <exp><![CDATA[^\)$]]></exp>
+    </regex>
+
+    <regex name="bracketed_roman_numerals">
+      <comment usedby="ssml index">
+    </comment>
+      <exp><![CDATA[^\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|xiii|xiv|xv|xvi|xvii|xviii|xix|xx|xxi|xxii|xxiii|xxiv|xxv|I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV|XVI|XVII|XVIII|XIX|XX|XXI|XXII|XXIII|XXIV|XXV)\)$]]></exp>
+    </regex>
+
+    <regex name="build_exclude_flags">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^(.*_exclude.*|.*_mispron.*)$]]></exp>
+    </regex>
+
+    <regex name="call">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(call|dial)$]]></exp>
+    </regex>
+
+    <regex name="canadian_big_city">
+      <comment usedby="postaddress"> Canadian big cites </comment>
+      <exp><![CDATA[^(montreal|vancouver|calgary|edmonton|ottowa|gatineau|ottowa-gatineau|quebec|winnipeg|halifax|john|john\'s|regina|toronto|hamilton|kitchener|london|niagra|windsor)[,]?$]]></exp>
+    </regex>
+
+    <regex name="canadian_state_abb">
+      <comment usedby="address postaddress"/>
+      <exp><![CDATA[^(ab|bc|mb|nb|nl|nt|ns|nu|on|pe|qc|sk|yt)$]]></exp>
+    </regex>
+
+    <regex name="canadian_zip_1_tok">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([a-z][0-9][a-z][0-9][a-z][0-9])$]]></exp>
+    </regex>
+
+    <regex name="canadian_zip_t1">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([a-z][0-9][a-z])$]]></exp>
+    </regex>
+
+    <regex name="canadian_zip_t2">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([0-9][a-z][0-9])$]]></exp>
+    </regex>
+
+    <regex name="cardinal">
+      <comment usedby="pretime tele index digit"/>
+      <exp><![CDATA[^([1-9][0-9]*)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_1">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[^(1)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_1_4">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^([1234])$]]></exp>
+    </regex>
+
+    <regex name="cardinal_1_to_31">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^(3[01]|0?[1-9]|[12][0-9])$]]></exp>
+    </regex>
+
+    <regex name="cardinal_2_4">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[^([234])$]]></exp>
+    </regex>
+
+    <regex name="cardinal_32">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^(32)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([0-9]+([,][0-9]{3})*)(m|metre|meter|metres|meters|mm|millimetre|millimeter|millimetres|millimeters|ml|millitres|milliliters|km|kilometre|kilometer|kilometres|kilometers|cm|centimetre|centimeter|centimetres|centimeters|yd|yds|yards|acs|mile|miles|mg|kg|kgm|kgs|oz|lb|lbs|pounds|ft|foot|feet|mi|mph|in|ins|inch|inches|kbps|stone|mb|gb|hz|mhz|ghz|kw|kwh|mw|megawatt|kj|mol|%|pc|pct|bcf|tsp|tbsp)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_1">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^(1)(metre|meter|mm|millimetre|millimeter|km|kilometre|kilometer|cm|centimetre|centimeter|ml|millitre|milliliter|yd|mi|mile|mg|kg|kgm|lb|pound|ft|foot|mph|in|inch|kbps|stone|mb|gb|hz|mhz|ghz|kw|kwh|mw|megawatt|kj|mol|%|pc|pct|bcf|tsp|tbsp)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_plusminus">
+      <comment usedby="predigit"/>
+      <exp><![CDATA[^([+\-]?)([1-9][0-9]{0,})$]]></exp>
+    </regex>
+
+    <regex name="cardinal_s">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(over|under|mid)?\-?([1-9][0-9]?[0-9]?[0-9]?)(\'?s)$]]></exp>
+    </regex>
+
+    <regex name="cardinalr">
+      <comment usedby="measure fractions predigit"/>
+      <exp><![CDATA[^([0-9]+([,]\d{3})?)$]]></exp>
+    </regex>
+
+    <regex name="century_s">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(1[1-9])00(\'?s)$]]></exp>
+    </regex>
+
+    <regex name="chapter_and_verse_numbers">
+      <comment usedby="pretime">
+    </comment>
+      <exp><![CDATA[^([1-9][0-9]?):([1-9][0-9]?[0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="characters">
+      <comment usedby="ssmlproc"> Digits, characters and anything in the symbols lookup
+      </comment>
+      <exp><![CDATA[^([0-9A-Za-z\\_\.*^#@~\<\>≤≥=&+÷¢:/,°\?!½¼¾©²³×·√\-]+)$]]></exp>
+    </regex>
+
+    <regex name="circa">
+      <comment usedby="predigit"/>
+      <exp><![CDATA[^(ca|Ca|CA)\.$]]></exp>
+    </regex>
+
+    <regex name="colon">
+      <comment usedby="emot">
+        </comment>
+      <exp><![CDATA[^:$]]></exp>
+    </regex>
+
+    <regex name="common_acronyms">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(bbc|itv|itn|abc|nbc|cbc|nhk|ibm)$]]></exp>
+    </regex>
+
+    <regex name="common_saints">
+      <comment usedby="ssml">
+	Commonly-used saints names
+      </comment>
+      <exp><![CDATA[^(agatha|agnes|aidan|albans|andrews|ann|anne|anthony|augustine|basil|bernadette|bernard|catharine|catherine|christopher|clare|clement|columba|cuthbert|cyrus|david|dominic|edmund|edmunds|fillans|francis|gallen|george|giles|helena|helens|helier|hilda|hugh|ives|james|john|jude|just|katherine|leonards|louis|luke|mabyn|mirren|monance|moritz|johnstone|kilda|lawrence|louis|luke|margaret|mark|martin|mary|matthew|michael|nicholas|ninians|olaf|pancras|patrick|paul|peter|petersburg|raphael|saens|salvador|simon|stephen|thomas|tropez|valentine|vincent)\'?s?$]]></exp>
+    </regex>
+
+    <regex name="contains_signs">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^(.*[\?!;:\.\+\-%×÷=&,\(\)\[\]\{\}\"«»@*\\/~£¥€¢$0-9<>™®©].*)$]]></exp>
+    </regex>
+
+    <regex name="coord_lat_long">
+      <comment usedby="coordinates">
+      e.g. N23:14:23.2
+    </comment>
+      <exp><![CDATA[^(N|S|E|W|n|s|e|w)(01[0-9]|2[0-3])\:([0-5][0-9])\:([0-5][0-9])(\.)?([0-9]+)?$]]></exp>
+    </regex>
+
+    <regex name="coord_mgrs">
+      <comment usedby="coordinates">
+      e.g. 4QFJ12346789
+    </comment>
+      <exp><![CDATA[^([1-9]|[1-5][0-9]|60)([A-Za-z]{3})([0-9]{2,10})$]]></exp>
+    </regex>
+
+    <regex name="currency_complement">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|USD?|can?|CAN?|cad?|CAD?|c|C|cnd|CND?|cdn|CDN?|aud?|AUD?|nzd?|NZD?|hkd?|HKD?|ntd?|NTD?|sgd?|SGD?|s|S)$]]></exp>
+    </regex>
+
+    <regex name="currency_complement_full">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd|cad|cnd|cdn|aud|nzd|hkd|sgd)$]]></exp>
+    </regex>
+
+    <regex name="currency_no_symb">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(pounds?|dollars?|yen|euros?|shillings?|yuan|kroner|roubles?)$]]></exp>
+    </regex>
+
+    <regex name="currency_no_symb_sing_and_pl">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(pounds?|dollars?|yen|euros?|shillings?|yuan|kroner|roubles?)$]]></exp>
+    </regex>
+
+    <regex name="currency_one_digit">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]?[0-9]?[0-9])\.([0-9])$]]></exp>
+    </regex>
+
+    <regex name="currency_scale">
+      <comment usedby="currencysigns currency"/>
+      <exp><![CDATA[^(thousand|m|mn|mln|million|b|bn|bln|billion|t|tn|trillion)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale_float">
+      <comment usedby="precurrency currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]?[0-9]?[0-9])\.([0-9][0-9]?[0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale_float_currency_scale">
+      <comment usedby="precurrency currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]?[0-9]?[0-9])\.([0-9][0-9]?[0-9]?)(thousand|m|mn|mln|million|b|bn|bln|billion|t|tn|trillion)$]]></exp>
+    </regex>
+
+    <regex name="currency_ssml">
+      <comment usedby="ssmlproc">
+	Official current list of currencies as established by iso. Used for 'interpret-as="currency"' ssml tag.
+      </comment>
+      <exp><![CDATA[^(AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK?|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|STD|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XTS|XXX|YER|ZAR|ZMK|ZWL)(\d+)\.(\d+)[\.,;:]?$]]></exp>
+    </regex>
+
+    <regex name="currency_ssml_one">
+      <comment usedby="ssmlproc">
+	Official current list of currencies as established by iso. Used for 'interpret-as="currency"' ssml tag.
+      </comment>
+      <exp><![CDATA[^(AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK?|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|STD|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XTS|XXX|YER|ZAR|ZMK|ZWL)(1)$]]></exp>
+    </regex>
+
+    <regex name="currency_ssml_plural">
+      <comment usedby="ssmlproc">
+	Official current list of currencies as established by iso. Used for 'interpret-as="currency"' ssml tag.
+      </comment>
+      <exp><![CDATA[^(AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK?|DOP|DZD|EGP|ERN|ETB|EUR?|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|STD|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XTS|XXX|YER|ZAR|ZMK|ZWL)([1-9][0-9]*)(.00)?[\.,;:]?$]]></exp>
+    </regex>
+
+    <regex name="currency_symb">
+      <comment usedby="precurrency currencysigns currency"/>
+      <exp><![CDATA[^(£|₩|¥|€|¢|[Ee]uros?|^[Dd]ollar$|dm|pf|sfr|chf|kr|\$|usd)$]]></exp>
+    </regex>
+
+    <regex name="currency_symb_only">
+      <comment usedby="currencysigns"/>
+      <exp><![CDATA[^(£|₩|¥|€|¢|\$)$]]></exp>
+    </regex>
+
+    <regex name="date_month">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(0?[1-9]|[1][0-2])$]]></exp>
+    </regex>
+
+    <regex name="date_prep">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(on|from|to)$]]></exp>
+    </regex>
+
+    <regex name="date_sep">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(\/|\.|\-)$]]></exp>
+    </regex>
+
+    <regex name="date_sep_strict">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(\/|\.)$]]></exp>
+    </regex>
+
+    <regex name="date_ssml">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(\?\?\?\?|([0-2]\d{3})|\d{4})((0[1-9]|1[0-2])|\d{2})((3[01]|0[1-9]|[12][0-9])|\d{2})$]]></exp>
+    </regex>
+
+    <regex name="date_ssml_day">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(\?\?\?\?\?\?)((3[01]|0[1-9]|[12][0-9])|\d{2})$]]></exp>
+    </regex>
+
+    <regex name="date_ssml_mdy">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^((0[1-9]|1[0-2])|\d{2})[\-\/\.]?((3[01]|0[1-9]|[12][0-9])|\d{2})[\-\/\.]?(([0-2]\d{3})|\d{4})$]]></exp>
+    </regex>
+
+    <regex name="date_ssml_month">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(\?\?\?\?)((0[1-9]|1[0-2])|\d{2})(\?\?)$]]></exp>
+    </regex>
+
+    <regex name="date_ssml_year">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(([0-2]\d{3})|\d{4})(\?\?\?\?)$]]></exp>
+    </regex>
+
+    <regex name="date_ssml_year_day">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(([0-2]\d{3})|\d{4})(\?\?)((3[01]|0[1-9]|[12][0-9])|\d{2})$]]></exp>
+    </regex>
+
+    <regex name="date_ssml_year_month">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(([0-2]\d{3})|\d{4})((0[1-9]|1[0-2])|\d{2})(\?\?)$]]></exp>
+    </regex>
+
+    <regex name="day_of_month">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(0?[1-9]|[12][0-9]|3[01])(th|nd|rd|st)?$]]></exp>
+    </regex>
+
+    <regex name="day_of_month_dot">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(0?[1-9]|[12][0-9]|3[01])\.$]]></exp>
+    </regex>
+
+    <regex name="day_of_month_ordinal">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(0?[1-9]|[12][0-9]|3[01])(th|nd|rd|st)$]]></exp>
+    </regex>
+
+    <regex name="days">
+      <comment usedby="date">
+      Days and abbreviations
+    </comment>
+      <exp><![CDATA[^([Mm]onday|[[Tt]uesday|[Ww]ednesday|[[Tt]hursday|[Ff]riday|[Ss]aturday|[Ss]unday|[Mm]on|[Tt]ue|[Tt]ues|[Ww]ed|[Tt]hu|[Tt]hur|[Tt]hurs|[Ff]ri|[Ss]at|[Ss]un)(the)?$]]></exp>
+    </regex>
+
+    <regex name="days_dot">
+      <comment usedby="date">
+      Days with abbreviations
+    </comment>
+      <exp><![CDATA[^([Mm]onday|[[Tt]uesday|[Ww]ednesday|[[Tt]hursday|[Ff]riday|[Ss]aturday|[Ss]unday|[Mm]on\.?|[Tt]ue\.?|[Tt]ues\.?|[Ww]ed\.?|[Tt]hu\.?|[Tt]hur\.?|[Tt]hurs\.?|[Ff]ri\.?|[Ss]at\.?|[Ss]un\.?)[^,]?(the)?$]]></exp>
+    </regex>
+
+    <regex name="degree">
+      <comment usedby="temp"/>
+      <exp><![CDATA[^(°|deg|degrees?)$]]></exp>
+    </regex>
+
+    <regex name="digits_2">
+      <comment usedby="social"/>
+      <exp><![CDATA[^(\d{2})$]]></exp>
+    </regex>
+
+    <regex name="domain_2names_2nd_tld">
+      <comment usedby="www">
+            Example: store.amazon.co.uk
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="domain_2names_tld">
+      <comment usedby="www">
+            Example: store.amazon.com
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="domain_2nd_tld">
+      <comment usedby="www">
+            Example: amazon.co.uk
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9\-]+\.?)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="domain_2nms_2nd_tld">
+      <comment usedby="www">
+            Example: www.store.amazon.ac.uk
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="domain_tld">
+      <comment usedby="www">
+            Example: amazon.com
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="dummy">
+      <comment usedby="pretemp date currencysigns currency digit">
+      Should never match
+    </comment>
+      <exp><![CDATA[^(?!)$]]></exp>
+    </regex>
+
+    <regex name="duration_hms">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([0-9]+)[:\.]([0-5][0-9])[:\.]([0-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_all_one">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1)[:\.](01)[:\.](01)$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_one_hr">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1)[:\.]([0-5][0-9])[:\.]([0-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_one_hr_one_min">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1)[:\.](01)[:\.]([0-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_one_hr_one_sec">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1)[:\.]([0-5][0-9])[:\.](01)$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_one_min">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([0-9]+)[:\.](01)[:\.]([0-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_one_min_one_sec">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([0-9]+)[:\.](01)[:\.](01)$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_one_sec">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([0-9]+)[:\.]([0-5][0-9])[:\.](01)$]]></exp>
+    </regex>
+
+    <regex name="email_name_full">
+      <comment usedby="www">
+            Example: 'john.muster' or 'john_muster'.
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)([_\.])([a-zA-Z0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="email_name_simple">
+      <comment usedby="www">
+            Example: 'muster'.
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="emergency_numbers">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(911|999)$]]></exp>
+    </regex>
+
+    <regex name="ends_in_apostrophe">
+      <comment usedby="ssmlpre"/>
+      <exp><![CDATA[^([a-zA-Z]+[sS])\'$]]></exp>
+    </regex>
+
+    <regex name="equals">
+      <comment usedby="prerange"/>
+      <exp><![CDATA[^(=)$]]></exp>
+    </regex>
+
+    <regex name="fake_frac_prep">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^(no|number|page|p|pp|pages|paragraph|§|[#])$]]></exp>
+    </regex>
+
+    <regex name="file_name_doc">
+      <comment usedby="odd">
+            List of file suffixes which are spoken as a word.
+            Taken from: http://www.fileinfo.com/common.php
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9_\-]+)(\.)(docx?|log|dat|gif|tif|wav|avi|mov|sys|ini|com|app|exe|deb|rar|zipx?|bin|java|py|bak|iso|torrent)$]]></exp>
+    </regex>
+
+    <regex name="file_name_pdf">
+      <comment usedby="odd">
+            List of file suffixes which are spoken as single characters.
+            Taken from: http://www.fileinfo.com/common.php
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9_\-]+)(\.)(pdf|html?|txt|rtf|msg|csv|dll|pps|pptx?|sql|xlsx?|xml|bmp|jpg|png|psd|e?ps|svg|mp3|ra|wav|wma|avi|flv|mp4|mpg|qt|rm|swf|vob|wmv|css|js|jsp|php|rss|bat|cgi|gz|pkg|cpp|pl|tmp|dmg)$]]></exp>
+    </regex>
+
+    <regex name="float">
+      <comment usedby="ssmlproc premeasure currency measure predigit digit">
+      $00 = +/-
+      $01 = number
+      $02 = ,
+      $03 = number
+      $04? = ^-.*
+    </comment>
+      <exp><![CDATA[^(\-?)([0-9]+)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_0_digit_one">
+      <comment usedby="currency">
+      Covers the case where the digit after the comma is a zero.
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(1)(\.)0([1-9])$]]></exp>
+    </regex>
+
+    <regex name="float_0_digit_postcomma_cur">
+      <comment usedby="currency">
+      Covers the case where the digit after the comma is a zero.
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(\d+)(\.)0([1-9])$]]></exp>
+    </regex>
+
+    <regex name="float_0d_postcomma_cur">
+      <comment usedby="currency">
+      Covers the case where the digit after the comma is a zero.
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(\d+)(\.)((0\d)|(\d{3,}))$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur">
+      <comment usedby="currency">
+      Do not delete - required in en_de rules
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(\d*)(\.)([1-9]{1}\d)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_one_unit">
+      <comment usedby="currency">
+      Do not delete - required in en_de rules
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(\d*)(\.)(01)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_one_whole">
+      <comment usedby="currency">
+      Do not delete - required in en_de rules
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(0?1)(\.)([1-9]{1}\d)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_one_whole_one_unit">
+      <comment usedby="currency">
+      Do not delete - required in en_de rules
+    </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?(0?1)(\.)(01)$]]></exp>
+    </regex>
+
+    <regex name="float_no_whole_number">
+      <comment usedby="measure digit">
+      $00 = +/-
+      $01 = number
+      $02 = ,
+      $03 = number
+      $04? = ^-.*
+    </comment>
+      <exp><![CDATA[^(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure">
+      <comment usedby="measure"/>
+      <exp><![CDATA[([\d]\d{0,3})(\.)([0-9]+)(centimeters|centimetres|millimeters|millimetres|centimeter|centimetre|kilometers|kilometres|millimeter|millimetre|kilometer|kilometre|kilowatts|kilowatt|megawatt|million|inches|meters|metres|pounds|meter|metre|miles|stone|yards|aghz|feet|foot|inch|kbps|mbps|mile|acs|bcf|ins|kgm|kgs|kwh|lbs|mhz|mol|mph|pct|yds|cm|ft|in|kg|kj|km|kw|lb|mg|mi|mm|mw|oz|pc|pc|yd|%|g|l|m|p)]]></exp>
+    </regex>
+
+    <regex name="float_scale">
+      <comment usedby="currency digit">
+    </comment>
+      <exp><![CDATA[^([\+\-]?)([0-9]+|[1-9][0-9]{0,2},[0-9]{3})\.([0-9]{1,3})(mn|mln|bn|bln|tn|million|billion|trillion)$]]></exp>
+    </regex>
+
+    <regex name="float_truncate_num_four_digits">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9][0-9])([1-9][0-9])(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_truncate_num_four_digits_zero">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9][0-9])(0[1-9])(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_truncate_num_three_digits">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9])([1-9][0-9])(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_truncate_num_three_digits_zero">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9])(0[1-9])(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="gmt">
+      <comment usedby="time">
+    </comment>
+      <exp><![CDATA[^(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="grade">
+      <comment usedby="ssml odd">
+      Example: Grade II listed
+    </comment>
+      <exp><![CDATA[^(grade)$]]></exp>
+    </regex>
+
+    <regex name="grading">
+      <comment usedby="odd">
+      Example: Grade II listed
+    </comment>
+      <exp><![CDATA[^(I|II|i|ii)$]]></exp>
+    </regex>
+
+    <regex name="grading1">
+      <comment usedby="ssml">
+      Example: Grade II listed
+    </comment>
+      <exp><![CDATA[^(I|i)$]]></exp>
+    </regex>
+
+    <regex name="hash">
+      <comment usedby="postaddress1"/>
+      <exp><![CDATA[^[#]$]]></exp>
+    </regex>
+
+    <regex name="hyphen">
+      <comment usedby="premeasure address precurrency currencysigns currency measure emot"/>
+      <exp><![CDATA[^[-\?]$]]></exp>
+    </regex>
+
+    <regex name="index_letter">
+      <comment usedby="index">
+    </comment>
+      <exp><![CDATA[^\(([a-z])\)\.?$]]></exp>
+    </regex>
+
+    <regex name="int_degree">
+      <comment usedby="temp signs"/>
+      <exp><![CDATA[^([0-9]+)(°)$]]></exp>
+    </regex>
+
+    <regex name="integer">
+      <comment usedby="premeasure address tele currency measure"/>
+      <exp><![CDATA[^([\+\-]?)([0-9]+([,][0-9]{3})*)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency">
+      <comment usedby="precurrency currencysigns currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?|sfr|chf)?([0-9]+([,][0-9]{3})*)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_one">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?|sfr|chf)?(1)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_scale">
+      <comment usedby="precurrency currencysigns currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]+)(thousand|m|mn|mln|b|bn|bln|t|tn|million|billion|trillion)$]]></exp>
+    </regex>
+
+    <regex name="integer_lt_gt">
+      <comment usedby="predigit"/>
+      <exp><![CDATA[^([\+\-]?)([0-9]+([,][0-9]{3})*)(.00)?([<>])$]]></exp>
+    </regex>
+
+    <regex name="integer_up_to_1000_k">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?|sfr|chf)?([1-9][0-9]?[0-9]?)[kK]$]]></exp>
+    </regex>
+
+    <regex name="is_hyphen">
+      <comment usedby="www social ssmldate date pretime time range tele currencysigns predigit digit emot rest"/>
+      <exp><![CDATA[^(\-)$]]></exp>
+    </regex>
+
+    <regex name="iv_exceptions">
+      <comment usedby="odd">
+      Roman numerals IV exceptions
+    </comment>
+      <exp><![CDATA[^(drip|line|catheter|therapy|push|peripheral)$]]></exp>
+    </regex>
+
+    <regex name="korea">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(korea)$]]></exp>
+    </regex>
+
+    <regex name="listed">
+      <comment usedby="ssml odd">
+      Example: Grade II listed
+    </comment>
+      <exp><![CDATA[^(listed)$]]></exp>
+    </regex>
+
+    <regex name="lt_gt_float1">
+      <comment usedby="predigit">
+      </comment>
+      <exp><![CDATA[^([<>])([0-9]+)(\.)$]]></exp>
+    </regex>
+
+    <regex name="lt_gt_float2">
+      <comment usedby="predigit">
+      </comment>
+      <exp><![CDATA[^([0-9]+)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="lt_gt_integer">
+      <comment usedby="predigit"/>
+      <exp><![CDATA[^([<>])([\+\-]?)([0-9]+([,][0-9]{3})*)(.00)?[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="lt_gt_plusminus">
+      <comment usedby="predigit"/>
+      <exp><![CDATA[^([<>])([\+\-])$]]></exp>
+    </regex>
+
+    <regex name="max_04_digits_colon">
+      <comment usedby="date">
+      Used for years. Up to four digits, with maximal three leading '0's.
+    </comment>
+      <exp><![CDATA[^(0?0?0?\d|0?0?\d{2}|0?\d{3}|\d{4}):$]]></exp>
+    </regex>
+
+    <regex name="measure_masc">
+      <comment usedby="premeasure measure">
+    </comment>
+      <exp><![CDATA[^(metre|meter|metres|meters|mm|millimetre|millimeter|millimetres|millimeters|km|kilometre|kilometer|kilometres|kilometers|cm|centimetre|centimeter|centimetres|centimeters|acs|yd|yds|yard|yards|mile|miles|gm|gram|gramme|grams|grammes|mg|kg|kgm|kgs|kilogramme|kilogram|kilograms|kilogrammes|oz|lb|lbs|pound|pounds|ft|feet|foot|mi|mph|ins|inch|inches|kbps|mbps|stone|mile|miles|gl|bbl|bu|w|watt|watts|mhz|ghz|kw|kilowatt|kilowatts|kwh|mw|megawatt|kj|mol|%|pc|pct|bcf|tsp|tbsp)$]]></exp>
+    </regex>
+
+    <regex name="measure_masc_full">
+      <comment usedby="measure ssmlmeasure">
+      Add the dodgy measures (such as m and in) as well
+    </comment>
+      <exp><![CDATA[^(metre|meter|metres|meters|mm|millimetre|millimeter|millimetres|millimeters|km|kilometre|kilometer|kilometres|kilometers|cm|centimetre|centimeter|centimetres|centimeters|acs|yd|yds|yard|yards|mile|miles|gm|gram|gramme|grams|grammes|mg|kg|kgm|kgs|kilogramme|kilogram|kilograms|kilogrammes|oz|lb|lbs|pound|pounds|ft|feet|foot|mi|mph|ins|inch|inches|kbps|mbps|stone|mile|miles|gl|bbl|ins|bu|watt|watts|mhz|ghz|kw|kilowatt|kilowatts|kwh|mw|megawatt|kj|mol|%|pc|pct|bcf|tsp|tbsp)$]]></exp>
+    </regex>
+
+    <regex name="millionscomma_no_point">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([+\-]?)([1-9]\d{0,2},[0-9]{3},[0-9]{3})$]]></exp>
+    </regex>
+
+    <regex name="millionscomma_withpoint">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([+-]?)([1-9]\d{0,2},[0-9]{3},[0-9]{3})\.([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="minutes">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(minutes|min|mins)$]]></exp>
+    </regex>
+
+    <regex name="month_name">
+      <comment usedby="ssmldate date"/>
+      <exp><![CDATA[^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER|JAN|FEB|MAR|APR|JUN|JUL|AUG|SEP|SEPT|OCT|NOV|DEC)[\.]?$]]></exp>
+    </regex>
+
+    <regex name="month_name_hyphen_day_of_month">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)(\-|/)(0?[1-9]|[12][0-9]|3[01])$]]></exp>
+    </regex>
+
+    <regex name="month_name_hyphen_short_year">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)(\-|/)([1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="month_name_hyphen_short_year_zero">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)(\-|/)(0)([0-9])$]]></exp>
+    </regex>
+
+    <regex name="month_name_range">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER|JAN|FEB|MAR|APR|JUN|JUL|AUG|SEP|SEPT|OCT|NOV|DEC)\-(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER|JAN|FEB|MAR|APR|JUN|JUL|AUG|SEP|SEPT|OCT|NOV|DEC)[\.,;:]?$]]></exp>
+    </regex>
+
+    <regex name="months_dot">
+      <comment usedby="date">
+      Months with abbreviations
+    </comment>
+      <exp><![CDATA[^([Jj]anuary|JANUARY|[Ff]ebruary|FEBRUARY|[Mm]arch|MARCH|[Aa]pril|APRIL|[Mm]ay|MAY|[Jj]une|JUNE|[Jj]uly|JULY|[Aa]ugust|AUGUST|[Ss]eptember|SEPTEMBER|[Oo]ctober|OCTOBER|[[Nn]ovember|NOVEMBER|[Dd]ecember|DECEMBER|[Jj]an\.?|JAN|[Ff]eb\.?|FEB|[Mm]ar\.?|MAR|[Aa]pr\.?|APR|[Mm]ay\.?|[Jj]un\.?|JUN|[Jj]ul\.?|JUL|[Aa]ug\.?|AUG|[Ss]ept\.?|SEPT?|[Oo]ct\.?|OCT|[Nn]ov\.?|NOV|[Dd]ec\.?|DEC)[^,]?(the)?$]]></exp>
+    </regex>
+
+    <regex name="north_south">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(n|s|nth|sth)$]]></exp>
+    </regex>
+
+    <regex name="not_alpha">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^(.*[^a-zA-Z\'\- ].*)$]]></exp>
+    </regex>
+
+    <regex name="not_upper_case">
+      <comment usedby="odd">
+        </comment>
+      <exp><![CDATA[^([^A-Z0-9$£€¥₩:%\.,\-&]+|[A-Z]+[a-z].*)$]]></exp>
+    </regex>
+
+    <regex name="nr_colon_nr">
+      <comment usedby="fractions">
+      Cases like "1:1" "3:2" "1:250"
+      GJL - Changed to only use single digits as it's breaking time normalization.
+    </comment>
+      <exp><![CDATA[^([1-9]):([1-9])$]]></exp>
+    </regex>
+
+    <regex name="num_years">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9][0-9]?[0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="num_years_ymwd_abb">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9][0-9]?[0-9]?)(yr|year|mo|month|wk|week|day)$]]></exp>
+    </regex>
+
+    <regex name="number">
+      <comment usedby="ssmlproc temp prerange range currency measure fractions"> match any kind of number
+      </comment>
+      <exp><![CDATA[^(([0-9]+([,]\d{3})*)([\.]\d*)?)$]]></exp>
+    </regex>
+
+    <regex name="number_currency">
+      <comment usedby="currencysigns currency"> match any kind of number / currency
+      </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|c|cdn|aud?|nzd?|hkd?|sgd?)?([0-9]+([,\.]([1-9]\d{0,2}\d*))?)$]]></exp>
+    </regex>
+
+    <regex name="number_currency_post">
+      <comment usedby="currency"> match any kind of number / currency
+      </comment>
+      <exp><![CDATA[^([0-9]+([,\.]([1-9]\d{0,2}\d*))?)(usd?|kr|can?|cad?|cdn|aud?|nzd?|hkd?|sgd?)$]]></exp>
+    </regex>
+
+    <regex name="number_currency_pre">
+      <comment usedby="currency"> match any kind of number / currency
+      </comment>
+      <exp><![CDATA[^(usd?|kr|can?|cad?|cdn|aud?|nzd?|hkd?|sgd?)([0-9]+([,\.]([1-9]\d{0,2}\d*))?)$]]></exp>
+    </regex>
+
+    <regex name="number_er">
+      <comment usedby="date">
+      Covers cases like '20s', e.g. 'in the 20s'.
+    </comment>
+      <exp><![CDATA[^(mid|pre|post)?\-?([12][0-9])?([1-9]0s)$]]></exp>
+    </regex>
+
+    <regex name="number_scale">
+      <comment usedby="currency digit"/>
+      <exp><![CDATA[^([\+\-]?)([0-9]+)(mn|mln|bn|bln|t|tn|million|billion|trillion)$]]></exp>
+    </regex>
+
+    <regex name="number_ssml">
+      <comment usedby="ssmlproc"> match any kind of number
+      </comment>
+      <exp><![CDATA[^(([0-9]+)(([\.])(([1-9]\d{0,1}|0)?(\d{0,3})(\d*)))?)$]]></exp>
+    </regex>
+
+    <regex name="numeric_alpha">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^([0-9]+)([a-z']+)$]]></exp>
+    </regex>
+
+    <regex name="of">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(of)$]]></exp>
+    </regex>
+
+    <regex name="one">
+      <comment usedby="currency measure"/>
+      <exp><![CDATA[^([\+\-]?)0?0?(1)$]]></exp>
+    </regex>
+
+    <regex name="operator">
+      <comment usedby="prerange"/>
+      <exp><![CDATA[^([\+\*\-/=÷×])$]]></exp>
+    </regex>
+
+    <regex name="page_number">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^p?p\.([1-9][0-9]{0,3})$]]></exp>
+    </regex>
+
+    <regex name="page_number_range_end">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^([1-9][0-9]{0,3})[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="page_number_range_start">
+      <comment usedby="rest">
+      This rule is less strict than page number, as it's part of a page range
+    </comment>
+      <exp><![CDATA[^p?p\.?([1-9][0-9]{0,3})$]]></exp>
+    </regex>
+
+    <regex name="per_barrel">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(bbl|barrel)$]]></exp>
+    </regex>
+
+    <regex name="per_hour">
+      <comment usedby="social"/>
+      <exp><![CDATA[^(h|hr|hour)$]]></exp>
+    </regex>
+
+    <regex name="per_kilogramme">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(kg|kilogram|kilogramme)$]]></exp>
+    </regex>
+
+    <regex name="per_kilometre">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(km|kilometer|kilometre)$]]></exp>
+    </regex>
+
+    <regex name="per_litre">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(l|liter|litre)$]]></exp>
+    </regex>
+
+    <regex name="per_minute">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(min|minute)$]]></exp>
+    </regex>
+
+    <regex name="per_second">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(s|sec|second)$]]></exp>
+    </regex>
+
+    <regex name="per_share">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(shr|share)$]]></exp>
+    </regex>
+
+    <regex name="plus">
+      <comment usedby="pretele"/>
+      <exp><![CDATA[^[+]$]]></exp>
+    </regex>
+
+    <regex name="plusminus">
+      <comment usedby="ssmlproc temp premeasure tele currencysigns measure fractions predigit digit signs"/>
+      <exp><![CDATA[^[+\-]$]]></exp>
+    </regex>
+
+    <regex name="pre_date">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(the|that)$]]></exp>
+    </regex>
+
+    <regex name="pre_range">
+      <comment usedby="range"/>
+      <exp><![CDATA[^(pp?|pages?|years?|points?|pts|percent|%|paragraphs?|§)$]]></exp>
+    </regex>
+
+    <regex name="proper_name">
+      <comment usedby="odd">
+      Example: Smith
+    </comment>
+      <exp><![CDATA[^([A-Z][a-z][a-z]+)$]]></exp>
+    </regex>
+
+    <regex name="protocol">
+      <comment usedby="www"/>
+      <exp><![CDATA[^(https?|ftp)(:)$]]></exp>
+    </regex>
+
+    <regex name="roads_2digits">
+      <comment usedby="roads"/>
+      <exp><![CDATA[^([a|b|m|A|B|M])([1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="roads_4digits">
+      <comment usedby="roads"/>
+      <exp><![CDATA[^([a|b|m|A|B|M])([1-9][0-9]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="roman_numerals_iv">
+      <comment usedby="odd">
+      Roman numerals IV only
+    </comment>
+      <exp><![CDATA[^(iv|IV)$]]></exp>
+    </regex>
+
+    <regex name="roman_numerals_lt20">
+      <comment usedby="odd">
+      Roman numerals II to XX
+    </comment>
+      <exp><![CDATA[^(i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|xiii|xiv|xv|xvi|xvii|xviii|xix|xx)$]]></exp>
+    </regex>
+
+    <regex name="roman_numerals_lt20_s">
+      <comment usedby="odd">
+      Roman numerals II to XX with possessive s
+    </comment>
+      <exp><![CDATA[^(i's|ii's|iii's|iv's|v's|vi's|vii's|viii's|ix's|x's|xi's|xii's|xiii's|xiv's|xv's|xvi's|xvii's|xviii's|xix's|xx's)$]]></exp>
+    </regex>
+
+    <regex name="roman_numerals_lt20_safe">
+      <comment usedby="odd">
+      Roman numerals II to XX, does not include I, V or X, as this might cause problems in other cases
+    </comment>
+      <exp><![CDATA[^(ii|iii|iv|vi|vii|viii|ix|xi|xii|xiii|xiv|xv|xvi|xvii|xviii|xix|xx)$]]></exp>
+    </regex>
+
+    <regex name="short_year">
+      <comment usedby="date">
+      Short year, e.g.dd/mm/08
+    </comment>
+      <exp><![CDATA[^([0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="short_year_zero">
+      <comment usedby="date">
+      Short year, e.g.dd/mm/08
+    </comment>
+      <exp><![CDATA[^(0)([0-9])$]]></exp>
+    </regex>
+
+    <regex name="signs">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^([\+:%])$]]></exp>
+    </regex>
+
+    <regex name="single_digit">
+      <comment usedby="date"/>
+      <exp><![CDATA[^([0-9])$]]></exp>
+    </regex>
+
+    <regex name="slash">
+      <comment usedby="www social premeasure tele measure fractions signs"/>
+      <exp><![CDATA[^[/⁄]$]]></exp>
+    </regex>
+
+    <regex name="slash_or_hyphen">
+      <comment usedby="date"/>
+      <exp><![CDATA[^[/\-]$]]></exp>
+    </regex>
+
+    <regex name="snumber_er">
+      <comment usedby="odd">
+      Covers cases like '7er', as in '7er BMW'.
+    </comment>
+      <exp><![CDATA[^((\d*?1)(st)|(\d*?2)(nd)|(\d*?3)(rd)|(\d*?[4-90|1-900])(th))$]]></exp>
+    </regex>
+
+    <regex name="snumber_er_m">
+      <comment usedby="postaddress1">
+      Covers cases like '7er', as in '7er BMW'.
+    </comment>
+      <exp><![CDATA[^(first|second|third)$|^((\d*?1)st|(\d*?2)nd|(\d*?3)rd|(\d*?[04-9])th)$]]></exp>
+    </regex>
+
+    <regex name="spec_frac_trig">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^(years?|hours?|minutes?|seconds?)$]]></exp>
+    </regex>
+
+    <regex name="spec_frac_trig_post">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^(years?|hours?|minutes?|seconds?|%|percent)$]]></exp>
+    </regex>
+
+    <regex name="square">
+      <comment usedby="premeasure measure">
+    </comment>
+      <exp><![CDATA[^(sq|square|cu|cubic)$]]></exp>
+    </regex>
+
+    <regex name="ssml_time">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(0?([0-9])|(1[0-9]|2[0-4]))((0[0-9])|([1-6][0-9]))(a|p|h|\?)$]]></exp>
+    </regex>
+
+    <regex name="st">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(st|St|ST)\.?$]]></exp>
+    </regex>
+
+    <regex name="star">
+      <comment usedby="odd">
+      Example: Grade II listed
+    </comment>
+      <exp><![CDATA[^(\*)$]]></exp>
+    </regex>
+
+    <regex name="station_names">
+      <comment usedby="ssml">
+      List of stations with qualifiers, e.g. Frankfurt (Main)
+    </comment>
+      <exp><![CDATA[^([Kk]altenbrunn|[Ff]rankfurt|[Mm]ünster|[Ff]reiburg|[Ff]ürth|[Hh]alle|[Hh]amm|[Ll]udwigshafen|[Ss]ingen|[Nn]eustadt|[Jj]enbach|[Pp]erchtoldsdorf|[Mm]arx|[Ss]immbach)$]]></exp>
+    </regex>
+
+    <regex name="station_names_vie">
+      <comment usedby="ssml">
+      Vienna airport - remove qualifier, e.g. Flughafen Wien (VIE) - added Vienna Airport for English
+    </comment>
+      <exp><![CDATA[^([Ff]lughafen|[Ww]ien|[Aa]irport|[Vv]ienna)$]]></exp>
+    </regex>
+
+    <regex name="station_qualifier">
+      <comment usedby="ssml">
+      Stations qualifiers, e.g. Frankfurt (Main), Wien St. Marx (Vienna Bio Center)
+    </comment>
+      <exp><![CDATA[^\(([Oo]berbayern|[Mm]ain|[Ww]estfalen|[Bb]reisgau|[Bb]ayern|[Ss]aale|[Rr]hein|[Hh]ohentwiel|[Ww]einstraße|[Aa]chenseebahnhof|[Bb]ahnhof|[Hh]altestelle|[Vv]ienna|[Ii]nn)\)$]]></exp>
+    </regex>
+
+    <regex name="station_qualifier_vie">
+      <comment usedby="ssml">
+      Stations qualifiers, e.g. Flughafen Wien (VIE)
+    </comment>
+      <exp><![CDATA[^\((VIE|vie)\)$]]></exp>
+    </regex>
+
+    <regex name="stray_email">
+      <comment usedby="www"/>
+      <exp><![CDATA[^([a-zA-Z]+)\-([a-zA-Z]+)$]]></exp>
+    </regex>
+
+    <regex name="stray_punctuation_break_type3">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^([,;|\-])$]]></exp>
+    </regex>
+
+    <regex name="stray_punctuation_break_type4">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^([\.\?!]|\.\.\.)$]]></exp>
+    </regex>
+
+    <regex name="stray_punctuation_hyphen">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^([\-])$]]></exp>
+    </regex>
+
+    <regex name="streetname">
+      <comment usedby="ssml">
+	Matches word beginning with capital letter, or 53rd, 22nd, 11th, etc
+      </comment>
+      <exp><![CDATA[^([A-Z]{1}[a-z]+|[1-9][0-9]?[nrst][dht])$]]></exp>
+    </regex>
+
+    <regex name="strip_left_bracket">
+      <comment usedby="rest"/>
+      <exp><![CDATA[^(\[|\{|\()$]]></exp>
+    </regex>
+
+    <regex name="strip_right_bracket">
+      <comment usedby="rest">
+	Strip punctuation and replace with break
+      </comment>
+      <exp><![CDATA[^(\]|\}|\))$]]></exp>
+    </regex>
+
+    <regex name="tele_800_brackets">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^\((800)\)(\d{3})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits">
+      <comment usedby="pretele tele"/>
+      <exp><![CDATA[^(\d{1,7})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_3_4">
+      <comment usedby="social tele"/>
+      <exp><![CDATA[^(\d{3,4})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_3_brackets">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^\((\d{3})\)(\d{3})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_4">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\d{4})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_800">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(800)$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_or_hyphen">
+      <comment usedby="pretele"/>
+      <exp><![CDATA[^(\d{1,11}|[\-]|(\d+[.])+\d+)$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_or_word">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^((\d{1,7})|([a-zA-Z0-9]+))$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_starting_zero">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(0\d{1,11})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_with_brackets">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^\((0)\)(\d{1,5})$]]></exp>
+    </regex>
+
+    <regex name="tele_dots">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\d{3})\.(\d{3})\.(\d{4})$]]></exp>
+    </regex>
+
+    <regex name="tele_dots_800">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(800)\.(\d{3})\.(\d{4})$]]></exp>
+    </regex>
+
+    <regex name="tele_extension">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(extension|[eE]xt?|[[xX]t|XT|EXT?)[.]?$]]></exp>
+    </regex>
+
+    <regex name="tele_extension_int">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(ext|xt|ex)[.]?(\d{1,7})$]]></exp>
+    </regex>
+
+    <regex name="tele_extension_int_full">
+      <comment usedby="pretele"/>
+      <exp><![CDATA[^(x|ext|xt|ex)[.]?(\d{1,7})$]]></exp>
+    </regex>
+
+    <regex name="tele_international">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(00[1-9][0-9]?[0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="tele_international_dots">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\+)?(\d{1,3})\.(\d{3})\.(\d{3})\.(\d{4})$]]></exp>
+    </regex>
+
+    <regex name="tele_international_dots_800">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\+)?(\d{1,3})\.(800)\.(\d{3})\.(\d{4})$]]></exp>
+    </regex>
+
+    <regex name="tele_international_or_digits">
+      <comment usedby="pretele"/>
+      <exp><![CDATA[^(00[1-9][0-9]?[0-9]?|[+]|\d{1,7})$]]></exp>
+    </regex>
+
+    <regex name="tele_zero_with_brackets">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^\((0)\)$]]></exp>
+    </regex>
+
+    <regex name="telephone3_ext">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^((0+)?([1-9]\d*)?)\d+(x)?(\d+)?$]]></exp>
+    </regex>
+
+    <regex name="telephone3_g1">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^(00\d{1-2})?(800)?(\d+)(x\d+)?$]]></exp>
+    </regex>
+
+    <regex name="telephone_dot_3_3_4">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^((([+])?([0-9]+)?[.]?(\d{3})[.](\d{3})[.](\d{4})))$]]></exp>
+    </regex>
+
+    <regex name="telephone_prefix">
+      <comment usedby="pretele tele"/>
+      <exp><![CDATA[^(tel|telephone|ph|phone)$]]></exp>
+    </regex>
+
+    <regex name="telephone_ssml_generic_full">
+      <comment usedby="pretele"/>
+      <exp><![CDATA[^((([+])?([0-9]+)?[.]?([0-9]+)[.]?([0-9]+)?[.]?([0-9]+)?[.]?))$]]></exp>
+    </regex>
+
+    <regex name="telephone_ssml_generic_strict">
+      <comment usedby="tele">
+      telephone_ssml_generic_full is too generic.  Need at least two groups of numbers
+    </comment>
+      <exp><![CDATA[^((([+])?([0-9]+)[.]([0-9]+)[.]?([0-9]+)?[.]?([0-9]+)?[.]?))$]]></exp>
+    </regex>
+
+    <regex name="temp_float">
+      <comment usedby="temp"/>
+      <exp><![CDATA[^([0-9]+)(([\.])([0-9]+))(°)?([ckf])$]]></exp>
+    </regex>
+
+    <regex name="temp_int">
+      <comment usedby="temp"/>
+      <exp><![CDATA[^([0-9]+)(°)([ckf])$]]></exp>
+    </regex>
+
+    <regex name="temp_int_no_degree">
+      <comment usedby="temp">
+	No Kelvin, as the 20K should be read as twenty k, or thousand
+      </comment>
+      <exp><![CDATA[^([0-9]+)([cf])$]]></exp>
+    </regex>
+
+    <regex name="temp_unit">
+      <comment usedby="temp"/>
+      <exp><![CDATA[^[ckf]$]]></exp>
+    </regex>
+
+    <regex name="the">
+      <comment usedby="date"/>
+      <exp><![CDATA[^([Tt]he)$]]></exp>
+    </regex>
+
+    <regex name="thousandscomma">
+      <comment usedby="premeasure digit"/>
+      <exp><![CDATA[^([+-]?)([1-9]\d{0,2},[0-9]{3})$]]></exp>
+    </regex>
+
+    <regex name="thousandscomma_withpoint">
+      <comment usedby="measure digit"/>
+      <exp><![CDATA[^([+-]?)([1-9]\d{0,2},[0-9]{3})\.([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="time_0h0m_colon">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(0[0-9])[\.:]?(0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_0h0m_colon_gmt">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(0?[0-9])[\.:]?(0[0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_0h10m_colon">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(0[0-9])[\.:]?([1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_0h10m_colon_gmt">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(0?[0-9])[\.:]?([1-5][0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_10h0m_colon">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[\.:]?(0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_10h0m_colon_gmt">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[\.:]?(0[0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_10h10m_colon">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[\.:]?([1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_10h10m_colon_gmt">
+      <comment usedby="time">
+      'hh:mm', with both 'hh' and 'mm' &gt; 9
+    </comment>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[\.:]?([1-5][0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_12h">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[:\-\.]([1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_12h_one_to_nine">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[:\.\-](0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="time_12h_zero">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[:\-\.]?(00)?$]]></exp>
+    </regex>
+
+    <regex name="time_1m1s_colon">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?1)[:](01)$]]></exp>
+    </regex>
+
+    <regex name="time_1m2s_colon">
+      <comment usedby="time">
+      '01:s' with 'ss' &gt; 1
+    </comment>
+      <exp><![CDATA[^0(1)[:](0[2-9]|[1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_2m1s_colon">
+      <comment usedby="time">
+      'mm:01' with 'mm' &gt; 1
+    </comment>
+      <exp><![CDATA[^([1-9][0-9]+|0?[2-9][\.:])0(1)$]]></exp>
+    </regex>
+
+    <regex name="time_2m2s_colon">
+      <comment usedby="time">
+      'mm:ss', with both 'mm' and 'ss' &gt; 1
+    </comment>
+      <exp><![CDATA[^([1-9][0-9]+|0?[2-9])[\.:](0[2-9]|[1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_am_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-]([1-5][0-9])([AaPp])\.?([Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_am_pm_one_to_nine">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-](0[1-9])([AaPp])\.?([Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_am_pm_zero">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-]?(00)?([AaPp])\.?([Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_at">
+      <comment usedby="time">
+      For catching times preceded by at/around.
+    </comment>
+      <exp><![CDATA[^(at|around)$]]></exp>
+    </regex>
+
+    <regex name="time_h00">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\-:](00)$]]></exp>
+    </regex>
+
+    <regex name="time_h00_h">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[\-:](00)h?$]]></exp>
+    </regex>
+
+    <regex name="time_h00_h_1to9">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9])[\.:]?(00)h$]]></exp>
+    </regex>
+
+    <regex name="time_h_zero_hours">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])[:](0[1-9]|[1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_any">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])[\.:](0[1-9]|[1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_any_colon">
+      <comment usedby="pretime">
+      Time in the format 'hh:mm'.
+    </comment>
+      <exp><![CDATA[^(0[0-9]|1[0-9]|2[0-4]):(0[0-9]|[1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_with_zero">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0)([0-9])[:]([1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_with_zero_minutes">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0)([0-9])[:]0([0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_zero_mins">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[:\-](0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hours">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])$]]></exp>
+    </regex>
+
+    <regex name="time_hours_24">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])?$]]></exp>
+    </regex>
+
+    <regex name="time_hrs_less_than_10">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_midnight">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00[:\-]00|24[:\-]00)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0[1-9]|[1-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_am_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([1-5][0-9])([AaPp])\.?([Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_am_pm_one_to_nine">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0[1-9])([AaPp])\.?([Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_am_pm_zero">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00)([AaPp])\.?([Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_unit">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^[smh]$]]></exp>
+    </regex>
+
+    <regex name="time_zero">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(00)$]]></exp>
+    </regex>
+
+    <regex name="time_zero_minutes">
+      <comment usedby="time">
+      Time in the format 'hh.mm'.
+    </comment>
+      <exp><![CDATA[^(0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="truncate_num_four_digits">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9][0-9])([1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="truncate_num_four_digits_zero">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9][0-9])(0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="truncate_num_three_digits">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9])([1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="truncate_num_three_digits_zero">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[^([1-9])(0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t1">
+      <comment usedby="address"/>
+      <exp><![CDATA[^(([a-z][a-z]?[0-9][0-9]?)|([a-z][a-z][0-9][a-z]))$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t1_gt9">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([a-z][a-z]?)([1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t2">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([0-9][a-z][a-z])$]]></exp>
+    </regex>
+
+    <regex name="upper_case_2_4">
+      <comment usedby="odd">
+            For acronyms, identified by being case strings of length two to four.
+            Extend with language-specific characters.
+            Checking for the signs at the end are necessary as we are checking 'T-00'...
+            Checking for more than one sign covers cases like "in the US," 
+        </comment>
+      <exp><![CDATA[^\(?([A-Z]{2,4})\)?[:;\.',\?!\"]*?$]]></exp>
+    </regex>
+
+    <regex name="upper_case_2dotted">
+      <comment usedby="odd">
+            Covers cases like "S.A."
+        </comment>
+      <exp><![CDATA[^([A-Z])\.([A-Z])\.$]]></exp>
+    </regex>
+
+    <regex name="upper_case_3dotted">
+      <comment usedby="odd">
+            Covers cases like "S.A.S."
+        </comment>
+      <exp><![CDATA[^([A-Z])\.([A-Z])\.([A-Z])\.$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld">
+      <comment usedby="www">
+      Example: www.amazon.ac.uk
+    </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld_alt">
+      <comment usedby="www">
+            Example: www.amazon.co.uk
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)(ac|co|gov|mod|net|org)(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld_alt_port">
+      <comment usedby="www">
+            Example: 'www.amazon.co.uk:8080'.
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)(co|gov|mod|net|org)(\.)([a-zA-Z]{2,4})(:)(\d{2,5})]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld_port">
+      <comment usedby="www">
+            Example: 'www.amazon.ac.uk:8080'.
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})(:)(\d{2,5})]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld_www">
+      <comment usedby="www">
+      Example: www.amazon.ac.uk
+    </comment>
+      <exp><![CDATA[^(www)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_2nd_tld">
+      <comment usedby="www">
+            Example: www.store.amazon.ac.uk
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_2nd_tld_alt">
+      <comment usedby="www">
+            Example: www.store.amazon.co.uk
+
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)(ac|co|gov|mod|net|org)(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_tld">
+      <comment usedby="www">
+            Example: www.store.amazon.jp
+        </comment>
+      <exp><![CDATA[^(www)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_tld_alt">
+      <comment usedby="www">
+      Example: www.amazon.com
+    </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)(com|info|net|org|pro|edu|gov|asia|coop|int|jobs|mil|mobi|museum|tel)$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_tld_alt_www">
+      <comment usedby="www">
+      Example: www.amazon.com
+    </comment>
+      <exp><![CDATA[^(www)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)(com|info|net|org|pro|edu|gov|asia|coop|int|jobs|mil|mobi|museum|tel)$]]></exp>
+    </regex>
+
+    <regex name="url_domain_tld">
+      <comment usedby="www">
+            Example: www.amazon.jp
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_tld_alt">
+      <comment usedby="www">
+      Example: www.amazon.com
+    </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)(biz|com|info|net|org|pro|edu|gov|asia|coop|int|jobs|mil|mobi|museum|tel)$]]></exp>
+    </regex>
+
+    <regex name="url_domain_tld_alt_port">
+      <comment usedby="www">
+            Example: 'www.amazon.com:8080', with TLD spoken as word.
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)(biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)(:)(\d{2,5})]]></exp>
+    </regex>
+
+    <regex name="url_domain_tld_port">
+      <comment usedby="www">
+            Example: 'www.amazon.de:8080'.
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z]{2})(:)(\d{2,5})]]></exp>
+    </regex>
+
+    <regex name="us_numbered_highway">
+      <comment usedby="roads"/>
+      <exp><![CDATA[^(us)\-([1-9][0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="us_numbered_highway_long">
+      <comment usedby="roads"/>
+      <exp><![CDATA[^(us)\-([1-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="us_state_routes">
+      <comment usedby="roads"/>
+      <exp><![CDATA[^(AL|AK|AZ|AR|CA|CF|CL|DL|HA|KA|MC|NB|WN|WS|CO|CT|DE|DC|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\-([1-9][0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="us_state_routes_long">
+      <comment usedby="roads"/>
+      <exp><![CDATA[^(AL|AK|AZ|AR|CA|CF|CL|DL|HA|KA|MC|NB|WN|WS|CO|CT|DE|DC|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\-([1-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="war_name">
+      <comment usedby="odd">
+      World War II = world war two, not world war the second
+    </comment>
+      <exp><![CDATA[^(War|WAR|war)$]]></exp>
+    </regex>
+
+    <regex name="word_2_4">
+      <comment usedby="odd">
+            For acronyms, identified by being case strings of length two to four.
+            Extend with language-specific characters.
+        </comment>
+      <exp><![CDATA[^([a-z]{2,4})$]]></exp>
+    </regex>
+
+    <regex name="www">
+      <comment usedby="www"/>
+      <exp><![CDATA[^(www|WWW)(\.[a-zA-Z0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="year">
+      <comment usedby="date ssml">
+      Covers the years from 1000 to 9999. The feature of being able to say 'sixteen
+      hundred twenty one' is handled accessing groups '$02' for the
+      'century' part and '$03' for the 'ten' part. Normal numbers are
+      stored in '$00'.
+    </comment>
+      <exp><![CDATA[^(10\d{2}|2\d{3})$|^((1[0-9])(\d{2}))$]]></exp>
+    </regex>
+
+    <regex name="year_01_to_99">
+      <comment usedby="date">
+      Covers the years from 1901 to 1999.
+    </comment>
+      <exp><![CDATA[^(190[1-9]|19[1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="year_21c">
+      <comment usedby="date ssml">
+      Covers the years from 2000 to 9999.
+    </comment>
+      <exp><![CDATA[^([2-9][0-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="year_genitive">
+      <comment usedby="date">
+      Covers the years from 1100's to 1999's.
+    </comment>
+      <exp><![CDATA[^(1[1-9])([0-9][0-9])(\'s)$]]></exp>
+    </regex>
+
+    <regex name="year_genitive_2000">
+      <comment usedby="date">
+      Covers the year 2000's.
+    </comment>
+      <exp><![CDATA[^(2000)(\'s)$]]></exp>
+    </regex>
+
+    <regex name="year_genitive_21c">
+      <comment usedby="date">
+      Covers the years from 2001's to 2099's.
+    </comment>
+      <exp><![CDATA[^(20)([0-9][0-9])(\'s)$]]></exp>
+    </regex>
+
+    <regex name="year_prep">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(in|from|to|during|before|after|around|until|since|throughout)$]]></exp>
+    </regex>
+
+    <regex name="ymwd_abb">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(yr|year|mo|month|wk|week|day)$]]></exp>
+    </regex>
+
+    <regex name="zero">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(0)$]]></exp>
+    </regex>
+
+    <regex name="zeros_card">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(0+)$]]></exp>
+    </regex>
+
+    <regex name="zip_5">
+      <comment usedby="address"/>
+      <exp><![CDATA[^(\d{5})$]]></exp>
+    </regex>
+
+    <regex name="zip_plus_4">
+      <comment usedby="address"/>
+      <exp><![CDATA[^(\d{4})$]]></exp>
+    </regex>
+  </regexs>
+</nrules>

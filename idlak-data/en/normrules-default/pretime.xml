@@ -1,0 +1,61 @@
+<nrules>
+
+  <rules>
+
+    <rule name="bible_range">
+      <comment>
+      John 6:12-15 -&gt; john chapter six verses twelve to fifteen
+    </comment>
+      <match>
+        <rgx id="m0" name="book_number" src="lcase" offset="-2"/>
+        <rgx id="m1" name="books_of_the_bible" src="lcase" offset="-1"/>
+        <rgx id="m2" name="chapter_and_verse_numbers" src="lcase" offset="0"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m4" name="cardinal" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="-2"/>
+        <lkp name="books_of_the_bible" from="m1" grp="0" offset="-1"/>
+        <cpy val="chapter" offset="0"/>
+        <fnc name="number" from="m2" grp="0" offset="0"/>
+        <cpy val="verses" offset="0"/>
+        <fnc name="number" from="m2" grp="1" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m4" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="bible">
+      <comment>
+      John 6:12 -&gt; john chapter six verse twelve
+    </comment>
+      <match>
+        <rgx id="m0" name="book_number" src="lcase" offset="-2"/>
+        <rgx id="m1" name="books_of_the_bible" src="lcase" offset="-1"/>
+        <rgx id="m2" name="chapter_and_verse_numbers" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="-2"/>
+        <lkp name="books_of_the_bible" from="m1" grp="0" offset="-1"/>
+        <cpy val="chapter" offset="0"/>
+        <fnc name="number" from="m2" grp="0" offset="0"/>
+        <cpy val="verse" offset="0"/>
+        <fnc name="number" from="m2" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_range">
+      <comment>
+      00:00-24:00
+    </comment>
+      <match>
+        <rgx id="m0" name="time_hm_any_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_hm_any_colon" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="to" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,60 @@
+<nrules>
+
+  <rules>
+
+    <rule name="american_city_name_3">
+      <comment>
+      Replace common addresses abbreviations in city names.
+      In can be up to three words before the code, so we have to write three rules for that...
+    </comment>
+      <match>
+        <rgx id="m0" name="american_street_name_abb" src="lcase" offset="-4"/>
+        <rgx id="m1" name="american_street_name" src="lcase" offset="-3"/>
+        <rgx id="m2" name="american_street_name" src="lcase" offset="-2"/>
+        <rgx id="m3" name="american_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m4" name="american_zip" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="address_abbrev_1st_unit" from="m0" grp="1" offset="-4"/>
+        <lkp name="address_abbrev_misc" from="m0" grp="2" offset="-4"/>
+        <lkp name="address_abbrev_2nd_unit" from="m0" grp="3" offset="-4"/>
+      </replace>
+    </rule>
+
+    <rule name="american_city_name_2">
+      <comment>
+      Replace common addresses abbreviations in city names.
+      In can be up to three words before the code, so we have to write three rules for that...
+    </comment>
+      <match>
+        <rgx id="m0" name="american_street_name_abb" src="lcase" offset="-3"/>
+        <rgx id="m1" name="american_street_name" src="lcase" offset="-2"/>
+        <rgx id="m2" name="american_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m3" name="american_zip" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="address_abbrev_1st_unit" from="m0" grp="1" offset="-3"/>
+        <lkp name="address_abbrev_misc" from="m0" grp="2" offset="-3"/>
+        <lkp name="address_abbrev_2nd_unit" from="m0" grp="3" offset="-3"/>
+      </replace>
+    </rule>
+
+    <rule name="american_city_name_1">
+      <comment>
+      Replace common addresses abbreviations in city names.
+      In can be up to three words before the code, so we have to write three rules for that...
+    </comment>
+      <match>
+        <rgx id="m0" name="american_street_name" src="lcase" offset="-3"/>
+        <rgx id="m1" name="american_street_name_abb" src="lcase" offset="-2"/>
+        <rgx id="m2" name="american_state_abb" src="lcase" offset="-1"/>
+        <rgx id="m3" name="american_zip" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="address_abbrev_1st_unit" from="m1" grp="1" offset="-2"/>
+        <lkp name="address_abbrev_misc" from="m1" grp="2" offset="-2"/>
+        <lkp name="address_abbrev_2nd_unit" from="m1" grp="3" offset="-2"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,1271 @@
+<nrules>
+
+  <rules>
+
+    <rule name="time_midnight">
+      <comment>
+            00:00 -&gt; meán oíche
+        </comment>
+      <match>
+        <rgx id="m0" name="time_midnight" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="meán oíche" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midnight_split">
+      <comment>
+            00-00 -&gt; meán oíche
+        </comment>
+      <match>
+        <rgx id="m0" name="two_zeros" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="two_zeros" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="meán oíche" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midnight_12">
+      <comment>
+            12:00AM -&gt; meán oíche
+        </comment>
+      <match>
+        <rgx id="m0" name="time_midnight_12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="meán oíche" offset="0"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midday">
+      <comment>
+            12:00PM -&gt; meán lae
+        </comment>
+      <match>
+        <rgx id="m0" name="time_midday" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="meán lae" offset="0"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midday_split">
+      <comment>
+            12-00 -&gt; meán lae
+        </comment>
+      <match>
+        <rgx id="m0" name="twelve" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="two_zeros" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="meán lae" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midnight_to30_split">
+      <comment>
+            12-25AM -&gt; cúig nóiméad is fiche tar éis meán oíche 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_midnight" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_0to30" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <cpy val="meán oíche" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pre_midnight_to59_split">
+      <comment>
+            11-55PM -&gt; cúig nóiméad chun meán oíche 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_pre_midnight" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_pm_31to59" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="1"/>
+        <cpy val="meán oíche" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midday_to30_split">
+      <comment>
+            12-25PM -&gt; cúig nóiméad is fiche tar éis meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_midday" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_pm_0to30" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <cpy val="meán lae" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pre_midday_to59_split">
+      <comment>
+            11-55AM -&gt; cúig nóiméad chun meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_pre_midday" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_31to59" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="1"/>
+        <cpy val="meán lae" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_zero_split">
+      <comment>
+            9-00AM -&gt; a naoi a chlog ar maidin
+            1-00A.M -&gt; a haon a chlog ar maidin
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_zero_am" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="ar maidin" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_zero_split">
+      <comment>
+            9-00pm -&gt; a naoi a chlog iarnóin
+            9-00PM -&gt; a naoi a chlog iarnóin
+            1-00P.M -&gt; a haon a chlog iarnóin
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_zero_pm" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="iarnóin" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midnight_to30">
+      <comment>
+            12:25AM -&gt; cúig nóiméad is fiche tar éis meán oíche 
+        </comment>
+      <match>
+        <rgx id="m0" name="midnight_minutes_am_0to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="meán oíche" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pre_midnight_to59">
+      <comment>
+            11:35pm -&gt; cúig nóiméad is fiche chun meán oíche 
+            11:55PM -&gt; cúig nóiméad chun meán oíche 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_midnight_minutes_pm_31to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="meán oíche" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_midday_to30">
+      <comment>
+            12:14PM -&gt; ceithre nóiméad déag tar éis meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="midday_minutes_pm_0to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="meán lae" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pre_midday_to59">
+      <comment>
+            11:56AM -&gt; ceithre nóiméad chun meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_midday_minutes_am_31to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="meán lae" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_zero">
+      <comment>
+            9:00AM -&gt; a naoi a chlog ar maidin
+            1:00A.M -&gt; a haon a chlog ar maidin
+        </comment>
+      <match>
+        <rgx id="m0" name="time_am_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_zero">
+      <comment>
+            9:00PM -&gt; a naoi a chlog iarnóin
+            1:00P.M. -&gt; a haon a chlog
+        </comment>
+      <match>
+        <rgx id="m0" name="time_pm_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_zero_irish">
+      <comment>
+            6:00in -&gt; a sé a chlog iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_pm_zero_irish" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_to30_split">
+      <comment>
+            6-01AM -&gt; nóiméad tar éis a sé ar maidin 
+            1-20A.M -&gt; fiche nóiméad tar éis a haon ar maidin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_0to30" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <cpy val="ar maidin" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_to59_split">
+      <comment>
+            7-31AM -&gt; naoi nóiméad is fiche chun a hocht ar maidin 
+            3-40A.M. -&gt; fiche nóiméad chun a ceathair ar maidin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_am_31to59" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="1"/>
+        <cpy val="ar maidin" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_to30_split">
+      <comment>
+            9-15PM -&gt; ceathrú tar éis a naoi iarnóin 
+            10-20P.M. -&gt; fiche nóiméad tar éis a deich iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_pm_0to30" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <cpy val="iarnóin" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_to59_split">
+      <comment>
+            7-35PM -&gt; cúig nóiméad is fiche chun a hocht iarnóin 
+            6-50P.M. -&gt; deich nóiméad chun a seacht iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_pm_31to59" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="1"/>
+        <cpy val="iarnóin" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_to30">
+      <comment>
+            9:30AM -&gt; leathuair tar éis a naoi ar maidin  
+        </comment>
+      <match>
+        <rgx id="m0" name="time_am_0to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_am_to59">
+      <comment>
+            08:59AM -&gt; nóiméad chun a naoi ar maidin
+        </comment>
+      <match>
+        <rgx id="m0" name="time_am_31to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_to30">
+      <comment>
+            08:29PM -&gt; naoi nóiméad is fiche tar éis a hocht iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_pm_0to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_pm_to59">
+      <comment>
+            08:59PM -&gt; nóiméad chun a naoi iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_pm_31to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_zero_split">
+      <comment>
+            08-00 PM -&gt; a hocht a chlog iarnóin
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="-2"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m2" name="time_zero" src="lcase" offset="0"/>
+        <rgx id="m3" name="am_pm_dots_opt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <lkp name="am_pm" from="m3" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_zero">
+      <comment>
+            9:00 AM -&gt; a naoi a chlog ar maidin
+            1:00 PM -&gt; a haon a chlog iarnóin
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12h_zero" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="am_pm" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_to30_split">
+      <comment>
+            07-20 PM -&gt; fiche nóiméad tar éis a seacht iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_0to30" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm_dots_opt" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <lkp name="am_pm" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_to59_split">
+      <comment>
+            09-40 AM -&gt; fiche nóiméad chun a deich ar maidin 
+            04-40 PM -&gt; fiche nóiméad chun a cúig iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_31to59" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm_dots_opt" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="1"/>
+        <lkp name="am_pm" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="midnight_space_to30_am">
+      <comment>
+            12:16 AM -&gt; sé nóiméad déag tar éis meán oíche 
+        </comment>
+      <match>
+        <rgx id="m0" name="midnight_to_30" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="tar éis meán oíche" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="pre_midnight_space_to59_pm">
+      <comment>
+            11:36 PM -&gt; ceithre nóiméad is fiche chun meán oíche 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_midnight_to_59" src="lcase" offset="0"/>
+        <rgx id="m1" name="pm_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="chun meán oíche" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="midday_space_to30_am">
+      <comment>
+            12:16 PM -&gt; sé nóiméad déag tar éis meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="midday_to_30" src="lcase" offset="0"/>
+        <rgx id="m1" name="pm_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="tar éis meán lae" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="pre_midday_space_to30_am">
+      <comment>
+            11:59 AM -&gt; nóiméad chun meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_midday_to_59" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="chun meán lae" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_to30_am_pm">
+      <comment>
+            7:16 AM -&gt; sé nóiméad déag tar éis a seacht ar maidin 
+            6:10 PM -&gt; deich nóiméad tar éis a sé iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12h_0to30" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <lkp name="am_pm" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_space_to59_am_pm">
+      <comment>
+            7:36 AM -&gt; ceithre nóiméad is fiche chun a hocht ar maidin 
+            6:51 PM -&gt; naoi nóiméad chun a seacht iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12h_31to59" src="lcase" offset="0"/>
+        <rgx id="m1" name="am_pm_dots_opt" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <lkp name="am_pm" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00_oclock_split">
+      <comment>
+            2-00 -&gt; a dó a chlog
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours" src="lcase" offset="-2"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m2" name="time_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00_1to9">
+      <comment>
+            09:00h GMT -&gt; a naoi a chlog g m t 
+            This rule is not fully localised, as the word "hours" doesn't begin with "h" in Irish.
+            It's been left in for the time being, but could possibly be removed.
+        </comment>
+      <match>
+        <rgx id="m0" name="time_h00_h_1to9" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m1" grp="0" offset="1">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_h00">
+      <comment>
+            18:00 GMT -&gt; a sé a chlog g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_h00_h" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m1" grp="0" offset="1">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="midnight_to30_one_token">
+      <comment>
+            00:25GMT -&gt; cúig nóiméad is fiche tar éis meán oíche g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="midnight_to30_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis meán oíche" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="midday_to30_one_token">
+      <comment>
+            12:25GMT -&gt; cúig nóiméad is fiche tar éis meán lae g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="midday_to30_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis meán lae" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="pre_midnight_to59_one_token">
+      <comment>
+            23:45GMT -&gt; ceathrú chun meán oíche g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_midnight_to59_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun meán oíche" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="pre_midday_to59_one_token">
+      <comment>
+            11:50GMT -&gt; deich nóiméad chun meán lae g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_midday_to59_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun meán lae" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_m_to30_one_token_pm">
+      <comment>
+            18:25GMT -&gt; cúig nóiméad is fiche tar éis a sé iarnóin g m t 
+            23:05GMT -&gt; cúig nóiméad tar éis a haon déag iarnóin g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_24hm_to30_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_12h_m_to30_one_token_am">
+      <comment>
+            04:25GMT -&gt; cúig nóiméad is fiche tar éis a ceathair ar maidin g m t 
+            08:12GMT -&gt; dhá nóiméad déag tar éis a hocht ar maidin g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12hm_to30_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_m_to59_one_token_pm">
+      <comment>
+            18:33GMT -&gt; seacht nóiméad is fiche chun a seacht iarnóin g m t 
+            22:55BST -&gt; cúig nóiméad chun a haon déag iarnóin b s t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_24hm_to59_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_12h_m_to59_one_token_am">
+      <comment>
+            08:43GMT -&gt; seacht nóiméad déag chun a naoi iarnóin g m t 
+            02:55BST -&gt; cúig nóiméad chun a trí iarnóin b s t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12hm_to59_colon_gmt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_12h_m_to30_gmt">
+      <comment>
+            11:30 GMT -&gt; leathuair tar éis a haon déag ar maidin g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12h_m_to30_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_12h_m_to59_gmt">
+      <comment>
+            10:59 GMT -&gt; nóiméad chun a haon déag ar maidin g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_12h_m_to59_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_m_to30_gmt">
+      <comment>
+            14:30 GMT -&gt; leathuair tar éis a dó iarnóin g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_24h_m_to30_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="time_24h_m_to59_gmt">
+      <comment>
+            16:49 GMT -&gt; aon nóiméad déag chun a cúig iarnóin g m t 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_24h_m_to59_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="gmt" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+        <fnc name="aschars" from="m1" grp="0" offset="1">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="sportstime_1m_to20s_colon">
+      <comment>
+            11:01 nóiméad -&gt; aon nóiméad déag agus soicind amháin 
+            11:02 nóiméad -&gt; aon nóiméad déag agus dhá shoicind 
+            11:03 nóiméad -&gt; aon nóiméad déag agus trí shoicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="sportstime_1m_to20s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="sportstime_1m_many_s_colon">
+      <comment>
+            11:21 nóiméad -&gt; aon nóiméad déag agus fiche a haon soicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="sportstime_1m_many_s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+        <cpy val="soicind" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="sportstime_few_m_to20s_colon">
+      <comment>
+            13:01 nóiméad -&gt; trí nóiméad déag agus soicind amháin 
+        </comment>
+      <match>
+        <rgx id="m0" name="sportstime_few_m_to20s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="sportstime_few_m_many_s_colon">
+      <comment>
+            13:31 nóiméad -&gt; trí nóiméad déag agus tríocha a haon soicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="sportstime_few_m_many_s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+        <cpy val="soicind" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="sportstime_other_m_1s_colon">
+      <comment>
+            21:01 nóiméad -&gt; fiche a haon nóiméad agus soicind amháin 
+            21:02 nóiméad -&gt; fiche a haon nóiméad agus dhá shoicind 
+            21:03 nóiméad -&gt; fiche a haon nóiméad agus trí shoicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="sportstime_other_m_to20s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="nóiméad" offset="0"/>
+        <cpy val="agus" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="sportstime_other_m_many_s_colon">
+      <comment>
+            21:21 nóiméad -&gt; fiche a haon nóiméad agus fiche a haon soicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="sportstime_other_m_many_s_colon" src="lcase" offset="0"/>
+        <rgx id="m1" name="minutes" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="nóiméad" offset="0"/>
+        <cpy val="agus" offset="0"/>
+        <cpy val="soicind" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_hyphen_zero_minutes">
+      <comment>
+            06-05 -&gt; cúig nóiméad tar éis a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_h_zero_hours" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_zero_minutes" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_h00_oclock_pm">
+      <comment>
+            13:00 -&gt; a haon a chlog iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_h00_pm" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+
+    <rule name="time_h00_oclock">
+      <comment>
+            3:00 -&gt; a trí a chlog
+        </comment>
+      <match>
+        <rgx id="m0" name="time_h00" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+
+    <rule name="time_hm_with_zero_minutes_dot">
+      <comment>
+            ag 06.05 -&gt; ag cúig nóiméad tar éis a sé ar maidin 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_time" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hm_with_zero_minutes_dot" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_zero_minutes">
+      <comment>
+            06:05 -&gt; cúig nóiméad tar éis a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_with_zero_minutes" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_zero_to30">
+      <comment>
+            06:30 -&gt; leathuair tar éis a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_with_zero_to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_zero_to59">
+      <comment>
+            06:40 -&gt; fiche nóiméad chun a seacht ar maidin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_with_zero_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_hyphen_zero_minutes">
+      <comment>
+            15-05 PM -&gt; cúig nóiméad tar éis a trí iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_24" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_zero_minutes" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <lkp name="am_pm" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_zero_minutes">
+      <comment>
+            15:05 -&gt; cúig nóiméad tar éis a trí 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_zero_mins" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_hyphen_to30">
+      <comment>
+            23-20 PM -&gt; fiche nóiméad tar éis a haon déag iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_24" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_to30" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="1"/>
+        <lkp name="am_pm" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_with_hyphen_to59">
+      <comment>
+            22-50 PM -&gt; deich nóiméad chun a haon déag iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hours_24" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="time_minutes_to59" src="lcase" offset="2"/>
+        <rgx id="m3" name="am_pm" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="1"/>
+        <lkp name="am_pm" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_iarnoin_to30_dot">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            ag 22.10 -&gt; ag deich nóiméad tar éis a deich iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_time" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hm_iarnoin_to30_dot" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_to30_dot">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            ag 11.10 -&gt; ag deich nóiméad tar éis a haon déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_time" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hm_to30_dot" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_iarnoin_to30">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            22:10 -&gt; deich nóiméad tar éis a deich iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_iarnoin_to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_to30">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            11:10 -&gt; deich nóiméad tar éis a haon déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_midnight_to59">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            22:50 -&gt; deich nóiméad chun a haon déag iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_midnight_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_iarnoin_to59">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            22:50 -&gt; deich nóiméad chun a haon déag iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_iarnoin_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_to59">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            10:50 -&gt; deich nóiméad chun a haon déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_hm_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_to59_dot">
+      <comment>
+            Covers times of the form "hh:mm" and transforms it to "hour minutes".
+            ag 11.50 -&gt; ag deich nóiméad chun meán lae 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_time" src="lcase" offset="-1"/>
+        <rgx id="m1" name="time_hm_to59_dot" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_maidin_any_split_to30">
+      <comment>
+            ag 06-20 -&gt; ag fiche nóiméad tar éis a sé ar maidin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-3"/>
+        <rgx id="m1" name="time_hours_24_maidin" src="lcase" offset="-2"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m3" name="time_minutes_to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="-1"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_iarnoin_any_split_to30">
+      <comment>
+            ag 16-20 -&gt; ag fiche nóiméad tar éis a ceathair iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-3"/>
+        <rgx id="m1" name="time_hours_24_iarnoin" src="lcase" offset="-2"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m3" name="time_minutes_to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="-1"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_any_split_to30">
+      <comment>
+            ag 11-20 -&gt; ag fiche nóiméad tar éis a haon déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-3"/>
+        <rgx id="m1" name="time_hours_24" src="lcase" offset="-2"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m3" name="time_minutes_to30" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="tar éis" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_maidin_any_split_to59">
+      <comment>
+            ag 09-50 -&gt; ag deich nóiméad chun a deich ar maidin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-3"/>
+        <rgx id="m1" name="time_hours_24_maidin" src="lcase" offset="-2"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m3" name="time_minutes_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="-1"/>
+        <cpy val="ar maidin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_iarnoin_any_split_to59">
+      <comment>
+            ag 16-50 -&gt; ag deich nóiméad chun a cúig iarnóin 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-3"/>
+        <rgx id="m1" name="time_hours_24_iarnoin" src="lcase" offset="-2"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m3" name="time_minutes_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="-1"/>
+        <cpy val="iarnóin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="time_hm_any_split_to59">
+      <comment>
+            ag 10-50 -&gt; ag deich nóiméad chun a haon déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="time_at" src="lcase" offset="-3"/>
+        <rgx id="m1" name="time_hours_24" src="lcase" offset="-2"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="-1"/>
+        <rgx id="m3" name="time_minutes_to59" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="chun" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hms_all_lt20">
+      <comment>
+            1:01.01 -&gt; uair nóiméad amháin agus soicind amháin 
+            2:15.10 -&gt; dhá uair cúig nóiméad déag agus deich soicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="duration_hms_all_lt20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_hm_lt20_s_many">
+      <comment>
+            1:01.30 -&gt; uair nóiméad amháin agus tríocha soicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="duration_hm_lt20_s_many" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+        <cpy val="soicind" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_h_lt20_ms_many">
+      <comment>
+            1:22.30 -&gt; uair fiche a dó nóiméad agus tríocha soicind 
+        </comment>
+      <match>
+        <rgx id="m0" name="duration_h_lt20_ms_many" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="nóiméad agus" offset="0"/>
+        <cpy val="soicind" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="duration_h_lt20_m_s_lt20">
+      <comment>
+            1:35.20 -&gt; aon uair cúig nóiméad is tríocha agus fiche soicind
+        </comment>
+      <match>
+        <rgx id="m0" name="duration_h_lt20_m_s_lt20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="nóiméad agus" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="am_pm">
+      <comment>
+            Speak a.m. and p.m.s still remaining as letters
+        </comment>
+      <match>
+        <rgx id="m0" name="am_pm_lowercase_dotted" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="aschars" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

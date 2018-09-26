@@ -1,0 +1,65 @@
+<nrules>
+
+  <rules>
+
+    <rule name="uk_postcode_gt9">
+      <comment>
+            UK postcodes are often read in English, but can be read with Irish numbers, so...
+            G12 1QQ -&gt; g a dó dhéag a haon q q
+        </comment>
+      <match>
+        <rgx id="m0" name="uk_postcode_t1_gt9" src="lcase" offset="0"/>
+        <rgx id="m1" name="uk_postcode_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <break type="2" entry="letter"/>
+        </fnc>
+        <fnc name="aschars" from="m1" grp="1" offset="1">
+          <break type="2" entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="uk_postcode_with_letter">
+      <comment>
+            UK postcodes are often read in English, but can be read with Irish numbers, so...
+            SW1A 1AA -&gt; s w a haon a a haon a a
+        </comment>
+      <match>
+        <rgx id="m0" name="uk_postcode_t1_letter" src="lcase" offset="0"/>
+        <rgx id="m1" name="uk_postcode_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <break type="2" entry="letter"/>
+        </fnc>
+        <fnc name="aschars" from="m0" grp="2" offset="1">
+          <break type="2" entry="letter"/>
+        </fnc>
+        <fnc name="aschars" from="m1" grp="1" offset="1">
+          <break type="2" entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="uk_postcode">
+      <comment>
+            UK postcodes are often read in English, but can be read with Irish numbers, so...
+            EH8 1AB -&gt; e h a hocht a haon a b
+        </comment>
+      <match>
+        <rgx id="m0" name="uk_postcode_t1" src="lcase" offset="0"/>
+        <rgx id="m1" name="uk_postcode_t2" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <break type="2" entry="letter"/>
+        </fnc>
+        <fnc name="aschars" from="m1" grp="1" offset="1">
+          <break type="2" entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

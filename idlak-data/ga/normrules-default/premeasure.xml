@@ -1,0 +1,118 @@
+<nrules>
+
+  <rules>
+
+    <rule name="per_second">
+      <comment>
+            2 cm/sec -&gt; dhá ceintiméadar sa soicind
+        </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_second" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="sa" offset="0"/>
+        <cpy val="soicind" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_minute">
+      <comment>
+            2 míle/min -&gt; dhá mhíle sa nóiméad
+        </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_minute" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="sa" offset="0"/>
+        <cpy val="nóiméad" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_litre">
+      <comment>
+            2 Mol/l -&gt; dhá mhól sa lítear
+        </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_litre" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="sa" offset="0"/>
+        <cpy val="lítear" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_kilometre">
+      <comment>
+            30 cm/km -&gt; tríocha ceintiméadar sa chiliméadar
+        </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_kilometre" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="sa" offset="0"/>
+        <cpy val="chiliméadar" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="per_kilogramme">
+      <comment>
+            100 mg/kg -&gt; céad milleagram sa chileagram
+        </comment>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+        <rgx id="m1" name="per_kilogramme" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="sa" offset="0"/>
+        <cpy val="chileagram" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_squared">
+      <comment>
+            GJL - Deal with the squared and let the rest pass through
+            131,957.2km sq -&gt; céad is tríocha a haon míle naoi gcéad is caoga a seacht ponc a dó cileaméadar cearnaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="square" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="squared_split">
+      <comment>
+            GJL - Deal with the squared and let the rest pass through
+            131,957 km sq -&gt; céad is tríocha a haon míle naoi gcéad is caoga a seacht cileaméadar cearnaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+        <rgx id="m2" name="square" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="square" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="squared">
+      <comment>
+            GJL - Deal with the squared and let the rest pass through
+            131,957km sq -&gt; céad is tríocha a haon míle naoi gcéad is caoga a seacht cileaméadar cearnaithe
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_other" src="lcase" offset="0"/>
+        <rgx id="m1" name="square" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="square" from="m1" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

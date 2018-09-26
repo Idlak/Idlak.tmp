@@ -1,0 +1,1882 @@
+<nrules>
+
+  <rules>
+
+    <rule name="in_year_21c">
+      <comment>
+            ó 2012 -&gt; ó dhá mhíle a dó dhéag 
+        </comment>
+      <match>
+        <rgx id="m0" name="year_prep" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="-1"/>
+        <lkp name="century" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="in_year">
+      <comment>
+            ó 1999 -&gt; ó naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="year_prep" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="-1"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_colon">
+      <comment>
+            Should be safe to assume this is a year
+            1999: -&gt; naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="max_04_digits_colon" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_2000s_ar_an">
+      <comment>
+            ar an 25/10/00 -&gt; ar an gcúigiú lá is fiche de mhí dheireadh fómhair dhá mhíle 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m4" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m5" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m6" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m4" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_2000s_ar">
+      <comment>
+            ar 25/10/00 -&gt; ar an gcúigiú lá is fiche de mhí dheireadh fómhair dhá mhíle 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_2000s_an">
+      <comment>
+            an 25/10/00 -&gt; an cúigiú lá is fiche de mhí dheireadh fómhair dhá mhíle 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_2000s">
+      <comment>
+            14/10/00 -&gt; an ceathrú lá déag de mhí dheireadh fómhair dhá mhíle 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_1900s_ar_an">
+      <comment>
+            ar an 25/5/99 -&gt; ar an gcúigiú lá is fiche de mhí na bealtaine naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m4" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m5" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m6" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m4" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_1900s_ar">
+      <comment>
+            ar 25/5/99 -&gt; ar an gcúigiú lá is fiche de mhí na bealtaine naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_1900s_an">
+      <comment>
+            an 25/5/99 -&gt; an cúigiú lá is fiche de mhí na bealtaine naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_shortyear_1900s">
+      <comment>
+            14/10/99 -&gt; an ceathrú lá déag de mhí dheireadh fómhair naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c_ar_an">
+      <comment>
+            ar an 01/12/2008 -&gt; ar an gcéad lá de mhí na nollag dhá mhíle a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m4" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m5" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m6" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m4" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m6" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c_ar">
+      <comment>
+            ar 01/12/2008 -&gt; ar an gcéad lá de mhí na nollag dhá mhíle a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m5" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c_an">
+      <comment>
+            an 25/12/2008 -&gt; an cúigiú lá is fiche de mhí na nollag dhá mhíle a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m5" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c">
+      <comment>
+            25/12/2008 -&gt; an cúigiú lá is fiche de mhí na nollag dhá mhíle a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_21c_reversed">
+      <comment>
+            10/25/2008 -&gt; an cúigiú lá is fiche de mhí dheireadh fómhair dhá mhíle a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year_21c" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m0" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m4" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_ar_an">
+      <comment>
+            ar an 25/10/1998 -&gt; ar an gcúigiú lá is fiche de mhí dheireadh fómhair naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m4" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m5" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m6" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m4" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_ar">
+      <comment>
+            ar 25/10/1998 -&gt; ar an gcúigiú lá is fiche de mhí dheireadh fómhair naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_an">
+      <comment>
+            an 25/10/1998 -&gt; an cúigiú lá is fiche de mhí dheireadh fómhair naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m5" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok">
+      <comment>
+            25/10/1998 -&gt; an cúigiú lá is fiche de mhí dheireadh fómhair naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="date_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_fivetok_reversed">
+      <comment>
+            10/18/1998 -&gt; an t-ochtú lá déag de mhí dheireadh fómhair naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="date_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="date_sep" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="date_sep" src="lcase" offset="3"/>
+        <rgx id="m4" name="year" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m0" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy offset="4">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dm_threetok_ar_an">
+      <comment>
+            ar an 25/10 -&gt; ar an gcúigiú lá is fiche de mhí dheireadh fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="date_sep_strict" src="lcase" offset="1"/>
+        <rgx id="m4" name="date_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m4" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_threetok_ar">
+      <comment>
+            ar 25/10 -&gt; ar an gcúigiú lá is fiche de mhí dheireadh fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep_strict" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_threetok_an">
+      <comment>
+            an 25/10 -&gt; an cúigiú lá is fiche de mhí dheireadh fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="date_sep_strict" src="lcase" offset="1"/>
+        <rgx id="m3" name="date_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months_n" from="m3" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="date_idi_na">
+      <comment>
+            na 20idí -&gt; na fichidí 
+        </comment>
+      <match>
+        <rgx id="m0" name="na" src="lcase" offset="-1"/>
+        <rgx id="m1" name="number_idi" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="number_idi_century" from="m1" grp="0" offset="0"/>
+        <lkp name="number_idi_only" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="date_idi">
+      <comment>
+            20idí -&gt; na fichidí 
+        </comment>
+      <match>
+        <rgx id="m0" name="number_idi" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="number_idi_century" from="m0" grp="0" offset="0"/>
+        <lkp name="number_idi" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="dmdy_nom_21c">
+      <comment>
+            Dé Luain Eanáir 26 2001 -&gt; an séú lá is fiche de mhí eanáir dhá mhíle a haon 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="year_21c" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <lkp name="months" from="m1" grp="0" offset="0"/>
+        <lkp name="century" from="m3" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dmdy_nom_21c_two_word_month">
+      <comment>
+            Dé Luain Meán Fómhair 26 2001 -&gt; luain an séú lá is fiche de mhí mheán fómhair dhá mhíle a haon 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-3"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m4" name="year_21c" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-3"/>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <lkp name="century" from="m4" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="dmdy_nom">
+      <comment>
+            Lu Eanáir 10 1999 -&gt; dé luain an deichiú lá de mhí eanáir naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="year" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <lkp name="months" from="m1" grp="0" offset="0"/>
+        <cpy offset="1">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmdy_nom_two_word_month">
+      <comment>
+            Lu Meán Fómhair 10 1999 -&gt; dé luain an deichiú lá de mhí mheán fómhair naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-3"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m4" name="year" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-3"/>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <cpy offset="1">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="ymd_21c_hyphen">
+      <comment>
+            2010-Eanáir-10 -&gt; an deichiú lá de mhí eanáir dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m4" name="day_of_month" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m0" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="ymd_21c_hyphen_two_word_month">
+      <comment>
+            2010-Meán Fómhair-10 -&gt; an deichiú lá de mhí eanáir dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m5" name="day_of_month" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <lkp name="century" from="m0" grp="0" offset="4"/>
+        <cpy val="" offset="5"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_ar_an">
+      <comment>
+            ar an 10-Eanáir-15 -&gt; ar an deichiú lá de mhí eanáir dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m5" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m6" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m4" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_ar_an_two_word_month">
+      <comment>
+            ar an 10-Meán Fómhair-15 -&gt; ar an deichiú lá de mhí mheán fómhair dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m5" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m6" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m7" name="short_year_to_30" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m4" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="dhá mhíle" offset="4"/>
+        <cpy val="" offset="6"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_ar">
+      <comment>
+            ar 10-Eanáir-15 -&gt; ar an deichiú lá de mhí eanáir dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_ar_two_word_month">
+      <comment>
+            ar 10-Meán Fómhair-15 -&gt; ar an deichiú lá de mhí mheán fómhair dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m5" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m6" name="short_year_to_30" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="dhá mhíle" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_an">
+      <comment>
+            an 10-Eanáir-15 -&gt; an deichiú lá de mhí eanáir dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_an_two_word_month">
+      <comment>
+            an 10-Meán Fómhair-15 -&gt; an deichiú lá de mhí mheán fómhair dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m5" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m6" name="short_year_to_30" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="dhá mhíle" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen">
+      <comment>
+            10-Eanáir-15 -&gt; an deichiú lá de mhí eanáir dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year_to_30" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="dhá mhíle" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_21c_hyphen_two_word_month">
+      <comment>
+            10-Meán Fómhair-15 -&gt; an deichiú lá de mhí mheán fómhair dhá mhíle a cúig déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m5" name="short_year_to_30" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="dhá mhíle" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen_ar_an">
+      <comment>
+            ar an 10-Eanáir-89 -&gt; ar an deichiú lá de mhí eanáir naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m5" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m6" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m4" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen_ar_an_two_word_month">
+      <comment>
+            ar an 10-Meán Fómhair-89 -&gt; ar an deichiú lá de mhí mheán fómhair naoi déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m5" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m6" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m7" name="short_year_31to99" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m4" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="naoi déag" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen_ar">
+      <comment>
+            ar 10-Eanáir-89 -&gt; ar an deichiú lá de mhí eanáir naoi déag ochtó a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen_ar_two_word_month">
+      <comment>
+            ar 10-Meán Fómhair-89 -&gt; ar an deichiú lá de mhí mheán fómhair naoi déag ochtó a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m5" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m6" name="short_year_31to99" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="naoi déag" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen_an">
+      <comment>
+            an 10-Eanáir-89 -&gt; an deichiú lá de mhí eanáir naoi déag ochtó a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m5" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen_an">
+      <comment>
+            an 10-Meán Fómhair-89 -&gt; an deichiú lá de mhí mheán fómhair naoi déag ochtó a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m5" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m6" name="short_year_31to99" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="naoi déag" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen">
+      <comment>
+            10-Eanáir-89 -&gt; an deichiú lá de mhí eanáir naoi déag ochtó a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="2"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m4" name="short_year_31to99" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="naoi déag" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_20c_hyphen">
+      <comment>
+            10-Meán Fómhair-89 -&gt; an deichiú lá de mhí mheán fómhair naoi déag ochtó a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="3"/>
+        <rgx id="m4" name="is_hyphen" src="lcase" offset="4"/>
+        <rgx id="m5" name="short_year_31to99" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+        <cpy val="naoi déag" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="mdy_21c_nom">
+      <comment>
+            Márta 23 2010 -&gt; an tríú lá is fiche de mhí an mhárta dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="year_21c" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="0"/>
+        <lkp name="century" from="m2" grp="0" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="mdy_21c_nom_two_word_month">
+      <comment>
+            Meán Fómhair 23 2010 -&gt; an tríú lá is fiche de mhí mheán fómhair dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="year_21c" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <lkp name="century" from="m3" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_ar_an">
+      <comment>
+            ar an 25 Márta 1899 -&gt; ar an gcúigiú lá is fiche de mhí an mhárta ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="1"/>
+        <rgx id="m4" name="year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m3" grp="0" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_ar_an_two_word_month">
+      <comment>
+            ar an 25 Meán Fómhair 1899 -&gt; ar an gcúigiú lá is fiche de mhí mheán fómhair ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="2"/>
+        <rgx id="m5" name="year" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m3" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+        <cpy offset="3">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_ar">
+      <comment>
+            ar 25 Márta 1899 -&gt; ar an gcúigiú lá is fiche de mhí an mhárta ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+        <rgx id="m3" name="year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_ar_two_word_month">
+      <comment>
+            ar 25 Meán Fómhair 1899 -&gt; ar an gcúigiú lá is fiche de mhí mheán fómhair ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="2"/>
+        <rgx id="m4" name="year" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+        <cpy offset="3">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_an">
+      <comment>
+            an 25 Márta 1899 -&gt; an cúigiú lá is fiche de mhí an mhárta ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+        <rgx id="m3" name="year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_an_two_word_month">
+      <comment>
+            an 25 Meán Fómhair 1899 -&gt; an cúigiú lá is fiche de mhí mheán fómhair ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="2"/>
+        <rgx id="m4" name="year" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+        <cpy offset="3">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom">
+      <comment>
+            23 Márta 1899 -&gt; an tríú lá is fiche de mhí an mhárta ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="1"/>
+        <rgx id="m2" name="year" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m1" grp="0" offset="1"/>
+        <cpy offset="2">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="dmy_nom_two_word_month">
+      <comment>
+            23 Meán Fómhair 1899 -&gt; an tríú lá is fiche de mhí mheán fómhair ocht déag nócha a naoi 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="2"/>
+        <rgx id="m3" name="year" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m1" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+        <cpy offset="3">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="mdy_nom">
+      <comment>
+            Márta 23 1998 -&gt; an tríú lá is fiche de mhí an mhárta naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="year" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="0"/>
+        <cpy offset="1">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="mdy_nom_two_word_month">
+      <comment>
+            Meán Fómhair 23 1998 -&gt; an tríú lá is fiche de mhí mheán fómhair naoi déag nócha a hocht 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="year" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <cpy offset="1">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="ddm_nom_an">
+      <comment>
+            This is to catch abbreviated days of the week
+            Do an 25 Lúnasa -&gt; dé domhnaigh an cúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m3" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="ddm_nom_an_two_word_month">
+      <comment>
+            This is to catch abbreviated days of the week
+            Do an 25 Meán Fómhair -&gt; dé domhnaigh an cúigiú lá is fiche de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m3" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="ddm_nom">
+      <comment>
+            Sa 30 Iúil -&gt; dé sathairn an tríochadú lá de mhí iúil 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-1"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="ddm_nom_two_word_month">
+      <comment>
+            Sa 30 Meán Fómhair -&gt; dé sathairn an tríochadú lá de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-1"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dmd_nom">
+      <comment>
+            Sa Iúil 22 -&gt; dé sathairn an dara lá is fiche de mhí iúil 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <lkp name="months" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="dmd_nom_two_word_month">
+      <comment>
+            Sa Meán Fómhair 22 -&gt; dé sathairn an dara lá is fiche de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-3"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-3"/>
+        <lkp name="months" from="m1" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="m_m_two_words_first">
+      <comment>
+            Special rule for the two word months in Irish (Meán Fómhair and Deireadh Fómhair)
+            Meán Fómhair-Meitheamh -&gt; meán fómhair go dtí meitheamh
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" grp="0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <cpy val="go dtí" offset="0"/>
+        <lkp name="months_only_not_inflected" from="m3" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="m_m_two_words_second">
+      <comment>
+            Special rule for the two word months in Irish (Meán Fómhair and Deireadh Fómhair)
+            Meitheamh-Meán Fómhair -&gt; meitheamh go dtí meán fómhair
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" grp="0" offset="-1"/>
+        <cpy val="go dtí" offset="0"/>
+        <lkp name="months_only_not_inflected" from="m2" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="m_m_two_words_both">
+      <comment>
+            Special rule for the two word months in Irish (Meán Fómhair and Deireadh Fómhair)
+            Meán Fómhair-Deireadh Fómhair -&gt; meán fómhair go dtí deireadh fómhair
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" grp="0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <cpy val="go dtí" offset="0"/>
+        <lkp name="months_only_not_inflected" from="m3" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="m_m">
+      <comment>
+            Meitheamh-Bealtaine -&gt; meitheamh go dtí bealtaine
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" grp="0" offset="-1"/>
+        <cpy val="go dtí" offset="0"/>
+        <lkp name="months_only_not_inflected" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dd_the">
+      <comment>
+            Cé an 18 -&gt; dé céadaoin an t-ochtú lá déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="d_d_hyphenated">
+      <comment>
+            Sa-Do, dúnta -&gt; dé sathairn go dtí dé domhnaigh dúnta 
+        </comment>
+      <match>
+        <rgx id="m0" name="de" src="lcase" offset="-1"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="0"/>
+        <rgx id="m2" name="day_initial" src="lcase" offset="1"/>
+        <rgx id="m3" name="hyphen" src="lcase" offset="2"/>
+        <rgx id="m4" name="de" src="lcase" offset="3"/>
+        <rgx id="m5" name="hyphen" src="lcase" offset="4"/>
+        <rgx id="m6" name="day_initial" src="lcase" offset="5"/>
+      </match>
+      <replace>
+        <lkp name="days_char" from="m2" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="go dtí" offset="2"/>
+        <lkp name="days_char" from="m6" offset="3"/>
+        <cpy val="" offset="4"/>
+        <cpy val="" offset="5"/>
+      </replace>
+    </rule>
+
+    <rule name="d_to_d">
+      <comment>
+            Lu-Dé, praghas laghdaithe -&gt; dé luain go dtí déardaoin praghas laghdaithe 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-1"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="0"/>
+        <rgx id="m2" name="days" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-1"/>
+        <cpy val="go dtí" offset="0"/>
+        <lkp name="days" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dd">
+      <comment>
+            Cé 18 -&gt; dé céadaoin an t-ochtú lá déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="days" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="days" from="m0" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="d_dm">
+      <comment>
+            25-27 Feabhra-&gt; an cúigiú lá is fiche go dtí an seachtú lá is fiche de mhí na feabhra 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="go dtí" offset="1"/>
+        <lkp name="months" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="md_d">
+      <comment>
+            Feabhra 25-27 -&gt; an cúigiú lá is fiche go dtí an seachtú lá is fiche de mhí na feabhra 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="go dtí" offset="0"/>
+        <lkp name="months" from="m0" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="d_d_inflected_with_an">
+      <comment>
+            Ó 25 go dtí an 27 -&gt; ón gcúigiú lá is fiche go dtí an seachtú lá is fiche 
+        </comment>
+      <match>
+        <rgx id="m0" name="from" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="until1" src="lcase" offset="1"/>
+        <rgx id="m3" name="until2" src="lcase" offset="2"/>
+        <rgx id="m4" name="the_preceding_date" src="mcase" offset="3"/>
+        <rgx id="m5" name="day_of_month" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <lkp name="from_the" from="m0" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="d_d_inflected_until1">
+      <comment>
+            Ó 25 go 27 -&gt; ón gcúigiú lá is fiche go dtí an seachtú lá is fiche 
+        </comment>
+      <match>
+        <rgx id="m0" name="from" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="until1" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="from_the" from="m0" grp="0" offset="-1"/>
+        <cpy val="go dtí an" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="d_d_inflected_until2">
+      <comment>
+            Ó 25 go dtí 27 -&gt; ón gcúigiú lá is fiche go dtí an seachtú lá is fiche 
+        </comment>
+      <match>
+        <rgx id="m0" name="from" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="until1" src="lcase" offset="1"/>
+        <rgx id="m3" name="until2" src="lcase" offset="2"/>
+        <rgx id="m4" name="day_of_month" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="from_the" from="m0" grp="0" offset="-1"/>
+        <cpy val="dtí an" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="between_d_dm">
+      <comment>
+            idir 23 agus 25 Lúnasa -&gt; idir an tríú lá is fiche agus an cúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="and" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="month_name" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m4" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="between_d_dm_two_word_month">
+      <comment>
+            idir 23 agus 25 Meán Fómhair -&gt; idir an tríú lá is fiche agus an cúigiú lá is fiche de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="and" src="lcase" offset="1"/>
+        <rgx id="m3" name="day_of_month" src="lcase" offset="2"/>
+        <rgx id="m4" name="month_name_two_words_first" src="lcase" offset="3"/>
+        <rgx id="m5" name="month_name_two_words_second" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m4" grp="0" offset="3"/>
+        <cpy val="" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_pre_ar_an">
+      <comment>
+            ar an 25 Lúnasa -&gt; ar an gcúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m3" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_pre_ar_an_two_word_month">
+      <comment>
+            ar an 25 Meán Fómhair -&gt; ar an gcúigiú lá is fiche de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-2"/>
+        <rgx id="m1" name="the_preceding_date" src="mcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m3" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m4" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m3" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_ar">
+      <comment>
+            ar 25 Lúnasa -&gt; ar an gcúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_ar_two_word_month">
+      <comment>
+            ar 25 Meán Fómhair -&gt; ar an gcúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="pre_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_an">
+      <comment>
+            an 25 Lúnasa -&gt; an cúigiú lá is fiche de mhí lúnasa
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_an_two_word_month">
+      <comment>
+            an 25 Meán Fómhair -&gt; an cúigiú lá is fiche de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="the_preceding_date" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="months" from="m2" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_fix_input_format">
+      <comment>
+            25 an Lúnasa -&gt; an cúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="the_preceding_month" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_fix_input_format_two_word_month">
+      <comment>
+            25 an Meán Fómhair -&gt; an cúigiú lá is fiche de mhí mheán fómhair 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="the_preceding_month" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_two_words_first" src="lcase" offset="2"/>
+        <rgx id="m3" name="month_name_two_words_second" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="months" from="m2" grp="0" offset="2"/>
+        <cpy val="" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom">
+      <comment>
+            25 Lúnasa -&gt; an cúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="dm_nom_two_word_month">
+      <comment>
+            25 Meán Fómhair -&gt; an cúigiú lá is fiche de mhí lúnasa 
+        </comment>
+      <match>
+        <rgx id="m0" name="day_of_month" src="lcase" offset="0"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="1"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m1" grp="0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="md_nom">
+      <comment>
+            Eanáir 18 -&gt; an t-ochtú lá déag de mhí eanáir 
+            Not sure this form is really used, but keep unless it causes an error elsewhere
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="md_nom_two_word_month">
+      <comment>
+            Meán Fómhair 18 -&gt; an t-ochtú lá déag de mhí mheán fómhair 
+            Not sure this form is really used, but keep unless it causes an error elsewhere
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="day_of_month" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months" from="m0" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year_21c_i">
+      <comment>
+            i Eanáir 2010 -&gt; i mí eanáir dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="in" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_with_mi" from="m1" offset="-1"/>
+        <lkp name="century" from="m2" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year_21c_i_two_word_month">
+      <comment>
+            i Meán Fómhair 2010 -&gt; i mí meán fómhair dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="in" src="lcase" offset="-3"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m3" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_with_mi" from="m1" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <lkp name="century" from="m3" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year_21c">
+      <comment>
+            Eanáir 2010 -&gt; eanáir dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" offset="-1"/>
+        <lkp name="century" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year_21c_two_word_month">
+      <comment>
+            Meán Fómhair 2010 -&gt; eanáir dhá mhíle a deich 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="year_21c" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <lkp name="century" from="m2" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="month_year_i">
+      <comment>
+            i Márta 1990 -&gt; i mí an mhárta naoi déag nócha 
+        </comment>
+      <match>
+        <rgx id="m0" name="in" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m2" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_with_mi" from="m1" offset="-1"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="month_year_i_two_word_month">
+      <comment>
+            i Meán Fómhair 1990 -&gt; i mí meán fómhair naoi déag nócha 
+        </comment>
+      <match>
+        <rgx id="m0" name="in" src="lcase" offset="-3"/>
+        <rgx id="m1" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m2" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m3" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_with_mi" from="m1" offset="-1"/>
+        <cpy val="" offset="-2"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="month_year">
+      <comment>
+            Eanáir 1990 -&gt; eanáir naoi déag nócha 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" offset="-1"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="month_year_two_word_month">
+      <comment>
+            Meán Fómhair 1990 -&gt; meán fómhair naoi déag nócha 
+        </comment>
+      <match>
+        <rgx id="m0" name="month_name_two_words_first" src="lcase" offset="-2"/>
+        <rgx id="m1" name="month_name_two_words_second" src="lcase" offset="-1"/>
+        <rgx id="m2" name="year" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="months_only_not_inflected" from="m0" offset="-2"/>
+        <cpy val="" offset="-1"/>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_01to99">
+      <comment>
+            Read range 1901 to 1999 as a year
+            1990 -&gt; naoi déag nócha
+        </comment>
+      <match>
+        <rgx id="m0" name="year_01to99" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <say-as internal="year"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="year_ad">
+      <comment>
+            800AD -&gt; ocht gcéad d'aois an tiarna 
+        </comment>
+      <match>
+        <rgx id="m0" name="year_ad" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="ad" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="year_bc">
+      <comment>
+            800BC -&gt; ocht gcéad roimh chríost 
+        </comment>
+      <match>
+        <rgx id="m0" name="year_bc" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="roimh chríost" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

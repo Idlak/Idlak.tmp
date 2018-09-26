@@ -1,0 +1,458 @@
+<nrules>
+  <tables>
+
+    <lookup name="address_abbrev_1st_unit">
+      <comment usedby="preaddress postaddress0 postaddress0a postaddress0b postaddress0c postaddress1 postaddress2 postaddress3 postaddress4"/>
+      <exp><![CDATA[{"aly":"alley", "anx":"annex", "ave":"avenue", "Arc":"arcade", "arc":"arcade","byu":"bayoo", "bch":"beach", "bnd":"bend", "blf":"bluff",
+	       "blvd":"boulevard", "blfs":"bluffs", "btm":"bottom", "br":"branch", "brg":"bridge", "brk":"brook", "brks":"brooks", "Bg":"burg",
+	       "bgs":"burgs", "byp":"bypass",
+	       "Cp":"camp", "cyn":"canyon", "cpe":"cape", "cswy":"causeway", "ctr":"center", "ctrs":"centers", "cir":"circle", "cirs":"circles",
+	       "clf":"cliff", "clfs":"cliffs", "clb":"club", "cmn":"common", "cmns":"commons", "cor":"corner", "cors":"corners", "crse":"course",
+	       "ct":"court", "cts":"courts", "Cv":"cove", "cvs":"coves", "crk":"creek", "cres":"crescent", "crst":"crest", "xing":"crossing",
+	       "xrd":"crossroad", "xrds":"crossroads", "curv":"curve", "Dl":"dale", "dm":"dam", "Dv":"divide", "dr":"drive", "Dr":"drive",
+	       "DR":"drive", "drs":"drives", "Est":"estate", "ests":"estates", "expy":"expressway", "ext":"extension", "exts":"extensions",
+	       "fall":"fall", "fls":"falls", "Fry":"ferry", "fld":"field", "flds":"fields", "flt":"flat", "flts":"flats", "frd":"ford",
+	       "frds":"fords", "frst":"forest", "frg":"forge", "frgs":"forges", "frk":"fork", "frks":"forks", "Ft":"fort", "FT":"fort", "fwy":"freeway",
+	       "gdn":"garden", "gdns":"gardens", "gtwy":"gateway", "gln":"glen", "glns":"glens", "grn":"green", "grns":"greens", "grv":"grove",
+	       "grva":"groves", "hbr":"harbor", "hbrs":"harbors", "hvn":"haven", "hts":"heights", "hwy":"highway", "hl":"hill", "hls":"hills",
+	       "holw":"hollow", "inlt":"inlet", "Is":"island", "iss":"islands", "isle":"isle", "jct":"junction", "jcts":"junctions", "ky":"key",
+	       "kys":"keys", "knl":"knoll", "knls":"knolls", "lk":"lake", "lks":"lakes", "land":"land", "lndg":"landing",
+	       "Ln":"lane", "lgt":"light", "lgts":"lights", "lf":"loaf", "lck":"lock", "lcks":"locks", "ldg":"lodge", "loop":"loop",
+	       "mall":"mall", "mnr":"manor", "mnrs":"manors", "mdw":"meadow", "mdws":"meadows", "mews":"mews", "Ml":"mill", "mls":"mills",
+	       "Msn":"mission", "mtwy":"motorway", "mt":"mount", "mtn":"mountain", "mtns":"mountains", "nck":"neck", "orch":"orchard",
+	       "oval":"oval", "opas":"overpass", "park":"park", "park":"parks", "pkwy":"parkway", "pkwy":"parkways", "pass":"pass",
+	       "psge":"passage", "path":"path", "pike":"pike", "pne":"pine", "pnes":"pines", "pl":"place", "pln":"plain", "plns":"plains",
+	       "Plz":"plaza", "pt":"point", "pts":"points", "prt":"port", "prts":"ports", "pr":"prairie", "radl":"radial", "ramp":"ramp",
+	       "rnch":"ranch", "rpd":"rapid", "rpds":"rapids", "rst":"rest", "rdg":"ridge", "rdgs":"ridges", "riv":"river", "rd":"road",
+	       "rds":"roads", "rte":"route", "row":"row", "rue":"rue", "run":"run", "shl":"shoal", "shls":"shoals", "shr":"shore",
+	       "shrs":"shores", "skwy":"skyway", "spg":"spring", "spgs":"springs", "spur":"spur", "spur":"spurs", "sq":"square", "sqs":"squares",
+	       "sta":"station", "stra":"stravenue", "strm":"stream", "St":"street", "sts":"streets", "smt":"summit", "Ter":"terrace", "Terre":"terrace",
+	       "trwy":"throughway", "trce":"trace", "trak":"track", "trfy":"trafficway", "trl":"trail", "trlr":"trailer", "tunl":"tunnel",
+	       "tpke":"turnpike", "upas":"underpass", "Un":"union", "Uns":"unions", "vly":"valley", "vlys":"valleys", "Via":"viaduct",
+	       "vw":"view", "vws":"views", "vlg":"village", "vlgs":"villages", "vl":"ville", "Vis":"vista", "walk":"walk", "walks":"walks",
+	       "wall":"wall", "way":"way", "ways":"ways", "wl":"well", "wls":"wells", "Fl":"floor", "Rm":"room", "Ph":"penthouse",
+	       "terr":"terrace", "wy":"way", "E":"east", "N":"north", "S":"south", "W":"west"}]]></exp>
+    </lookup>
+
+    <lookup name="address_abbrev_2nd_unit">
+      <comment usedby="preaddress postaddress0 postaddress0a postaddress0b postaddress0c postaddress1 postaddress2 postaddress3 postaddress4 postaddress10"/>
+      <exp><![CDATA[{"ste":"suite", "flr":"floor", "apt":"appartment", "bsmt":"basement", "bldg":"building", "fl":"floor", "frnt":"front",
+	       "hngr":"hangar", "hwy":"highway", "lbby":"lobby", "key":"key", "lot":"lot", "lowr":"lower", "ofc":"office", "ph":"penthouse", "pier":"pier",
+	       "rear":"rear", "rm":"room", "side":"side", "slip":"slip", "spc":"space", "stop":"stop", "trlr":"trailer", "unit":"unit",
+	       "uppr":"upper", "po":"post office box", "pob":"post office box", "gate":"gate"}]]></exp>
+    </lookup>
+
+    <lookup name="address_abbrev_misc">
+      <comment usedby="preaddress postaddress0 postaddress0a postaddress0b postaddress0c postaddress1 postaddress2 postaddress3 postaddress4"/>
+      <exp><![CDATA[{"E":"east", "N":"north", "S":"south", "W":"west", "ne":"northeast", "nw":"northwest", "se":"southeast", "sw":"southwest"}]]></exp>
+    </lookup>
+
+    <lookup name="american_state_list">
+      <comment usedby="address postaddress roads"/>
+      <exp><![CDATA[{"al":"alabama", "ak":"alaska", "as":"american samoa", "az":"arizona", "ar":"arkansas", "ca":"california",
+	       "cf":"california", "cl":"colorado", "dl":"delaware", "ha":"hawaii", "ka":"kansas", "mc":"michigan",
+	       "nb":"nebraska", "wn":"washington", "ws":"wisconsin", "cm":"northern mariana islands",
+	       "co":"colorado", "ct":"connecticut", "de":"delaware", "dc":"district of columbia", "fm":"federated states of micronesia",
+	       "fl":"florida", "ga":"georgia", "gu":"guam", "hi":"hawaii", "id":"idaho", "il":"illinois", "in":"indiana",
+	       "ia":"iowa", "ks":"kansas", "ky":"kentucky", "la":"louisiana", "me":"maine", "mh":"marshall islands", "md":"maryland",
+	       "ma":"massachusetts", "mi":"michigan", "mn":"minnesota", "ms":"mississippi", "mo":"missouri",
+	       "mt":"montana", "ne":"nebraska", "nv":"nevada", "nh":"new hampshire", "nj":"new jersey", "nm":"new mexico",
+	       "ny":"new york", "nc":"north carolina", "nd":"north dakota", "mp":"northern mariana islands", "oh":"ohio",
+	       "ok":"oklahoma", "or":"oregon", "pw":"palau", "pa":"pennsylvania", "pr":"puerto rico", "ri":"rhode island",
+	       "sc":"south carolina", "sd":"south dakota", "tn":"tennessee", "tx":"texas", "ut":"utah",
+	       "vt":"vermont", "va":"virginia", "wa":"washington", "wv":"west virginia",
+	       "wi":"wisconsin", "wy":"wyoming", "AL":"alabama", "AK":"alaska", "AS":"american samoa", "AZ":"arizona", "AR":"arkansas", "CM":"california",
+	       "CF":"california", "CL":"colorado", "DL":"delaware", "HA":"hawaii", "KA":"kansas", "MC":"michigan",
+	       "MB":"nebraska", "WN":"washington", "WS":"wisconsin", "CM":"northern mariana islands",
+	       "CO":"colorado", "CT":"connecticut", "DE":"delaware", "DC":"district of columbia", "FM":"federated states of micronesia",
+	       "FL":"florida", "GA":"georgia", "GU":"guam", "HI":"hawaii", "ID":"idaho", "IL":"illinois", "IN":"indiana",
+	       "IA":"iowa", "KS":"kansas", "KY":"kentucky", "LA":"louisiana", "ME":"maine", "MH":"marshall islands", "MD":"maryland",
+	       "MA":"massachusetts", "MI":"michigan", "MN":"minnesota", "MS":"mississippi", "MO":"missouri",
+	       "MT":"montana", "NE":"nebraska", "NV":"nevada", "NH":"new hampshire", "NJ":"new jersey", "NM":"new mexico",
+	       "NY":"new york", "NC":"north carolina", "ND":"north dakota", "MP":"northern mariana islands", "OH":"ohio",
+	       "OK":"oklahoma", "OR":"oregon", "PW":"palau", "PA":"pennsylvania", "PR":"puerto rico", "RI":"rhode island",
+	       "SC":"south carolina", "SD":"south dakota", "TN":"tennessee", "TX":"texas", "UT":"utah",
+	       "VT":"vermont", "VA":"virginia", "WA":"washington", "WV":"west virginia",
+	       "WI":"wisconsin", "WY":"wyoming"}]]></exp>
+    </lookup>
+
+    <lookup name="american_state_list_long_abb">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{"ala":"alabama", "ariz":"arizona", "ark":"arkansas", "calif":"california", "colo":"colorado",
+                "conn":"conneticut", "del":"delaware", "fla":"florida", "ga":"georgia", "ill":"illinois",
+		"ind":"indiana", "kan":"kansas", "kans":"kansas", "ky":"kentucky", "la":"louisiana", "md":"maryland",
+	        "mass":"massachusetts", "mich":"michigan", "minn":"minnesota", "miss":"mississippi", "mo":"missouri",
+	        "mont":"montana", "neb":"nebraska", "nebr":"nebraska", "nev":"nevada", "okla":"oklahoma", "ore":"oregon",
+		"oreg":"oregon", "pa":"pennsylvania", "tenn":"tennessee", "tex":"texas", "vt":"vermont", "va":"virginia",
+		"wash":"washington", "wis":"wisconsin", "wyo":"wyoming", "Ala":"alabama", "Ariz":"arizona",
+		"Ark":"arkansas", "Calif":"california", "Colo":"colorado", "Conn":"conneticut", "Del":"delaware",
+		"Fla":"florida", "Ga":"georgia", "Ill":"illinois", "Ind":"indiana", "Kan":"kansas", "Kans":"kansas",
+		"Ky":"kentucky", "La":"louisiana", "Md":"maryland", "Mass":"massachusetts", "Mich":"michigan",
+		"Minn":"minnesota", "Miss":"mississippi", "Mo":"missouri", "Mont":"montana", "Neb":"nebraska",
+		"Nebr":"nebraska", "Nev":"nevada", "Okla":"oklahoma", "Ore":"oregon", "Oreg":"oregon", "Pa":"pennsylvania",
+		"Tenn":"tennessee", "Tex":"texas", "Vt":"vermont", "Va":"virginia", "Wash":"washington", "Wis":"wisconsin",
+		"Wyo":"wyoming"}]]></exp>
+    </lookup>
+
+    <lookup name="asrnews_abbrev_lookup">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{'W':'west', 'w':'west', 'E':'east', 'e':'east', 'Dr':'drive', 'dr':'drive'}]]></exp>
+    </lookup>
+
+    <lookup name="books_of_the_bible">
+      <comment usedby="pretime"/>
+      <exp><![CDATA[{'genesis':'genesis', 'gen':'genesis', 'gn':'genesis', 'exodus':'exodus', 'exod':'exodus', 'ex':'exodus', 'leviticus':'leviticus', 'lev':'leviticus', 'lv':'leviticus', 'numbers':'numbers', 'num':'numbers', 'nm':'numbers', 'joshua':'joshua', 'josh':'joshua', 'jo':'joshua', 'judges':'judges', 'judg':'judges', 'jgs':'judges', 'ruth':'ruth', 'ru':'ruth', 'samuel':'samuel', 'sam':'samuel', 'sm':'samuel', 'kings':'kings', 'kgs':'kings', 'chronicles':'chronicles', 'chron':'chronicles', 'chr':'chronicles', 'ezra':'ezra', 'ez':'ezra', 'nehemiah':'nehemiah', 'neh':'nehemiah', 'esther':'esther', 'est':'esther', 'job':'job', 'jb':'job', 'psalms':'psalms', 'pss':'psalms', 'ps':'psalms', 'proverbs':'proverbs', 'prov':'proverbs', 'prv':'proverbs', 'ecclesiastes':'ecclesiastes', 'eccles':'ecclesiastes', 'eccl':'ecclesiastes', 'solomon':'solomon', 'sg':'solomon', 'isaiah':'isaiah', 'isa':'isaiah', 'is':'isaiah', 'jeremiah':'jeremiah', 'jer':'jeremiah', 'lamentations':'lamentations', 'lam':'lamentations', 'ezekiel':'ezekiel', 'ezek':'ezekiel', 'ez':'ezekiel', 'daniel':'daniel', 'dan':'daniel', 'dn':'daniel', 'hosea':'hosea', 'hos':'hosea', 'joel':'joel', 'jl':'joel', 'amos':'amos', 'am':'amos', 'obadiah':'obadiah', 'obad':'obadiah', 'ob':'obadiah', 'jonah':'jonah', 'jon':'jon', 'micah':'micah', 'mic':'micah', 'mi':'micah', 'nahum':'nahum', 'nah':'nahum', 'na':'nahum', 'habakkuk':'habakkuk', 'hab':'habakkuk', 'hb':'habakkuk', 'zephaniah':'zephaniah', 'zeph':'zephaniah', 'zep':'zephaniah', 'haggai':'haggai', 'hag':'haggai', 'hg':'haggai', 'zechariah':'zechariah', 'zech':'zechariah', 'zec':'zechariah', 'malachi':'malachi', 'mal':'malachi', 'matthew':'matthew', 'matt':'matthew', 'mt':'matthew', 'mark':'mark', 'mk':'mark', 'luke':'luke', 'lk':'luke', 'john':'john', 'jn':'john', 'acts':'acts', 'romans':'romans', 'rom':'romans', 'corinthians':'corinthians', 'cor':'corinthians', 'galatians':'galatians', 'gal':'galatians', 'ephesians':'ephesians', 'eph':'ephesians', 'colossians':'colossians', 'col':'colossians', 'thessalonians':'thessalonians', 'thess':'thessalonians', 'thes':'thessalonians', 'timothy':'timothy', 'tim':'timothy', 'tm':'timothy', 'titus':'titus', 'ti':'titus', 'philemon':'philemon', 'phil':'philemon', 'hebrews':'hebrews', 'heb':'hebrews', 'james':'james', 'jas':'james', 'peter':'peter', 'pet':'peter', 'pt':'peter', 'jude':'jude', 'revelation':'revelation', 'rev':'revelation', 'rv':'revelation', 'deuteronomy':'deuteronomy', 'deut':'deuteronomy', 'dt':'deuteronomy'}]]></exp>
+    </lookup>
+
+    <lookup name="boolean_ssml">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[{'true':'yes', 'false':'no'}]]></exp>
+    </lookup>
+
+    <lookup name="canadian_state_list">
+      <comment usedby="address postaddress"/>
+      <exp><![CDATA[{"ab":"alberta",
+		 "bc":"british columbia",
+		 "mb":"manitoba",
+		 "nb":"new brunswick",
+		 "nl":"newfoundland and labrador",
+		 "nt":"northwest territories",
+		 "ns":"nova scotia",
+		 "nu":"nunavut",
+		 "on":"ontario",
+		 "pe":"prince edward island",
+		 "qc":"quebec",
+		 "sk":"saskatchewan",
+		 "yt":"yukon"}]]></exp>
+    </lookup>
+
+    <lookup name="century">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{"5":"five", "6":"six", "7":"seven", "8":"eight", "9":"nine", "10":"ten", "11":"eleven", "12":"twelve", "13":"thirteen", "14":"fourteen", "15":"fifteen", "16":"sixteen", "17":"seventeen", "18":"eighteen", "19":"nineteen", "20":"two thousand", "21":"two thousand one hundred", "22":"two thousand two hundred"}]]></exp>
+    </lookup>
+
+    <lookup name="common_acronyms">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{'bbc':'b b c', 'itv':'i t v', 'abc':'a b c', 'nbc':'n b c', 'cbc':'c b c', 'nhk':'n h k', 'ibm':'i b m'}]]></exp>
+    </lookup>
+
+    <lookup name="currency">
+      <comment usedby="currency">
+      Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+      the currency name is written out in text and this should also be
+      covered by the currency-related rules.
+    </comment>
+      <exp><![CDATA[{"£":"pound", "₩":"won", "¥": "yen", "eur":"euro", "euro":"euro", "€": "euro", "$":"dollar", "usd":"u s dollar", "dollar":"dollar", "¢":"cent", "cent":"cent", "eurocent":"eurocent", "kr":"kroner", "yen":"yen", "sfr":"swiss franc", "chf":"swiss franc"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_compl">
+      <comment usedby="precurrency currencysigns currency"/>
+      <exp><![CDATA[{"us":"u s", "US":" u s", "nz":"new zealand", "NZ":"new zealand", "c": "canadian", "C": "canadian", "ca":"canadian", "CA":"canadian", "can":"canadian", "CAN":"canadian", "cdn":"canadian", "CDN":"canadian", "cnd":"canadian", "CND":"canadian", "hk":"hong kong", "HK":"hong kong", "nt":"new taiwan", "NT":"new taiwan", "ntd":"new taiwan", "NTD":"new taiwan", "sg":"singapore", "SG":"singapore", "s":"singapore", "S":"singapore", "kr":"kroner", "KR":"kroner", "usd":"u s", "USD":"u s", "nzd":"new zealand", "NZD":"new zealand", "cad":"canadian", "CAD":"canadian", "hkd":"hong kong", "HKD":"hong kong", "sgd":"singapore", "SGD":"singapore", "a":"australian", "A":"australian", "au":"australian", "AU":"australian", "aud":"australian", "AUD":"australian", "sfr":"swiss", "SFR":"swiss", "chf":"swiss", "CHF":"swiss"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_compl_full">
+      <comment usedby="currency"/>
+      <exp><![CDATA[{"us":"u s dollars", "nz":"new zealand dollar", "c": "canadian dollars", "ca":"canadian dollars", "can":"canadian dollars", "cnd":"canadian dollars", "cdn":"canadian dollars", "hk":"hong kong dollars", "sg":"singapore dollars", "kr":"kroner",
+	       "usd":"u s dollars", "nzd":"new zealand dollars", "cad":"canadian dollars", "hkd":"hong kong dollars", "sgd":"singapore dollars", "au":"australian dollars", "aud":"australian dollars", "sfr":"swiss francs", "SFR":"swiss francs",  "chf":"swiss francs", "CHF":"swiss francs"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_pl">
+      <comment usedby="precurrency currencysigns currency">
+      Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+      the currency name is written out in text and this should also be
+      covered by the currency-related rules.
+    </comment>
+      <exp><![CDATA[{"£":"pounds", "₩":"won", "¥": "yen", "eur":"euros", "euro":"euro", "euros":"euros", "€": "euros", "$":"dollars", "usd":"u s dollars", "dollars":"dollars", "¢":"cents", "cents":"cents", "eurocents":"eurocents", "kr":"kroner", "yen":"yen", "sfr":"swiss francs", "chf":"swiss francs"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_scale">
+      <comment usedby="precurrency currencysigns currency digit">
+      GJL - This needs to be translated
+    </comment>
+      <exp><![CDATA[{"thousand":"thousand", "m":"million", "mn":"million", "mln":"million", "million":"million", "b":"billion", "bn":"billion", "bln":"billion", "billion":"billion", "t":"trillion", "tn":"trillion", "trillion":"trillion", "THOUSAND":"thousand", "M":"million", "MN":"million", "MLN":"million", "MILLION":"million", "B":"billion", "BN":"billion", "BLN":"billion", "BILLION":"billion", "T":"trillion", "TN":"trillion", "TRILLION":"trillion"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_ssml">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[{"AED":"united arab emirates dirham","AFN":"afghan afghani","ALL":"albanian lek","AMD":"armenian dram","ANG":"netherlands antillean guilder","AOA":"angolan kwanza","ARS":"argentine peso","AUD":"australian dollar","AWG":"aruban florin","AZN":"azerbaijani manat","BAM":"bosnia and herzegovina convertible mark","BBD":"barbados dollar","BDT":"bangladeshi taka","BGN":"bulgarian lev","BHD":"bahraini dinar","BIF":"burundian franc","BMD":"bermudian dollar","BND":"brunei dollar","BOB":"boliviano","BOV":"bolivian mvdol","BRL":"brazilian real","BSD":"bahamian dollar","BTN":"bhutanese ngultrum","BWP":"botswana pula","BYR":"belarusian ruble","BZD":"belize dollar","CAD":"canadian dollar","CDF":"congolese franc","CHE":"wir bank","CHF":"swiss franc","CHW":"wir bank","CLF":"unidad de fomento","CLP":"chilean peso","CNY":"chinese yuan","COP":"colombian peso","COU":"unidad de valor real","CRC":"costa rican colon","CUC":"cuban convertible peso","CUP":"cuban peso","CVE":"cape verde escudo","CZK":"czech koruna","DJF":"djiboutian franc","DK":"danish krone","DKK":"danish krone","DOP":"dominican peso","DZD":"algerian dinar","EGP":"egyptian pound","ERN":"eritrean nakfa","ETB":"ethiopian birr","EU":"euro","EUR":"euro","FJD":"fiji dollar","FKP":"falkland islands pound","GBP":"pound sterling","GEL":"georgian lari","GHS":"ghanaian cedi","GIP":"gibraltar pound","GMD":"gambian dalasi","GNF":"guinean franc","GTQ":"guatemalan quetzal","GYD":"guyanese dollar","HKD":"hong kong dollar","HNL":"honduran lempira","HRK":"croatian kuna","HTG":"haitian gourde","HUF":"hungarian forint","IDR":"indonesian rupiah","ILS":"israeli new sheqel","INR":"indian rupee","IQD":"iraqi dinar","IRR":"iranian rial","ISK":"icelandic krona","JMD":"jamaican dollar","JOD":"jordanian dinar","JPY":"japanese yen","KES":"kenyan shilling","KGS":"kyrgyzstani som","KHR":"cambodian riel","KMF":"comoro franc","KPW":"north korean won","KRW":"south korean won","KWD":"kuwaiti dinar","KYD":"cayman islands dollar","KZT":"kazakhstani tenge","LAK":"lao kip","LBP":"lebanese pound","LKR":"sri lanka rupee","LRD":"liberian dollar","LSL":"lesotho loti","LTL":"lithuanian litas","LVL":"latvian lats","LYD":"libyan dinar","MAD":"moroccan dirham","MDL":"moldovan leu","MGA":"malagasy ariary","MKD":"macedonian denar","MMK":"myanma kyat","MNT":"mongolian tugrik","MOP":"macanese pataca","MRO":"mauritanian ouguiya","MUR":"mauritian rupee","MVR":"maldivian rufiyaa","MWK":"malawian kwacha","MXN":"mexican peso","MXV":"mexican unidad de inversion","MYR":"malaysian ringgit","MZN":"mozambican metical","NAD":"namibian dollar","NGN":"nigerian naira","NIO":"cordoba oro","NOK":"norwegian krone","NPR":"nepalese rupee","NZD":"new zealand dollar","OMR":"omani rial","PAB":"panamanian balboa","PEN":"peruvian nuevo sol","PGK":"papua new guinean kina","PHP":"philippine peso","PKR":"pakistani rupee","PLN":"polish zloty","PYG":"paraguayan guarani","QAR":"qatari rial","RON":"romanian new leu","RSD":"serbian dinar","RUB":"russian rouble","RWF":"rwandan franc","SAR":"saudi riyal","SBD":"solomon islands dollar","SCR":"seychelles rupee","SDG":"sudanese pound","SEK":"swedish krona","SGD":"singapore dollar","SHP":"saint helena pound","SLL":"sierra leonean leone","SOS":"somali shilling","SRD":"surinamese dollar","STD":"são tomé and príncipe dobra","SYP":"syrian pound","SZL":"lilangeni","THB":"thai baht","TJS":"tajikistani somoni","TMT":"turkmenistani manat","TND":"tunisian dinar","TOP":"tongan pa'anga","TRY":"turkish lira","TTD":"trinidad and tobago dollar","TWD":"new taiwan dollar","TZS":"tanzanian shilling","UAH":"ukrainian hryvnia","UGX":"ugandan shilling","USD":"u s dollar","USN":"u s dollar","USS":"u s dollar","UYU":"uruguayan peso","UZS":"uzbekistan som","VEF":"venezuelan bolívar fuerte","VND":"vietnamese đong","VUV":"vanuatu vatu","WST":"samoan tala","XAF":"cfa franc beac","XAG":"silver","XAU":"gold","XBA":"european composite unit","XBB":"european monetary unit","XBC":"european unit of account 9","XBD":"european unit of account 17","XCD":"east caribbean dollar","XDR":"special drawing rights","XFU":"uic franc","XOF":"cfa franc bceao","XPD":"palladium","XPF":"cfp franc","XPT":"platinum","XTS":"code reserved for testing purposes","XXX":"no currency","YER":"yemeni rial","ZAR":"south african rand","ZMK":"zambian kwacha","ZWL":"zimbabwe dollar"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_ssml_plural">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[{"AED":"united arab emirates dirham","AFN":"afghan afghani","ALL":"albanian lek","AMD":"armenian dram","ANG":"netherlands antillean guilders","AOA":"angolan kwanza","ARS":"argentine pesos","AUD":"australian dollars","AWG":"aruban florins","AZN":"azerbaijani manat","BAM":"bosnia and herzegovina convertible marks","BBD":"barbados dollars","BDT":"bangladeshi taka","BGN":"bulgarian lev","BHD":"bahraini dinar","BIF":"burundian francs","BMD":"bermudian dollars","BND":"brunei dollars","BOB":"boliviano","BOV":"bolivian mvdol","BRL":"brazilian real","BSD":"bahamian dollars","BTN":"bhutanese ngultrum","BWP":"botswana pula","BYR":"belarusian rubles","BZD":"belize dollars","CAD":"canadian dollars","CDF":"congolese francs","CHE":"wir bank","CHF":"swiss francs","CHW":"wir bank","CLF":"unidad de fomento","CLP":"chilean pesos","CNY":"chinese yuan","COP":"colombian pesos","COU":"unidad de valor real","CRC":"costa rican colon","CUC":"cuban convertible pesos","CUP":"cuban pesos","CVE":"cape verde escudos","CZK":"czech koruna","DJF":"djiboutian francs","DK":"danish krone","DKK":"danish krone","DOP":"dominican pesos","DZD":"algerian dinar","EGP":"egyptian pounds","ERN":"eritrean nakfa","ETB":"ethiopian birr","EU":"euros","EUR":"euros","FJD":"fiji dollars","FKP":"falkland islands pounds","GBP":"pounds sterling","GEL":"georgian lari","GHS":"ghanaian cedi","GIP":"gibraltar pounds","GMD":"gambian dalasi","GNF":"guinean francs","GTQ":"guatemalan quetzal","GYD":"guyanese dollars","HKD":"hong kong dollars","HNL":"honduran lempira","HRK":"croatian kuna","HTG":"haitian gourde","HUF":"hungarian forints","IDR":"indonesian rupiah","ILS":"israeli new sheqel","INR":"indian rupees","IQD":"iraqi dinar","IRR":"iranian rial","ISK":"icelandic krona","JMD":"jamaican dollars","JOD":"jordanian dinar","JPY":"japanese yen","KES":"kenyan shillings","KGS":"kyrgyzstani som","KHR":"cambodian riel","KMF":"comoro francs","KPW":"north korean won","KRW":"south korean won","KWD":"kuwaiti dinar","KYD":"cayman islands dollars","KZT":"kazakhstani tenge","LAK":"lao kip","LBP":"lebanese pounds","LKR":"sri lanka rupees","LRD":"liberian dollars","LSL":"lesotho loti","LTL":"lithuanian litas","LVL":"latvian lats","LYD":"libyan dinar","MAD":"moroccan dirham","MDL":"moldovan leu","MGA":"malagasy ariary","MKD":"macedonian denar","MMK":"myanma kyat","MNT":"mongolian tugrik","MOP":"macanese pataca","MRO":"mauritanian ouguiya","MUR":"mauritian rupees","MVR":"maldivian rufiyaa","MWK":"malawian kwacha","MXN":"mexican pesos","MXV":"mexican unidad de inversion","MYR":"malaysian ringgit","MZN":"mozambican metical","NAD":"namibian dollars","NGN":"nigerian naira","NIO":"cordoba oro","NOK":"norwegian krone","NPR":"nepalese rupee","NZD":"new zealand dollars","OMR":"omani rial","PAB":"panamanian balboa","PEN":"peruvian nuevo sol","PGK":"papua new guinean kina","PHP":"philippine pesos","PKR":"pakistani rupees","PLN":"polish zloty","PYG":"paraguayan guarani","QAR":"qatari rial","RON":"romanian new leu","RSD":"serbian dinar","RUB":"russian roubles","RWF":"rwandan francs","SAR":"saudi riyal","SBD":"solomon islands dollars","SCR":"seychelles rupees","SDG":"sudanese pounds","SEK":"swedish krona","SGD":"singapore dollars","SHP":"saint helena pounds","SLL":"sierra leonean leone","SOS":"somali shillings","SRD":"surinamese dollars","STD":"sao tome and principe dobra","SYP":"syrian pounds","SZL":"lilangeni","THB":"thai baht","TJS":"tajikistani somoni","TMT":"turkmenistani manat","TND":"tunisian dinar","TOP":"tongan pa'anga","TRY":"turkish lira","TTD":"trinidad and tobago dollars","TWD":"new taiwan dollars","TZS":"tanzanian shillings","UAH":"ukrainian hryvnia","UGX":"ugandan shillings","USD":"u s dollars","USN":"u s dollar","USS":"united states dollars","UYU":"uruguayan pesos","UZS":"uzbekistan som","VEF":"venezuelan bolívar fuerte","VND":"vietnamese đong","VUV":"vanuatu vatu","WST":"samoan tala","XAF":"cfa francs beac","XAG":"silver","XAU":"gold","XBA":"european composite unit","XBB":"european monetary units","XBC":"european unit of account 9","XBD":"european unit of account 17","XCD":"east caribbean dollars","XDR":"special drawing rights","XFU":"uic francs","XOF":"cfa francs bceao","XPD":"palladium","XPF":"cfp francs","XPT":"platinum","XTS":"code reserved for testing purposes","XXX":"no currency","YER":"yemeni rial","ZAR":"south african rand","ZMK":"zambian kwacha","ZWL":"zimbabwe dollars"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_units">
+      <comment usedby="currency">
+      Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+      the currency name is written out in text and this should also be
+      covered by the currency-related rules.
+    </comment>
+      <exp><![CDATA[{"£":"pence", "eur":"cent", "euros":"cent", "€": "cent", "$":"cent", "dollars":"cent", "usd":"cent", "¢":"cent", "cent":"cent", "eurocent":"eurocent", "kr":"ore"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_units_pl">
+      <comment usedby="currency">
+      Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+      the currency name is written out in text and this should also be
+      covered by the currency-related rules.
+    </comment>
+      <exp><![CDATA[{"£":"pence", "eur":"cents", "euros":"cents", "€": "cents", "$":"cents", "dollars":"cents", "usd":"cents", "¢":"cents", "cents":"cents", "eurocents":"eurocents", "kr":"ore"}]]></exp>
+    </lookup>
+
+    <lookup name="days">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"mon":"monday", "tues":"tuesday", "tue":"tuesday", "wed":"wednesday", "thur":"thursday", "thurs":"thursday", "thu":"thursday", "fri":"friday", "sat":"saturday", "sun":"sunday", "monday":"monday", "tuesday":"tuesday", "wednesday":"wednesday", "thursday":"thursday", "friday":"friday", "saturday":"saturday", "sunday":"sunday"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp">
+      <comment usedby="functions: name">
+      The default look-up for numbers.
+    </comment>
+      <exp><![CDATA[{'00':'zero', '0':'zero', '1':'one', '10':'ten', '11':'eleven', '12':'twelve', '13':'thirteen', '14':'fourteen', '15':'fifteen', '16':'sixteen', '17':'seventeen', '18':'eighteen', '19':'nineteen', '2':'two', '20':'twenty', '3':'three', '30':'thirty', '4':'four', '40':'forty', '5':'five', '50':'fifty', '6':'six', '60':'sixty', '7':'seven', '70':'seventy', '8':'eight', '80':'eighty', '9':'nine', '90':'ninety',  '100':'one hundred', 'tens_join':'', 'billion':'billion', 'billion_join':'', 'billion_plural':'billion', 'hundred':'hundred', 'hundred_join':'and', 'hundred_plural':'hundred', 'million':'million', 'million_join':'', 'million_plural':'million', 'thousand':'thousand', 'thousand_join':'', 'thousand_plural':'thousand', '-':'minus', 'parent':'digitlkp_join'}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_join">
+      <comment usedby="functions: name">
+      The same as digitlkp, but all *_joins set to 'and', so that numbers such as 'one million and seventy' will be read correctly
+    </comment>
+      <exp><![CDATA[{'00':'zero', '0':'zero', '1':'one', '10':'ten', '11':'eleven', '12':'twelve', '13':'thirteen', '14':'fourteen', '15':'fifteen', '16':'sixteen', '17':'seventeen', '18':'eighteen', '19':'nineteen', '2':'two', '20':'twenty', '3':'three', '30':'thirty', '4':'four', '40':'forty', '5':'five', '50':'fifty', '6':'six', '60':'sixty', '7':'seven', '70':'seventy', '8':'eight', '80':'eighty', '9':'nine', '90':'ninety', 'tens_join':'', 'hundred':'hundred', 'hundred_join':'and', 'hundred_plural':'hundred', 'billion':'billion', 'billion_join':'and', 'billion_plural':'billion', 'million':'million', 'million_join':'and', 'million_plural':'million', 'thousand':'thousand', 'thousand_join':'and', 'thousand_plural':'thousand', '-':'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_s">
+      <comment usedby="functions: name number">
+      Look-up for numbers ending s, e.g. under-sixteens
+    </comment>
+      <exp><![CDATA[{'00':'hundreds', '0':'zeros', '01':'oh ones', '02':'oh twos', '03':'oh threes', '04':'oh fours', '05':'oh fives', '06':'oh sixes', '07':'oh sevens', '08':'oh eights', '09':'oh nines', '1':'ones', '10':'tens', '11':'elevens', '12':'twelves', '13':'thirteens', '14':'fourteens', '15':'fifteens', '16':'sixteens', '17':'seventeens', '18':'eighteens', '19':'nineteens', '2':'twos', '20':'twenties', '3':'threes', '30':'thirties', '4':'fours', '40':'forties', '5':'fives', '50':'fifties', '6':'sixes', '60':'sixties', '7':'sevens', '70':'seventies', '8':'eights', '80':'eighties', '9':'nines', '90':'nineties', '2000':'two thousands', 'tens_join':'', 'billion':'billions', 'billion_join':'', 'billion_plural':'billions', 'hundred':'hundreds', 'hundred_join':'and', 'hundred_plural':'hundreds', 'million':'millions', 'million_join':'', 'million_plural':'millions', 'thousand':'thousands', 'thousand_join':'', 'thousand_plural':'thousands', '-':'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_s_21c">
+      <comment usedby="functions: name">
+      Look-up for numbers ending s, e.g. under-sixteens
+    </comment>
+      <exp><![CDATA[{'00':'hundreds', '0':'zeros', '01':'ones', '02':'twos', '03':'threes', '04':'fours', '05':'fives', '06':'sixes', '07':'sevens', '08':'eights', '09':'nines', '1':'ones', '10':'tens', '11':'elevens', '12':'twelves', '13':'thirteens', '14':'fourteens', '15':'fifteens', '16':'sixteens', '17':'seventeens', '18':'eighteens', '19':'nineteens', '2':'twos', '20':'twenties', '3':'threes', '30':'thirties', '4':'fours', '40':'forties', '5':'fives', '50':'fifties', '6':'sixes', '60':'sixties', '7':'sevens', '70':'seventies', '8':'eights', '80':'eighties', '9':'nines', '90':'nineties', 'tens_join':'', 'billion':'billions', 'billion_join':'', 'billion_plural':'billions', 'hundred':'hundreds', 'hundred_join':'and', 'hundred_plural':'hundreds', 'million':'millions', 'million_join':'', 'million_plural':'millions', 'thousand':'thousands', 'thousand_join':'', 'thousand_plural':'thousands', '-':'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="downcase">
+      <comment usedby="odd">
+      Important: Do not delete this table, as it is used by the normaliser
+      internally.
+      Also, extend it with the language-specific letters.
+    </comment>
+      <exp><![CDATA[{"A":"a", "B":"b", "C":"c", "D":"d", "E":"e", "F":"f", "G":"g", "H":"h", "I":"i", "J":"j", "K":"k", "L":"l", "M":"m", "N":"n", "O":"o", "P":"p", "Q":"q", "R":"r", "S":"s", "T":"t", "U":"u", "V":"v", "W":"w", "X":"x", "Y":"y", "Z":"z", "Ä":"ä", "Ö":"ö", "Ü":"ü"}]]></exp>
+    </lookup>
+
+    <lookup name="ext_ssml">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[{'x':'extension'}]]></exp>
+    </lookup>
+
+    <lookup name="fake_frac_look">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[{"no":"number", "number":"number", "numbers":"numbers", "page":"page", "p":"page", "pp":"pages", "pages":"pages", "paragraph":"paragraph", "§":"paragraph", "#":"number"}]]></exp>
+    </lookup>
+
+    <lookup name="lkp_degree_pl">
+      <comment usedby="temp"/>
+      <exp><![CDATA[{"°":"degrees", "deg":"degrees", "degree":"degree", "degrees":"degrees"}]]></exp>
+    </lookup>
+
+    <lookup name="measure">
+      <comment usedby="measure ssmlmeasure"/>
+      <exp><![CDATA[{"mm":"millimeter", "millimetre":"millimeter", "millimeter":"millimeter", "cm":"centimeter", "centimetre":"centimeter", "centimeter":"centimeter", "m":"meter", "meter":"meter", "metre":"meter", "m":"m", "mg":"milligram", "kg":"kilogram", "kgm":"kilogram", "kgs":"kilogram", "kilogramme":"kilogram", "kilogram":"kilogram", "km":"kilometer", "kilometre":"kilometer", "kilometer":"kilometer", "%":"percent", "h":"hour","gb":"gigabyte","mb":"megabyte", "ml":"millilitre", "millilitre":"millilitre", "milliliter":"milliliter", "l":"litre","min":"minute","s":"second","sec":"second","t":"tonne", "mph":"mile per hour", "gm":"gram", "g":"gram", "gramme":"gram", "gram":"gram", "yd":"yard", "yard":"yard", "pound":"pound", "pounds":"pounds","oz":"ounce", "lb":"pound", "ft":"foot", "foot":"foot", "in":"in", "inch":"inch", "mi":"mile", "kbps":"kilobit per second", "mbps":"megabit per second", "mi":"mile", "mile":"mile", "miles":"miles", "stone":"stone", "stones":"stones", "gl":"gallon", "gls":"gallon", "bbl":"barrel", "bu":"bushel", "w":"watt", "watt":"watt", "watts":"watts", "hz":"hertz", "mhz":"megahertz", "ghz":"gigahertz", "million":"million", "p":"p", "kw":"kilowatt", "kilowatt":"kilowatt", "kwh":"kilowatt hour", "mw":"megawatt", "megawatt":"megawatt", "kj":"kilojoule", "mol":"mole", "yd":"yard", "yard":"yard", "%":"percent", "pc":"percent", "pct":"percent", "bcf":"billion cubic feet", "tsp":"teaspoon", "tbsp":"tablespoon"}]]></exp>
+    </lookup>
+
+    <lookup name="measure_pl">
+      <comment usedby="premeasure measure"/>
+      <exp><![CDATA[{"mm":"millimeters", "millimetres":"millimeters", "millimeters":"millimeters", "cm":"centimeters", "centimetres":"centimeters", "centimeters":"centimeters", "metres":"meters", "meters":"meters", "m":"m", "mg":"milligrams", "kg":"kilograms", "kgm":"kilograms", "kgs":"kilograms", "kilogrammes":"kilograms", "kilograms":"kilograms", "km":"kilometers", "kilometres":"kilometers", "kilometers":"kilometers", "%":"percent", "h":"hours","gb":"gigabytes","mb":"megabytes", "ml":"millilitres", "millilitres":"millilitres", "milliliters":"milliliters", "l":"liters", "min":"minutes", "s":"seconds", "sec":"seconds", "t":"tonnes","mph":"miles per hour", "gm":"grams", "g":"grams", "grammes":"grams", "grams":"grams", "acs":"acres", "yd":"yards", "yds":"yards", "yards":"yards", "oz":"ounces", "lb":"pounds", "lbs":"pounds", "pounds":"pounds", "in":"in", "ins":"inches", "inch":"inch", "inches":"inches", "foot":"feet", "feet":"feet", "ft":"feet", "mi":"miles", "mile":"mile", "miles":"miles", "kbps":"kilobits per second", "mbps":"megabits per second", "stone":"stone", "stones":"stones","gl":"gallons", "gls":"gallons", "bbl":"barrels", "bbls":"barrels", "bu":"bushels", "w":"watt", "watt":"watt", "watts":"watts", "hz":"hertz", "mhz":"megahertz", "ghz":"gigahertz", "million":"million", "p":"p", "kw":"kilowatts", "kilowatts":"kilowatts", "kwh":"kilowatt hours", "kj":"kilojoules", "mol":"moles", "millimetre":"millimeter", "millimeter":"millimeter", "centimetre":"centimeter", "centimeter":"centimeter", "meter":"meter", "metre":"meter", "kilogramme":"kilogram", "kilogram":"kilogram", "kilometre":"kilometer", "kilometer":"kilometer", "gramme":"gram", "gram":"gram", "yard":"yard", "%":"percent", "pound":"pound", "pounds":"pounds", "foot":"foot", "in":"in", "inch":"inch", "mile":"mile", "miles":"miles", "stone":"stone", "stones":"stones", "watt":"watt", "watts":"watts", "million":"million", "kilowatt":"kilowatt", "mw":"megawatt", "megawatt":"megawatt", "pc":"percent", "pct":"percent", "bcf":"billion cubic feet", "tsp":"teaspoons", "tbsp":"tablespoons"}]]></exp>
+    </lookup>
+
+    <lookup name="months">
+      <comment usedby="ssmldate date">
+      The entries matching months names to itself are intentional. Sometimes
+      the date is written out in text and this should also be covered by
+      the date-related rules.
+    </comment>
+      <exp><![CDATA[{"jan":"january", "feb":"february", "mar":"march", "apr":"april", "may":"may", "jun":"june", "jul":"july", "aug":"august", "sep":"september", "sept":"september", "oct":"october", "nov":"november", "dec":"december", "january":"january", "february":"february", "march":"march", "april":"april", "june":"june", "july":"july", "august":"august", "september":"september", "october":"october", "november":"november", "december":"december", "JAN":"january", "FEB":"february", "MAR":"march", "APR":"april", "MAY":"may", "JUN":"june", "JUL":"july", "AUG":"august", "SEP":"september", "SEPT":"september", "OCT":"october", "NOV":"november", "DEC":"december", "JANUARY":"january", "FEBRUARY":"february", "MARCH":"march", "APRIL":"april", "JUNE":"june", "JULY":"july", "AUGUST":"august", "SEPTEMBER":"september", "OCTOBER":"october", "NOVEMBER":"november", "DECEMBER":"december"}]]></exp>
+    </lookup>
+
+    <lookup name="months_n">
+      <comment usedby="ssmlproc date"/>
+      <exp><![CDATA[{"1":"january","2":"february","3":"march","4":"april","5":"may","6":"june","7":"july","8":"august","9":"september","10":"october","11":"november","12":"december","01":"january","02":"february","03":"march","04":"april","05":"may","06":"june","07":"july","08":"august","09":"september"}]]></exp>
+    </lookup>
+
+    <lookup name="north_south">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{"n":"north", "s":"south", "nth":"north", "sth":"south"}]]></exp>
+    </lookup>
+
+    <lookup name="nsew">
+      <comment usedby="coordinates"/>
+      <exp><![CDATA[{'N':'north', 'S':'south', 'E':'east', 'W':'west', 'n':'north', 's':'south', 'e':'east', 'w':'west'}]]></exp>
+    </lookup>
+
+    <lookup name="number_er">
+      <comment usedby="date"/>
+      <exp><![CDATA[{'00s':'hundreds','10s':'tens','20s':'twenties','30s':'thirties','40s':'forties','50s':'fifties','60s':'sixties','70s':'seventies','80s':'eighties','90s':'nineties'}]]></exp>
+    </lookup>
+
+    <lookup name="numerallkp_s">
+      <comment usedby="odd">
+      Look-up for possessive roman numerals e.g. Henry VIII's
+    </comment>
+      <exp><![CDATA[{"i's":"firsts", "ii's":"seconds", "iii's":"thirds", "iv's":"fourths", "v's":"fifths", "vi's":"sixths", "vii's":"sevenths", "viii's":"eighths", "ix's":"ninths", "x's":"tenths", "xi's":"elevenths", "xii's":"twelfths", "xiii's":"thirteenths", "xiv's":"fourteenths", "xv's":"fifteenths", "xvi's":"sixteenths", "I's":"firsts", "II's":"seconds", "III's":"thirds", "IV's":"fourths", "V's":"fifths", "VI's":"sixths", "VII's":"sevenths", "VIII's":"eighths", "IX's":"ninths", "X's":"tenths", "XI's":"elevenths", "XII's":"twelfths", "XIII's":"thirteenths", "XIV's":"fourteenths", "XV's":"fifteents", "XVI's":"sixteenths"}]]></exp>
+    </lookup>
+
+    <lookup name="operator">
+      <comment usedby="prerange"/>
+      <exp><![CDATA[{'+':'plus', '-':'minus', '*':'multiplied by', '/':'divided by', '=':'equals', "÷": "divided by", '×':'multiplied by'}]]></exp>
+    </lookup>
+
+    <lookup name="ordinal">
+      <comment usedby="functions: roman name number">
+    </comment>
+      <exp><![CDATA[{'1':'first', '10':'tenth', '11':'eleventh', '12':'twelfth', '13':'thirteenth', '14':'fourteenth', '15':'fifteenth', '16':'sixteenth', '17':'seventeenth', '18':'eighteenth', '19':'nineteenth', '2':'second', '20':'twentieth', '3':'third', '30':'thirtieth', '4':'fourth', '40':'fortieth', '5':'fifth', '50':'fiftieth', '6':'sixth', '60':'sixtieth', '7':'seventh', '70':'seventieth', '8':'eighth', '80':'eightieth', '9':'ninth', '90':'ninetieth', '100':'one hundredth', '200':'two hundredth', '300':'three hundredth', '400':'four hundredth', '500':'five hundredth', '600':'six hundredth', '700':'seven hundredth', '800':'eight hundredth', '900':'nine hundredth', '1000':'one thousandth', '1000000':'millionth', '1000000000':'billionth', 'tens_join':'', 'billion':'billion', 'billion_join':'', 'hundred':'one hundred', 'hundred_join':'and', 'million':'million', 'million_join':'and','thousand':'one thousand', 'thousand_join':'and', '-':'minus', 'parent':'ordinal_parent'}]]></exp>
+    </lookup>
+
+    <lookup name="ordinal_fraction">
+      <comment usedby="functions: name number">
+    </comment>
+      <exp><![CDATA[{'1':'first', '10':'tenth', '11':'eleventh', '12':'twelfth', '13':'thirteenth', '14':'fourteenth', '15':'fifteenth', '16':'sixteenth', '17':'seventeenth', '18':'eighteenth', '19':'nineteenth', '2':'half', '20':'twentieth', '3':'third', '30':'thirtieth', '4':'fourth', '40':'fortieth', '5':'fifth', '50':'fiftieth', '6':'sixth', '60':'sixtieth', '7':'seventh', '70':'seventieth', '8':'eighth', '80':'eightieth', '9':'ninth', '90':'ninetieth', '100':'one hundredths', '200':'two hundredths', '300':'three hundredths', '400':'four hundredths', '500':'five hundredths', '600':'six hundredths', '700':'seven hundredths', '800':'eight hundredths', '900':'nine hundredths', '1000':'one thousandths', '1000000':'millionths', '1000000000':'billionths', 'tens_join':'', 'billion':'billion', 'billion_join':'', 'hundred':'one hundred', 'hundred_join':'and', 'million':'million', 'million_join':'and','thousand':'one thousand', 'thousand_join':'and', '-':'minus', 'parent':'ordinal_parent'}]]></exp>
+    </lookup>
+
+    <lookup name="plusminus">
+      <comment usedby="ssmlproc temp premeasure pretele tele currencysigns currency measure fractions predigit digit signs"/>
+      <exp><![CDATA[{"+":'plus', "-":'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="point">
+      <comment usedby="coordinates">
+      Needed to differentiate from 'dot' in symbols lookup
+    </comment>
+      <exp><![CDATA[{".":"point"}]]></exp>
+    </lookup>
+
+    <lookup name="pre_range_look">
+      <comment usedby="range"/>
+      <exp><![CDATA[{"no":"number", "number":"number", "numbers":"numbers", "page":"page", "p":"page", "pp":"pages", "pages":"pages", "paragraph":"paragraph",
+	      "paragraphs":"paragraphs", "§":"paragraphs", "#":"numbers", "year":"year", "years":"years", "point":"point", "points":"points", "pts":"points",
+	      "percent":"percent", "%":"percent"}]]></exp>
+    </lookup>
+
+    <lookup name="roman_num">
+      <comment usedby="ssml index odd"/>
+      <exp><![CDATA[{"i":"one","ii":"two","iii":"three","iv":"four","v":"five","vi":"six","vii":"seven","viii":"eight","ix":"nine","x":"ten","xi":"eleven","xii":"twelve","xiii":"thirteen","xiv":"fourteen","xv":"fifteen","xvi":"sixteen","xvii":"seventeen","xviii":"eighteen","xix":"nineteen","xx":"twenty","xxi":"twenty one","xxii":"twenty two","xxiii":"twenty three","xxiv":"twenty four","xxv":"twenty five", "I":"one","II":"two","III":"three","IV":"four","V":"five","VI":"six","VII":"seven","VIII":"eight","IX":"nine","X":"ten","XI":"eleven","XII":"twelve","XIII":"thirteen","XIV":"fourteen","XV":"fifteen","XVI":"sixteen","XVII":"seventeen","XVIII":"eighteen","XIX":"nineteen","XX":"twenty","XXI":"twenty one","XXII":"twenty two","XXIII":"twenty three","XXIV":"twenty four","XXV":"twenty five"}]]></exp>
+    </lookup>
+
+    <lookup name="signs">
+      <comment usedby="ssmlproc">
+      Important, do not delete: Used by the hard-coded rule "H:aschars"
+    </comment>
+      <exp><![CDATA[{"\\":"backslash", "_": "underscore", "*":"asterisk", "^":"caret", "#":"hash", "@":"at", ".":"dot", "~":"tilde", "%":"percent", "<":"less than", ">":"more than", "≤":"less than or equal to", "≥":"greater than or equal to", "=":"equals", "&":"ampersand", "+":"plus", "÷": "divided by", "¢": "cents", ":":"colon", "/":"slash", ",":"comma", "°":"degrees", "?":"question mark", "!":"exclamation mark", "½":"half", "¼":"quarter", "¾":"three quarters", "©":"copyright", "®":" ", "™":"t m", "²":"squared", "³":"cubed", "×":"times", "·":"point", "√":"square root"}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_exc">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[{'2':'and a half', '3':'one third', '4':'one quarter'}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_exc_pl">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[{'2':'halves of', '3':'thirds of', '4':'quarters of'}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_exc_post">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[{'2':'half', '3':'one third of', '4':'one quarter of'}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_exc_post_comp">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[{'inch':'an', 'hour':'an', ' ':'a'}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_pl">
+      <comment usedby="functions: name"/>
+      <exp><![CDATA[{'2':'halves', '3':'thirds', '4':'quarters'}]]></exp>
+    </lookup>
+
+    <lookup name="square">
+      <comment usedby="measure">
+    </comment>
+      <exp><![CDATA[{"sq":"square", "square":"square", "cu":"cubic", "cubic":"cubic"}]]></exp>
+    </lookup>
+
+    <lookup name="ssml_hour">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[{' ':'', '1':'', '00':'', '01':'', '0':''}]]></exp>
+    </lookup>
+
+    <lookup name="ssml_time_ext">
+      <comment usedby="ssmlproc"/>
+      <exp><![CDATA[{'a':'a m', 'p':'p m', 'h':'', '?':''}]]></exp>
+    </lookup>
+
+    <lookup name="standarddigits">
+      <comment usedby="functions: name asdigits number">
+      The only difference between this table and 'digitlkp' is the treatment of '0'.  Spoken as 'oh' rather than zero
+    </comment>
+      <exp><![CDATA[{'00':'oh oh', '0':'oh', '1':'one', '10':'ten', '11':'eleven', '12':'twelve', '13':'thirteen', '14':'fourteen', '15':'fifteen', '16':'sixteen', '17':'seventeen', '18':'eighteen', '19':'nineteen', '2':'two', '20':'twenty', '3':'three', '30':'thirty', '4':'four', '40':'forty', '5':'five', '50':'fifty', '6':'six', '60':'sixty', '7':'seven', '70':'seventy', '8':'eight', '80':'eighty', '9':'nine', '90':'ninety', 'tens_join':'', 'billion':'billion', 'billion_join':'', 'billion_plural':'billion', 'hundred':'hundred', 'hundred_join':'and', 'hundred_plural':'hundred', 'million':'million', 'million_join':'', 'million_plural':'million', 'thousand':'thousand', 'thousand_join':'', 'thousand_plural':'thousand', '-':'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="star">
+      <comment usedby="odd"/>
+      <exp><![CDATA[{"*":"star"}]]></exp>
+    </lookup>
+
+    <lookup name="symbols">
+      <comment usedby="temp www odd signs rest">
+      Important, do not delete: Used by the hard-coded rule "H:aschars"
+    </comment>
+      <exp><![CDATA[{"\\":"backslash", "_": "underscore", "*":"asterisk", "^":"caret", "#":"hash", "@":"at", ".":"dot", "~":"tilde", "%":"percent", "<":"less than", ">":"more than", "≤":"less than or equal to", "≥":"greater than or equal to", "=":"equals", "&":"ampersand", "+":"plus", "÷": "divided by", "¢": "cents", ":":"colon", "/":"slash", ",":"comma", "°":"degrees", "?":"question mark", "!":"exclamation mark", "½":"half", "¼":"quarter", "¾":"three quarters", "©":"copyright", "®":" ", "™":"t m", "²":"squared", "³":"cubed", "×":"times", "·":"point", "√":"square root", "-":"hyphen"}]]></exp>
+    </lookup>
+
+    <lookup name="telephone_extension">
+      <comment usedby="pretele tele"/>
+      <exp><![CDATA[{" ":"extension", 'xt':'extension', 'ex':'extension', 'ext':"extension"}]]></exp>
+    </lookup>
+
+    <lookup name="telephone_prefix_table">
+      <comment usedby="pretele tele"/>
+      <exp><![CDATA[{"tel":"telephone", "telephone":"telephone", "ph":"phone", "t":"telephone", "phone":"phone"}]]></exp>
+    </lookup>
+
+    <lookup name="temp">
+      <comment usedby="temp">
+      Used by the rules about temperature.
+    </comment>
+      <exp><![CDATA[{"°":"degrees", "c":"centigrade", "f":"fahrenheit", "k":"kelvin"}]]></exp>
+    </lookup>
+
+    <lookup name="time_unit">
+      <comment usedby="measure">
+      Used by the rules about temperature.
+    </comment>
+      <exp><![CDATA[{"s":"second", "m":"minute", "h":"hour"}]]></exp>
+    </lookup>
+
+    <lookup name="yeardigits_21c">
+      <comment usedby="functions: name">
+      The default look-up for numbers.
+    </comment>
+      <exp><![CDATA[{'00':'zero', '0':'oh', '1':'one', '10':'ten', '11':'eleven', '12':'twelve', '13':'thirteen', '14':'fourteen', '15':'fifteen', '16':'sixteen', '17':'seventeen', '18':'eighteen', '19':'nineteen', '2':'two', '20':'twenty', '3':'three', '30':'thirty', '4':'four', '40':'forty', '5':'five', '50':'fifty', '6':'six', '60':'sixty', '7':'seven', '70':'seventy', '8':'eight', '80':'eighty', '9':'nine', '90':'ninety', 'tens_join':'', 'billion':'billion', 'billion_join':'', 'billion_plural':'billion', 'hundred':'hundred', 'hundred_join':'and', 'hundred_plural':'hundred', 'million':'million', 'million_join':'', 'million_plural':'million', 'thousand':'thousand', 'thousand_join':'and', 'thousand_plural':'thousand', '-':'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="yeardigits_pre_21c">
+      <comment usedby="functions: name number">
+      Deals with year problems, such as 1900, 1901, etc
+      <!--'01':'oh one', '02':'oh two', '03':'oh three', '04':'oh four', '05':'oh five', '06':'oh six', '07':'oh seven', '08':'oh eight', '09':'oh nine',-->
+    </comment>
+      <exp><![CDATA[{'00':'hundred', '0':'oh', '01':'oh one', '02':'oh two', '03':'oh three', '04':'oh four', '05':'oh five', '06':'oh six', '07':'oh seven', '08':'oh eight', '09':'oh nine', '1':'one', '10':'ten', '11':'eleven', '12':'twelve', '13':'thirteen', '14':'fourteen', '15':'fifteen', '16':'sixteen', '17':'seventeen', '18':'eighteen', '19':'nineteen', '2':'two', '20':'twenty', '3':'three', '30':'thirty', '4':'four', '40':'forty', '5':'five', '50':'fifty', '6':'six', '60':'sixty', '7':'seven', '70':'seventy', '8':'eight', '80':'eighty', '9':'nine', '90':'ninety', 'tens_join':'', 'billion':'billion', 'billion_join':'', 'billion_plural':'billion', 'hundred':'hundred', 'hundred_join':'and', 'hundred_plural':'hundred', 'million':'million', 'million_join':'', 'million_plural':'million', 'thousand':'thousand', 'thousand_join':'and', 'thousand_plural':'thousand', '-':'minus'}]]></exp>
+    </lookup>
+
+    <lookup name="ymwd">
+      <comment usedby="digit"/>
+      <exp><![CDATA[{'yr':'year', 'year':'year', 'mo':'month', 'month':'month', 'wk':'week', 'week':'week', 'day':'day'}]]></exp>
+    </lookup>
+  </tables>
+</nrules>

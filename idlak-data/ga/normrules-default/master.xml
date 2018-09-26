@@ -1,0 +1,41 @@
+<nrules>
+  <replacefunction>
+    <function name="number" reverse_tens="f" separator="," en_number_join="t"/>
+    <function name="numbers_ga" reverse_tens="f" separator="," en_number_join="t" agree_all="t" case=""/>
+    <function name="roman" reverse_tens="f" separator="," en_number_join="t"/>
+    <function name="filter" reverse_tens="f" separator="," en_number_join="t" symbols="symbols_filter" leading_zero="t" ignore_minus="t"/>
+    <function name="aschars"/>
+    <function name="asdigits" case=""/>
+  </replacefunction>
+  <ruleset>
+    <rs name="www"/>
+    <rs name="premeasure"/>
+    <rs name="date"/>
+    <rs name="precurrency"/>
+    <rs name="pretime"/>
+    <rs name="time"/>
+    <rs name="preaddress"/>
+    <rs name="address"/>
+    <rs name="pretele"/>
+    <rs name="tele"/>
+    <rs name="postaddress0"/>
+    <rs name="postaddress0a"/>
+    <rs name="postaddress0b"/>
+    <rs name="postaddress0c"/>
+    <rs name="postaddress1"/>
+    <rs name="postaddress2"/>
+    <rs name="postaddress3"/>
+    <rs name="postaddress4"/>
+    <rs name="postaddress10"/>
+    <rs name="postaddress"/>
+    <rs name="currency"/>
+    <rs name="measure"/>
+    <rs name="ssml"/>
+    <rs name="index"/>
+    <rs name="fractions"/>
+    <rs name="predigit"/>
+    <rs name="digit"/>
+    <rs name="signs"/>
+    <rs name="ssmldigit2"/>
+  </ruleset>
+</nrules>
