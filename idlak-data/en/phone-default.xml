@@ -1,0 +1,142 @@
+
+<phonesetup>
+    <!-- Phone description for Cerevoice 2.1 -->
+	<!-- phone example_word example_pron ipa is_archiphone is_syllabic is_voiced is_plosive is_fricative is_affricate is_nasal is_liquid-->
+	<!--  pause == not defined/ unknown-->
+	<!--  TODO: need 'is_tap' for 'dx'?  Might not use it though!-->
+	<!--        next bests are off the top of my head and probably rubbish (CJP)-->
+	<!-- pname  ex_wrd  ex-pron         ipa             a s v p f a n l 	nb1   dist nb2  dist-->
+	<phone name="aa">
+		<description word_example="balm" pron_example="b_aa_m" ipa="ɑ"/>
+	</phone>
+	<phone name="ae">
+		<description word_example="trap" pron_example="t_r_ae_p" ipa="æ"/>
+	</phone>
+	<phone name="ah">
+		<description word_example="strut" pron_example="s_t_r_ah_t" ipa="ʌ"/>
+	</phone>
+	<phone name="ao">
+		<description word_example="caught" pron_example="k_ao_t" ipa="ɔ"/>
+	</phone>
+	<phone name="aw">
+		<description word_example="mouth" pron_example="m_aw_th" ipa="aʊ"/>
+	</phone>
+	<phone name="ax">
+		<description word_example="RED_the" pron_example="dh_ax" ipa="ə"/>
+	</phone>
+	<phone name="ay">
+		<description word_example="rice" pron_example="r_ay_s" ipa="aɪ"/>
+	</phone>
+	<phone name="b">
+		<description word_example="bee" pron_example="b_iy" ipa="b"/>
+	</phone>
+	<phone name="ch">
+		<description word_example="each" pron_example="iy_ch" ipa="tʃ"/>
+	</phone>
+	<phone name="d">
+		<description word_example="dye" pron_example="d_ai" ipa="d"/>
+	</phone>
+	<phone name="dx">
+		<description word_example="dye" pron_example="b_ah_dx_er" ipa="ɾ"/>
+	</phone>
+	<phone name="dh">
+		<description word_example="then" pron_example="dh_e_n" ipa="ð"/>
+	</phone>
+	<phone name="eh">
+		<description word_example="dress" pron_example="d_r_eh_s" ipa="ɛ"/>
+	</phone>
+	<phone name="er">
+		<description word_example="butter" pron_example="b_ah_dx_er" ipa="ə˞"/>
+	</phone>
+	<phone name="ey">
+		<description word_example="face" pron_example="f_ey_s" ipa="ɛɪ"/>
+	</phone>
+	<phone name="f">
+		<description word_example="fan" pron_example="f_ah_n" ipa="f"/>
+	</phone>
+	<phone name="g">
+		<description word_example="guy" pron_example="g_ay" ipa="g"/>
+	</phone>
+	<phone name="hh">
+		<description word_example="hat" pron_example="h_a_t" ipa="h"/>
+	</phone>
+	<phone name="ih">
+		<description word_example="hit" pron_example="h_ih_t" ipa="ɪ"/>
+	</phone>
+	<phone name="iy">
+		<description word_example="fleece" pron_example="f_l_iy_s" ipa="i"/>
+	</phone>
+	<phone name="jh">
+		<description word_example="edge" pron_example="e_jh" ipa="dʒ"/>
+	</phone>
+	<phone name="k">
+		<description word_example="key" pron_example="k_iy" ipa="k"/>
+	</phone>
+	<phone name="l">
+		<description word_example="lay" pron_example="l_ey" ipa="l"/>
+	</phone>
+	<phone name="m">
+		<description word_example="me" pron_example="m_iy" ipa="m"/>
+	</phone>
+	<phone name="n">
+		<description word_example="knee" pron_example="n_iy" ipa="n"/>
+	</phone>
+	<phone name="ng">
+		<description word_example="song" pron_example="s_o_ng" ipa="ŋ"/>
+	</phone>
+	<phone name="ow">
+		<description word_example="goat" pron_example="g_ow_t" ipa="oʊ"/>
+	</phone>
+	<phone name="oy">
+		<description word_example="choice" pron_example="ch_oy_s" ipa="ɔɪ"/>
+	</phone>
+	<phone name="p">
+		<description word_example="pea" pron_example="p_iy" ipa="p"/>
+	</phone>
+	<phone name="r">
+		<description word_example="ray" pron_example="r_ey" ipa="r"/>
+	</phone>
+	<phone name="s">
+		<description word_example="sea" pron_example="s_iy" ipa="s"/>
+	</phone>
+	<phone name="sh">
+		<description word_example="she" pron_example="sh_iy" ipa="ʃ"/>
+	</phone>
+	<phone name="t">
+		<description word_example="tea" pron_example="t_iy" ipa="t"/>
+	</phone>
+	<phone name="th">
+		<description word_example="thin" pron_example="th_ih_n" ipa="θ"/>
+	</phone>
+	<phone name="uh">
+		<description word_example="foot" pron_example="f_uh_t" ipa="ʊ"/>
+	</phone>
+	<phone name="uw">
+		<description word_example="loose" pron_example="l_uw_s" ipa="u"/>
+	</phone>
+	<phone name="v">
+		<description word_example="van" pron_example="v_a_n" ipa="v"/>
+	</phone>
+	<phone name="w">
+		<description word_example="way" pron_example="w_ey" ipa="w"/>
+	</phone>
+	<phone name="y">
+		<description word_example="yes" pron_example="y_eh_s" ipa="j"/>
+	</phone>
+	<phone name="z">
+		<description word_example="zoom" pron_example="z_uw_m" ipa="z"/>
+	</phone>
+	<phone name="zh">
+		<description word_example="beige" pron_example="b_ey_zh" ipa="ʒ"/>
+	</phone>
+	<!--  archiphones must be listed last-->
+	<phone name="R">
+		<description word_example="for" pron_example="liaison_/r/" ipa="r"/>
+	</phone>
+	<phone name="Z">
+		<description word_example="cats" pron_example="plural_aphone" ipa="z"/>
+	</phone>
+	<phone name="_">
+		<description word_example="" pron_example="" ipa=""/>
+	</phone>
+</phonesetup>
