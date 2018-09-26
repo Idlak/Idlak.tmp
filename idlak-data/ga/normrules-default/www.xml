@@ -1,0 +1,474 @@
+<nrules>
+
+  <rules>
+
+    <rule name="email_tld_simple">
+      <comment>
+            john@stanford.edu -&gt; john ag stanford ponc edu
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_tld_full">
+      <comment>
+            james.smith@tesco.com -&gt; james ponc smith ag tesco ponc com
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2nd_tld_full">
+      <comment>
+            james.smith@tesco.co.uk -&gt; james ponc smith ag tesco ponc co ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_tld_full">
+      <comment>
+            james.smith@store.amazon.com -&gt; james ponc smith ag store ponc amazon ponc com
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_2nd_tld_simple">
+      <comment>
+            john@staff.stanford.ac.uk -&gt; john ag staff ponc stanford ponc ac ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="5" offset="0"/>
+        <fnc name="aschars" from="m2" grp="6" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="email_2nd_tld_simple">
+      <comment>
+            timothy@ed.ac.uk -&gt; timothy ag ed ponc ac ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_2nd_tld_simple">
+      <comment>
+            john@staff.ed.ac.uk -&gt; john ag staff ponc ed ponc ac ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="5" offset="0"/>
+        <fnc name="filter" from="m2" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_tld_simple">
+      <comment>
+            john@staff.stanford.edu -&gt; john ag staff ponc stanford ponc edu
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2nd_tld_full">
+      <comment>
+            john.smith@tesco.co.uk -&gt; john ponc smith ag tesco ponc co ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="email_2dms_2nd_tld_long">
+      <comment>
+            john.smith@staff.tesco.co.uk -&gt; john ponc smith ag staff ponc tesco ponc co ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nms_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols_www" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" grp="0" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m2" grp="5" offset="0"/>
+        <fnc name="aschars" from="m2" grp="6" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms-2nd_alt">
+      <comment>
+            URL,  with protocol and 3rd-level name and a subpage and no port.
+            However, the 2nd level domain name is spoken as a word.
+            Covers the following 2nd level names: "co", "gov", "mod", "net", "org", "police".
+            www.store.amazon.co.uk -&gt; w w w ponc store ponc amazon ponc co ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_2nd_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="5" offset="0"/>
+        <fnc name="filter" from="m0" grp="6" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="7" offset="0"/>
+        <fnc name="aschars" from="m0" grp="8" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd_alt">
+      <comment>
+            URL,  with protocol and 3rd-level name and no subpages and no port.
+            However, the 2nd level domain name is spoken as a word.
+            Covers the following 2nd level names: "co", "gov", "mod", "net", "org", "police".
+            www.edinbugh.gov.uk -&gt; w w w ponc edinbugh ponc gov ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms-2nd">
+      <comment>
+            URL, with protocol and 3rd-level name and no subpages and no port.
+            www.inf.ed.ac.uk -&gt; w w w ponc inf ponc ed ponc ac ponc u k 
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="7" offset="0"/>
+        <fnc name="aschars" from="m0" grp="8" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd">
+      <comment>
+            URL, with protocol and 3rd-level name and no subpages and no port.
+            www.ed.ac.uk -&gt; w w w ponc ed ponc ac ponc u k
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms_alt">
+      <comment>
+            URL, with protocol no 3rd-level name and a sub-domain name but no port number.
+            However, the TLD is spoken as a word, e.g. "com".
+            Must come before rule "www_2nms" to be effective.
+            www.sport.spiegel.com -&gt; w w w ponc sport ponc spiegel ponc com
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="5" offset="0"/>
+        <fnc name="filter" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_alt">
+      <comment>
+            URL, with protocol no 3rd-level names and no subpages and no port.
+            However, the TLD is spoken as a word, e.g. "com".
+            Must come before rule "www" to be effective.
+            www.gov.scot -&gt; w w w ponc gov ponc scot
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms">
+      <comment>
+            URL,  with protocol no 3rd-level name but a sub-domain-name
+            and no subpages and no port.
+            www.sport.spiegel.de -&gt; w w w ponc sport ponc spiegel ponc d e
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="www">
+      <comment>
+            URL,  with protocol no 3rd-level names and no subpages and no port.
+            www.amazon.com -&gt; w w w ponc amazon ponc com
+        </comment>
+      <match>
+        <rgx id="m0" name="url_domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="http">
+      <comment>
+            Covers "http://" by transforming it into "h t t p ~colon ~slash ~slash".
+            http:// -&gt; h t t p  idirstad slais slais
+        </comment>
+      <match>
+        <rgx id="m0" name="protocol" src="mcase" offset="-2"/>
+        <rgx id="m1" name="slash" src="lcase" offset="-1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="-2">
+          <lex entry="letter"/>
+        </fnc>
+        <lkp name="symbols_www" from="m0" grp="1" offset="-2"/>
+        <lkp name="symbols_www" from="m1" offset="-1"/>
+        <lkp name="symbols_www" from="m2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="file_names_pdf">
+      <comment>
+            When strings ending in a dot followed by a well known file suffix,
+            the file name is spoken as word and the file suffix as single characters.
+            document.pdf -&gt; document ponc p d f
+        </comment>
+      <match>
+        <rgx id="m0" name="file_name_pdf" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+        <lkp name="symbols_www" from="m0" grp="1" offset="0"/>
+        <fnc name="aschars" from="m0" grp="2" offset="0">
+          <lex entry="letter"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="file_names_doc">
+      <comment>
+            When strings ending in a dot followed by a well known file suffix which is spoken as word,
+            both parts are spoken as words.
+            document.doc -&gt; document ponc doc
+        </comment>
+      <match>
+        <rgx id="m0" name="file_name_doc" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <cpy from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

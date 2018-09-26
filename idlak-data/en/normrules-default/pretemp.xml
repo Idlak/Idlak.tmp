@@ -1,0 +1,29 @@
+<nrules>
+
+  <rules>
+
+    <rule name="one_cent">
+      <comment>
+      Dummy rule - required for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="cents">
+      <comment>
+      Dummy rule - required for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

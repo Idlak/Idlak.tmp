@@ -1,0 +1,107 @@
+<nrules>
+
+  <rules>
+
+    <rule name="emphasis_conv_red">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="emphasis" attribute="level" val="reduced" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex entry="reduced"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="0.8"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emphasis_conv_none">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="emphasis" attribute="level" val="none" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex entry="reduced"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emphasis_conv_mod">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="emphasis" attribute="level" val="moderate" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex entry="full"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emphasis_conv_str">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="emphasis" attribute="level" val="strong" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex entry="full"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.2"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emphasis_conv_MAP">
+      <comment>
+	        Handles the emphasis:map ssml tag. Don't know if it works correctly...
+	    </comment>
+      <match>
+        <xml id="m0" name="emphasis" attribute="level" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="emphasis" totag="lex" mapatt="entry" toatt="level" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="emphasis_default">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="emphasis" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <lex entry="full"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

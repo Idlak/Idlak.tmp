@@ -1,0 +1,41 @@
+<nrules>
+
+  <rules>
+
+    <rule name="index_number_roman_a">
+      <comment>
+       GJL - Normally, these are correct, but in the case of 1. (a),
+       the a needs to be read as the letter rather than the word.
+     </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="index_letter" src="mcase" offset="1"/>
+        <rgx id="m2" name="bracketed_roman_numerals" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy offset="1">
+          <lex entry="full"/>
+        </cpy>
+        <lkp name="roman_num" from="m2" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="index_number">
+      <comment>
+       GJL - Normally, these are correct, but in the case of 1. (a),
+       the a needs to be read as the letter rather than the word.
+     </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="index_letter" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy offset="1">
+          <lex entry="full"/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

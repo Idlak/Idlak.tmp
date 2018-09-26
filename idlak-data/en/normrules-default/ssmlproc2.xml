@@ -1,0 +1,101 @@
+<nrules>
+
+  <rules>
+
+    <rule name="prosody_pitch_x-low">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" val="x-low" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0="0.8"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_pitch_low">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" val="low" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0="0.9"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_pitch_med">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" val="medium" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_pitch_def">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" val="default" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0="1.0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_pitch_high">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" val="high" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0="1.1"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_pitch_x-high">
+      <comment>
+	        Handles one of the prosody:pitch ssml tag
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" val="x-high" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <sig f0="1.2"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="prosody_pitch_MAP">
+      <comment>
+	        Handles the emphasis:map ssml tag.
+	    </comment>
+      <match>
+        <xml id="m0" name="prosody" attribute="pitch" offset="0"/>
+      </match>
+      <replace>
+        <xml maptag="prosody" totag="sig" mapatt="f0" toatt="pitch" from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

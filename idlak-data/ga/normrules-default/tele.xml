@@ -1,0 +1,154 @@
+<nrules>
+
+  <rules>
+
+    <rule name="tele_emergency_numbers_long">
+      <comment>
+            cuir glaoch ar 999 -&gt; cuir glaoch ar a naoi a naoi a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="call_3" src="lcase" offset="-3"/>
+        <rgx id="m1" name="call_2" src="lcase" offset="-2"/>
+        <rgx id="m2" name="call_1" src="lcase" offset="-1"/>
+        <rgx id="m3" name="emergency_numbers" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="tele_emergency_numbers_medium">
+      <comment>
+            glaoigh ar 999 -&gt; glaoigh ar a naoi a naoi a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="call_2" src="lcase" offset="-2"/>
+        <rgx id="m1" name="call_1" src="lcase" offset="-1"/>
+        <rgx id="m2" name="emergency_numbers" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="tele_emergency_numbers">
+      <comment>
+            Glaoigh 999 -&gt; glaoigh a naoi a naoi a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="call" src="lcase" offset="-1"/>
+        <rgx id="m1" name="emergency_numbers" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="telephon_3_3groups">
+      <comment>
+            031 234 55333 -&gt; a náid a trí a haon a dó a trí a ceathair a cúig a cúig a trí a trí a trí
+        </comment>
+      <match>
+        <rgx id="m0" name="area_code" src="lcase" offset="0"/>
+        <rgx id="m1" name="tele_digits" src="lcase" offset="1"/>
+        <rgx id="m2" name="tele_digits" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" offset="0">
+          <break type="2"/>
+        </fnc>
+        <fnc name="asdigits" from="m1" offset="1">
+          <break type="2"/>
+        </fnc>
+        <fnc name="asdigits" from="m2" offset="2">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="3_block_hyphenated">
+      <comment>
+            0098-765-4321 -&gt; a náid a náid a naoi a hocht a seacht a sé a cúig a ceathair a trí a dó a haon
+            07000-123-456 -&gt; a náid a seacht a náid a náid a náid a haon a dó a trí a ceathair a cúig a sé
+        </comment>
+      <match>
+        <rgx id="m0" name="tele_digits" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="tele_digits_3_4" src="lcase" offset="2"/>
+        <rgx id="m3" name="is_hyphen" src="lcase" offset="3"/>
+        <rgx id="m4" name="tele_digits_or_word" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0">
+          <break type="2"/>
+        </fnc>
+        <fnc name="asdigits" from="m0" grp="1" offset="0">
+          <break type="2"/>
+        </fnc>
+        <cpy val="" offset="1"/>
+        <fnc name="asdigits" from="m2" grp="0" offset="2">
+          <break type="2"/>
+        </fnc>
+        <cpy val="" offset="3"/>
+        <fnc name="asdigits" from="m4" grp="1" offset="4">
+          <break type="2"/>
+        </fnc>
+        <fnc name="filter" from="m4" grp="2" offset="4">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="telephon_2_groups">
+      <comment>
+            266 1966 -&gt; a dó a sé a sé a haon a naoi a sé a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="tele_digits_3_4" src="lcase" offset="0"/>
+        <rgx id="m1" name="tele_digits_4" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0">
+          <break type="2"/>
+        </fnc>
+        <fnc name="asdigits" from="m1" grp="0" offset="1">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="telephon_2_groups_with_hyphen">
+      <comment>
+            266-1966 -&gt; a dó a sé a sé a haon a naoi a sé a sé 
+        </comment>
+      <match>
+        <rgx id="m0" name="tele_digits_3_4" src="lcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="tele_digits_4" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" grp="0" offset="0">
+          <break type="2"/>
+        </fnc>
+        <fnc name="asdigits" from="m2" grp="0" offset="2">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+
+    <rule name="telephone_starting_zero">
+      <comment>
+            Read any number starting zero as digits
+            07734543833 -&gt; a náid a seacht a seacht a trí a ceathair a cúig a ceathair a trí a hocht a trí a trí 
+        </comment>
+      <match>
+        <rgx id="m0" name="tele_digits_starting_zero" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" offset="0">
+          <break type="2"/>
+        </fnc>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

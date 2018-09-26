@@ -1,0 +1,169 @@
+<nrules>
+
+  <rules>
+
+    <rule name="split_on_two_hyphens_email">
+      <comment>
+       Fix for missing 'dot' on emails, e.g. rsc-south-west.ac.uk
+     </comment>
+      <match>
+        <rgx id="m0" name="at_symbol" src="lcase" offset="0"/>
+        <rgx id="m1" name="alpha_hyphen_alpha_hyphen_alpha_email" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="symbols" from="m0" grp="0" offset="0"/>
+        <cpy from="m1" grp="0" offset="1"/>
+        <cpy from="m1" grp="1" offset="1"/>
+        <cpy from="m1" grp="2" offset="1"/>
+        <cpy val="dot" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="split_on_two_hyphens">
+      <comment>
+       Split hard-to-find into hard to find
+     </comment>
+      <match>
+        <rgx id="m0" name="alpha_hyphen_alpha_hyphen_alpha" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <cpy from="m0" grp="1" offset="0"/>
+        <cpy from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="split_on_hyphen_email">
+      <comment>
+       Split well-earned into well earned
+     </comment>
+      <match>
+        <rgx id="m0" name="at_symbol" src="lcase" offset="0"/>
+        <rgx id="m1" name="alpha_hyphen_alpha_email" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="symbols" from="m0" grp="0" offset="0"/>
+        <cpy from="m1" grp="0" offset="1"/>
+        <cpy from="m1" grp="1" offset="1"/>
+        <cpy val="dot" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="split_on_hyphen">
+      <comment>
+       Split well-earned into well earned
+     </comment>
+      <match>
+        <rgx id="m0" name="alpha_hyphen_alpha" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <cpy from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="strip_brackets_right">
+      <comment>
+       GJL - Remove right square, angle and curly brackets
+     </comment>
+      <match>
+        <rgx id="m0" name="strip_right_bracket" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="strip_brackets_left">
+      <comment>
+       GJL - Remove left square, angle and curly brackets
+     </comment>
+      <match>
+        <rgx id="m0" name="strip_left_bracket" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="page_range">
+      <comment>
+       Turn p.123-125/pp.123-125/pp123-125 into
+       'page one hundred and twenty three to one hundred and twenty five'
+     </comment>
+      <match>
+        <rgx id="m0" name="page_number_range_start" src="mcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="mcase" offset="1"/>
+        <rgx id="m2" name="page_number_range_end" src="mcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="pages" offset="0"/>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m2" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="page">
+      <comment>
+       Turn p.123/pp.123 into 'page one hundred and twenty three'
+     </comment>
+      <match>
+        <rgx id="m0" name="page_number" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="page" offset="0"/>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="split_alpha_numeric">
+      <comment>
+       GJL - Split sonda24 into tokens 'sonda' '24'
+     </comment>
+      <match>
+        <rgx id="m0" name="alpha_numeric" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="split_numeric_alpha">
+      <comment>
+       GJL - Split 24sonda into tokens '24' 'sonda'
+     </comment>
+      <match>
+        <rgx id="m0" name="numeric_alpha" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="build_exclude_flags">
+      <comment>
+       GJL - Added this rule to allow erm_exclude01 etc to pass
+       through during build
+     </comment>
+      <match>
+        <rgx id="m0" name="build_exclude_flags" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="aschars">
+      <comment/>
+      <match>
+        <rgx id="m0" name="not_alpha" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

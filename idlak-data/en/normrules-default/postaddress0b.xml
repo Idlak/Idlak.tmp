@@ -1,0 +1,24 @@
+<nrules>
+
+  <rules>
+
+    <rule name="american_street_name_hard_2">
+      <comment>
+      Replace common addresses abbreviations in city names.
+      In can be up to three words before the code, so we have to write three rules for that...
+    </comment>
+      <match>
+        <rgx id="m0" name="american_house_number" src="lcase" offset="0"/>
+        <rgx id="m1" name="american_street_name" src="lcase" offset="1"/>
+        <rgx id="m2" name="american_street_name_hard" src="mcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="address_abbrev_1st_unit" from="m2" grp="1" offset="2"/>
+        <lkp name="address_abbrev_misc" from="m2" grp="2" offset="2"/>
+        <lkp name="address_abbrev_2nd_unit" from="m2" grp="3" offset="2">
+          <break type="0" time="0"/>
+        </lkp>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,154 @@
+<nrules>
+
+  <rules>
+
+    <rule name="currency_scale_float_to_float_full">
+      <comment>
+      £2.5bn-£3.5bn -&gt; two point five billion pounds to three point five billion pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float_currency_scale" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="currency_symb" src="lcase" offset="2"/>
+        <rgx id="m4" name="currency_scale_float_currency_scale" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="3" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <cpy val="to" offset="0"/>
+        <fnc name="number" from="m4" grp="1" offset="1"/>
+        <cpy val="point" offset="1"/>
+        <fnc name="asdigits" from="m4" grp="2" offset="1"/>
+        <lkp name="currency_scale" from="m4" grp="3" offset="2"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="2"/>
+        <lkp name="currency_pl" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_float_to_float">
+      <comment>
+      £2.5-3.5bn -&gt; two point five to three point five billion pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="currency_scale_float_currency_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <cpy val="to" offset="0"/>
+        <fnc name="number" from="m3" grp="1" offset="1"/>
+        <cpy val="point" offset="1"/>
+        <fnc name="asdigits" from="m3" grp="2" offset="1"/>
+        <lkp name="currency_scale" from="m3" grp="3" offset="2"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="2"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_float_to_in_full">
+      <comment>
+      £2.5bn-£3bn -&gt; two point five billion pounds to three billion pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float_currency_scale" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="currency_symb" src="lcase" offset="2"/>
+        <rgx id="m4" name="integer_currency_scale" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="3" offset="0"/>
+        <lkp name="currency_compl" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m4" grp="1" offset="1"/>
+        <lkp name="currency_scale" from="m4" grp="2" offset="3"/>
+        <lkp name="currency_compl" from="m3" grp="0" offset="3"/>
+        <lkp name="currency_pl" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_float_to_in">
+      <comment>
+      £2.5-3bn -&gt; two point five to three billion pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="integer_currency_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <cpy val="to" offset="0"/>
+        <fnc name="number" from="m3" grp="1" offset="1"/>
+        <fnc name="asdigits" from="m3" grp="2" offset="1"/>
+        <lkp name="currency_scale" from="m3" grp="2" offset="2"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="2"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_in_to_float_full">
+      <comment>
+      £2bn-£3.5bn -&gt; two billion pounds to three point five billion pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_scale" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="currency_symb" src="lcase" offset="2"/>
+        <rgx id="m4" name="currency_scale_float_currency_scale" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="2" offset="0"/>
+        <lkp name="currency_compl" from="m0" grp="1" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <fnc name="number" from="m4" grp="1" offset="2"/>
+        <cpy val="point" offset="2"/>
+        <fnc name="asdigits" from="m4" grp="2" offset="2"/>
+        <lkp name="currency_scale" from="m4" grp="3" offset="3"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="3"/>
+        <lkp name="currency_pl" from="m3" grp="0" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_in_to_float">
+      <comment>
+      £2-3.5bn -&gt; two to three point five billion pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="currency_scale_float_currency_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="to" offset="0"/>
+        <fnc name="number" from="m3" grp="1" offset="1"/>
+        <cpy val="point" offset="1"/>
+        <fnc name="asdigits" from="m3" grp="2" offset="1"/>
+        <lkp name="currency_scale" from="m3" grp="3" offset="2"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="2"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="2"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

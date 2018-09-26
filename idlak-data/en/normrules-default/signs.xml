@@ -1,0 +1,122 @@
+<nrules>
+
+  <rules>
+
+    <rule name="degree_int_sign">
+      <comment>
+      Handles numbers with degree preceded by plus or minus. Mainly angles, as temperatures are in a group of its own.
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="0"/>
+        <rgx id="m1" name="int_degree" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="0"/>
+        <fnc name="number" from="m1" offset="1"/>
+        <lkp name="symbols" from="m1" grp="1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="degree_int">
+      <comment>
+      Handles numbers with degree. Mainly angles, as temperatures are in a group of its own.
+    </comment>
+      <match>
+        <rgx id="m0" name="int_degree" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="ampersand">
+      <comment/>
+      <match>
+        <rgx id="m0" name="ampersand" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="and" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="slash">
+      <comment/>
+      <match>
+        <rgx id="m0" name="slash" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="slash" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="handle_signs">
+      <comment>
+      Translate all signs which are left over at this stage.
+    </comment>
+      <match>
+        <rgx id="m0" name="signs" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="symbols" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="strip_orphaned_punctuation_hyphen">
+      <comment>
+      Remove any punctuation that has been tokenised on its own, e.g. 'angles - as'
+    </comment>
+      <match>
+        <rgx id="m0" name="stray_punctuation_hyphen" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy offset="0">
+          <break type="3"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="clean_leftover">
+      <comment>
+      Translate all signs which are left over at this stage.
+    </comment>
+      <match>
+        <rgx id="m0" name="contains_signs" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="strip_orphaned_punctuation_break4">
+      <comment>
+      Remove any punctuation that has been tokenised on its own, e.g. 'angles , as'
+    </comment>
+      <match>
+        <rgx id="m0" name="stray_punctuation_break_type4" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy offset="0">
+          <break type="4"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="strip_orphaned_punctuation_break3">
+      <comment>
+      Remove any punctuation that has been tokenised on its own, e.g. 'angles , as'
+    </comment>
+      <match>
+        <rgx id="m0" name="stray_punctuation_break_type3" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy offset="0">
+          <break type="3"/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

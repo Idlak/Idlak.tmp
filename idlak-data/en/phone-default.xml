@@ -1,12 +1,6 @@
 
 <phonesetup>
-    <!-- Phone description for Cerevoice 2.1 -->
-	<!-- phone example_word example_pron ipa is_archiphone is_syllabic is_voiced is_plosive is_fricative is_affricate is_nasal is_liquid-->
-	<!--  pause == not defined/ unknown-->
-	<!--  TODO: need 'is_tap' for 'dx'?  Might not use it though!-->
-	<!--        next bests are off the top of my head and probably rubbish (CJP)-->
-	<!-- pname  ex_wrd  ex-pron         ipa             a s v p f a n l 	nb1   dist nb2  dist-->
-	<phone name="aa">
+    <phone name="aa">
 		<description word_example="balm" pron_example="b_aa_m" ipa="ɑ"/>
 	</phone>
 	<phone name="ae">

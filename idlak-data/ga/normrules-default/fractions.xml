@@ -1,0 +1,88 @@
+<nrules>
+
+  <rules>
+
+    <rule name="bookmakings">
+      <comment>
+            Small fractions of format x/1 are for bookmaking.
+            25/1 -&gt; fiche a cúig in aghaidh a haon
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_1" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="in aghaidh" offset="1"/>
+        <cpy val="a haon" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="number_half">
+      <comment>
+            1/2 preceded by a number
+            5 1/2 -&gt; cúig go leith
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="one" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="two" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="go leith" offset="1"/>
+        <cpy val="" offset="2"/>
+        <cpy val="" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="number_fractions">
+      <comment>
+            Simple fractions preceded by a number
+            50 2/3 -&gt; caoga agus dhá thrian
+            11 3/4 -&gt; aon déag agus trí cheathrú
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="1234" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="345" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_half">
+      <comment>
+            1/2 -&gt; leath
+        </comment>
+      <match>
+        <rgx id="m0" name="one" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="two" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="leath" offset="0"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_numerator_2to4">
+      <comment>
+            Simple fractions - can be expanded if need be
+            2/3 -&gt; dhá thrian
+        </comment>
+      <match>
+        <rgx id="m0" name="1234" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="345" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_pl1234" from="m2" grp="0" offset="2"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

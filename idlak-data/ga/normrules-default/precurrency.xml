@@ -1,0 +1,91 @@
+<nrules>
+
+  <rules>
+
+    <rule name="currency_remove_2to6">
+      <comment>
+            Do this before times
+            £2.00 -&gt; dhá phunt 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="not_hours_2to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_remove_7to10">
+      <comment>
+            Do this before times
+            £10.00 -&gt; deich bpunt
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="not_hours_7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_remove_11to16">
+      <comment>
+            Do this before times
+            £12.00 -&gt; dhá phunt déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="not_hours_11to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_seimhiu" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_remove_17to19">
+      <comment>
+            Do this before times
+            £18.00 -&gt; ocht bpunt déag
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="not_hours_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_pl_uru" from="m0" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_remove">
+      <comment>
+            Do this before times
+            €20.00 -&gt; fiche euro 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="not_hours" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_one">
+      <comment>
+            €1 -&gt; euro amháin 
+        </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="one_curr" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <cpy val="amháin" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

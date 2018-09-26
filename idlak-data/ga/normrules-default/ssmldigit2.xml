@@ -1,0 +1,59 @@
+<nrules>
+
+  <rules>
+
+    <rule name="post_digit_transform_d_apostrophe">
+      <comment>
+            de ocht -&gt; d'ocht
+        </comment>
+      <match>
+        <rgx id="m0" name="precedes_numbers_d_apostrophe" src="lcase" offset="-1"/>
+        <rgx id="m1" name="numbers_group_d_apostrophe" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <lkp name="numbers_transform_d_apostrophe_word" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="post_digit_transform_seimhiu">
+      <comment>
+            faoi trí -&gt; faoi thrí
+        </comment>
+      <match>
+        <rgx id="m0" name="precedes_numbers_seimhiu" src="lcase" offset="-1"/>
+        <rgx id="m1" name="numbers_group_seimhiu" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="numbers_transform_seimhiu_word" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="post_digit_transform_uru_3tokens">
+      <comment>
+            ar an ceathair -&gt; ar an gceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="precedes_numbers_uru_an" src="lcase" offset="-2"/>
+        <rgx id="m1" name="precedes_numbers_uru_an_token" src="lcase" offset="-1"/>
+        <rgx id="m2" name="numbers_group_uru" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="numbers_transform_uru_word" from="m2" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="post_digit_transform_uru_2tokens">
+      <comment>
+            i ceathair -&gt; i gceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="precedes_numbers_uru" src="lcase" offset="-1"/>
+        <rgx id="m1" name="numbers_group_uru" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="numbers_transform_uru_word" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -1,0 +1,211 @@
+<nrules>
+
+  <rules>
+
+    <rule name="emotion_cross">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="voice" attribute="emotion" val="cross" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="stressed"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.5"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="0.95"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="+0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_cross2">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="speechstyle" attribute="emotion" val="cross" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="stressed"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.5"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="0.95"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="+0"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_happy">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="voice" attribute="emotion" val="happy" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="calm"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.2"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="1.02"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="+8"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_happy2">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="speechstyle" attribute="emotion" val="happy" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="calm"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="1.2"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="1.02"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="+8"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_calm">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="voice" attribute="emotion" val="calm" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="calm"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="0.8"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="0.95"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="-5"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_calm2">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="speechstyle" attribute="emotion" val="calm" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="calm"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="0.8"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="0.95"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="-5"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_sad">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="voice" attribute="emotion" val="sad" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="stressed"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="0.8"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="0.95"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="-10"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_sad2">
+      <comment>
+	        Convert emphasis tag, i.e. "<!-- <emphasis level="reduced">and</emphasis> ->
+     <emphasis level="reduced"><lex entry="reduced"><sig amplitude="0.8">and</sig></lex> -->
+	    </comment>
+      <match>
+        <xml id="m0" name="speechstyle" attribute="emotion" val="sad" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="stressed"/>
+        </cpy>
+        <cpy offset="0">
+          <sig amplitude="0.8"/>
+        </cpy>
+        <cpy offset="0">
+          <sig rate="0.95"/>
+        </cpy>
+        <cpy offset="0">
+          <sig f0="-10"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="emotion_joke">
+      <comment>
+	        Convert emotion tag
+	    </comment>
+      <match>
+        <xml id="m0" name="voice" attribute="emotion" val="joke" offset="0"/>
+      </match>
+      <replace>
+        <cpy offset="0">
+          <usel genre="joke"/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

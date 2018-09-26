@@ -1,0 +1,887 @@
+<nrules>
+
+  <rules>
+
+    <rule name="float_scale_split">
+      <comment>
+      12.3 bn yuan-&gt; twelve point three billon yuan
+    </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_scale" src="lcase" offset="1"/>
+        <rgx id="m2" name="currency_no_symb_sing_and_pl" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="point" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <lkp name="currency_scale" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_scale_split">
+      <comment>
+      12 bn yuan-&gt; twelve point three billon yuan
+    </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_scale" src="lcase" offset="1"/>
+        <rgx id="m2" name="currency_no_symb_sing_and_pl" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="currency_scale" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_code_scale_range">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_code_one_scale_no_space">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_code_one_scale">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_one">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_code_scale_no_space">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_code_scale">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_iso_code">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_with_units_iso_code_scale_no_space">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_with_units_iso_code_scale">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_with_units_iso_code">
+      <comment>
+      Dummy rule - for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_no_symbol">
+      <comment>
+      12m pounds - &gt; twelve million pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="integer_currency_scale" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_no_symb" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <lkp name="currency_scale" from="m0" grp="2" offset="0"/>
+        <lkp name="currency_compl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <!-- <rule name="currency_no_symbol">
+      <comment>
+      Fake rule to make sure that we don't trigger currency rules by mistake.
+      12.03 pounds - &gt; 12.03 pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="number_currency" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_no_symb" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="1" offset="0"/>
+        <lkp name="currency_compl" from="m0" grp="0" offset="1"/>
+        <cpy from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule> -->
+
+    <rule name="currency_scale">
+      <comment>
+      £12 million - &gt; twelve million pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_scale" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="0" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_range_no_space_2">
+      <comment>
+      £12-15m - &gt; twelve to fifteen million pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="integer_currency_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="to" offset="-1"/>
+        <fnc name="number" from="m3" grp="1" offset="0"/>
+        <lkp name="currency_scale" from="m3" grp="2" offset="1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="2"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_no_space_trailing_word">
+      <comment>
+      £60m pound resort - &gt; sixty million pound resort
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_scale" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_no_symb_sing_and_pl" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="2" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_no_space">
+      <comment>
+      £12m - &gt; twelve million pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="2" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_with_comma">
+      <comment>
+      £12.3 mln -&gt; twelve point three million pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float" src="lcase" offset="0"/>
+        <rgx id="m2" name="currency_scale" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_scale_with_comma_no_space">
+      <comment>
+      £12.3mln -&gt; twelve point three million pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_scale_float_currency_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m1" grp="3" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_one">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="one" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions_cents">
+      <comment>
+      £12999.99 -&gt; twelve thousand nine hundred and ninety-nine pounds ninety-nine pence
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions_cents" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <cpy val="and" offset="-1"/>
+        <fnc name="number" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_cents">
+      <comment>
+      £12999.99 -&gt; twelve thousand nine hundred and ninety-nine pounds ninety-nine pence
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_cents" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <cpy val="and" offset="-1"/>
+        <fnc name="number" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions_one_cent">
+      <comment>
+      £12999.01 -&gt; twelve thousand nine hundred and ninety-nine pounds one pence
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions_one_cent" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <cpy val="and" offset="-1"/>
+        <fnc name="number" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_units" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_one_cent">
+      <comment>
+      £12999.01 -&gt; twelve thousand nine hundred and ninety-nine pounds one pence
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_one_cent" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="-1"/>
+        <cpy val="and" offset="-1"/>
+        <fnc name="number" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_units" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_millions">
+      <comment>
+      £12999 -&gt; twelve thousand nine hundred and ninety-nine pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency_millions" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency">
+      <comment>
+      £12999 -&gt; twelve thousand nine hundred and ninety-nine pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="big_currency" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="big_currency_k">
+      <comment>
+      £12k -&gt; twelve thousand pounds
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_up_to_1000_k" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="thousand" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number_one">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency_one" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_whole_number">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer_currency" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asnumbers_one_whole_one_unit">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_one_whole_one_unit" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_units" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asnumbers_one_whole">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_one_whole" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asnumbers_one_unit">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur_one_unit" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_units" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asnumbers">
+      <comment/>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_2d_postcomma_cur" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_2digits_1">
+      <comment>
+      £1.08 -&gt; one pound eight pence
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0_digit_one" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency" from="m0" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits_2digits">
+      <comment>
+      £13.08 -&gt; thirteen pounds eight pence
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0_digit_postcomma_cur" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_units_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_asdigits">
+      <comment>
+      The case where the post-comma digits of a currency-related expression
+      are said as 'asdigits'.
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_0d_postcomma_cur" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="-1"/>
+        <lkp name="currency_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_float_one_digit">
+      <comment>
+      $118.4  -&gt; one hundred and eighteen point four dollars
+      This format is sometimes used in stock and commodity prices
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="currency_one_digit" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m1" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="-1"/>
+        <lkp name="currency_compl" from="m1" grp="0" offset="0"/>
+        <lkp name="currency_pl" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_pre0">
+      <comment>
+      Last resort rule for single token currency followed by a currency sign (such as US25.03 $)
+      We leave the handling of the number for later.
+    </comment>
+      <match>
+        <rgx id="m0" name="number_currency_pre" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="1" offset="0"/>
+        <lkp name="currency_compl" from="m0" grp="0" offset="1"/>
+        <lkp name="currency_pl" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_pre">
+      <comment>
+      Last resort rule for single token currency (such as USD25.03)
+      We leave the handling of the number for later.
+    </comment>
+      <match>
+        <rgx id="m0" name="number_currency_pre" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="1" offset="0"/>
+        <lkp name="currency_compl_full" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_post0">
+      <comment>
+      Last resort rule for single token currency preced by curency sign (such as $ 25.03US)
+      We leave the handling of the number for later.
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="-1"/>
+        <rgx id="m1" name="number_currency_post" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy from="m1" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" grp="3" offset="0"/>
+        <lkp name="currency_pl" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_last_post">
+      <comment>
+      Last resort rule for single token currency (such as 25.03USD)
+      We leave the handling of the number for later.
+    </comment>
+      <match>
+        <rgx id="m0" name="number_currency_post" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="0"/>
+        <lkp name="currency_compl_full" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs_float_scale">
+      <comment>
+      Remove left over currency signs
+      $HK2.34mln -&gt; two point three four million hong kong dollars
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement" src="lcase" offset="1"/>
+        <rgx id="m2" name="float_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="number" from="m2" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="3" offset="0"/>
+        <lkp name="currency_compl" from="m1" offset="1"/>
+        <lkp name="currency_pl" from="m0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs_scale">
+      <comment>
+      Remove left over currency signs
+      $HK2mln -&gt; two million hong kong dollars
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement" src="lcase" offset="1"/>
+        <rgx id="m2" name="number_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="1" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="2" offset="0"/>
+        <lkp name="currency_compl" from="m1" offset="1"/>
+        <lkp name="currency_pl" from="m0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs">
+      <comment>
+      Remove left over currency signs
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement" src="lcase" offset="1"/>
+        <rgx id="m2" name="number" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy from="m2" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m1" offset="1"/>
+        <lkp name="currency_pl" from="m0" offset="1"/>
+        <cpy val="" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_float_scale_space_aus">
+      <comment>
+      Dummy rule - required for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_float_scale_space">
+      <comment>
+      Remove left over currency signs
+      $HK2.34 mln -&gt; two point three four million hong kong dollars
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m2" name="float" src="lcase" offset="1"/>
+        <rgx id="m3" name="currency_scale" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="number" from="m2" grp="3" offset="-1"/>
+        <lkp name="currency_scale" from="m3" grp="0" offset="0"/>
+        <lkp name="currency_compl" from="m0" offset="1"/>
+        <lkp name="currency_pl" from="m1" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_float_scale_aus">
+      <comment>
+      Dummy rule - required for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_float_scale">
+      <comment>
+      Remove left over currency signs
+      $HK2.34mln -&gt; two point three four million hong kong dollars
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m2" name="float_scale" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="1" offset="-1"/>
+        <cpy val="point" offset="-1"/>
+        <fnc name="number" from="m2" grp="2" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="3" offset="0"/>
+        <lkp name="currency_compl" from="m0" offset="1"/>
+        <lkp name="currency_pl" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_scale_aus">
+      <comment>
+      Dummy rule - required for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_scale">
+      <comment>
+      Remove left over currency signs
+      HK$2mln -&gt; two million hong kongdollars
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m2" name="number_scale" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m2" grp="1" offset="-1"/>
+        <lkp name="currency_scale" from="m2" grp="2" offset="0"/>
+        <lkp name="currency_compl" from="m0" offset="1"/>
+        <lkp name="currency_pl" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb_aus">
+      <comment>
+      Dummy rule - required for Bloomberg only
+    </comment>
+      <match>
+        <rgx id="m0" name="dummy" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signsb">
+      <comment>
+      Remove left over currency signs
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m2" name="number" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy from="m2" offset="0"/>
+        <lkp name="currency_compl" from="m0" offset="1"/>
+        <lkp name="currency_pl" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs2">
+      <comment>
+      Remove left over currency signs
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_symb" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_compl" from="m1" offset="1"/>
+        <lkp name="currency_pl" from="m0" offset="1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs2b">
+      <comment>
+      Remove left over currency signs
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_complement" src="mcase" offset="-1"/>
+        <rgx id="m1" name="currency_symb" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="currency_compl" from="m0" offset="-1"/>
+        <lkp name="currency_pl" from="m1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs3">
+      <comment>
+      Remove left over currency signs, e.g. in USD 12.03 -
+      Note that to make sure that the number is processed later, you have to ensure that the number is copied back to token "t-00".
+    </comment>
+      <match>
+        <rgx id="m0" name="currency_complement_full" src="lcase" offset="-1"/>
+        <rgx id="m1" name="number" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="-1"/>
+        <cpy from="m1" grp="0" offset="0"/>
+        <lkp name="currency_compl_full" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="currency_signs3b">
+      <comment>
+      Remove left over currency signs
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="currency_complement_full" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="currency_compl_full" from="m1" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

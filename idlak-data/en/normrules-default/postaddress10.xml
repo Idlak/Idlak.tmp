@@ -1,0 +1,20 @@
+<nrules>
+
+  <rules>
+
+    <rule name="american_address_misc">
+      <comment>
+      e.g. Bldg 100
+    </comment>
+      <match>
+        <rgx id="m0" name="american_address_misc" src="lcase" offset="-1"/>
+        <rgx id="m1" name="american_num" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="address_abbrev_2nd_unit" from="m0" offset="-1">
+          <break type="0" time="0"/>
+        </lkp>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

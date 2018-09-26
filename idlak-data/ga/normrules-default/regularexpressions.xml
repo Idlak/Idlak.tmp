@@ -1,0 +1,1847 @@
+<nrules>
+
+  <regexs>
+
+    <regex name="11">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^1(1)$]]></exp>
+    </regex>
+
+    <regex name="11to16">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([\+\-]?)(1)([1-6])$]]></exp>
+    </regex>
+
+    <regex name="1234">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[^([1234])$]]></exp>
+    </regex>
+
+    <regex name="12to16">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^1([2-6])$]]></exp>
+    </regex>
+
+    <regex name="17to19">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([\+\-]?)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="2345">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([2345])$]]></exp>
+    </regex>
+
+    <regex name="2to6">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([\+\-]?)([2-6])$]]></exp>
+    </regex>
+
+    <regex name="345">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[^([345])$]]></exp>
+    </regex>
+
+    <regex name="7to10">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([\+\-]?)([7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="am_dots_opt">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="am_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(am|pm)$]]></exp>
+    </regex>
+
+    <regex name="am_pm_dots_opt">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([AaPp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="am_pm_lowercase_dotted">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([ap])\.(m)\.$]]></exp>
+    </regex>
+
+    <regex name="american_house_number">
+      <comment usedby="postaddress4"/>
+      <exp><![CDATA[^(\d{1,5})$]]></exp>
+    </regex>
+
+    <regex name="and">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(agus|is|\'gus)$]]></exp>
+    </regex>
+
+    <regex name="area_code">
+      <comment usedby="tele">
+            The area code of a telephone number.
+            Start with "0" followed by 2 to four digits, with the second not a "0".
+        </comment>
+      <exp><![CDATA[^(0[1-9][0-9]{1,3})$]]></exp>
+    </regex>
+
+    <regex name="at_symbol">
+      <comment usedby="www"/>
+      <exp><![CDATA[^@$]]></exp>
+    </regex>
+
+    <regex name="between">
+      <comment usedby="date measure"/>
+      <exp><![CDATA[^(idir)$]]></exp>
+    </regex>
+
+    <regex name="big_currency">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_cents">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])\.([0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_cents_11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])\.(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_cents_13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])\.(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_cents_17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9]\,?[0-9][0-9][0-9])\.(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9][0-9]{0,2}\,?[0-9][0-9][0-9]\,?[0-9][0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions_cents">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9][0-9]{0,2}\,?[0-9][0-9][0-9]\,?[0-9][0-9][0-9])\.([0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions_cents_11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9][0-9]{0,2}\,?[0-9][0-9][0-9]\,?[0-9][0-9][0-9])\.1([1-2])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions_cents_13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9][0-9]{0,2}\,?[0-9][0-9][0-9]\,?[0-9][0-9][0-9])\.1([3-6])$]]></exp>
+    </regex>
+
+    <regex name="big_currency_millions_cents_17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9][0-9]{0,2}\,?[0-9][0-9][0-9]\,?[0-9][0-9][0-9])\.1([7-9])$]]></exp>
+    </regex>
+
+    <regex name="billionscomma_no_point">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9]\d{0,2},[0-9]{3},[0-9]{3},[0-9]{3})$]]></exp>
+    </regex>
+
+    <regex name="bracketed_roman_numerals">
+      <comment usedby="ssml index"/>
+      <exp><![CDATA[^\(?(i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|xiii|xiv|xv|xvi|xvii|xviii|xix|xx|xxi|xxii|xxiii|xxiv|xxv|xxvi|xxvii|xxviii|xxix|xxx|xxxi|I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV|XVI|XVII|XVIII|XIX|XX|XXI|XXII|XXIII|XXIV|XXV|XXVI|XXVII|XXVIII|XXIX|XXX|XXXI)\)$]]></exp>
+    </regex>
+
+    <regex name="call">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(glaoigh|glaoch)$]]></exp>
+    </regex>
+
+    <regex name="call_1">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(ar)$]]></exp>
+    </regex>
+
+    <regex name="call_2">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(glaoch|scairt|glaoigh)$]]></exp>
+    </regex>
+
+    <regex name="call_3">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(cuir|cuirigi)$]]></exp>
+    </regex>
+
+    <regex name="cardinal">
+      <comment usedby="index fractions digit"/>
+      <exp><![CDATA[^([1-9][0-9]*)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_1">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[^(1)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_1">
+      <comment usedby="measure">
+            Singular form
+        </comment>
+      <exp><![CDATA[^(1)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_few_11to16">
+      <comment usedby="measure">
+            For numbers 11-16
+        </comment>
+      <exp><![CDATA[^(1)([1-6])(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_few_11to19">
+      <comment usedby="measure">
+            For numbers 11-19
+        </comment>
+      <exp><![CDATA[^(1)([1-9])(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_few_17to19">
+      <comment usedby="measure">
+            For numbers 17-19
+        </comment>
+      <exp><![CDATA[^(1)([7-9])(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_few_2to6">
+      <comment usedby="measure">
+            For numbers 2-6
+        </comment>
+      <exp><![CDATA[^([2-6])(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_few_7to10">
+      <comment usedby="measure">
+            For numbers 7-10
+        </comment>
+      <exp><![CDATA[^([7-9]|10)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_measure_other">
+      <comment usedby="premeasure measure">
+            For numbers &gt;20 and 0
+        </comment>
+      <exp><![CDATA[^([0-9]+([,][0-9]{3})*)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|kgs|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|mw|meigeavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|c|°)$]]></exp>
+    </regex>
+
+    <regex name="cardinal_plusminus">
+      <comment usedby="predigit"/>
+      <exp><![CDATA[^([+\-]?)([1-9]|[1-9][0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="cardinalr">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="century_s">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(1[1-9]|20)00(s?idí)$]]></exp>
+    </regex>
+
+    <regex name="currency_complement">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?|USD?)$]]></exp>
+    </regex>
+
+    <regex name="currency_no_symb">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(punt|dollar|euro)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(míle|mhíle|m|mill|mln|milliún|mhilliún|b|bn|billiún|bhilliún|tn|trilliún)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale_billions">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(b|bn|billiún|bhilliún)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale_float">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9])\.([0-9][0-9]?[0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale_float_currency_scale">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]?[0-9]?[0-9])\.([0-9][0-9]?[0-9]?)(míle|mhíle|m|mill|mln|milliún|mhilliún|b|bn|billiún|bhilliún|tn|trilliún)$]]></exp>
+    </regex>
+
+    <regex name="currency_scale_millions">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(m|mill|mln|milliún|mhilliún)$]]></exp>
+    </regex>
+
+    <regex name="currency_symb">
+      <comment usedby="precurrency currency"/>
+      <exp><![CDATA[(£|€|¢|[Ee]uro|^[Dd]ollar$|\$|usd)]]></exp>
+    </regex>
+
+    <regex name="date_month">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(0?[1-9]|[1][0-2])$]]></exp>
+    </regex>
+
+    <regex name="date_sep">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(\/|\.|\-)$]]></exp>
+    </regex>
+
+    <regex name="date_sep_strict">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(\/|\.)$]]></exp>
+    </regex>
+
+    <regex name="day_initial">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(l|m|c|d|h|s|d)$]]></exp>
+    </regex>
+
+    <regex name="day_of_month">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(0?[1-9]|[1-2][0-9]|3[0-1])$]]></exp>
+    </regex>
+
+    <regex name="days">
+      <comment usedby="date">
+            Days and abbreviations
+        </comment>
+      <exp><![CDATA[^(luan|luain|lu|mháirt|máirt|má|chéadaoin|céadaoin|cé|déardaoin|dé|aoine|haoine|ha|satharn|sathairn|sa|domhnach|domhnaigh|do)$]]></exp>
+    </regex>
+
+    <regex name="de">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(dé|de)$]]></exp>
+    </regex>
+
+    <regex name="domain_2names_2nd_tld">
+      <comment usedby="www">
+            Example: store.amazon.co.uk
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="domain_2names_tld">
+      <comment usedby="www">
+            Example: store.amazon.com
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="domain_2nd_tld">
+      <comment usedby="www">
+            Example: amazon.co.uk
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9\-]+\.?)(\.)([a-zA-Z]{2,3}|parliament)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="domain_2nms_2nd_tld">
+      <comment usedby="www">
+            Example: www.store.amazon.ac.uk
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="domain_tld">
+      <comment usedby="www">
+            Example: amazon.com
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="duration_h_lt20_m_s_lt20">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[1-9]|1[0-9]|20)[:\.](2[1-9]|[3-5][0-9])[:\.]([01][0-9]|20)$]]></exp>
+    </regex>
+
+    <regex name="duration_h_lt20_ms_many">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[1-9]|1[0-9]|20)[:\.](2[1-9]|[3-5][0-9])[:\.](2[1-9]|[3-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="duration_hm_lt20_s_many">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[1-9]|1[0-9]|20)[:\.]([01][0-9]|20)[:\.](2[1-9]|[3-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="duration_hms_all_lt20">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[1-9]|1[0-9]|20)[:\.]([01][0-9]|20)[:\.]([01][0-9]|20)$]]></exp>
+    </regex>
+
+    <regex name="email_name_full">
+      <comment usedby="www">
+            Example: "john.muster" or "john_muster".
+        </comment>
+      <exp><![CDATA[^([a-záéíóúA-ZÁÉÍÓÚ0-9]+)([_\.])([a-záéíóúA-ZÁÉÍÓÚ0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="email_name_simple">
+      <comment usedby="www">
+            Example: "muster".
+        </comment>
+      <exp><![CDATA[^([a-záéíóúA-ZÁÉÍÓÚ0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="emergency_numbers">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(112|911|999)$]]></exp>
+    </regex>
+
+    <regex name="file_name_doc">
+      <comment usedby="www">
+            List of file suffixes which are spoken as a word.
+            Taken from: http://www.fileinfo.com/common.php
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9_\-]+)(\.)(docx?|log|dat|gif|tif|wav|avi|mov|sys|ini|com|app|exe|deb|rar|zipx?|bin|java|py|bak|iso|torrent)$]]></exp>
+    </regex>
+
+    <regex name="file_name_pdf">
+      <comment usedby="www">
+            List of file suffixes which are spoken as single characters.
+            Taken from: http://www.fileinfo.com/common.php
+        </comment>
+      <exp><![CDATA[^([a-zA-Z0-9_\-]+)(\.)(pdf|html?|txt|rtf|msg|csv|dll|pps|pptx?|sql|xlsx?|xml|bmp|jpg|png|psd|e?ps|svg|mp3|ra|wav|wma|avi|flv|mp4|mpg|qt|rm|swf|vob|wmv|css|js|jsp|php|rss|bat|cgi|gz|pkg|c|cpp|pl|tmp|dmg)$]]></exp>
+    </regex>
+
+    <regex name="float">
+      <comment usedby="measure digit">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)([0-9]+)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_0d_postcomma_cur">
+      <comment usedby="currency">
+            Covers the case where the digit after the comma is a zero.
+        </comment>
+      <exp><![CDATA[^(usd?)?(\d+)(\.)((\d{1})|(\d{3,}))$]]></exp>
+    </regex>
+
+    <regex name="float_0d_postcomma_cur_1">
+      <comment usedby="currency">
+            Only for 1.xxx, etc
+        </comment>
+      <exp><![CDATA[^(usd?)?(1)(\.)((\d{1})|(\d{3,}))$]]></exp>
+    </regex>
+
+    <regex name="float_0d_postcomma_cur_17to19">
+      <comment usedby="currency">
+            Only for 11.xxx to 16.xxx, etc
+        </comment>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)((\d{1})|(\d{3,}))$]]></exp>
+    </regex>
+
+    <regex name="float_0d_postcomma_cur_2to6">
+      <comment usedby="currency">
+            Only for 2.xxx to 6.xxx, etc
+        </comment>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)((\d{1})|(\d{3,}))$]]></exp>
+    </regex>
+
+    <regex name="float_0d_postcomma_cur_7to10">
+      <comment usedby="currency">
+            Only for 7.xxx to 10.xxx, etc
+        </comment>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)((\d{1})|(\d{3,}))$]]></exp>
+    </regex>
+
+    <regex name="float_1">
+      <comment usedby="measure">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)(1)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_11">
+      <comment usedby="measure">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)(1)(1)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_12">
+      <comment usedby="measure">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)(1)(2)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_13to19">
+      <comment usedby="measure">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)(1)([3-9])(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_2">
+      <comment usedby="measure">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)(2)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unit11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unit13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unit17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unit1to2">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)(0)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unit3to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)(0)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unit7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)(0[7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole11to16_unitgt19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([1-6])(\.)([2-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unit11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unit13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unit17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unit1to2">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)(0)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unit3to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)(0)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unit7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)(0[7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole17to19_unitgt19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(\.)([2-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unit11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unit13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unit17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unit1to2">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)(0)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unit3to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)(0)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unit7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)(0[7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole1_unitgt19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)(\.)([2-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unit11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unit13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unit17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unit1to2">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)(0)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unit3to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)(0)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unit7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)(0[7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole2to6_unitgt19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(\.)([2-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unit11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unit13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unit17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unit1to2">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)(0)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unit3to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)(0)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unit7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)(0[7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_whole7to10_unitgt19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(\.)([2-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unit11to12">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)(1)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unit13to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)(1)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unit17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)(1)([7-9])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unit1to2">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)(0)([1-2])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unit3to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)(0)([3-6])$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unit7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)(0[7-9]|10)$]]></exp>
+    </regex>
+
+    <regex name="float_2d_postcomma_cur_wholegt19_unitgt19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-9][0-9])(\.)([2-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="float_3to10">
+      <comment usedby="measure">
+            $00 = +/-
+            $01 = number
+            $02 = ,
+            $03 = number
+            $04? = ^-.*
+        </comment>
+      <exp><![CDATA[^(\-?)([3-9]|10)(\.)([0-9]+)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure">
+      <comment usedby="premeasure measure"/>
+      <exp><![CDATA[^(\d{0,3}?,?\d{0,3}?,?\d{0,3})(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure_1">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^(1)(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure_11">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^(1)(1)(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure_12">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^(1)(2)(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure_13to19">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^(1)([3-9])(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure_2">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^(2)(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_null_measure_3to10">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([3-9]|10)(\.)([0-9]+)(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="float_scale">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([\+\-]?)([0-9]+)\.([0-9]{1,3})(mill|mln|bn|tn|milliún|mhilliún|billiún|bhilliún|trilliún)$]]></exp>
+    </regex>
+
+    <regex name="from">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(ó|ón)$]]></exp>
+    </regex>
+
+    <regex name="gaelic_street_name">
+      <comment usedby="postaddress4"/>
+      <exp><![CDATA[^([a-záéíóú]+)$]]></exp>
+    </regex>
+
+    <regex name="gaelic_street_name_abb">
+      <comment usedby="postaddress4">
+            Sr -&gt; Sráid, Bth -&gt; Bóthar
+        </comment>
+      <exp><![CDATA[^(bth|sr)$]]></exp>
+    </regex>
+
+    <regex name="gmt">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="hyphen">
+      <comment usedby="date measure"/>
+      <exp><![CDATA[^[-\?]$]]></exp>
+    </regex>
+
+    <regex name="in">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(i|sna)$]]></exp>
+    </regex>
+
+    <regex name="index_letter">
+      <comment usedby="index"/>
+      <exp><![CDATA[^\(([a-z])\)\.?$]]></exp>
+    </regex>
+
+    <regex name="index_letter_optional_brackets">
+      <comment usedby="index"/>
+      <exp><![CDATA[^\(?([a-z])\)?\.?$]]></exp>
+    </regex>
+
+    <regex name="integer">
+      <comment usedby="measure"/>
+      <exp><![CDATA[^([\+\-]?)([0-9]+([,][0-9]{3})*)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]+([,][0-9]{3})*)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_11">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(11)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_12to16">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([2-6])(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_17to19">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?(1)([7-9])(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_2to6">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([2-6])(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_7to10">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([7-9]|10)(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_scale">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([0-9]+)(míle|mhíle|m|mill|mln|b|bn|tn|milliún|mhilliún|billiún|bhilliún|trilliún)$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_scale_billion_to20">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9]|1[0-9])(b|bn|billiún|bhilliún)$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_scale_million_to20">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9]|1[0-9])(m|mill|mln|milliún|mhilliún)$]]></exp>
+    </regex>
+
+    <regex name="integer_currency_to20">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9]|1[0-9])(.00)?$]]></exp>
+    </regex>
+
+    <regex name="integer_up_to_1000_k">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9][0-9]?[0-9]?)[kK]$]]></exp>
+    </regex>
+
+    <regex name="integer_up_to_20_k">
+      <comment usedby="currency"/>
+      <exp><![CDATA[^(usd?)?([1-9]|1[0-9])[kK]$]]></exp>
+    </regex>
+
+    <regex name="is_hyphen">
+      <comment usedby="date time tele"/>
+      <exp><![CDATA[^(\-)$]]></exp>
+    </regex>
+
+    <regex name="max_04_digits_colon">
+      <comment usedby="date">
+            Used for years. Up to four digits, with maximal three leading "0"s.
+        </comment>
+      <exp><![CDATA[^(0?0?0?\d|0?0?\d{2}|0?\d{3}|\d{4}):$]]></exp>
+    </regex>
+
+    <regex name="measure_masc">
+      <comment usedby="premeasure measure">
+            May need to remove single character ones, e.g. m, t, w, etc.
+        </comment>
+      <exp><![CDATA[^(m|mm|milliméadar|milliméadar|cm|cm²|cm³|ceintiméadar|m²|m³|méadar|mhéadar|mg|milleagram|mhilleagram|kg|cileagram|chileagram|gcileagram|km|km²|km³|ciliméadar|chiliméadar|gciliméadar|%|h|u|uair|huaire|n-uaire|gb|gigibheart|ghigibheart|ngigibheart|mb|meigibheart|mheigibheart|l|lítear|min|n|nóiméad|s|sec|soicind|shoicind|t|tona|thona|dtona|mph|msu|gm|g|gram|yd|shlat|slat|punt|phunt|bpunt|oz|unsa|lb|ft|ft²|ft³|tr|tr²|tr³|throigh|troigh|dtroigh|in|orlach|míle|mhíle|kbps|mbps|st|cloch|chloch|gcloch|gl|gls|ghalún|ngalún|galún|bbl|bairille|bhairille|mbarille|bu|bhuiséal|mbuiséal|buiséal|w|vata|hz|heirts|mhz|meigiheirts|mheigiheirts|ghigiheirts|gigiheirts|ngigiheirts|ghz|p|pingin|phingin|bpingin|kw|cileavata|chileavata|gcileavata|kwh|kj|ciligiúl|chiligiúl|gciligiúl|mol|mól|mhól|cc|°)$]]></exp>
+    </regex>
+
+    <regex name="midday_minutes_pm_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(12)[\:|\.|\-]?(0[1-9]|[1-2][0-9]|30)([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="midday_to30_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(12)[\.:]?(0[1-9]|[12][0-9]|30)(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="midday_to_30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(12)[:\-]([0-2][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="midnight_minutes_am_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?0|12|24)[\:|\.|\-]?(0[1-9]|[1-2][0-9]|30)([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="midnight_to30_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(00)[\.:]?(0[1-9]|[12][0-9]|30)(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="midnight_to_30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00|12|24)[:\-]([0-2][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="millionscomma_no_point">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9]\d{0,2},[0-9]{3},[0-9]{3})$]]></exp>
+    </regex>
+
+    <regex name="millionscomma_withpoint">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9]\d{0,2},[0-9]{3},[0-9]{3})\.([0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="minutes">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(nóiméad|m|min|mins)$]]></exp>
+    </regex>
+
+    <regex name="month_name">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(eanáir|eanair|feabhra|márta|marta|aibreán|aibrean|bealtaine|meitheamh|iúil|iuil|lúnasa|lunasa|meán fómhair|mean fomhair|deireadh fómhair|deireadh fomhair|samhain|nollaig)$]]></exp>
+    </regex>
+
+    <regex name="month_name_two_words_first">
+      <comment usedby="date">
+            Used for matching months with two word names
+        </comment>
+      <exp><![CDATA[^(meán|mean|deireadh)$]]></exp>
+    </regex>
+
+    <regex name="month_name_two_words_second">
+      <comment usedby="date">
+            Used for matching months with two word names
+        </comment>
+      <exp><![CDATA[^(fómhair|fomhair)$]]></exp>
+    </regex>
+
+    <regex name="na">
+      <comment usedby="date digit"/>
+      <exp><![CDATA[^(na|sna)$]]></exp>
+    </regex>
+
+    <regex name="not_hours">
+      <comment usedby="precurrency"/>
+      <exp><![CDATA[^(10|[2-9]|2[0-4])(\.00)$]]></exp>
+    </regex>
+
+    <regex name="not_hours_11to16">
+      <comment usedby="precurrency"/>
+      <exp><![CDATA[^1([1-6])(\.00)$]]></exp>
+    </regex>
+
+    <regex name="not_hours_17to19">
+      <comment usedby="precurrency"/>
+      <exp><![CDATA[^1([7-9])(\.00)$]]></exp>
+    </regex>
+
+    <regex name="not_hours_2to6">
+      <comment usedby="precurrency"/>
+      <exp><![CDATA[^([2-6])(\.00)$]]></exp>
+    </regex>
+
+    <regex name="not_hours_7to10">
+      <comment usedby="precurrency"/>
+      <exp><![CDATA[^(10|[7-9])(\.00)$]]></exp>
+    </regex>
+
+    <regex name="noun">
+      <comment usedby="measure">
+            For numbers gt10 and lt20
+        </comment>
+      <exp><![CDATA[^(bliain|bhliain|bliana|mbliana|seachtain|sheachtain|seachtaine|uair|huaire|n-uaire|ceann|cinn|gcinn|cloigeann|chloigeann|cloigne|gcloigne|orlach|horlaí|n-orlaí|troigh|troithe|dtroithe|pingin|phingin|pingine|bpingine|scilling|scillinge)$]]></exp>
+    </regex>
+
+    <regex name="number">
+      <comment usedby="premeasure currency">
+            match any kind of number
+        </comment>
+      <exp><![CDATA[^(([0-9]+([,]\d{3})*)([\.]\d*)?)$]]></exp>
+    </regex>
+
+    <regex name="number_currency_post">
+      <comment usedby="currency">
+            match any kind of number / currency
+        </comment>
+      <exp><![CDATA[^([0-9]+([,\.]([1-9]\d{0,2}\d*))?)(usd?)$]]></exp>
+    </regex>
+
+    <regex name="number_currency_pre">
+      <comment usedby="currency">
+            match any kind of number / currency
+        </comment>
+      <exp><![CDATA[^(usd?)([0-9]+([,\.]([1-9]\d{0,2}\d*))?)$]]></exp>
+    </regex>
+
+    <regex name="number_idi">
+      <comment usedby="date">
+            Covers cases like "20s", e.g. "in the 20s".
+        </comment>
+      <exp><![CDATA[^([12][0-9])?([2-9]0s|[2-9]0idí)$]]></exp>
+    </regex>
+
+    <regex name="number_scale">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([\+\-]?)([0-9]+)(mill|mln|bn|tn|milliún|mhilliún|billiún|bhilliún|trilliún)$]]></exp>
+    </regex>
+
+    <regex name="number_scale_billion_to20">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([\+\-]?)([1-9]|1[0-9])(bn|billiún|bhilliún)$]]></exp>
+    </regex>
+
+    <regex name="number_scale_million_to20">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([\+\-]?)([1-9]|1[0-9])(mill|mln|milliún|mhilliún)$]]></exp>
+    </regex>
+
+    <regex name="numbers_group_d_apostrophe">
+      <comment usedby="ssmldigit2"/>
+      <exp><![CDATA[^(aon|ocht|ochtó)$]]></exp>
+    </regex>
+
+    <regex name="numbers_group_seimhiu">
+      <comment usedby="ssmldigit2"/>
+      <exp><![CDATA[^(dó|trí|ceathair|ceithre|cúig|sé|seacht|deich|fiche|tríocha|daichead|caoga|seasca|seachtó|céad|míle|milliún|billiún)$]]></exp>
+    </regex>
+
+    <regex name="numbers_group_uru">
+      <comment usedby="ssmldigit2"/>
+      <exp><![CDATA[^(dó|dá|trí|ceathair|ceithre|cúig|deich|fiche|tríocha|daichead|caoga|céad|míle|milliún|billiún)$]]></exp>
+    </regex>
+
+    <regex name="one">
+      <comment usedby="measure fractions"/>
+      <exp><![CDATA[^([\+\-]?)0?0?(1)$]]></exp>
+    </regex>
+
+    <regex name="one_curr">
+      <comment usedby="precurrency"/>
+      <exp><![CDATA[^(1)(\.00)?$]]></exp>
+    </regex>
+
+    <regex name="per_kilogramme">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(kg|cileagram)$]]></exp>
+    </regex>
+
+    <regex name="per_kilometre">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(km|ciliméadar)$]]></exp>
+    </regex>
+
+    <regex name="per_litre">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(l|lítear)$]]></exp>
+    </regex>
+
+    <regex name="per_minute">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(min|mi)$]]></exp>
+    </regex>
+
+    <regex name="per_second">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(s|sec|soicind)$]]></exp>
+    </regex>
+
+    <regex name="plusminus">
+      <comment usedby="measure predigit digit"/>
+      <exp><![CDATA[^[+\-]$]]></exp>
+    </regex>
+
+    <regex name="pm_dots_opt">
+      <comment usedby="time"/>
+      <exp><![CDATA[^([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="pre_date">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(ar)$]]></exp>
+    </regex>
+
+    <regex name="pre_midday_minutes_am_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(11)[\:|\.|\-]?(3[1-9]|[45][0-9])([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="pre_midday_to59_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(11)[\.:]?(3[1-9]|[45][0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="pre_midday_to_59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(11)[:\-](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="pre_midnight_minutes_pm_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(11|23)[\:|\.|\-]?(3[1-9]|[45][0-9])([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="pre_midnight_to59_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(23)[\.:]?(3[1-9]|[45][0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="pre_midnight_to_59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(11|23)[:\-](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="pre_time">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(ag)$]]></exp>
+    </regex>
+
+    <regex name="precedes_numbers_d_apostrophe">
+      <comment usedby="ssmldigit2">
+            Prepositions that cause vowels to take a d'
+            de ocht -&gt; d'ocht
+        </comment>
+      <exp><![CDATA[^(do|de)$]]></exp>
+    </regex>
+
+    <regex name="precedes_numbers_seimhiu">
+      <comment usedby="ssmldigit2">
+            Prepositions that cause words to take a séimhiú
+        </comment>
+      <exp><![CDATA[^(ar|de|den|do|don|faoi|ó|um|sa)$]]></exp>
+    </regex>
+
+    <regex name="precedes_numbers_uru">
+      <comment usedby="ssmldigit2">
+            Prepositions that cause words to take an urú
+        </comment>
+      <exp><![CDATA[^(i|insan|faoin|ón)$]]></exp>
+    </regex>
+
+    <regex name="precedes_numbers_uru_an">
+      <comment usedby="ssmldigit2">
+            Prepositions that cause words to take an urú when followed by an
+            e.g. ag an mbord
+        </comment>
+      <exp><![CDATA[^(ag|ar|leis|as)$]]></exp>
+    </regex>
+
+    <regex name="precedes_numbers_uru_an_token">
+      <comment usedby="ssmldigit2"/>
+      <exp><![CDATA[^(an)$]]></exp>
+    </regex>
+
+    <regex name="protocol">
+      <comment usedby="www"/>
+      <exp><![CDATA[^(https?|ftp)(:)$]]></exp>
+    </regex>
+
+    <regex name="roman_context">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[^(caibidil|leathanach|lth|véarsa|táthmhír|gníomh)$]]></exp>
+    </regex>
+
+    <regex name="roman_numerals_lt20_case">
+      <comment usedby="ssml">
+            Roman numerals I to XX
+        </comment>
+      <exp><![CDATA[^(i|ii|iii|iv|v|vi|vii|viii|ix|x|xi|xii|xiii|xiv|xv|xvi|xvii|xviii|xix|xx|xxi|xxii|xxiii|xxiv|xxv|xxvi|xxvii|xxviii|xxix|xxx|xxxi|I|II|III|IV|V|VI|VII|VIII|IX|X|XI|XII|XIII|XIV|XV|XVI|XVII|XVIII|XIX|XX|XXI|XXII|XXIII|XXIV|XXV|XXVI|XXVII|XXVIII|XXIX|XXX|XXXI)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="short_year_31to99">
+      <comment usedby="date">
+            Short year, e.g.dd/mm/99
+        </comment>
+      <exp><![CDATA[^(3[1-9]|[4-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="short_year_to_30">
+      <comment usedby="date">
+            Short year, e.g.dd/mm/08
+        </comment>
+      <exp><![CDATA[^([0-2][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="signs">
+      <comment usedby="signs"/>
+      <exp><![CDATA[^([\+:%])$]]></exp>
+    </regex>
+
+    <regex name="slash">
+      <comment usedby="www premeasure measure fractions"/>
+      <exp><![CDATA[^/$]]></exp>
+    </regex>
+
+    <regex name="sportstime_1m_many_s_colon">
+      <comment usedby="time">
+            "mm:ss", e.g. 11:25, 12:00
+        </comment>
+      <exp><![CDATA[^(0?[12]|1[12])[\.:](00|2[1-9]|[3-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="sportstime_1m_to20s_colon">
+      <comment usedby="time">
+            "mm:ss", e.g. 11:01, 2:11
+        </comment>
+      <exp><![CDATA[^(0?[12]|1[12])[\.:](0[1-9]|1[0-9]|20)$]]></exp>
+    </regex>
+
+    <regex name="sportstime_few_m_many_s_colon">
+      <comment usedby="time">
+            "mm:ss", e.g. 20:00
+        </comment>
+      <exp><![CDATA[^(0?[3-9]|1[3-9]|20)[\.:](00|2[1-9]|[3-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="sportstime_few_m_to20s_colon">
+      <comment usedby="time">
+            "mm:ss", e.g. 20:01
+        </comment>
+      <exp><![CDATA[^(0?[3-9]|1[3-9]|20)[\.:](0[1-9]|1[0-9]|20)$]]></exp>
+    </regex>
+
+    <regex name="sportstime_other_m_many_s_colon">
+      <comment usedby="time">
+            "mm:ss", e.g. 20:00
+        </comment>
+      <exp><![CDATA[^(2[1-9]|[3-5][0-9])[\.:](00|2[1-9]|[3-5][0-9])$]]></exp>
+    </regex>
+
+    <regex name="sportstime_other_m_to20s_colon">
+      <comment usedby="time">
+            "mm:ss", e.g. 21:01
+        </comment>
+      <exp><![CDATA[^(2[1-9]|[3-5][0-9])[\.:](0[1-9]|1[0-9]|20)$]]></exp>
+    </regex>
+
+    <regex name="square">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[^(sq)$]]></exp>
+    </regex>
+
+    <regex name="tele_digits">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\d{1,7})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_3_4">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\d{3,4})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_4">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(\d{4})$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_or_word">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^((\d{1,7})|([a-záéíóúA-ZÁÉÍÓÚ0-9]+))$]]></exp>
+    </regex>
+
+    <regex name="tele_digits_starting_zero">
+      <comment usedby="tele"/>
+      <exp><![CDATA[^(0\d{2,11})$]]></exp>
+    </regex>
+
+    <regex name="the_preceding_date">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(an)$]]></exp>
+    </regex>
+
+    <regex name="the_preceding_month">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(an|den|insan|sadon|faoin|ón)$]]></exp>
+    </regex>
+
+    <regex name="thousandscomma">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9]\d{0,2},[0-9]{3})$]]></exp>
+    </regex>
+
+    <regex name="thousandscomma_withpoint">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^([1-9]\d{0,2},[0-9]{3})\.([0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_12h_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[:\-\.]([0-2][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_12h_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[:\-](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_12h_m_to30_colon">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(0[0-9]|1[01])[\.:]?(0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_12h_m_to59_colon">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(0[0-9]|1[01])[\.:]?(3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_12h_zero">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[:\-\.]?(00)?$]]></exp>
+    </regex>
+
+    <regex name="time_12hm_to30_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(0[0-9]|1[01])[\.:]?(0[1-9]|[12][0-9]|30)(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_12hm_to59_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(0[0-9]|1[01])[\.:]?(3[1-9]|[45][0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_24h_m_to30_colon">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(1[2-9]|2[0-3])[\.:]?(0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_24h_m_to59_colon">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(1[2-9]|2[0-3])[\.:]?(3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_24hm_to30_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(1[2-9]|2[0-3])[\.:]?(0[1-9]|[12][0-9]|30)(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_24hm_to59_colon_gmt">
+      <comment usedby="time">
+            "hh:mm", with both "hh" and "mm" &gt; 9
+        </comment>
+      <exp><![CDATA[^(1[2-9]|2[0-3])[\.:]?(3[1-9]|[45][0-9])(GMT|BST|CET|EST|MST|CST|PST|CDT|EDT|MDT|CDT|PDT|gmt|bst|cet|est|mst|cst|pst|cdt|edt|mdt|cdt|pdt)[\.,]?$]]></exp>
+    </regex>
+
+    <regex name="time_am_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-]([0-2][0-9]|30)([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_am_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-](3[1-9]|[45][0-9])([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_am_zero">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[1-9]|1[0-1])[\:|\.|\-]?(00)?([Aa]\.?[Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_at">
+      <comment usedby="time">
+            For catching times preceded by at/around.
+            TODO - translate "around"
+        </comment>
+      <exp><![CDATA[^(ag)$]]></exp>
+    </regex>
+
+    <regex name="time_h00">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\-:\.](00)$]]></exp>
+    </regex>
+
+    <regex name="time_h00_h">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[\-:](00)h?$]]></exp>
+    </regex>
+
+    <regex name="time_h00_h_1to9">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9])[\.:]?(00)[h|u]?$]]></exp>
+    </regex>
+
+    <regex name="time_h00_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1[3-9]|2[0-3])[\-:\.](00)$]]></exp>
+    </regex>
+
+    <regex name="time_h_zero_hours">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_iarnoin_to30">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(1[3-9]|2[0-3])[:](0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_hm_iarnoin_to30_dot">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(1[3-9]|2[0-3])[\.](0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_hm_iarnoin_to59">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(1[3-9]|2[0-3])[:](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_midnight_to59">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(23)[:](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_to30">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])[:](0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_hm_to30_dot">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])[\.](0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_hm_to59">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])[:](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_to59_dot">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])[\.](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_with_zero_minutes">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0)([1-9])[:](0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_with_zero_minutes_dot">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0)([1-9])[:\.](0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_with_zero_to30">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0)([1-9])[:\.\-]([0-2][1-9]|30])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_with_zero_to59">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0)([1-9])[:\.\-](3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hm_zero_mins">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(1[0-9]|2[0-3])[:\-](0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hours">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])$]]></exp>
+    </regex>
+
+    <regex name="time_hours_24">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-9]|2[0-3])$]]></exp>
+    </regex>
+
+    <regex name="time_hours_24_iarnoin">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(1[3-9]|2[0-3])$]]></exp>
+    </regex>
+
+    <regex name="time_hours_24_maidin">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0[0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_hours_midday">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0|00|12)$]]></exp>
+    </regex>
+
+    <regex name="time_hours_midnight">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0|00|12|24)$]]></exp>
+    </regex>
+
+    <regex name="time_hours_pre_midday">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(11)$]]></exp>
+    </regex>
+
+    <regex name="time_hours_pre_midnight">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(11|23)$]]></exp>
+    </regex>
+
+    <regex name="time_midday">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(12[:\-]00)([Pp]\.?[Mm]|[Ii]\.?[Nn])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_midnight">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00[:\-\.]00|24[:\-\.]00)$]]></exp>
+    </regex>
+
+    <regex name="time_midnight_12">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(12[:\-]00)([Aa]\.?[Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0[1-9]|[1-2][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_am_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0[1-9]|[1-2][0-9]|30)([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_am_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(3[1-9]|[45][0-9])([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_pm_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0[1-9]|[1-2][0-9]|30)([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_pm_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(3[1-9]|[45][0-9])([Pp]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_to30">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0[1-9]|[12][0-9]|30)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_to59">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(3[1-9]|[45][0-9])$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_zero_am">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00)([Aa]\.?[Mm]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_minutes_zero_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00)([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_pm_0to30">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-]([0-2][0-9]|30)([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_pm_31to59">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[0-9]|1[0-2])[\:|\.|\-](3[1-9]|[45][0-9])([Pp]\.?[Mm]\.?|[Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_pm_zero">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(0?[1-9]|1[0-1])[\:|\.|\-]?(00)?([Pp]\.?[Mm])\.?$]]></exp>
+    </regex>
+
+    <regex name="time_pm_zero_irish">
+      <comment usedby="time">
+            Stricter format as 6in is the Irish for 6PM, so has to be 6:00in
+        </comment>
+      <exp><![CDATA[^(0?[1-9]|1[0-1])[\:|\.|\-](00)([Ii]\.?[Nn]\.?)$]]></exp>
+    </regex>
+
+    <regex name="time_zero">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(00)$]]></exp>
+    </regex>
+
+    <regex name="time_zero_minutes">
+      <comment usedby="time">
+            Time in the format "hh.mm".
+        </comment>
+      <exp><![CDATA[^(0[1-9])$]]></exp>
+    </regex>
+
+    <regex name="twelve">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(12)$]]></exp>
+    </regex>
+
+    <regex name="two">
+      <comment usedby="fractions"/>
+      <exp><![CDATA[^([\+\-]?)0?0?(2)$]]></exp>
+    </regex>
+
+    <regex name="two_zeros">
+      <comment usedby="time"/>
+      <exp><![CDATA[^(00)$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t1">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([a-z][a-z]?)([0-9][0-9]?)$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t1_gt9">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([a-z][a-z]?)([1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t1_letter">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([a-z][a-z])([0-9])([a-z])$]]></exp>
+    </regex>
+
+    <regex name="uk_postcode_t2">
+      <comment usedby="address"/>
+      <exp><![CDATA[^([0-9])([a-z][a-z])$]]></exp>
+    </regex>
+
+    <regex name="until1">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(go)$]]></exp>
+    </regex>
+
+    <regex name="until2">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(dtí)?$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld">
+      <comment usedby="www">
+            Example: www.amazon.ac.uk
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3}|parliament)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nd_tld_alt">
+      <comment usedby="www">
+            Example: www.amazon.co.uk
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)(ac|co|gov|mod|net|org)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_2nd_tld">
+      <comment usedby="www">
+            Example: www.store.amazon.ac.uk
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_2nd_tld_alt">
+      <comment usedby="www">
+            Example: www.store.amazon.co.uk
+
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)(ac|co|gov|mod|net|org)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_tld">
+      <comment usedby="www">
+            Example: www.store.amazon.jp
+        </comment>
+      <exp><![CDATA[^(www)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_2nms_tld_alt">
+      <comment usedby="www">
+            Example: www.gov.scot
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-záéíóúA-ZÁÉÍÓÚ0-9]+)(\.)(com|info|net|org|pro|edu|gov|asia|coop|int|jobs|mil|mobi|museum|tel|scot|doc)$]]></exp>
+    </regex>
+
+    <regex name="url_domain_tld">
+      <comment usedby="www">
+            Example: www.amazon.jp
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)([a-zA-Z]{2,3})$]]></exp>
+    </regex>
+
+    <regex name="url_domain_tld_alt">
+      <comment usedby="www">
+            Example: www.gov.scot
+        </comment>
+      <exp><![CDATA[^(www)?(\.)?([a-zA-Z0-9]+)(\.)(biz|com|info|net|org|pro|edu|gov|asia|coop|int|jobs|mil|mobi|museum|tel|scot|doc)$]]></exp>
+    </regex>
+
+    <regex name="year">
+      <comment usedby="date ssml">
+            Covers the years from 1000 to 9999. The feature of being able to say "sixteen
+            hundred twenty one" is handled accessing groups "$02" for the
+            "century" part and "$03" for the "ten" part. Normal numbers are
+            stored in "$00".
+        </comment>
+      <exp><![CDATA[^(1[0-9])(\d{2})$]]></exp>
+    </regex>
+
+    <regex name="year_01to99">
+      <comment usedby="date">
+            Covers the years from 1901 to 1999.
+        </comment>
+      <exp><![CDATA[^(190[1-9]|19[1-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="year_21c">
+      <comment usedby="date ssml">
+            Covers the years from 2000 to 2999.
+        </comment>
+      <exp><![CDATA[^(2[0-9])([0-9][0-9])$]]></exp>
+    </regex>
+
+    <regex name="year_ad">
+      <comment usedby="date">
+            Covers the years from 1000 to 9999. The feature of being able to say "sixteen
+            hundred twenty one" is handled accessing groups "$02" for the
+            "century" part and "$03" for the "ten" part. Normal numbers are
+            stored in "$00".
+        </comment>
+      <exp><![CDATA[^([1-9][0-9]?[0-9]?)(ad|AD)$]]></exp>
+    </regex>
+
+    <regex name="year_bc">
+      <comment usedby="date">
+            Covers the years from 1000 to 9999. The feature of being able to say "sixteen
+            hundred twenty one" is handled accessing groups "$02" for the
+            "century" part and "$03" for the "ten" part. Normal numbers are
+            stored in "$00".
+        </comment>
+      <exp><![CDATA[^([1-9][0-9]?[0-9]?)(bc|BC)$]]></exp>
+    </regex>
+
+    <regex name="year_prep">
+      <comment usedby="date"/>
+      <exp><![CDATA[^(i|dtí|ó|rith|roimh|éis|timpeall|feadh|bliain|bhliain|mbliain)$]]></exp>
+    </regex>
+
+    <regex name="zero_to_nine">
+      <comment usedby="index">
+            Single digit only
+        </comment>
+      <exp><![CDATA[^([0-9])\.?$]]></exp>
+    </regex>
+
+    <regex name="zeros_card">
+      <comment usedby="digit"/>
+      <exp><![CDATA[^(0+)$]]></exp>
+    </regex>
+  </regexs>
+</nrules>

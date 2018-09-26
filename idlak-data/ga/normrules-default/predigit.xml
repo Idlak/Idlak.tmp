@@ -1,0 +1,18 @@
+<nrules>
+
+  <rules>
+
+    <rule name="basic_car_plusminus">
+      <comment>
+            +1555 -&gt; plus míle cúig chéad is caoga a cúig
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_plusminus" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

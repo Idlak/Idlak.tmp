@@ -1,0 +1,307 @@
+<nrules>
+
+  <rules>
+
+    <rule name="bookmakings">
+      <comment>
+      Small fractions of format x/1 are for bookmaking.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_1" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="to" offset="1"/>
+        <cpy val="one" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="bookmakings_single">
+      <comment>
+      Small fractions of format x/1 are for bookmaking.
+    </comment>
+      <match>
+        <rgx id="m0" name="bookmaking_colon" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+        <cpy val="to one" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="ratios">
+      <comment>
+      Will work for [1-9]:[1-9].
+    </comment>
+      <match>
+        <rgx id="m0" name="nr_colon_nr" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0"/>
+        <cpy val="to" offset="0"/>
+        <fnc name="number" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="fake_fractions">
+      <comment>
+      Read numbers that look like fraction but are not, really, such as "no 1/3". Fairly easy to spot since puntuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="fake_frac_prep" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m2" name="slash" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinalr" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="fake_frac_look" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep0">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way before some specific words.
+      E.g. 2 1/2 hours =&gt; two hours and a half
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="3"/>
+        <rgx id="m4" name="spec_frac_trig_post" src="lcase" offset="4"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="2"/>
+        <lkp name="small_frac_exc" from="m3" offset="3"/>
+        <cpy from="m4" offset="4"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep1_sign">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="small_frac_exc" from="m3" offset="3"/>
+        <cpy val="" offset="2"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep1">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="small_frac_exc" from="m3" offset="3"/>
+        <cpy val="" offset="2"/>
+        <cpy val="" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep2_sign">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m2" name="slash" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m4" name="spec_frac_trig_post" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <cpy val="" offset="0"/>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_exc_post" from="m3" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m4" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep2">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m3" name="spec_frac_trig_post" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_exc_post" from="m2" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep2b">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinal_2_4" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_2_4" src="lcase" offset="2"/>
+        <rgx id="m3" name="spec_frac_trig_post" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="1"/>
+        <cpy val="" offset="0"/>
+        <lkp name="small_frac_exc_pl" from="m2" offset="2"/>
+        <lkp name="small_frac_exc_post_comp" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small_excep3">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3 in a special way behind some specific words. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="spec_frac_trig" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m2" name="slash" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_2_4" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="small_frac_exc" from="m3" offset="2"/>
+        <cpy val="" offset="1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_number_1">
+      <comment>
+      Read fractions such as "1/3" or "3/4". Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="number" src="lcase" offset="0"/>
+        <rgx id="m1" name="cardinal_1" src="lcase" offset="1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="2"/>
+        <rgx id="m3" name="cardinalr" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="and" offset="1"/>
+        <fnc name="number" from="m1" offset="1"/>
+        <cpy val="" offset="2"/>
+        <fnc name="number" from="m3" offset="3" case="ordinal_fraction"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_1">
+      <comment>
+      Read fractions such as "1/3" or "3/4". Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinalr" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" offset="2" case="ordinal_fraction"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_small">
+      <comment>
+      Read small fractions of format "x/[2-4]" such as 1/3. Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinal_1_4" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_2_4" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" offset="2" case="small_frac_pl"/>
+      </replace>
+    </rule>
+
+    <rule name="treasury_bonds">
+      <comment>
+      Treasury bonds trade in 32nds of a percent, e.g. +6/32
+    </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_1_to_31" src="lcase" offset="0"/>
+        <rgx id="m2" name="slash" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_32" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" offset="-1"/>
+        <fnc name="number" from="m1" offset="0"/>
+        <cpy val="over" offset="1"/>
+        <fnc name="number" from="m3" offset="2"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions_number">
+      <comment>
+      Read fractions such as "1/3" or "3/4". Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinalr" src="lcase" offset="2"/>
+        <rgx id="m3" name="number" src="lcase" offset="-1"/>
+      </match>
+      <replace>
+        <cpy val="and" offset="0"/>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="" offset="1"/>
+        <fnc name="number" from="m2" offset="2" case="ordinal_fraction"/>
+      </replace>
+    </rule>
+
+    <rule name="fractions">
+      <comment>
+      Read fractions such as "1/3" or "3/4". Fairly easy to spot since punctuations
+      marks have their own token.
+    </comment>
+      <match>
+        <rgx id="m0" name="cardinalr" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinalr" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" offset="0"/>
+        <cpy val="over" offset="1"/>
+        <fnc name="number" from="m2" offset="2"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

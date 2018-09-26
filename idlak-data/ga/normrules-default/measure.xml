@@ -1,0 +1,993 @@
+<nrules>
+
+  <rules>
+
+    <rule name="frac_measures_half">
+      <comment>
+            1/2 mm -&gt; leath milliméadar
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_1" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="2345" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_measure" from="m2" offset="2"/>
+        <lkp name="measure" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="frac_measures_numerator_2to4">
+      <comment>
+            2/3 km -&gt; dhá thrian de ciliméadar
+        </comment>
+      <match>
+        <rgx id="m0" name="1234" src="lcase" offset="0"/>
+        <rgx id="m1" name="slash" src="lcase" offset="1"/>
+        <rgx id="m2" name="345" src="lcase" offset="2"/>
+        <rgx id="m3" name="measure_masc" src="lcase" offset="3"/>
+      </match>
+      <replace>
+        <cpy val="" offset="1"/>
+        <lkp name="small_frac_pl1234" from="m2" grp="0" offset="2"/>
+        <cpy val="de" offset="3"/>
+        <lkp name="measure_seimhiu" from="m3" offset="3"/>
+      </replace>
+    </rule>
+
+    <rule name="split_11">
+      <comment>
+            This really needs to be done in conjunction with the POS tagger but
+            put common nouns in the noun regex for now.
+            11 bliain -&gt; aon bhliain déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="11" src="lcase" offset="0"/>
+        <rgx id="m1" name="noun" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="noun_11" from="m1" offset="1"/>
+        <cpy val="déag" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="split_12to16">
+      <comment>
+            This really needs to be done in conjunction with the POS tagger but
+            put common nouns in the noun regex for now.
+            12 seachtain -&gt; dhá seachtaine déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="12to16" src="lcase" offset="0"/>
+        <rgx id="m1" name="noun" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="noun_12to16" from="m1" offset="1"/>
+        <cpy val="déag" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="split_17to19">
+      <comment>
+            This really needs to be done in conjunction with the POS tagger but
+            put common nouns in the noun regex for now.
+            17 uair -&gt; seacht n-uaire déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="17to19" src="lcase" offset="0"/>
+        <rgx id="m1" name="noun" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="noun_17to19" from="m1" offset="1"/>
+        <cpy val="déag" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_1_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            idir 1-19mm -&gt; idir milliméadar amháin agus naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="one" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure" from="m3" grp="2" offset="0"/>
+        <cpy val="amháin agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_2to6_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            idir 2-19mm -&gt; idir dhá mhilliméadar agus naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="2to6" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m3" grp="2" offset="0"/>
+        <cpy val="agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_7to10_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            idir 7-19mm -&gt; idir seacht milliméadar agus naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="7to10" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m3" grp="2" offset="0"/>
+        <cpy val="agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_11to16_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            idir 11-19mm -&gt; idir aon mhilliméadar déag agus naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="11to16" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m3" grp="2" offset="0"/>
+        <cpy val="déag agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_17to19_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            idir 17-19mm -&gt; idir seacht milliméadar déag agus naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="17to19" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m3" grp="2" offset="0"/>
+        <cpy val="déag agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_int_measure_int_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            idir 21-25mm -&gt; idir fiche a haon agus fiche a cúig milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_other" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_float_measure_float_measure">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            idir 3.2-4.8cm -&gt; idir trí ponc a dó agus ceathair ponc a hocht ceintiméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="float_null_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+        <cpy val="agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_int_measure_float_measure">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            idir 7-7.5km -&gt; idir seacht agus seacht ponc a cúig ciliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="integer" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="float_null_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="between_float_measure_int_measure">
+      <comment>
+            idir 7.5-8kg -&gt; idir seacht ponc a cúig agus ocht gcileagram 
+        </comment>
+      <match>
+        <rgx id="m0" name="between" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float" src="lcase" offset="0"/>
+        <rgx id="m2" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m3" name="cardinal_measure_other" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m1" grp="0" offset="0"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+        <cpy val="agus" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="1_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            1-19mm -&gt; milliméadar amháin go dtí naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="one" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure" from="m2" grp="2" offset="0"/>
+        <cpy val="amháin go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="2to6_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            2-19mm -&gt; dhá mhilliméadar go dtí naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="2to6" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m2" grp="2" offset="0"/>
+        <cpy val="go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="7to10_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            7-19mm -&gt; seacht milliméadar go dtí naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="7to10" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m2" grp="2" offset="0"/>
+        <cpy val="go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="11to16_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            11-19mm -&gt; aon mhilliméadar déag go dtí naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="11to16" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m2" grp="2" offset="0"/>
+        <cpy val="déag go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="17to19_measure_11to19_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            These rules are to ensure that we don't get constructions
+            like "trí go cúig mhilliméadar déag" which could be
+            interpreted as either 3-15mm or 13-15mm.
+            17-19mm -&gt; seacht milliméadar déag go dtí naoi milliméadar déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="17to19" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_few_11to19" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m2" grp="2" offset="0"/>
+        <cpy val="déag go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_int_measure_split">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            21-25mm -&gt; fiche a haon go dtí fiche a cúig milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_other" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_float_measure">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            3.2-4.8cm -&gt; trí ponc a dó go dtí ceathair ponc a hocht ceintiméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="float_null_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <cpy val="go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_float_measure">
+      <comment>
+            Look up the first number and hyphen, then handle the rest
+            in later rules.
+            7-7.5km -&gt; seacht go dtí seacht ponc a cúig ciliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="float_null_measure" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy val="go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_int_measure">
+      <comment>
+            7.5-8kg -&gt; seacht ponc a cúig go dtí ocht gcileagram 
+        </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="hyphen" src="lcase" offset="1"/>
+        <rgx id="m2" name="cardinal_measure_other" src="lcase" offset="2"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+        <cpy val="go dtí" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_1">
+      <comment>
+            1 cm -&gt; ceintiméadar amháin 
+        </comment>
+      <match>
+        <rgx id="m0" name="one" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="measure" from="m1" offset="0"/>
+        <cpy val="amháin" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_2to6">
+      <comment>
+            3 mph -&gt; trí mhíle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="2to6" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_7to10">
+      <comment>
+            7 kg -&gt; seacht gcileagram
+        </comment>
+      <match>
+        <rgx id="m0" name="7to10" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_11to16">
+      <comment>
+            13 mph -&gt; trí mhíle san uair déag
+        </comment>
+      <match>
+        <rgx id="m0" name="11to16" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m1" offset="1"/>
+        <cpy val="déag" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split_17to19">
+      <comment>
+            17 kg -&gt; seacht gcileagram déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="17to19" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m1" offset="1"/>
+        <cpy val="déag" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_split">
+      <comment>
+            111 mph -&gt; céad a haon déag míle san uair
+        </comment>
+      <match>
+        <rgx id="m0" name="integer" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="measure_other" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_1_plusminus">
+      <comment>
+            Singular form
+            -1cm -&gt; lúide ceintiméadar amháin 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <lkp name="measure" from="m1" grp="1" offset="0"/>
+        <cpy val="amháin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_1">
+      <comment>
+            Singular form
+            1cm -&gt; ceintiméadar amháin
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="" offset="0"/>
+        <lkp name="measure" from="m0" grp="1" offset="0"/>
+        <cpy val="amháin" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_2to6_plusminus">
+      <comment>
+            -6mph -&gt; lúide sé mhíle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_few_2to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <lkp name="measure_seimhiu" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_2to6">
+      <comment>
+            6mph -&gt; sé mhíle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_few_2to6" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_7to10_plusminus">
+      <comment>
+            -7kg -&gt; lúide seacht gcileagram 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_few_7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <lkp name="measure_uru" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_7to10">
+      <comment>
+            7kg -&gt; seacht gcileagram 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_few_7to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_11to16_plusminus">
+      <comment>
+            -16mph -&gt; lúide sé mhíle san uair déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_few_11to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <lkp name="measure_seimhiu" from="m1" grp="2" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_11to16">
+      <comment>
+            16mph -&gt; sé mhíle san uair déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_few_11to16" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="measure_seimhiu" from="m0" grp="2" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_17to19_plusminus">
+      <comment>
+            -17kg -&gt; lúide seacht gcileagram déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_few_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <lkp name="measure_uru" from="m1" grp="2" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_17to19">
+      <comment>
+            17kg -&gt; seacht gcileagram déag 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_few_17to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="measure_uru" from="m0" grp="2" offset="0"/>
+        <cpy val="déag" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_other_plusminus">
+      <comment>
+            -111mph -&gt; lúide céad a haon déag míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="cardinal_measure_other" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <lkp name="measure_other" from="m1" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="int_measure_other">
+      <comment>
+            111mph -&gt; céad a haon déag míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal_measure_other" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="measure_other" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_1">
+      <comment>
+            -1.9mph -&gt; lúide aon ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="aon ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_1">
+      <comment>
+            1.9mph -&gt; aon ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure_1" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_2">
+      <comment>
+            -2.9mph -&gt; lúide dó ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure_2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_2">
+      <comment>
+            2.9mph -&gt; dó ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure_2" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_11">
+      <comment>
+            -11.9mph -&gt; lúide aon déag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure_11" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_11">
+      <comment>
+            11.9mph -&gt; aon déag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure_11" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_12">
+      <comment>
+            -12.9mph -&gt; lúide dó dhéag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure_12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="dhéag ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_12">
+      <comment>
+            12.9mph -&gt; dó dhéag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure_12" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="dhéag ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_3to10">
+      <comment>
+            -3.9mph -&gt; lúide trí ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure_3to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_3to10">
+      <comment>
+            3.9mph -&gt; trí ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure_3to10" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_13to19">
+      <comment>
+            -19.9mph -&gt; lúide naoi déag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure_13to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus_13to19">
+      <comment>
+            19.9mph -&gt; naoi déag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure_13to19" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure_plusminus">
+      <comment>
+            -111.9mph -&gt; lúide céad a haon déag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float_null_measure" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_null_measure">
+      <comment>
+            111.9mph -&gt; céad a haon déag ponc a naoi míle san uair 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_null_measure" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0" case="asdigits"/>
+        <lkp name="measure_other" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_1_measure_split">
+      <comment>
+            1.9 mm -&gt; aon ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_1" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_11_measure_split">
+      <comment>
+            11.9 mm -&gt; aon déag ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_11" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="4" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_2_measure_split">
+      <comment>
+            2.9 mm -&gt; dó ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_2" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_12_measure_split">
+      <comment>
+            12.9 mm -&gt; dó dhéag ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_12" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="dhéag ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="4" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_3to10_measure_split">
+      <comment>
+            5.9 mm -&gt; cúig ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_3to10" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_13to19_measure_split">
+      <comment>
+            15.9 mm -&gt; cúig déag ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float_13to19" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="déag ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="4" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="float_measure_split">
+      <comment>
+            115.9 mm -&gt; céad a cúig déag ponc a naoi milliméadar 
+        </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+        <rgx id="m1" name="measure_masc" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="1" case="asdigits"/>
+        <lkp name="measure" from="m1" grp="0" offset="1"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>
