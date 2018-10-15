@@ -838,6 +838,9 @@ AR=${AR:-ar}
 AS=${AS:-as}
 RANLIB=${RANLIB:-ranlib}
 SWIG=${SWIG:swig}
+if [ ! $SWIG ]; then
+  SWIG=swig
+fi
 
 # These environment variables can be used to provide additional flags to the
 # compiler/linker. We want these flags to override the flags determined by the
@@ -1083,6 +1086,7 @@ is_set $OPENBLASROOT && echo "Configuring KALDI to use OPENBLAS"&& export MATHLI
 
 echo "Configuring ..."
 
+echo "CXX = $CXX" >> kaldi.mk
 # Back up the old kaldi.mk in case we modified it
 if [ -f kaldi.mk ]; then
   echo "Backing up kaldi.mk to kaldi.mk.bak ..."
@@ -1098,7 +1102,6 @@ echo >> kaldi.mk
 
 echo "# Toolchain configuration" >> kaldi.mk
 echo >> kaldi.mk
-echo "CXX = $CXX" >> kaldi.mk
 echo "AR = $AR" >> kaldi.mk
 echo "AS = $AS" >> kaldi.mk
 echo "RANLIB = $RANLIB" >> kaldi.mk
@@ -1139,8 +1142,15 @@ if [ ! -f $PUJIXMLROOT/src/pugixml.hpp  ]; then
 fi
 
 if [ $pyidlak ]; then
-    if [ ! which $SWIG ]; then
+    echo "Checking for SWIG ... "
+    if which $SWIG >&/dev/null; then
+            echo "SWIG set to \"$SWIG\""
+    else
             failure "Could not find swig as $SWIG "
+    fi
+    badswigver=`$SWIG -version | grep "SWIG Version [1-2]"`
+    if [ ! -z "$badswigver" ]; then
+            failure "Swig version is below 3. $($SWIG -version | grep Version)"
     fi
     if [ ! -f $SPTKROOT/lib/libSPTK.a  ]; then
             failure "Could not find file $SPTKROOT/lib/libSPTK.a:
@@ -1155,8 +1165,8 @@ if [ $pyidlak ]; then
         else
             if which python >&/dev/null; then
                 PYTHONEXE=`which python`
-                pymajorver=`$PYTONEXE --version | cut -c 8`
-                if [ $pymajorver != 3 ]; then
+                pymajorversion=`$PYTHONEXE -c "from __future__ import print_function; import sys; print(sys.version_info[0])"`
+                if [ $pymajorversion != 3 ]; then
                     failure "Could not find python3 as either 'python3.5', 'python3' or 'python'"
                 fi
             else

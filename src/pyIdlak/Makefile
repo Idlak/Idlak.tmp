@@ -3,7 +3,7 @@ include ../kaldi.mk
 
 ifeq ($(PYIDLAK), true)
 
-PY_SUBDIRS = pylib txp vocoder
+PY_SUBDIRS = pylib txp vocoder gen
 
 all: $(PY_SUBDIRS)
 	@echo "Finished making python wrappers"
@@ -21,5 +21,6 @@ $(PY_SUBDIRS):
 
 txp: pylib
 vocoder: pylib
+gen: pylib
 
 endif # PYIDLAK

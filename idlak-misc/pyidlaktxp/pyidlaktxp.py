@@ -52,6 +52,8 @@ def main():
     fileout = args.get_arg(2)
 
     # Initialise all the modules that will be run
+    if args.get('verbose'):
+        sys.stderr.write('Loading text processing modules\n')
     modules = []
     modules.append(txp.modules.Tokenise(args))
     modules.append(txp.modules.PosTag(args))
@@ -68,15 +70,22 @@ def main():
         inputxml = sys.stdin.read()
     else:
         if not os.path.isfile(filein):
-            sys.stderr.write("Can't open input XML file '{0}\n".format(filein))
+            sys.stderr.write("Can't open input XML file '{0}''\n".format(filein))
             sys.exit(1)
         else:
-            inputxml = open(filein).read()
+            if args.get('verbose'):
+                sys.stderr.write("Loading input xml file: '{0}'\n".format(filein))
+            try:
+                inputxml = open(filein).read()
+            except UnicodeDecodeError:
+                inputxml = open(filein, encoding = 'utf8').read()
 
     doc = txp.XMLDoc(inputxml)
 
     # Run the modules over it in order
     for txp_module in modules:
+        if args.get('verbose'):
+            sys.stderr.write("Running: {0}\n".format(txp_module.name))
         txp_module.process(doc)
 
     # Output generated XML

@@ -25,7 +25,7 @@ nodev=50 # the number of samples used for calculating loss
 . parse_options.sh || exit 1;
 
 # Input directories
-tpdb=$KALDI_ROOT/idlak-data/$lng/$acc
+tpdb=$KALDI_ROOT/idlak-data/
 testdatadir=$KALDI_ROOT/idlak-data/$lng/testdata
 
 # Working directories
@@ -275,7 +275,8 @@ if [ $stage -le 2 ]; then
     # We are using the idlak front-end for processing the text
     for step in train dev full; do
         # Normalise text and generate phoneme information
-        idlaktxp --pretty --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/$step/text.xml $datadir/$step/text_norm.xml
+        # idlaktxp --pretty --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/$step/text.xml $datadir/$step/text_norm.xml
+        $KALDI_ROOT/idlak-misc/pyidlaktxp/pyidlaktxp.py --verbose 3 --general-lang=$lng --general-acc=$acc --tpdb=$tpdb $datadir/$step/text.xml $datadir/$step/text_norm.xml
         # Generate full labels
         #idlakcex --pretty --cex-arch=default --tpdb=$tpdb data/$step/text_norm.xml data/$step/text_full.xml
     done

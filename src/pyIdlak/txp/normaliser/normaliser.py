@@ -476,11 +476,12 @@ class Rule:
 
 class Normrules:
 
-    def __init__(self, ruledir, hrules):
+    def __init__(self, ruledir, hrules, verboselvl = 0):
         self.minoffset = 0
         self.maxoffset = 0
         self.rulesequence = []
         self.functions = {}
+        self.verboselvl = verboselvl
         self.read_normmaster(ruledir)
         self.rgxs = {}
         self.readrgxs(ruledir)
@@ -492,6 +493,8 @@ class Normrules:
         self.hrules = hrules
 
     def read_normmaster(self, ruledir):
+        if self.verboselvl:
+            sys.stderr.write('\tLoading normaliser rules master file\n')
         masterxml = etree.parse(ruledir + '/master.xml')
         rulesetxml = masterxml.find('ruleset').findall("rs")
         for rs in rulesetxml:
@@ -504,6 +507,8 @@ class Normrules:
             self.functions[func.get('name')] = args
 
     def readruleset(self, ruledir, setname):
+        if self.verboselvl > 1:
+            sys.stderr.write("\tLoading normaliser rule set: '{0}'\n".format(setname))
         setxml = etree.parse(ruledir + '/' + setname + '.xml')
         rulesetxml = setxml.find('rules').findall("rule")
         ruleset = []
@@ -530,6 +535,8 @@ class Normrules:
         return ruleset
 
     def readrgxs(self, ruledir):
+        if self.verboselvl > 1:
+            sys.stderr.write('\tLoading normaliser rules regular expressions\n')
         parser = etree.XMLParser(remove_blank_text=True, strip_cdata=False)
         regularexpressionsxml = etree.parse((ruledir +
                                              '/regularexpressions.xml'),
@@ -543,6 +550,8 @@ class Normrules:
                                  rgx.find('exp').text)))
 
     def readlkps(self, ruledir):
+        if self.verboselvl > 1:
+            sys.stderr.write('\tLoading normaliser lookup tables\n')
         parser = etree.XMLParser(remove_blank_text=True, strip_cdata=False)
         lkptablesxml = etree.parse(ruledir + '/lookuptables.xml',
                                    parser=parser)
@@ -555,8 +564,29 @@ class Normrules:
                 self.lkps[lkp.get('name')] = table
 
     def runrulesets(self, tokens):
-        for ruleset in self.rulesequence:
+        if self.verboselvl:
+            sys.stderr.write('\tRunning normaliser rules\n')
+        for ridx, ruleset in enumerate(self.rulesequence):
+            if self.verboselvl > 1:
+                sys.stderr.write('\t\tRunning normaliser rule set {0} of {1}\n'.format(ridx+1, len(self.rulesequence)))
+                if self.verboselvl > 2:
+                    debugnosteps = 20
+                    debugline = '\t\t\t0% [{0:' + str(debugnosteps) + '}] 100%\r'
+                    debugoutline = ''
             for i, tk in enumerate(tokens):
+                if self.verboselvl > 2:
+                    if len(tokens)//debugnosteps:
+                        if i % (len(tokens)//debugnosteps) == 0:
+                            progress = i // (len(tokens)//debugnosteps)
+                            debugoutline = debugline.format('*'*progress)
+                            sys.stderr.write(debugoutline)
+                            sys.stderr.flush()
+                    else:
+                        debugoutline = debugline.format('*'*debugnosteps)
+                        sys.stderr.write(debugoutline)
+                        sys.stderr.flush()
+
+
                 norm_empty = (tk.get('norm') is None or
                               not match('^[a-z ]*$', tk.get('norm')) or
                               ruleset[:4] == 'ssml')
@@ -577,9 +607,12 @@ class Normrules:
                                                         encoding='UTF-8')
                                 newtokensxml.append(ntkstr.strip())
                             break
-
+            if self.verboselvl > 2:
+                sys.stderr.write('\n')
 
 class Normalise(object):
+
+    _modname = 'Normalise'
 
     def __init__(self, idargs):
         """ Creates the Normalise object and finds
@@ -594,6 +627,7 @@ class Normalise(object):
         self.region = config.get('general-region', '')
         self.arch = config.get('normalise-arch', '')
         self.tpdb = pyIdlak_txp.PyTxpParseOptions_GetTpdb(idargs.idlakopts)
+        self._idargs = idargs
 
         # Getting possible directories
         normdir = ['normrules-' + self.arch, 'normrules-default']
@@ -657,14 +691,18 @@ class Normalise(object):
             raise ValueError("doc must be a XMLDoc")
 
         # xmldoc to lxml
+        if self._idargs.get('verbose'):
+            sys.stderr.write('\tLoading input\n')
         strin = str(doc.to_string())
-        xmlin = etree.fromstring(strin)
+        xmlparser = etree.XMLParser(encoding = 'utf8')
+        xmlin = etree.fromstring(strin, parser = xmlparser)
 
-        normrules = Normrules(self.ruledir, self.hrules)
+
+        normrules = Normrules(self.ruledir, self.hrules, self._idargs.get('verbose'))
         tokens = xmlin.xpath('.//tk|.//break')
         normrules.runrulesets(tokens)
 
-        for tk in tokens:
+        for tkidx, tk in enumerate(tokens):
             if 'norm' not in tk.attrib and 'tknorm' in tk.attrib:
                 tk.set('norm', tk.get('tknorm'))
             splitNormalised(tk)
@@ -672,3 +710,8 @@ class Normalise(object):
         # lxml to xmldoc
         strout = str(etree.tostring(xmlin, encoding='utf8').decode('utf8'))
         doc.load_string(strout)
+
+    @property
+    def name(self):
+        """ Gets the name of the module """
+        return self._modname
