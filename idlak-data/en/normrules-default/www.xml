@@ -1,0 +1,526 @@
+<nrules>
+
+  <rules>
+
+    <rule name="hyphenated_www">
+      <comment>
+      GJL - turn stray www into characters
+      This handles urls like www.uni-heidelberg.de, which gets split
+      on the hyphen.  Expands www -&gt; w w w and uses H:filter to process
+      the rest of the token.
+    </comment>
+      <match>
+        <rgx id="m0" name="www" src="mcase" offset="0"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="filter" from="m0" grp="1" offset="0"/>
+        <cpy val="hyphen" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="hyphenated_email">
+      <comment>
+      GJL - fix hyphenated emails
+      This handles emails like info@uni-heidelberg.de
+    </comment>
+      <match>
+        <rgx id="m0" name="at_symbol" src="lcase" offset="0"/>
+        <rgx id="m1" name="stray_email" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <fnc name="filter" from="m1" grp="0" offset="1"/>
+        <cpy val="hyphen" offset="1"/>
+        <cpy from="m1" grp="1" offset="1"/>
+        <cpy val="dot" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="email_tld_simple_hyphenated">
+      <comment>
+      Example: zhang-123@stanford.ed
+    </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-4"/>
+        <rgx id="m1" name="is_hyphen" src="lcase" offset="-3"/>
+        <rgx id="m2" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m3" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m4" name="domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="-4"/>
+        <lkp name="symbols" from="m1" offset="-3"/>
+        <fnc name="filter" from="m2" offset="-2"/>
+        <lkp name="symbols" from="m3" offset="-1"/>
+        <fnc name="filter" from="m4" offset="0"/>
+        <lkp name="symbols" from="m5" grp="1" offset="0"/>
+        <fnc name="filter" from="m5" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_tld_simple">
+      <comment>
+      Example: john@stanford.ed
+    </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_tld_full">
+      <comment/>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2nd_tld_full">
+      <comment/>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_tld_full">
+      <comment/>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_2nd_tld_simple">
+      <comment>
+      Example: john@staff.stanford.ac.uk
+    </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+        <lkp name="symbols" from="m2" grp="5" offset="0"/>
+        <fnc name="aschars" from="m2" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2nd_tld_simple">
+      <comment/>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2names_tld_simple">
+      <comment>
+      Example: john@staff.stanford.edu
+    </comment>
+      <match>
+        <rgx id="m0" name="email_name_simple" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2names_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="3" offset="0"/>
+        <fnc name="filter" from="m2" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="email_2dms_2nd_tld_long">
+      <comment/>
+      <match>
+        <rgx id="m0" name="email_name_full" src="lcase" offset="-2"/>
+        <rgx id="m1" name="at_symbol" src="lcase" offset="-1"/>
+        <rgx id="m2" name="domain_2nms_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="filter" from="m0" offset="-2"/>
+        <lkp name="symbols" from="m0" grp="1" offset="-2"/>
+        <fnc name="filter" from="m0" grp="2" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <fnc name="filter" from="m2" grp="0" offset="0"/>
+        <lkp name="symbols" from="m2" grp="1" offset="0"/>
+        <fnc name="filter" from="m2" grp="2" offset="0"/>
+        <lkp name="symbols" from="m2" grp="3" offset="0"/>
+        <fnc name="aschars" from="m2" grp="4" offset="0"/>
+        <lkp name="symbols" from="m2" grp="5" offset="0"/>
+        <fnc name="aschars" from="m2" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd_alt-port">
+      <comment>
+      URL,  with protocol and 3rd-level name and no subpages and no port.
+      However, the 2nd level domain name is spoken as a word.
+      Covers the following 2nd level names: "co", "gov", "mod", "net", "org", "police".
+      www.amazon.co.uk:8080
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld_alt_port" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+        <lkp name="symbols" from="m0" grp="7" offset="0"/>
+        <fnc name="number" from="m0" grp="8" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd-port">
+      <comment>
+      URL,  with protocol and 3rd-level name and no subpages and no port.
+      www.strath.ac.uk:8080
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld_port" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+        <lkp name="symbols" from="m0" grp="7" offset="0"/>
+        <fnc name="number" from="m0" grp="8" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_alt-port">
+      <comment>
+      URL, no 3rd-level names and no subpages but a port number.
+      TL spoken as word.
+      www.amazon.com:8080
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_tld_alt_port" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="number" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www-port">
+      <comment>
+      URL, with protocol no 3rd-level names and no subpages but port.
+      www.amazon.de:8080
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_tld_port" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="number" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms-2nd_alt">
+      <comment>
+      URL,  with protocol and 3rd-level name and a subpage and no port.
+      However, the 2nd level domain name is spoken as a word.
+      Covers the following 2nd level names: "co", "gov", "mod", "net", "org", "police".
+      Example: www.store.amazon.co.uk
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_2nd_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="filter" from="m0" grp="6" offset="0"/>
+        <lkp name="symbols" from="m0" grp="7" offset="0"/>
+        <fnc name="aschars" from="m0" grp="8" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd_alt">
+      <comment>
+      URL,  with protocol and 3rd-level name and no subpages and no port.
+      However, the 2nd level domain name is spoken as a word.
+      Covers the following 2nd level names: "co", "gov", "mod", "net", "org", "police".
+      Example:  www.amazon.co.uk
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms-2nd">
+      <comment>
+      URL, with protocol and 3rd-level name and no subpages and no port.
+      Example: www.inf.ed.ac.uk
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+        <lkp name="symbols" from="m0" grp="7" offset="0"/>
+        <fnc name="aschars" from="m0" grp="8" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms_alt_www">
+      <comment>
+      URL, with protocol no 3rd-level name and a sub-domain name but no port number.
+      However, the TLD is spoken as a word, e.g. "com".
+      Must come before rule 'www_2nms' to be effective.
+      Example: www.sport.spiegel.com
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_tld_alt_www" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="filter" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd_www">
+      <comment>
+      URL, with protocol and 3rd-level name and no subpages and no port.
+      Example: www.ed.ac.uk
+
+      GJL - This one has been broken
+
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld_www" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms_alt">
+      <comment>
+      URL, with protocol no 3rd-level name and a sub-domain name but no port number.
+      However, the TLD is spoken as a word, e.g. "com".
+      Must come before rule 'www_2nms' to be effective.
+      Example: www.sport.spiegel.com
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="filter" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www-2nd">
+      <comment>
+      URL, with protocol and 3rd-level name and no subpages and no port.
+      Example: www.ed.ac.uk
+
+      GJL - This one has been broken
+
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nd_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_alt">
+      <comment>
+      URL, with protocol no 3rd-level names and no subpages and no port.
+      However, the TLD is spoken as a word, e.g. "com".
+      Must come before rule 'www' to be effective.
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_tld_alt" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www_2nms">
+      <comment>
+      URL,  with protocol no 3rd-level name but a sub-domain-name
+      and no subpages and no port.
+      Example: www.sport.spiegel.de
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_2nms_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="filter" from="m0" grp="4" offset="0"/>
+        <lkp name="symbols" from="m0" grp="5" offset="0"/>
+        <fnc name="aschars" from="m0" grp="6" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="www">
+      <comment>
+      URL,  with protocol no 3rd-level names and no subpages and no port.
+    </comment>
+      <match>
+        <rgx id="m0" name="url_domain_tld" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="0"/>
+        <lkp name="symbols" from="m0" grp="1" offset="0"/>
+        <fnc name="filter" from="m0" grp="2" offset="0"/>
+        <lkp name="symbols" from="m0" grp="3" offset="0"/>
+        <fnc name="aschars" from="m0" grp="4" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="http">
+      <comment>
+      Covers 'http://' by transforming it into 'h t t p ~colon ~slash ~slash'.
+    </comment>
+      <match>
+        <rgx id="m0" name="protocol" src="mcase" offset="-2"/>
+        <rgx id="m1" name="slash" src="lcase" offset="-1"/>
+        <rgx id="m2" name="slash" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="aschars" from="m0" grp="0" offset="-2"/>
+        <lkp name="symbols" from="m0" grp="1" offset="-2"/>
+        <lkp name="symbols" from="m1" offset="-1"/>
+        <lkp name="symbols" from="m2" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

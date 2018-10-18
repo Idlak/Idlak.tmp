@@ -1,0 +1,259 @@
+<nrules>
+
+  <rules>
+
+    <rule name="billions_comma_plusminus">
+      <comment>
+            +1,132,102,234 -&gt; plus billiún céad is tríocha a dó milliún céad is dhá mhíle
+            dhá chéad is tríocha a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="billionscomma_no_point" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="billions_comma">
+      <comment>
+            1,132,102,234 -&gt; billiún céad is tríocha a dó milliún céad is dhá mhíle
+            dhá chéad is tríocha a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="billionscomma_no_point" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+
+    <rule name="millions_comma_with_point_plusminus">
+      <comment>
+            +2,102,234.09 -&gt; plus dhá mhilliún céad is dhá mhíle dhá chéad is tríocha a ceathair ponc a náid a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="millionscomma_withpoint" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="millions_comma_with_point">
+      <comment>
+            2,102,234.09 -&gt; dhá mhilliún céad is dhá mhíle dhá chéad is tríocha a ceathair ponc a náid a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="millionscomma_withpoint" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="millions_comma_plusminus">
+      <comment>
+            +2,102,234 -&gt; plus dhá mhilliún céad is dhá mhíle dhá chéad is tríocha a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="millionscomma_no_point" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="millions_comma">
+      <comment>
+            2,102,234 -&gt; dhá mhilliún céad is dhá mhíle dhá chéad tríocha a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="millionscomma_no_point" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+
+    <rule name="thousands_comma_with_point_plusminus">
+      <comment>
+            102,234.99 -&gt; céad is fiche a dó míle dhá chéad is tríocha a ceathair ponc a naoi a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="thousandscomma_withpoint" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="thousands_comma_with_point">
+      <comment>
+            102,234.99 -&gt; céad is fiche a dó míle dhá chéad is tríocha a ceathair ponc a naoi a naoi
+        </comment>
+      <match>
+        <rgx id="m0" name="thousandscomma_withpoint" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="1" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="thousands_comma_plusminus">
+      <comment>
+            -102,234 -&gt; lúide céad is dhá mhíle dhá chéad is tríocha a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="thousandscomma" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+      </replace>
+    </rule>
+
+    <rule name="thousands_comma">
+      <comment>
+            102,234 -&gt; céad is dhá mhíle dhá chéad tríocha a ceathair
+        </comment>
+      <match>
+        <rgx id="m0" name="thousandscomma" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+
+    <rule name="float_scale">
+      <comment>
+            12.3bn -&gt; dó dhéag ponc a trí billiún
+        </comment>
+      <match>
+        <rgx id="m0" name="float_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="2" offset="0"/>
+        <lkp name="currency_scale" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="number_scale_billion_to20">
+      <comment>
+            15bn -&gt; cúig bhilliún déag
+        </comment>
+      <match>
+        <rgx id="m0" name="number_scale_billion_to20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="number_scale_million_to20">
+      <comment>
+            12mln -&gt; dhá mhilliún déag
+        </comment>
+      <match>
+        <rgx id="m0" name="number_scale_million_to20" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="number_scale">
+      <comment>
+            22bn -&gt; fiche a dó billiún
+        </comment>
+      <match>
+        <rgx id="m0" name="number_scale" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="0"/>
+        <lkp name="currency_scale" from="m0" grp="2" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float_plusminus">
+      <comment>
+            +11.22 -&gt; plus aon déag ponc a dó a dó
+        </comment>
+      <match>
+        <rgx id="m0" name="plusminus" src="lcase" offset="-1"/>
+        <rgx id="m1" name="float" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="plusminus" from="m0" grp="0" offset="-1"/>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m1" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="float">
+      <comment>
+            9.5 -&gt; naoi ponc a cúig
+        </comment>
+      <match>
+        <rgx id="m0" name="float" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="ponc" offset="0"/>
+        <fnc name="asdigits" from="m0" grp="3" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="centuries_ending_idi_na">
+      <comment>
+            na 1900idí -&gt; an fichiú chéad
+        </comment>
+      <match>
+        <rgx id="m0" name="na" src="lcase" offset="-1"/>
+        <rgx id="m1" name="century_s" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="an" offset="-1"/>
+        <lkp name="century_hundreds" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="centuries_ending_idi">
+      <comment>
+            1900idí -&gt; an fichiú chéad
+        </comment>
+      <match>
+        <rgx id="m0" name="century_s" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="an" offset="0"/>
+        <lkp name="century_hundreds" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="basic_car">
+      <comment>
+            3 -&gt; trí
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+
+    <rule name="zero_card">
+      <comment>
+            0 -&gt; náid
+        </comment>
+      <match>
+        <rgx id="m0" name="zeros_card" src="lcase" offset="0"/>
+      </match>
+      <replace/>
+    </rule>
+  </rules>
+</nrules>

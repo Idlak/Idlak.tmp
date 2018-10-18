@@ -1,0 +1,609 @@
+<nrules>
+  <tables>
+
+    <lookup name="ad">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"ad":"d'aois an tiarna", "AD":"d'aois an tiarna"}]]></exp>
+    </lookup>
+
+    <lookup name="am_pm">
+      <comment usedby="time"/>
+      <exp><![CDATA[{"m":"ar maidin", "am":"ar maidin", "a.m":"ar maidin", "AM":"ar maidin", "A.M":"ar maidin", "pm":"iarnóin", "p.m":"iarnóin", "PM":"iarnóin", "P.M":"iarnóin"}]]></exp>
+    </lookup>
+
+    <lookup name="asdigits">
+      <comment usedby="functions: name asdigits numbers_ga">
+            This is used for "H:asdigits".
+        </comment>
+      <exp><![CDATA[{"0":"a náid", "1":"a haon", "2":"a dó", "3":"a trí", "4":"a ceathair", "5":"a cúig", "6":"a sé", "7":"a seacht", "8":"a hocht", "9":"a naoi"}]]></exp>
+    </lookup>
+
+    <lookup name="century">
+      <comment usedby="date ssml"/>
+      <exp><![CDATA[{"1":"aon chéad", "2":"dhá chéad", "3":"trí chéad", "4":"ceithre chéad", "5":"cúig chéad", "6":"sé chéad", "7":"seacht gcéad", "8":"ocht gcéad", "9":"naoi gcéad",
+            "10":"míle", "11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag", "17":"seacht déag", "18":"ocht déag",
+            "19":"naoi déag", "20":"dhá mhíle", "21":"fiche a haon", "22":"fiche a dó", "23":"fiche a trí", "24":"fiche a ceathair", "25":"fiche a cúig", "26":"fiche a sé",
+            "26":"fiche a seacht", "28":"fiche a hocht", "29":"fiche a naoi"}]]></exp>
+    </lookup>
+
+    <lookup name="century_hundreds">
+      <comment usedby="digit"/>
+      <exp><![CDATA[{"11":"dara céad déag", "12":"tríú céad déag", "13":"ceathrú céad déag", "14":"cúigiú céad déag", "15":"séú céad déag", "16":"seachtú céad déag", "17":"ochtú céad déag",
+            "18":"naoiú céad déag", "19":"fichiú céad", "20":"t-aonú céad is fiche"}]]></exp>
+    </lookup>
+
+    <lookup name="currency">
+      <comment usedby="precurrency currency">
+            Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+            the currency name is written out in text and this should also be
+            covered by the currency-related rules.
+        </comment>
+      <exp><![CDATA[{"£":"punt", "eur":"euro", "euro":"euro", "€": "euro", "$":"dollar", "usd":"dollar na stát aontaithe", "dollar":"dollar", "¢":"cent", "cent":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_compl">
+      <comment usedby="currency"/>
+      <exp><![CDATA[{"us":"na stát aonaithe", "US":"na stát aonaithe", "usd":"na stát aontaithe", "USD":"na stát aontaithe", "euro":"euro", "eur":"euro", "EUR":"euro"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_compl_full">
+      <comment usedby="currency"/>
+      <exp><![CDATA[{"us":"dollar na stát aontaithe", "usd":"dollar na stát aontaithe", "euro":"euro", "eur":"euro", "EUR":"euro"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_pl">
+      <comment usedby="currency">
+            Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+            the currency name is written out in text and this should also be
+            covered by the currency-related rules.
+        </comment>
+      <exp><![CDATA[{"£":"punt", "eur":"euro", "euro":"euro", "euros":"euro", "€": "euro", "$":"dollar", "usd":"dollar na stát aontaithe", "dollars":"dollar", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_pl_seimhiu">
+      <comment usedby="precurrency currency"/>
+      <exp><![CDATA[{"£":"phunt", "eur":"euro", "euro":"euro", "euros":"euro", "€": "euro", "$":"dhollar", "usd":"dhollar na stát aontaithe", "dollars":"dhollar", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_pl_uru">
+      <comment usedby="precurrency currency"/>
+      <exp><![CDATA[{"£":"bpunt", "eur":"euro", "euro":"euro", "euros":"euro", "€": "euro", "$":"ndollar", "usd":"ndollar na stát aontaithe", "dollars":"ndollar", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_scale">
+      <comment usedby="currency digit"/>
+      <exp><![CDATA[{"míle":"míle", "m":"milliún", "mill":"milliún", "mln":"milliún", "milliún":"milliún", "mhilliún":"mhilliún","b":"billiún", "bn":"billiún", "billiún":"billiún",
+            "bhilliún":"bhilliún","tn":"trilliún", "trilliún":"trilliún"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_units_pl">
+      <comment usedby="currency">
+            Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+            the currency name is written out in text and this should also be
+            covered by the currency-related rules.
+        </comment>
+      <exp><![CDATA[{"£":"pingin", "eur":"cent", "euros":"cent", "€": "cent", "$":"cent", "dollars":"cent", "usd":"cent", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_units_pl_11to12">
+      <comment usedby="currency">
+            Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+            the currency name is written out in text and this should also be
+            covered by the currency-related rules.
+        </comment>
+      <exp><![CDATA[{"£":"phingin", "eur":"cent", "euros":"cent", "€": "cent", "$":"cent", "dollars":"cent", "usd":"cent", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_units_pl_13to16">
+      <comment usedby="currency">
+            Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+            the currency name is written out in text and this should also be
+            covered by the currency-related rules.
+        </comment>
+      <exp><![CDATA[{"£":"pingine", "eur":"cent", "euros":"cent", "€": "cent", "$":"cent", "dollars":"cent", "usd":"cent", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="currency_units_pl_17to19">
+      <comment usedby="currency">
+            Important, do not delete: Used by the hard-coded rules. The entries matching currency names to itself are intentional. Sometimes
+            the currency name is written out in text and this should also be
+            covered by the currency-related rules.
+        </comment>
+      <exp><![CDATA[{"£":"bpingine", "eur":"cent", "euros":"cent", "€": "cent", "$":"cent", "dollars":"cent", "usd":"cent", "¢":"cent", "cents":"cent"}]]></exp>
+    </lookup>
+
+    <lookup name="days">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"lu":"dé luain", "má":"dé máirt", "cé":"dé céadaoin", "dé":"déardaoin", "ha":"dé haoine", "sa":"dé sathairn", "do":"dé domhnaigh", "dlu":"dé luain", "dmá":"dé máirt",
+                      "dcé":"dé céadaoin", "déa":"déardaoin", "dha":"dé haoine", "dsa":"dé sathairn", "ddo":"dé domhnaigh", "luan":"luan", "luain":"luain", "mháirt":"mháirt", "máirt":"máirt",
+                      "mhairt":"mháirt", "mairt":"máirt", "chéadaoin":"chéadaoin", "céadaoin":"céadaoin", "cheadaoin":"chéadaoin", "ceadaoin":"céadaoin", "déardaoin":"déardaoin", "deardaoin":"déardaoin",
+                      "aoine":"aoine", "haoine":"haoine", "satharn":"satharn", "sathairn":"sathairn", "domhnach":"domhnach", "domhnaigh":"domhnaigh"}]]></exp>
+    </lookup>
+
+    <lookup name="days_char">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"lu":"dé luain", "má":"dé máirt", "cé":"dé céadaoin", "dé":"déardaoin", "ha":"dé haoine", "sa":"dé sathairn", "do":"dé domhnaigh"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp">
+      <comment usedby="measure">
+            [possible irish fix]
+            The default look-up for numbers.
+            Note: need to invoke Gaelic plural rules here, Gaelic has ONE, TWO, FEW, OTHER (see CLDR for machine readable rule) which affect million, billion etc, leaving them in English for now to flag
+            Singular - for 1 + 11
+        </comment>
+      <exp><![CDATA[{"00":"náid", "0":"náid", "1":"aon", "10":"deich", "11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag", "17":"seacht déag",
+            "18":"ocht déag", "19":"naoi déag", "2":"dó", "20":"fiche", "21":"fiche a haon", "22":"fiche a dó", "28":"fiche a hocht", "3":"trí", "30":"tríocha", "31":"tríocha a haon", "32":"tríocha a dó",
+            "38":"tríocha a hocht", "4":"ceathair", "40":"daichead", "41":"daichead a haon", "42":"daichead a dó", "48":"daichead a hocht", "5":"cúig", "50":"caoga", "51":"caoga a haon",
+            "52":"caoga a dó", "58":"caoga a hocht", "6":"sé", "60":"seasca", "61":"seasca a haon", "62":"seasca a dó", "68":"seasca a hocht", "7":"seacht", "70":"seachtó", "71":"seachtó a haon",
+            "72":"seachtó a dó", "78":"seachtó a hocht", "8":"ocht", "80":"ochtó", "81":"ochtó a haon", "82":"ochtó a dó", "88":"ochtó a hocht","9":"naoi", "90":"nócha", "91":"nócha a haon",
+            "92":"nócha a dó", "98":"nócha a hocht", "100":"céad", "200":"dhá chéad", "300":"trí chéad", "400":"ceithre chéad", "500":"cúig chéad", "600":"sé chéad", "700":"seacht gcéad",
+            "800":"ocht gcéad", "900":"naoi gcéad", "1000":"míle", "2000":"dhá mhíle", "3000":"trí mhíle", "4000":"ceithre mhíle", "5000":"cúig mhíle", "6000":"sé mhíle", "11000":"míle dhéag",
+            "12000":"dhá mhíle déag", "13000":"trí mhíle dhéag", "14000":"ceithre mhíle dhéag", "15000":"cúig mhíle dhéag", "16000":"sé mhíle dhéag", "17000":"seacht míle dhéag",
+            "18000":"ocht míle dhéag", "19000":"naoi míle dhéag", "1000000":"milliún", "2000000":"dhá mhilliún", "3000000":"trí mhilliún", "4000000":"ceithre mhilliún", "5000000":"cúig mhilliún",
+            "6000000":"sé mhilliún", "11000000":"milliún déag", "12000000":"dhá mhilliún déag", "13000000":"trí mhilliún déag", "14000000":"ceithre mhilliún déag", "15000000":"cúig mhilliún déag",
+            "16000000":"sé mhilliún déag", "17000000":"seacht milliún déag", "18000000":"ocht milliún déag", "19000000":"naoi milliún déag", "1000000000":"billiún", "2000000000":"dhá bhilliún",
+            "3000000000":"trí bhilliún", "4000000000":"ceithre bhilliún", "5000000000":"cúig bhilliún", "6000000000":"sé bhilliún", "11000000000":"billiún déag", "12000000000":"dhá bhilliún déag",
+            "13000000000":"trí bhilliún déag", "14000000000":"ceithre bhilliún déag", "15000000000":"cúig bhilliún déag", "16000000000":"sé bhilliún déag", "17000000000":"seacht billiún déag",
+            "18000000000":"ocht billiún déag", "19000000000":"naoi billiún déag", "tens_join":"a", "billion":"billiún", "billion_join":"", "billion_plural":"billiún", "hundred":"céad",
+            "hundred_join":"is", "hundred_plural":"céad", "million":"milliún", "million_join":"", "million_plural":"milliún", "thousand":"míle", "thousand_join":"", "thousand_plural":"míle",
+            "hundred_thousand":"", "hundred_thousand_plural":"", "hundred_thousand_join":"is", "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_counting">
+      <comment usedby="functions: name numbers_ga">
+            Basically the same as digitlkp but with dhá replacing dhá and ceithre replacing ceathair
+        </comment>
+      <exp><![CDATA[{"00":"náid", "0":"náid", "1":"aon", "10":"deich", "11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag", "17":"seacht déag",
+            "18":"ocht déag", "19":"naoi déag", "2":"dhá", "20":"fiche", "21":"fiche a haon", "22":"fiche a dó", "24":"fiche a ceathair", "28":"fiche a hocht", "3":"trí", "30":"tríocha",
+            "31":"tríocha a haon", "32":"tríocha a dó", "34":"tríocha a ceathair", "38":"tríocha a hocht", "4":"ceithre", "40":"daichead", "41":"daichead a haon", "42":"daichead a dó",
+            "44":"daichead a ceathair", "48":"daichead a hocht", "5":"cúig", "50":"caoga", "51":"caoga a haon", "52":"caoga a dó", "54":"caoga a ceathair", "58":"caoga a hocht", "6":"sé", "60":"seasca",
+            "61":"seasca a haon", "62":"seasca a dó", "64":"seasca a ceathair", "68":"seasca a hocht", "7":"seacht", "70":"seachtó", "71":"seachtó a haon", "72":"seachtó a dó", "74":"seachtó a ceathair",
+            "78":"seachtó a hocht", "8":"ocht", "80":"ochtó", "81":"ochtó a haon", "82":"ochtó a dó", "84":"ochtó a ceathair", "88":"ochtó a hocht","9":"naoi", "90":"nócha", "91":"nócha a haon",
+            "92":"nócha a dó", "94":"nócha a ceathair", "98":"nócha a hocht", "100":"céad", "200":"dhá chéad", "300":"trí chéad", "400":"ceithre chéad", "500":"cúig chéad", "600":"sé chéad",
+            "700":"seacht gcéad", "800":"ocht gcéad", "900":"naoi gcéad", "1000":"míle", "2000":"dhá mhíle",  "3000":"trí mhíle", "4000":"ceithre mhíle", "5000":"cúig mhíle", "6000":"sé mhíle",
+            "11000":"míle dhéag", "12000":"dhá mhíle déag", "13000":"trí mhíle dhéag", "14000":"ceithre mhíle dhéag", "15000":"cúig mhíle dhéag", "16000":"sé mhíle dhéag", "17000":"seacht míle dhéag",
+            "18000":"ocht míle dhéag", "19000":"naoi míle dhéag", "1000000":"milliún", "2000000":"dhá mhilliún", "3000000":"trí mhilliún", "4000000":"ceithre mhilliún", "5000000":"cúig mhilliún",
+            "6000000":"sé mhilliún", "11000000":"milliún déag", "12000000":"dhá mhilliún déag", "13000000":"trí mhilliún déag", "14000000":"ceithre mhilliún déag", "15000000":"cúig mhilliún déag",
+            "16000000":"sé mhilliún déag", "17000000":"seacht milliún déag", "18000000":"ocht milliún déag", "19000000":"naoi milliún déag", "1000000000":"billiún", "3000000000":"trí bhilliún",
+            "4000000000":"ceithre bhilliún", "5000000000":"cúig bhilliún", "6000000000":"sé bhilliún", "2000000000":"dhá bhilliún", "11000000000":"billiún déag", "12000000000":"dhá bhilliún déag",
+            "13000000000":"trí bhilliún déag", "14000000000":"ceithre bhilliún déag", "15000000000":"cúig bhilliún déag", "16000000000":"sé bhilliún déag", "17000000000":"seacht billiún déag",
+            "18000000000":"ocht billiún déag", "19000000000":"naoi billiún déag", "tens_join":"a", "billion":"billiún", "billion_join":"", "billion_plural":"billiún", "hundred":"céad",
+            "hundred_join":"is", "hundred_plural":"céad", "million":"milliún", "million_join":"", "million_plural":"milliún", "thousand":"míle", "thousand_join":"", "thousand_plural":"míle",
+            "hundred_thousand":"", "hundred_thousand_plural":"", "hundred_thousand_join":"is", "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_currency">
+      <comment usedby="functions: name numbers_ga">
+            [possible irish fix]
+            Don"t need to say "one" for currencies
+        </comment>
+      <exp><![CDATA[{"00":"náid", "0":"náid", "01":"", "1":"", "10":"deich", "11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag", "17":"seacht déag",
+            "18":"ocht déag", "19":"naoi déag", "2":"dhá", "20":"fiche", "21":"fiche a haon", "22":"fiche a dó", "24":"fiche a ceathair", "28":"fiche a hocht", "3":"trí", "30":"tríocha",
+            "31":"tríocha a haon", "32":"tríocha a dó", "34":"tríocha a ceathair", "38":"tríocha a hocht", "4":"ceithre", "40":"daichead", "41":"daichead a haon", "42":"daichead a dó",
+            "44":"daichead a ceathair", "48":"daichead a hocht", "5":"cúig", "50":"caoga", "51":"caoga a haon", "52":"caoga a dó", "54":"caoga a ceathair", "58":"caoga a hocht", "6":"sé", "60":"seasca",
+            "61":"seasca a haon", "62":"seasca a dó", "64":"seasca a ceathair", "68":"seasca a hocht", "7":"seacht", "70":"seachtó", "71":"seachtó a haon", "72":"seachtó a dó", "74":"seachtó a ceathair",
+            "78":"seachtó a hocht", "8":"ocht", "80":"ochtó", "81":"ochtó a haon", "82":"ochtó a dó", "84":"ochtó a ceathair", "88":"ochtó a hocht","9":"naoi", "90":"nócha", "91":"nócha a haon",
+            "92":"nócha a dó", "94":"nócha a ceathair", "98":"nócha a hocht", "100":"céad", "200":"dhá chéad", "300":"trí chéad", "400":"ceithre chéad", "500":"cúig chéad", "600":"sé chéad",
+            "700":"seacht gcéad", "800":"ocht gcéad", "900":"naoi gcéad", "1000":"míle", "2000":"dhá mhíle", "3000":"trí mhíle", "4000":"ceithre mhíle", "5000":"cúig mhíle", "6000":"sé mhíle",
+            "11000":"aon míle déag", "12000":"dhá mhíle déag", "13000":"trí mhíle déag", "14000":"ceithre mhíle déag", "15000":"cúig mhíle déag", "16000":"sé mhíle déag", "17000":"seacht míle déag",
+            "18000":"ocht míle déag", "19000":"naoi míle déag", "1000000":"milliún", "2000000":"dhá mhilliún", "3000000":"trí mhilliún", "4000000":"ceithre mhilliún", "5000000":"cúig mhilliún",
+            "6000000":"sé mhilliún", "11000000":"aon milliún déag", "12000000":"dhá mhilliún déag", "13000000":"trí mhilliún déag", "14000000":"ceithre mhilliún déag", "15000000":"cúig mhilliún déag",
+            "16000000":"sé mhilliún déag", "17000000":"seacht milliún déag", "18000000":"ocht milliún déag", "19000000":"naoi milliún déag", "1000000000":"billiún", "2000000000":"dhá bhilliún",
+            "3000000000":"trí bhilliún", "4000000000":"ceithre bhilliún", "5000000000":"cúig bhilliún", "6000000000":"sé bhilliún", "7000000000":"seacht mbilliún", "8000000000":"ocht mbilliún",
+            "9000000000":"naoi mbilliún", "11000000000":"aon billiún déag", "12000000000":"dhá bhilliún déag", "13000000000":"trí bhilliún déag", "14000000000":"ceithre bhilliún déag",
+            "15000000000":"cúig bhilliún déag", "16000000000":"sé bhilliún déag", "17000000000":"seacht billiún déag", "18000000000":"ocht billiún déag", "19000000000":"naoi billiún déag",
+            "tens_join":"a", "billion":"billiún", "billion_join":"", "billion_plural":"billiún", "hundred":"céad", "hundred_join":"is", "hundred_plural":"céad", "million":"milliún", "million_join":"",
+            "million_plural":"milliún", "thousand":"míle", "thousand_join":"", "thousand_plural":"míle", "hundred_thousand":"", "hundred_thousand_plural":"", "hundred_thousand_join":"is", "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_currency_billions">
+      <comment usedby="functions: name numbers_ga">
+            [possible irish fix]
+            1, 2 and 11-20 are irregular, so use this for looking up things like £12bn
+        </comment>
+      <exp><![CDATA[{"1":"billiún", "2":"dhá bhilliún", "3":"trí bhilliún", "4":"ceithre bhilliún", "5":"cúig bhilliún", "6":"sé bhilliún", "7":"seacht mbilliún", "8":"ocht mbilliún",
+            "9":"naoi mbilliún", "10":"deich mbilliún", "11":"aon bhilliún déag", "12":"dhá bhilliún déag", "13":"trí bhilliún déag", "14":"ceithre bhilliún déag",
+            "15":"cúig bhilliún déag", "16":"sé bhilliún déag", "17":"seacht mbilliún déag", "18":"ocht mbilliún déag", "19":"naoi mbilliún déag"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_currency_millions">
+      <comment usedby="functions: name numbers_ga">
+            [possible irish fix]
+            1, 2 and 11-20 are irregular, so use this for looking up things like £12m
+        </comment>
+      <exp><![CDATA[{"1":"milliún", "2":"dhá mhilliún", "3":"trí mhilliún", "4":"ceithre mhilliún", "5":"cúig mhilliún", "6":"sé mhilliún", "7":"seacht milliún", "8":"ocht milliún",
+            "9":"naoi milliún", "10":"deich milliún", "11":"aon milliún déag", "12":"dhá mhilliún déag", "13":"trí mhilliún déag", "14":"ceithre mhilliún déag",
+            "15":"cúig mhilliún déag", "16":"sé mhilliún déag", "17":"seacht milliún déag", "18":"ocht milliún déag", "19":"naoi milliún déag"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_currency_thousands">
+      <comment usedby="functions: name">
+            [possible irish fix]
+            1, 2 and 11-20 are irregular, so use this for looking up things like £12k
+        </comment>
+      <exp><![CDATA[{"1":"míle", "2":"dhá mhíle", "3":"trí mhíle", "4":"ceithre mhíle", "5":"cúig mhíle", "6":"sé mhíle", "7":"seacht míle", "8":"ocht míle", "9":"naoi míle",
+            "10":"deich míle", "11":"aon míle déag", "12":"dhá mhíle déag", "13":"trí mhíle déag", "14":"ceithre mhíle déag", "15":"cúig mhíle déag", "16":"sé mhíle déag",
+            "17":"seacht míle déag", "18":"ocht míle déag", "19":"naoi míle déag"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_hours">
+      <comment usedby="functions: name numbers_ga">
+            For whole hours only, e.g. 9:00.  Hours only go up to twelve in Irish, so they are duplicated 13-24
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"a haon a chlog", "02":"a dó a chlog", "03":"a trí a chlog ", "04":"a ceathair a chlog", "05":"a cúig a chlog", "06":"a sé a chlog",
+            "07":"a seacht a chlog", "08":"a hocht a chlog", "09":"a naoi a chlog", "1":"a haon a chlog", "10":"a deich a chlog", "11":"a haon déag a chlog", "12":"meán lae",
+            "13":"a haon a chlog", "14":"a dó a chlog", "15":"a trí a chlog", "16":"a ceathair a chlog", "17":"a cúig a chlog", "18":"a sé a chlog", "19":"a seacht a chlog",
+            "2":"a dó a chlog", "20":"a hocht a chlog", "21":"a naoi a chlog", "22":"a deich a chlog", "23":"a haon déag a chlog", "24":"meán oíche", "3":"a trí a chlog",
+            "4":"a ceathair a chlog", "5":"a cúig a chlog", "6":"a sé a chlog", "7":"a seacht a chlog", "8":"a hocht a chlog", "9":"a naoi a chlog"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_hours_join">
+      <comment usedby="functions: name numbers_ga">
+            For hours with minutes, e.g. 09:10, so don't need the word uair/ean (hour/s).  Hours only go up to twelve in Irish, so they are duplicated 13-24
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"a haon", "02":"a dó", "03":"a trí", "04":"a ceathair", "05":"a cúig", "06":"a sé", "07":"a seacht", "08":"a hocht", "09":"a naoi", "1":"a haon",
+            "10":"a deich", "11":"a haon déag", "12":"meán lae", "13":"a haon", "14":"a dó", "15":"a trí", "16":"a ceathair", "17":"a cúig", "18":"a sé", "19":"a seacht", "2":"a dó",
+            "20":"a hocht", "21":"a naoi", "22":"a deich", "23":"a haon déag", "24":"meán oíche", "3":"a trí", "4":"a ceathair", "5":"a cúig", "6":"a sé", "7":"a seacht",
+            "8":"a hocht", "9":"a naoi"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_hours_pm">
+      <comment usedby="functions: name">
+            For whole hours only, e.g. 9:00.  Hours only go up to twelve in Irish, so they are duplicated 13-24.  Includes morning/afternoon
+        </comment>
+      <exp><![CDATA[{"13":"a haon a chlog iarnóin", "14":"a dó a chlog iarnóin", "15":"a trí a chlog iarnóin", "16":"a ceathair a chlog iarnóin", "17":"a cúig a chlog iarnóin",
+            "18":"a sé a chlog iarnóin", "19":"a seacht a chlog iarnóin", "20":"a hocht a chlog iarnóin", "21":"a naoi a chlog iarnóin", "22":"a deich a chlog iarnóin",
+            "23":"a haon déag a chlog iarnóin", "24":"meán oíche"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_hours_sportstimes">
+      <comment usedby="functions: name numbers_ga">
+            [possible irish fix]
+            For hours in sports times only - Beyond 20 use digitlkp numbers + uair a thìde
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"uair amháin", "02":"dhá uair", "03":"trí huaire", "04":"ceithre huaire", "05":"cúig huaire", "06":"sé huaire", "07":"seacht n-uaire", "08":"ocht n-uaire",
+            "09":"naoi n-uaire", "1":"uair ", "10":"deich n-uaire", "11":"aon uair déag", "12":"dhá uair déag", "13":"trí huaire déag", "14":"ceithre huaire déag",
+            "15":"cúig huaire déag", "16":"sé huaire déag", "17":"seacht n-uaire déag", "18":"ocht n-uaire déag", "19":"naoi n-uaire déag", "2":"dhá uair ", "20":"fiche uair"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_hours_to">
+      <comment usedby="functions: name numbers_ga">
+            Irish can only express 10:45 as "quarter to eleven", so these are shifted +1 to lookup 10 as 11.
+        </comment>
+      <exp><![CDATA[{"00":"a haon", "0":"a haon" , "01":"a dó", "02":"a trí", "03":"a ceathair", "04":"a cúig", "05":"a sé", "06":"a seacht", "07":"a hocht", "08":"a naoi", "09":"a deich",
+            "1":"a dó", "10":"a haon déag", "11":"meán lae", "12":"a haon", "13":"a dó", "14":"a trí", "15":"a ceathair", "16":"a cúig", "17":"a sé", "18":"a seacht", "19":"a hocht",
+            "20":"a naoi", "21":"a deich", "22":"a haon déag", "23":"meán oíche", "24":"a haon", "2":"a trí", "3":"a ceathair", "4":"a cúig", "5":"a sé", "6":"a seacht",
+            "7":"a hocht", "8":"a naoi", "9":"a deich"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_join">
+      <comment usedby="functions: name">
+            [possible irish fix]
+            The same as digitlkp, but all *_joins set to "and", so that numbers such as "one million and seventy" will be read correctly
+        </comment>
+      <exp><![CDATA[{"00":"náid", "0":"náid", "1":"aon", "10":"deich", "11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag",
+            "17":"seacht déag", "18":"ocht déag", "19":"naoi déag", "2":"dó", "20":"fiche", "21":"fiche a haon", "22":"fiche a dó", "28":"fiche a hocht", "3":"trí", "30":"tríocha",
+            "31":"tríocha a haon", "32":"tríocha a dó", "38":"tríocha a hocht", "4":"ceathair", "40":"daichead", "41":"daichead a haon", "42":"daichead a dó",
+            "48":"daichead a hocht", "5":"cúig", "50":"caoga", "51":"caoga a haon", "52":"caoga a dó", "58":"caoga a hocht", "6":"sé", "60":"seasca", "61":"seasca a haon",
+            "62":"seasca a dó", "68":"seasca a hocht", "7":"seacht", "70":"seachtó", "71":"seachtó a haon", "72":"seachtó a dó", "78":"seachtó a hocht", "8":"ocht", "80":"ochtó",
+            "81":"ochtó a haon", "82":"ochtó a dó", "88":"ochtó a hocht","9":"naoi", "90":"nócha", "91":"nócha a haon", "92":"nócha a dó", "98":"nócha a hocht", "100":"céad",
+            "200":"dhá chéad", "300":"trí chéad", "400":"ceithre chéad", "500":"cúig chéad", "600":"sé chéad", "700":"seacht gcéad", "800":"ocht gcéad", "900":"naoi gcéad",
+            "1000":"míle", "2000":"dhá mhíle", "11000":"míle dhéag", "12000":"dhá mhíle déag", "13000":"trí mhíle dhéag", "14000":"ceithre mhíle dhéag", "15000":"cúig mhíle dhéag",
+            "16000":"sé mhíle dhéag", "17000":"seacht míle dhéag", "18000":"ocht míle dhéag", "19000":"naoi míle dhéag", "1000000":"milliún", "2000000":"dhá mhilliún",
+            "11000000":"milliún déag", "12000000":"dhá mhilliún déag", "13000000":"trí mhilliún déag", "14000000":"ceithre mhilliún déag", "15000000":"cúig mhilliún déag",
+            "16000000":"sé mhilliún déag", "17000000":"seacht milliún déag", "18000000":"ocht milliún déag", "19000000":"naoi milliún déag", "1000000000":"billiún",
+            "2000000000":"dhá bhilliún", "11000000000":"billiún déag", "12000000000":"dhá bhilliún déag", "13000000000":"trí bhilliún déag", "14000000000":"ceithre bhilliún déag",
+            "15000000000":"cúig bhilliún déag", "16000000000":"sé bhilliún déag", "17000000000":"seacht billiún déag", "18000000000":"ocht billiún déag",
+            "19000000000":"naoi billiún déag", "tens_join":"a", "billion":"billiún", "billion_join":"", "billion_plural":"billiún", "hundred":"céad", "hundred_join":"is",
+            "hundred_plural":"céad", "million":"milliún", "million_join":"", "million_plural":"milliún", "thousand":"míle", "thousand_join":"", "thousand_plural":"míle",
+            "hundred_thousand":"", "hundred_thousand_plural":"", "hundred_thousand_join":"is", "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_minutes">
+      <comment usedby="functions: name numbers_ga">
+            For minutes in times of day only.  Times can only be expressed as follows:
+            4:13 -&gt; Tá sé trí nóiméad déag tar éis a ceathair (Be he three minutes ten after four)
+            After thirty, times have to be "to", e.g. 5:35 -&gt; twenty five to six
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"nóiméad", "02":"dhá nóiméad", "03":"trí nóiméad", "04":"ceithre nóiméad", "05":"cúig nóiméad", "06":"sé nóiméad", "07":"seacht nóiméad",
+            "08":"ocht nóiméad", "09":"naoi nóiméad", "1":"nóiméad", "10":"deich nóiméad", "11":"aon nóiméad déag", "12":"dhá nóiméad déag", "13":"trí nóiméad déag",
+            "14":"ceithre nóiméad déag", "15":"ceathrú", "16":"sé nóiméad déag", "17":"seacht nóiméad déag", "18":"ocht nóiméad déag", "19":"naoi nóiméad déag", "2":"dhá nóiméad",
+            "20":"fiche nóiméad", "21":"nóiméad is fiche", "22":"dhá nóiméad is fiche", "23":"trí nóiméad is fiche", "24":"ceithre nóiméad is fiche", "25":"cúig nóiméad is fiche",
+            "26":"sé nóiméad is fiche", "27":"seacht nóiméad is fiche", "28":"ocht nóiméad is fiche", "29":"naoi nóiméad is fiche", "30":"leathuair", "31":"naoi nóiméad is fiche",
+            "32":"ocht nóiméad is fiche", "33":"seacht nóiméad is fiche", "34":"sé nóiméad is fiche", "35":"cúig nóiméad is fiche", "36":"ceithre nóiméad is fiche",
+            "37":"trí nóiméad is fiche", "38":"dhá nóiméad is fiche", "39":"nóiméad is fiche", "40":"fiche nóiméad", "41":"naoi nóiméad déag", "42":"ocht nóiméad déag",
+            "43":"seacht nóiméad déag", "44":"sé nóiméad déag", "45":"ceathrú", "46":"ceithre nóiméad déag", "47":"trí nóiméad déag", "48":"dhá nóiméad déag",
+            "49":"aon nóiméad déag", "50":"deich nóiméad", "51":"naoi nóiméad", "52":"ocht nóiméad", "53":"seacht nóiméad", "54":"sé nóiméad", "55":"cúig nóiméad",
+            "56":"ceithre nóiméad", "57":"trí nóiméad", "58":"dhá nóiméad", "59":"nóiméad"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_minutes_sportstimes">
+      <comment usedby="functions: name numbers_ga">
+            [possible irish fix]
+            For minutes in sports times only - straight counting, no quarter past etc.  Beyond 20 use digitlkp numbers + nóiméad
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"nóiméad amháin", "02":"dhá nóiméad", "03":"trí nóiméad", "04":"ceithre nóiméad", "05":"cúig nóiméad", "06":"sé nóiméad", "07":"seacht nóiméad",
+            "08":"ocht nóiméad", "09":"naoi nóiméad", "1":"nóiméad", "10":"deich nóiméad", "11":"aon nóiméad déag", "12":"dhá nóiméad déag", "13":"trí nóiméad déag",
+            "14":"ceithre nóiméad déag", "15":"cúig nóiméad déag", "16":"sé nóiméad déag", "17":"seacht nóiméad déag", "18":"ocht nóiméad déag", "19":"naoi nóiméad déag",
+            "2":"dhá nóiméad", "20":"fiche nóiméad"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_seconds_sportstimes">
+      <comment usedby="functions: name numbers_ga">
+            [possible irish fix]
+            For seconds in sports times only - straight counting, no quarter past etc.  Beyond 20 use digitlkp numbers + soicind
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"soicind amháin", "02":"dhá shoicind", "03":"trí shoicind", "04":"ceithre shoicind", "05":"cúig shoicind", "06":"sé shoicind", "07":"seacht soicind",
+            "08":"ocht soicind", "09":"naoi soicind", "1":"soicind", "10":"deich soicind", "11":"aon soicind déag", "12":"dhá shoicind déag", "13":"trí shoicind déag",
+            "14":"ceithre shoicind déag", "15":"cúig shoicind déag", "16":"sé shoicind déag", "17":"seacht soicind déag", "18":"ocht soicind déag", "19":"naoi soicind déag",
+            "2":"dhá shoicind", "20":"fiche soicind"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_years">
+      <comment usedby="functions: name numbers_ga">
+            For dates only.  Needed as 1969 -&gt;  naoi gcéad déag seasca a naoi (nine hundred ten sixty and a nine)
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"a náid a haon", "02":"a náid a dó", "03":"a náid a trí", "04":"a náid a ceathair", "05":"a náid a cúig", "06":"a náid a sé", "07":"a náid a seacht",
+            "08":"a náid a hocht", "09":"a náid a naoi", "1":"a haon", "10":"a deich", "11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag",
+            "17":"seacht déag", "18":"ocht déag", "19":"naoi déag", "2":"a dó", "20":"fiche", "21":"fiche a haon", "22":"fiche a dó", "28":"fiche a hocht", "3":"a trí", "30":"tríocha",
+            "31":"tríocha a haon", "32":"tríocha a dó", "38":"tríocha a hocht", "4":"a ceathair", "40":" daichead", "41":"daichead a haon", "42":"daichead a dó", "48":"daichead a hocht", "5":"a cúig",
+            "50":"caoga", "51":"caoga a haon", "52":"caoga a dó", "58":"caoga a hocht", "6":"a sé", "60":"seasca", "61":"seasca a haon", "62":"seasca a dó", "68":"seasca a hocht", "7":"a seacht",
+            "70":"seachtó", "71":"seachtó a haon", "72":"seachtó a dó", "78":"seachtó a hocht", "8":"a hocht", "80":"ochtó", "81":"ochtó a haon", "82":"ochtó a dó", "88":"ochtó a hocht","9":"a naoi",
+            "90":"nócha", "91":"nócha a haon", "92":"nócha a dó", "98":"nócha a hocht", "100":"céad", "200":"dhá chéad", "300":"trí chéad", "400":"ceithre chéad", "500":"cúig chéad", "600":"sé chéad",
+            "700":"seacht gcéad", "800":"ocht gcéad", "900":"naoi gcéad", "1000":"míle", "1001":"míle a haon", "1002":"míle a dó", "1003":"míle a trí", "1004":"míle a ceathair", "1005":"míle a cúig",
+            "1006":"míle a sé", "1007":"míle a seacht", "1008":"míle a hocht", "1009":"míle a naoi", "2000":"dhá mhíle", "2001":"dhá mhíle a haon", "2002":"dhá mhíle a dó", "2003":"dhá mhíle a trí",
+            "2004":"dhá mhíle a ceathair", "2005":"dhá mhíle a cúig", "2006":"dhá mhíle a sé", "2007":"dhá mhíle a seacht", "2008":"dhá mhíle a hocht", "2009":"dhá mhíle a naoi", "tens_join":"",
+            "billion":"billiún", "billion_join":"", "billion_plural":"billiún", "hundred":"céad", "hundred_join":"", "hundred_plural":"céad", "million":"milliún", "million_join":"",
+            "million_plural":"milliún", "thousand":"míle", "thousand_join":"", "thousand_plural":"míle", "hundred_thousand":"céad míle", "hundred_thousand_plural":"céad míle", "hundred_thousand_join":" ",
+            "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="digitlkp_years_21c">
+      <comment usedby="functions: name numbers_ga">
+            For dates only.  Needed as 1969 -&gt;  naoi gcéad déag seasca a naoi (nine hundred ten sixty and a nine)
+        </comment>
+      <exp><![CDATA[{"00":"", "01":"a haon", "02":"a dó", "03":"a trí", "04":"a ceathair", "05":"a cúig", "06":"a sé", "07":"a seacht", "08":"a hocht", "09":"a naoi", "1":"a haon", "10":"a deich", "11":"a haon déag", "12":"a dó dhéag", "13":"a trí déag", "14":"a ceathair déag", "15":"a cúig déag", "16":"a sé déag", "17":"a seacht déag", "18":"a hocht déag", "19":"a naoi déag", "2":"a dó", "20":"fiche", "21":"fiche a haon", "22":"fiche a dó", "28":"fiche a hocht", "3":"a trí", "30":"tríocha", "31":"tríocha a haon", "32":"tríocha a dó", "38":"tríocha a hocht", "4":"a ceathair", "40":" daichead", "41":"daichead a haon", "42":"daichead a dó", "48":"daichead a hocht", "5":"a cúig", "50":"caoga", "51":"caoga a haon", "52":"caoga a dó", "58":"caoga a hocht", "6":"a sé", "60":"seasca", "61":"seasca a haon", "62":"seasca a dó", "68":"seasca a hocht", "7":"a seacht", "70":"seachtó", "71":"seachtó a haon", "72":"seachtó a dó", "78":"seachtó a hocht", "8":"a hocht", "80":"ochtó", "81":"ochtó a haon", "82":"ochtó a dó", "88":"ochtó a hocht","9":"a naoi", "90":"nócha", "91":"nócha a haon", "92":"nócha a dó", "98":"nócha a hocht", "100":"céad", "200":"dhá chéad", "300":"trí chéad", "400":"ceithre chéad", "500":"cúig chéad", "600":"sé chéad", "700":"seacht gcéad", "800":"ocht gcéad", "900":"naoi gcéad", "1000":"míle", "1001":"míle a haon", "1002":"míle a dó", "1003":"míle a trí", "1004":"míle a ceathair", "1005":"míle a cúig", "1006":"míle a sé", "1007":"míle a seacht", "1008":"míle a hocht", "1009":"míle a naoi", "2000":"dhá mhíle", "2001":"dhá mhíle a haon", "2002":"dhá mhíle a dó", "2003":"dhá mhíle a trí", "2004":"dhá mhíle a ceathair", "2005":"dhá mhíle a cúig", "2006":"dhá mhíle a sé", "2007":"dhá mhíle a seacht", "2008":"dhá mhíle a hocht", "2009":"dhá mhíle a naoi", "tens_join":"", "billion":"billiún", "billion_join":"", "billion_plural":"billiún", "hundred":"céad", "hundred_join":"", "hundred_plural":"céad", "million":"milliún", "million_join":"", "million_plural":"milliún", "thousand":"míle", "thousand_join":"", "thousand_plural":"míle", "hundred_thousand":"céad míle", "hundred_thousand_plural":"céad míle", "hundred_thousand_join":" ", "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="from_the">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"ó":"ón", "ón":"ón", "as":"as an", "de":"den"}]]></exp>
+    </lookup>
+
+    <lookup name="gaelic_street_name_abb">
+      <comment usedby="postaddress4"/>
+      <exp><![CDATA[{"bth":"bóthar", "sr":"sráid"}]]></exp>
+    </lookup>
+
+    <lookup name="measure">
+      <comment usedby="measure"/>
+      <exp><![CDATA[{"mm":"milliméadar", "cm":"ceintiméadar", "cm²":"ceintiméadar cearnaithe", "cm³":"ceintiméadar ciúbach", "ceintiméadar":"ceintiméadar", "m":"em", "m²":"méadar cearnaithe",
+            "m³":"méadar ciúbach", "méadar":"méadar", "mg":"milleagram", "kg":"cileagram", "kgm":"cileagram", "cileagram":"cileagram", "km":"ciliméadar",
+            "km²":"ciliméadar cearnaithe", "km³":"ciliméadar ciúbach", "ciliméadar":"ciliméadar", "%":"faoin gcéad", "h":"uair", "u":"uair", "uair":"uair", "gb":"gigibheart",
+            "gigi-bheart":"gigibheart", "mb":"meigibheart", "meigi-bheart":"meigibheart", "l":"lítear", "lítear":"lítear", "min":"nóiméad", "mion":"nóiméad", "nóiméad":"nóiméad",
+            "s":"soicind", "sec":"soicind", "soicind":"soicind", "t":"tona", "tona":"tona", "mph":"míle san uair", "msu":"míle san uair", "gm":"gram", "g":"gram", "gram":"gram",
+            "yd":"slat", "slat":"slat", "punt":"punt", "oz":"unsa", "unsa":"unsa", "lb":"punt", "ft":"troigh", "ft²":"troigh cearnaithe", "ft³":"troigh ciúbach", "troigh":"troigh",
+            "tr":"troigh", "tr²":"troigh cearnaithe", "tr³":"troigh ciúbach", "in":"orlach", "orlach":"orlach", "míle":"míle", "kbps":"cilibit sa soicind",
+            "mbps":"meigibit sa soicind", "st":"cloch", "cloch":"cloch", "gl":"galún", "galún":"galún", "gls":"galún", "bbl":"bairille", "bairille":"bairille", "bu":"buiséal",
+            "buiséal":"buiséal", "w":"vata", "vata":"vata", "mw":"meigeavata", "meigeavata":"meigeavata", "hz":"heirts", "heirts":"heirts", "mhz":"meigiheirts",
+            "meigiheirts":"meigiheirts", "ghz":"gigahertz", "gigahertz":"gigahertz", "p":"pingin", "pingin":"pingin", "kw":"cileavata", "cileavata":"cileavata",
+            "kwh":"cileavata san uair", "kj":"ciligiúl", "ciligiúl":"ciligiúl", "mol":"mól", "mól":"mól", "cc":"c c", "c":"céim celsius", "°":"céim"}]]></exp>
+    </lookup>
+
+    <lookup name="measure_other">
+      <comment usedby="measure"/>
+      <exp><![CDATA[{"mm":"milliméadar", "cm":"ceintiméadar", "cm²":"ceintiméadar cearnaithe", "cm³":"ceintiméadar ciúbach", "ceintiméadar":"ceintiméadar", "m":"em", "m²":"méadar cearnaithe",
+            "m³":"méadar ciúbach", "méadar":"méadar", "mg":"milleagram", "kg":"cileagram", "kgs":"cileagram", "kgm":"cileagram", "cileagram":"cileagram", "km":"ciliméadar",
+            "km²":"ciliméadar cearnaithe", "km³":"ciliméadar ciúbach", "ciliméadar":"ciliméadar", "%":"faoin gcéad", "h":"uair", "u":"uair", "uair":"uair", "gb":"gigibheart",
+            "gigi-bheart":"gigibheart", "mb":"meigibheart", "meigi-bheart":"meigibheart", "l":"lítear", "lítear":"lítear", "min":"nóiméad", "mion":"nóiméad", "nóiméad":"nóiméad",
+            "s":"soicind", "sec":"soicind", "soicind":"soicind", "t":"tona", "tona":"tona", "mph":"míle san uair", "msu":"míle san uair", "gm":"gram", "g":"gram", "gram":"gram",
+            "yd":"slat", "slat":"slat", "punt":"punt", "oz":"unsa", "unsa":"unsa", "lb":"punt", "ft":"troigh", "ft²":"troigh cearnaithe", "ft³":"troigh ciúbach", "troigh":"troigh",
+            "tr":"troigh", "tr²":"troigh cearnaithe", "tr³":"troigh ciúbach", "in":"orlach", "orlach":"orlach", "míle":"míle", "kbps":"cilibit sa soicind",
+            "mbps":"meigibit sa soicind", "st":"cloch", "cloch":"cloch", "gl":"galún", "galún":"galún", "gls":"galún", "bbl":"bairille", "bairille":"bairille", "bu":"buiséal",
+            "buiséal":"buiséal", "w":"vata", "vata":"vata", "mw":"meigeavata", "meigeavata":"meigeavata", "hz":"heirts", "heirts":"heirts", "mhz":"meigiheirts",
+            "meigiheirts":"meigiheirts", "ghz":"gigahertz", "gigahertz":"gigahertz", "p":"pingin", "pingin":"pingin", "phingin":"phingin", "kw":"cileavata", "cileavata":"cileavata",
+            "kwh":"cileavata san uair", "kj":"ciligiúl", "ciligiúl":"ciligiúl", "mol":"mól", "mól":"mól", "cc":"c c", "c":"céim celsius", "°":"céim"}]]></exp>
+    </lookup>
+
+    <lookup name="measure_seimhiu">
+      <comment usedby="measure">
+            Irish plural forms for 2-6 and 11-16
+        </comment>
+      <exp><![CDATA[{"mm":"mhilliméadar", "mhilli-méadar":"mhilliméadar", "cm":"ceintiméadar", "cm²":"ceintiméadar cearnaithe", "cm³":"ceintiméadar ciúbach", "ceintiméadar":"ceintiméadar",
+            "m":"em", "m²":"mhéadar cearnaithe", "m³":"mhéadar ciúbach", "mhéadar":"mhéadar", "mg":"mhilleagram", "mhillea-gram":"mhilleagram", "kg":"chileagram", "kgm":"chileagram",
+            "chileagram":"chileagram", "km":"chiliméadar", "km²":"chiliméadar cearnaithe", "km³":"chiliméadar ciúbach", "chiliméadar":"chiliméadar", "%":"faoin gcéad", "h":"huaire",
+            "u":"huaire", "uair":"huaire", "gb":"ghigibheart", "ghigi-bheart":"ghigibheart", "mb":"mheigibheart", "mheigi-bheart":"mheigibheart", "l":"lítear", "lítear":"lítear",
+            "min":"nóiméad", "nóiméad":"nóiméad", "s":"shoicind", "sec":"shoicind", "shoicind":"shoicind", "t":"thona", "thona":"thona", "mph":"mhíle san uair", "msu":"mhíle san uair",
+            "gm":"ghram", "g":"ghram", "gram":"ghram", "ghram":"ghram", "yd":"shlat", "shlat":"shlat", "punt":"phunt", "phunt":"phunt", "oz":"unsa", "unsa":"unsa", "lb":"phunt",
+            "ft":"troithe", "ft²":"throigh cearnaithe", "ft³":"throigh ciúbach", "throigh":"troithe", "tr":"troithe", "troithe":"troithe", "tr²":"throigh cearnaithe",
+            "tr³":"throigh ciúbach","in":"horlaí", "or":"horlaí", "orlach":"horlaí", "míle":"mhíle", "mhíle":"mhíle", "kbps":"chilibit sa soicind", "mbps":"meigibit sa soicind",
+            "st":"chloch", "cloch":"chloch", "gl":"ghalún", "gls":"ghalún", "ghalún":"ghalún", "bbl":"bhairille", "bhairille":"bhairille", "bairille":"bhairille", "bu":"bhuiséal",
+            "buiséal":"bhuiséal", "bhuiséal":"bhuiséal", "w":"vata", "vata":"vata", "watts":"vata", "mw":"mheigeavata", "meigeavata":"mheigeavata", "mheigeavata":"mheigeavata",
+            "hz":"heirts", "heirts":"heirts", "mhz":"mheigiheirts", "meigiheirts":"mheigiheirts", "mheigiheirts":"mheigiheirts", "ghz":"ghigiheirts", "ghigiheirts":"ghigiheirts",
+            "ghigiheirts":"ghigiheirts", "p":"phingin", "phingin":"phingin", "pingin":"phingin", "kw":"chileavata", "cileavata":"chileavata", "chileavata":"chileavata",
+            "kwh":"chileavata san uair", "kj":"chiligiúl", "ciligiúl":"chiligiúl", "chiligiúl":"chiligiúl", "mol":"mhól", "mhól":"mhól", "cc":"c c", "c":"chéim celsius", "°":"chéim"}]]></exp>
+    </lookup>
+
+    <lookup name="measure_uru">
+      <comment usedby="measure">
+            Irish plural forms for 7-10 and 17-19
+        </comment>
+      <exp><![CDATA[{"mm":"milliméadar", "milli-mhéadar":"milliméadar", "cm":"ceintiméadar", "cm²":"ceintiméadar cearnaithe", "cm³":"ceintiméadar ciúbach", "ceintiméadar":"ceintiméadar",
+            "m":"em", "m²":"méadar cearnaithe", "m³":"méadar ciúbach", "méadar":"méadar", "mg":"milleagram", "millea-gram":"milleagram", "kg":"gcileagram", "kgm":"gcileagram",
+            "cileagram":"gcileagram", "km":"gciliméadar", "km²":"gciliméadar cearnaithe", "km³":"gciliméadar ciúbach", "ciliméadar":"gciliméadar", "%":"faoin gcéad", "h":"n-uaire",
+            "u":"n-uaire", "n-uaire":"n-uaire", "n-uaire":"n-uaire", "gb":"ngigibheart", "gigi-bheart":"ngigibheart", "mb":"meigibheart", "meigi-bheart":"meigibheart", "l":"lítear",
+            "lítear":"lítear", "min":"nóiméad", "mion":"nóiméad", "nóiméad":"nóiméad", "s":"soicind", "sec":"soicind", "soicind":"soicind", "t":"dtona", "dtona":"dtona",
+            "tona":"dtona", "mph":"míle san uair", "msu":"míle san uair", "gm":"ngram", "g":"ngram", "gram":"ngram", "yd":"slat", "slat":"slat", "punt":"bpunt", "punt":"bpunt",
+            "oz":"unsa", "unsa":"unsa", "lb":"bpunt", "ft":"dtroithe", "ft²":"dtroigh cearnaithe", "ft³":"dtroigh ciúbach", "tr":"dtroigh", "tr²":"dtroigh cearnaithe",
+            "tr³":"dtroigh ciúbach", "troigh":"dtroigh", "dtroigh":"dtroigh", "in":"n-orlaí", "or":"n-orlaí", "orlach":"n-orlaí", "mí":"míle", "mí²":"míle cearnaithe",
+            "mí³":"míle ciúbach", "míle":"míle", "kbps":"kilobits gach soicind", "mbps":"megabits gach soicind", "míle":"míle", "st":"gcloch", "cloch":"gcloch", "gl":"ngalún",
+            "gls":"ngalún", "galún":"ngalún", "bbl":"mbairille", "bairille":"mbairille", "bu":"mbuiséal", "buiséal":"mbuiséal", "w":"vata", "vata":"vata", "vata":"vata",
+            "mw":"meigeavata", "meigeavata":"meigeavata", "hz":"heirts", "heirts":"heirts", "mhz":"meigiheirts", "meigiheirts":"meigiheirts", "ghz":"ngigiheirts",
+            "gigiheirts":"ngigiheirts", "p":"bpingin", "pingin":"bpingin", "kw":"gcileavata", "gcileavata":"gcileavata", "cileavata":"gcileavata", "kwh":"gcileavata san uair",
+            "kj":"gciligiúl", "ciligiúl":"gciligiúl", "gciligiúl":"gciligiúl", "mol":"mól", "mól":"mól", "cc":"c c", "c":"gcéim celsius", "°":"gcéim"}]]></exp>
+    </lookup>
+
+    <lookup name="months">
+      <comment usedby="date">
+            The entries matching months names to itself are intentional. Sometimes
+            the date is written out in text and this should also be covered by
+            the date-related rules.
+        </comment>
+      <exp><![CDATA[{"eanáir":"de mhí eanáir", "eanair":"de mhí eanáir", "feabhra":"de mhí na feabhra", "marta":"de mhí an mhárta", "márta":"de mhí an mhárta", "aibrean":"de mhí aibreáin",
+            "aibreán":"de mhí aibreáin", "bealtaine":"de mhí na bealtaine", "meitheamh":"de mhí an meithimh", "iuil":"de mhí iúil", "iúil":"de mhí iúil", "lunasa":"de mhí lúnasa", "lúnasa":"de mhí lúnasa",
+            "mean":"de mhí mheán fómhair", "meán":"de mhí mheán fómhair", "meán fómhair":"de mhí mheán fómhair", "deireadh":"de mhí dheireadh fómhair", "deireadh fomhair":"de mhí dhiereadh fómhair",
+            "deireadh fómhair":"de mhí dhiereadh fómhair", "samhain":"de mhí na samhna", "samhna":"de mhí na samhna", "nollag":"de mhí na nollag"}]]></exp>
+    </lookup>
+
+    <lookup name="months_n">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"1":"de mhí eanáir","2":"de mhí na feabhra","3":"de mhí an mhárta","4":"de mhí aibreáin","5":"de mhí na bealtaine","6":"de mhí an mheithimh","7":"de mhí iúil",
+            "8":"de mhí lúnasa","9":"de mhí mheán fómhair","10":"de mhí dheireadh fómhair","11":"de mhí na samhna","12":"de mhí na nollag","01":"de mhí eanáir",
+            "02":"de mhí na feabhra","03":"de mhí an mhárta","04":"de mhí aibreáin","05":"de mhí na bealtaine","06":"de mhí an mheithimh","07":"de mhí iúil","08":"de mhí lúnasa",
+            "09":"de mhí mheán fómhair"}]]></exp>
+    </lookup>
+
+    <lookup name="months_only_not_inflected">
+      <comment usedby="date">
+            The entries matching months names to itself are intentional. Sometimes
+            the date is written out in text and this should also be covered by
+            the date-related rules.
+        </comment>
+      <exp><![CDATA[{"eanáir":"eanáir", "eanair":"eanáir", "feabhra":"feabhra", "márta":"márta", "marta":"márta", "aibreán":"aibreán", "aibrean":"aibreán", "bealtaine":"bealtaine",
+            "meitheamh":"meitheamh", "iúil":"iúil", "iuil":"iúil", "lúnasa":"lúnasa", "lunasa":"lúnasa", "meán":"meán fómhair", "mean":"meán fómhair", "meán fómhair":"meán fómhair",
+            "mean fomhair":"meán fómhair", "deireadh fómhair":"deireadh fómhair", "deireadh":"deireadh fómhair", "deireadh fomhair":"deireadh fómhair",
+            "deireadh fomhair":"deireadh fomhair", "samhain":"samhain", "nollaig":"nollaig"}]]></exp>
+    </lookup>
+
+    <lookup name="months_with_mi">
+      <comment usedby="date">
+            The entries matching months names to itself are intentional. Sometimes
+            the date is written out in text and this should also be covered by
+            the date-related rules.
+        </comment>
+      <exp><![CDATA[{"eanáir":"mí eanáir", "eanair":"mí eanáir", "feabhra":"mí na feabhra", "marta":"mí an mhárta", "márta":"mí an mhárta", "aibrean":"mí aibreáin",
+            "aibreán":"mí aibreáin", "bealtaine":"mí na bealtaine", "meitheamh":"mí an meithimh", "iuil":"mí iúil", "iúil":"mí iúil", "lunasa":"mí lúnasa", "lúnasa":"mí lúnasa",
+            "mean":"mí meán fómhair", "meán":"mí meán fómhair", "meán fómhair":"mí meán fómhair", "deireadh":"mí deireadh fómhair", "deireadh fomhair":"mí dheireadh fómhair",
+            "deireadh fómhair":"mí dheireadh fómhair", "samhain":"mí na samhna", "samhna":"mí na samhna", "nollag":"mí na nollag"}]]></exp>
+    </lookup>
+
+    <lookup name="noun_11">
+      <comment usedby="measure"/>
+      <exp><![CDATA[{"bliain":"bhliain", "bhliain":"bhliain", "bliana":"bhliain", "mbliana":"bhliain", "seachtain":"seachtain", "sheachtain":"seachtain", "seachtaine":"seachtain", "uair":"uair",
+            "huaire":"uair", "n-uaire":"uair", "ceann":"cheann", "cinn":"cheann", "gcinn":"cheann", "cloigeann":"chloigeann", "chloigeann":"chloigeann", "cloigne":"chloigeann", "gcloigne":"chloigeann",
+            "orlach":"orlach", "horlaí":"orlach", "n-orlaí":"orlach", "troigh":"troigh", "troithe":"troigh", "dtroithe":"troigh", "pingin":"phingin", "phingin":"phingin", "pingine":"phingin",
+            "bpingine":"phingin", "scilling":"scilling", "scillinge":"scilling"}]]></exp>
+    </lookup>
+
+    <lookup name="noun_12to16">
+      <comment usedby="measure"/>
+      <exp><![CDATA[{"bliain":"bliana", "bhliain":"bliana", "bliana":"bliana", "mbliana":"bliana", "seachtain":"seachtaine", "sheachtain":"seachtaine", "seachtaine":"seachtaine", "uair":"huaire", "huaire":"huaire", "n-uaire":"huaire", "ceann":"cinn", "cinn":"cinn", "gcinn":"cinn", "cloigeann":"cloigne", "chloigeann":"cloigne", "cloigne":"cloigne", "gcloigne":"cloigne", "orlach":"horlaí", "horlaí":"horlaí", "n-orlaí":"horlaí", "troigh":"troithe", "troithe":"troithe", "dtroithe":"troithe", "pingin":"pingine", "phingin":"pingine", "pingine":"pingine", "bpingine":"pingine", "scilling":"scillinge", "scillinge":"scillinge"}]]></exp>
+    </lookup>
+
+    <lookup name="noun_17to19">
+      <comment usedby="measure"/>
+      <exp><![CDATA[{"bliain":"mbliana", "bhliain":"mbliana", "bliana":"mbliana", "mbliana":"mbliana", "seachtain":"seachtaine", "sheachtain":"seachtaine", "seachtaine":"seachtaine", "uair":"n-uaire", "huaire":"n-uaire", "n-uaire":"n-uaire", "ceann":"gceann", "cinn":"gceann", "gcinn":"gceann", "cloigeann":"gcloigne", "chloigeann":"gcloigne", "cloigne":"gcloigne", "gcloigne":"gcloigne", "orlach":"n-orlaí", "horlaí":"n-orlaí", "n-orlaí":"n-orlaí", "troigh":"dtroithe", "troithe":"dtroithe", "droithe":"dtroithe", "pingin":"bpingine", "phingin":"bpingine", "pingine":"bpingine", "bpingine":"bpingine", "scilling":"scillinge", "scillinge":"scillinge"}]]></exp>
+    </lookup>
+
+    <lookup name="number_idi">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"20s":"na fichidí","30s":"na tríochaidí","40s":"na daichidí","50s":"na caogaidí","60s":"na seascaidí","70s":"na seachtóidí","80s":"na hochtóidí","90s":"na nóchaidí",
+            "20idí":"na fichidí","30idí":"na tríochaidí","40idí":"na daichidí","50idí":"na caogaidí","60idí":"na seascaidí","70idí":"na seachtóidí","80idí":"na hochtóidí",
+            "90idí":"na nóchaidí"}]]></exp>
+    </lookup>
+
+    <lookup name="number_idi_century">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"11":"aon déag", "12":"dó dhéag", "13":"trí déag", "14":"ceathair déag", "15":"cúig déag", "16":"sé déag", "17":"seacht déag", "18":"ocht déag", "19":"naoi déag"}]]></exp>
+    </lookup>
+
+    <lookup name="number_idi_only">
+      <comment usedby="date"/>
+      <exp><![CDATA[{"20s":"fichidí","30s":"tríochaidí","40s":"daichidí","50s":"caogaidí","60s":"seascaidí","70s":"seachtóidí","80s":"hochtóidí","90s":"nóchaidí","20idí":"fichidí",
+            "30idí":"tríochaidí","40idí":"daichidí","50idí":"caogaidí","60idí":"seascaidí","70idí":"seachtóidí","80idí":"hochtóidí","90idí":"nóchaidí"}]]></exp>
+    </lookup>
+
+    <lookup name="numbers_transform_d_apostrophe_word">
+      <comment usedby="ssmldigit2">
+            Numbers with d'
+        </comment>
+      <exp><![CDATA[{"aon":"d'aon", "ocht":"d'ocht", "ochtó":"d'ochtó"}]]></exp>
+    </lookup>
+
+    <lookup name="numbers_transform_seimhiu_word">
+      <comment usedby="ssmldigit2">
+            Numbers with séimhiú
+        </comment>
+      <exp><![CDATA[{"dó":"dhó", "trí":"thrí", "ceathair":"cheathair", "ceithre":"cheithre", "cúig":"chúig", "sé":"shé", "seacht":"sheacht", "deich":"dheich", "fiche":"fhiche", "tríocha":"thríocha",
+            "daichead":"dhaichead", "caoga":"chaoga", "seasca":"sheasca", "seachtó":"sheachtó", "céad":"chéad", "míle":"mhíle", "milliún":"mhilliún", "billiún":"bhilliún"}]]></exp>
+    </lookup>
+
+    <lookup name="numbers_transform_uru_word">
+      <comment usedby="ssmldigit2">
+            Numbers with urú
+        </comment>
+      <exp><![CDATA[{"dó":"ndó", "dá":"ndá", "trí":"dtrí", "ceathair":"gceathair", "ceithre":"gceithre", "cúig":"gcúig", "deich":"ndeich", "fiche":"bhfiche", "tríocha":"dtríocha", "daichead":"ndaichead",
+            "caoga":"gcaoga", "céad":"gcéad", "míle":"mhíle", "milliún":"milliún", "billiún":"mbilliún"}]]></exp>
+    </lookup>
+
+    <lookup name="plusminus">
+      <comment usedby="measure predigit digit signs"/>
+      <exp><![CDATA[{"+":"plus", "-":"lúide"}]]></exp>
+    </lookup>
+
+    <lookup name="roman_context">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{"caibidil":"caibidil", "leathanach":"leathanach", "lth":"leathanach", "véarsa":"véarsa", "nath":"nath", "táthmhír":"táthmhír", "gníomh":"gníomh"}]]></exp>
+    </lookup>
+
+    <lookup name="roman_num">
+      <comment usedby="ssml"/>
+      <exp><![CDATA[{"i":"a haon","ii":"a dó","iii":"a trí","iv":"a ceathair","v":"a cúig","vi":"a sé","vii":"a seacht","viii":"a hocht","ix":"a naoi","x":"a deich","xi":"a haon déag",
+            "xii":"a dó dhéag","xiii":"a trí déag","xiv":"a ceathair déag","xv":"a cúig déag","xvi":"a sé déag","xvii":"a seacht déag","xviii":"a hocht déag","xix":"a naoi déag",
+            "xx":"fiche","xxi":"fiche a haon","xxii":"fiche a dó","xxiii":"fiche a trí","xxiv":"fiche a ceathair","xxv":"fiche a cúig", "xxvi":"fiche a sé", "xxvii":"fiche a seacht",
+            "xxviii":"fiche a hocht", "xxix":"fiche a naoi", "xxx":"tríocha", "xxxi":"tríocha a haon", "I":"a haon","II":"a dó","III":"a trí","IV":"a ceathair","V":"a cúig",
+            "VI":"a sé","VII":"a seacht","VIII":"a hocht","IX":"a naoi","X":"a deich","XI":"a haon déag","XII":"a dó dhéag","XIII":"a trí déag","XIV":"a ceathair déag",
+            "XV":"a cúig déag","XVI":"a sé déag","XVII":"a seacht déag","XVIII":"a hocht déag","XIX":"a naoi déag","XX":"fiche","XXI":"fiche a haon","XXII":"fiche a dó",
+            "XXIII":"fiche a trí","XXIV":"fiche a ceathair","XXV":"fiche a cúig", "XXVI":"fiche a sé", "XXVII":"fiche a seacht", "XXVIII":"fiche a hocht", "XXIX":"fiche a naoi",
+            "XXX":"tríocha", "XXXI":"tríocha a haon"}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_measure">
+      <comment usedby="measure"/>
+      <exp><![CDATA[{"2":"leath", "3":"trian", "4":"ceathrú", "5":"cúigiú"}]]></exp>
+    </lookup>
+
+    <lookup name="small_frac_pl1234">
+      <comment usedby="measure fractions">
+            for 2/3, 2/5
+        </comment>
+      <exp><![CDATA[{"3":"thrian", "4":"cheathrú", "5":"chúigiú"}]]></exp>
+    </lookup>
+
+    <lookup name="square">
+      <comment usedby="premeasure"/>
+      <exp><![CDATA[{"sq":"cearnaithe"}]]></exp>
+    </lookup>
+
+    <lookup name="symbols">
+      <comment usedby="www">
+			Important, do not delete: Used by the hard-coded rule "H:aschars"
+		</comment>
+      <exp><![CDATA[{"\":"cúlslais", "_": "fostríoc", "*":"réiltín", "#":"hais", "@":"ag", ".":"ponc", "~":"tilde",
+			"%":"faoin gcéad", "<":"níos lú ná", ">":"níos mó ná", "≤":"níos lú ná nó cothrom le", "≥":"níos mó ná nó cothrom le", "=":"cothrom le", "&":"amparsan", "⁊":"agus", "┐":"agus",
+			"+":"móide", "÷": "roinnte ar", "¢": "cent", ":":"idirstad", "/":"slais", ",":"camóg", "°":"céim", "?":"comhartha ceiste", "!":"comhartha uaillbhreasa", "½":"leath",
+			"¼":"ceathrú", "¾":"trí cheathrú", "©":"cóipcheart", "²":"cearnaithe", "³":"ciúbach", "×":"iolraithe faoi", "·":"ponc", "√":"fréamh cearnach", "-":"fleiscín",
+			"(":"lúibín oscailte", ")":"lúibín dúnta", "[":"lúibín cearnach oscailte", "]":"lúibín cearnach dúnta ", ";":" leathstad", '"':"comhartha athfhriotail", "1":"a haon",
+			"2":"a dó", "3":"a trí", "4":"a ceathair", "5":"a cúig", "6":"a sé", "7":"a seacht", "8":"a hocht", "9":"a naoi", "0":"a náid"}]]></exp>
+    </lookup>
+
+    <lookup name="symbols_www">
+      <comment usedby="www"/>
+      <exp><![CDATA[{"\":"cúlslais", "_": "fostríoc", "*":"réiltín", "#":"hais", "@":"ag", ".":"ponc", "~":"tilde", "%":"faoin gcéad", "<":"níos lú ná", ">":"níos mó ná",
+            "≤":"níos lú ná nó cothrom le", "≥":"níos mó ná nó cothrom le", "=":"cothrom le", "&":"amparsan", "⁊":"agus", "┐":"agus", "+":"móide", "÷": "roinnte ar", "¢": "cent",
+            ":":"idirstad", "/":"slais", ",":"camóg", "°":"céim", "?":"comhartha ceiste", "!":"comhartha uaillbhreasa", "½":"leath", "¼":"ceathrú", "¾":"trí cheathrú",
+            "©":"cóipcheart", "²":"cearnaithe", "³":"ciúbach", "×":"iolraithe faoi", "·":"ponc", "√":"fréamh cearnach", "-":"fleiscín"}]]></exp>
+    </lookup>
+  </tables>
+</nrules>

@@ -1,0 +1,196 @@
+<nrules>
+
+  <rules>
+
+    <rule name="american_abbreviated_state">
+      <comment>
+      Common placename + US state abbreviation
+    </comment>
+      <match>
+        <rgx id="m0" name="american_big_city" src="lcase" offset="0"/>
+        <rgx id="m1" name="american_state_long_abb" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="american_state_list_long_abb" from="m1" offset="1"/>
+      </replace>
+    </rule>
+
+    <rule name="asrnews_address_only1">
+      <comment>
+      This one was done for ASR News only
+    </comment>
+      <match>
+        <rgx id="m0" name="asrnews_abbrev" src="mcase" offset="0"/>
+        <rgx id="m1" name="asrnews_town_name" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="asrnews_abbrev_lookup" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="asrnews_address_only2">
+      <comment>
+      This one was done for ASR News only
+    </comment>
+      <match>
+        <rgx id="m0" name="asrnews_street_name" src="lcase" offset="-1"/>
+        <rgx id="m1" name="asrnews_abbrev" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="asrnews_abbrev_lookup" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="common_saints">
+      <comment>
+       Fix for common saints, e.g. St Andrews, St Mirren, etc
+     </comment>
+      <match>
+        <rgx id="m0" name="st" src="mcase" offset="0"/>
+        <rgx id="m1" name="common_saints" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy val="saint" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="street">
+      <comment>
+       Not a saint, so try to match a street
+     </comment>
+      <match>
+        <rgx id="m0" name="streetname" src="mcase" offset="-1"/>
+        <rgx id="m1" name="st" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="street" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="st">
+      <comment>
+       Assume not a saint, or a street, so read out 'S T'
+     </comment>
+      <match>
+        <rgx id="m0" name="st" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy val="s t" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="station_name_with_brackets">
+      <comment>
+      E.g. Frankfurt (Main) -&gt; Frankfurt break msecs=0.1 Main
+    </comment>
+      <match>
+        <rgx id="m0" name="station_names" src="lcase" offset="-1"/>
+        <rgx id="m1" name="station_qualifier" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="-1">
+          <break type="2" time="0.1"/>
+        </cpy>
+        <cpy from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="station_name_with_brackets_discard">
+      <comment>
+      E.g. Flughafen Wien (VIE) -&gt; Flughafen Wien
+    </comment>
+      <match>
+        <rgx id="m0" name="station_names_vie" src="lcase" offset="-1"/>
+        <rgx id="m1" name="station_qualifier_vie" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <cpy from="m0" grp="0" offset="-1"/>
+        <cpy val="" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="listed_building_3">
+      <comment>
+      E.g. Grade I listed
+    </comment>
+      <match>
+        <rgx id="m0" name="grade" src="lcase" offset="-1"/>
+        <rgx id="m1" name="grading1" src="mcase" offset="0"/>
+        <rgx id="m2" name="listed" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="roman_num" from="m1" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="koreas">
+      <comment>
+      N. Korea -&gt; north korea
+      S. Korea -&gt; south korea
+    </comment>
+      <match>
+        <rgx id="m0" name="north_south" src="lcase" offset="0"/>
+        <rgx id="m1" name="korea" src="lcase" offset="1"/>
+      </match>
+      <replace>
+        <lkp name="north_south" from="m0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="say-as_year_21c">
+      <comment>
+      Internally, a 'year'-token (e.g. '1982') is marked as
+      '&lt;say-as interpret-as="year"&gt; 1982 &lt;/say-as&gt;'.
+    </comment>
+      <match>
+        <rgx id="m0" name="year_21c" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="internal" val="year" offset="0"/>
+      </match>
+      <replace>
+        <fnc name="number" from="m0" grp="0" offset="0" case="yeardigits_21c"/>
+      </replace>
+    </rule>
+
+    <rule name="say-as_year">
+      <comment>
+      Internally, a 'year'-token (e.g. '1982') is marked as
+      '&lt;say-as interpret-as="year"&gt; 1982 &lt;/say-as&gt;'.
+    </comment>
+      <match>
+        <rgx id="m0" name="year" src="lcase" offset="0"/>
+        <xml id="m1" name="say-as" attribute="internal" val="year" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="century" from="m0" grp="2" offset="0"/>
+        <fnc name="number" from="m0" grp="3" offset="0" case="yeardigits_pre_21c"/>
+        <fnc name="number" from="m0" grp="0" offset="0" case="yeardigits_pre_21c"/>
+      </replace>
+    </rule>
+
+    <rule name="expand_leftover_acronyms">
+      <comment>
+      Acronyms in urls/emails aren't expanded, so fix common ones here
+    </comment>
+      <match>
+        <rgx id="m0" name="common_acronyms" src="lcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="common_acronyms" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+
+    <rule name="roman_numeral_index">
+      <comment>
+      This isn't an ssml rule, but has been put here as no normalisation is
+      taking place on, for example, (iii), as no rules are being triggered.
+      Should maybe be moved in future.
+    </comment>
+      <match>
+        <rgx id="m0" name="bracketed_roman_numerals" src="mcase" offset="0"/>
+      </match>
+      <replace>
+        <lkp name="roman_num" from="m0" grp="0" offset="0"/>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

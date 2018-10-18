@@ -1,0 +1,70 @@
+<nrules>
+
+  <rules>
+
+    <rule name="index_single_digit_roman_a">
+      <comment>
+            This doesn't replace the roman numeral - it gets handled later.
+            1. a(iii) -&gt; a haon a a trí 
+        </comment>
+      <match>
+        <rgx id="m0" name="zero_to_nine" src="lcase" offset="0"/>
+        <rgx id="m1" name="index_letter_optional_brackets" src="mcase" offset="1"/>
+        <rgx id="m2" name="bracketed_roman_numerals" src="mcase" offset="2"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" offset="0"/>
+        <cpy offset="1">
+          <lex entry="letter"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="index_number_roman_a">
+      <comment>
+            10. a(iii) -&gt; deich a a trí 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="index_letter_optional_brackets" src="mcase" offset="1"/>
+        <rgx id="m2" name="bracketed_roman_numerals" src="mcase" offset="2"/>
+      </match>
+      <replace>
+        <cpy offset="1">
+          <lex entry="letter"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="index_single_digit">
+      <comment>
+            1. (a) -&gt; a haon a 
+        </comment>
+      <match>
+        <rgx id="m0" name="zero_to_nine" src="lcase" offset="0"/>
+        <rgx id="m1" name="index_letter" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <fnc name="asdigits" from="m0" offset="0"/>
+        <cpy offset="1">
+          <lex entry="letter"/>
+        </cpy>
+      </replace>
+    </rule>
+
+    <rule name="index_number">
+      <comment>
+            10. (a) -&gt; deich a 
+        </comment>
+      <match>
+        <rgx id="m0" name="cardinal" src="lcase" offset="0"/>
+        <rgx id="m1" name="index_letter" src="mcase" offset="1"/>
+      </match>
+      <replace>
+        <cpy offset="1">
+          <lex entry="letter"/>
+        </cpy>
+      </replace>
+    </rule>
+  </rules>
+</nrules>

@@ -12,7 +12,7 @@ TESTFILES = idlak-mod-test
 OBJFILES = txpxmldata.o txputf8.o txppcre.o txpnrules.o txppos.o \
 	   txppbreak.o txpsylmax.o txplexicon.o txplts.o txpmodule.o txpcexspec.o \
            txpparse-options.o txpabbrev.o \
-           txptrules.o \
+           txptrules.o txpphone.o \
 	   cexfunctions.o cexfunctionscatalog.o mod-tokenise.o \
 	   mod-postag.o mod-pauses.o mod-phrasing.o mod-pronounce.o mod-syllabify.o mod-cex.o
 
@@ -22,4 +22,3 @@ LIBNAME = idlak-txp
 ADDLIBS = ../util/kaldi-util.a ../matrix/kaldi-matrix.a ../base/kaldi-base.a
 
 include ../makefiles/default_rules.mk
-

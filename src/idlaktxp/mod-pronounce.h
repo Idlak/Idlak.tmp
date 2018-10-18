@@ -24,6 +24,7 @@
 // containing tox tokens.
 
 #include <string>
+#include <cctype>
 #include "pugixml.hpp"
 
 #include "base/kaldi-common.h"
@@ -32,6 +33,7 @@
 #include "idlaktxp/txpnrules.h"
 #include "idlaktxp/txplexicon.h"
 #include "idlaktxp/txplts.h"
+#include "idlaktxp/txpphone.h"
 
 namespace kaldi {
 
@@ -54,6 +56,8 @@ class TxpPronounce : public TxpModule {
   TxpLexicon lex_;
   /// A cart based letter to sound rul object
   TxpLts lts_;
+  /// Phoneme set
+  TxpPhone phone_;
 };
 
 }  // namespace kaldi

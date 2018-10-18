@@ -30,7 +30,8 @@ bool TxpPronounce::Init(const TxpParseOptions &opts) {
   tpdb_ = opts.GetTpdb();
   lex_.Init(opts, std::string(GetOptValue("arch")));
   lts_.Init(opts, std::string(GetOptValue("arch")));
-  if (lex_.Parse(tpdb_) && lts_.Parse(tpdb_)) return true;
+  phone_.Init(opts, std::string(GetOptValue("arch")));
+  if (lex_.Parse(tpdb_) && lts_.Parse(tpdb_) && phone_.Parse(tpdb_)) return true;
   return false;
 }
 
@@ -39,12 +40,10 @@ bool TxpPronounce::Process(pugi::xml_document* input) {
   pugi::xpath_node_set tks = input->document_element().select_nodes("//tk");
   const char* lex_entry;
   const char* lex_pron;
-  const char* word, *p;
-  const std::string* symbol;
+  const char* word;
   std::string utfchar, word_str, altprons;
   TxpLexiconLkp lexlkp;
-  TxpUtf8 utf8;
-  int32 clen, i;
+  int32 i;
   tks.sort();
   for (pugi::xpath_node_set::const_iterator it = tks.begin();
        it != tks.end();
@@ -75,7 +74,43 @@ bool TxpPronounce::Process(pugi::xml_document* input) {
     } else {
       // standard lookup of word
       AppendPron(lex_entry, std::string(word), &lexlkp);
-      // TODO: put out a warning if any phonemes are not from the phoneme set
+      // in the received pronounciation lookup phonemes and check if they
+      // exist in the phoneme set
+      int32 st_phon_pos = 0, end_phon_pos = 0;
+      std::string sub_word = lexlkp.pron.substr(st_phon_pos);
+      std::string phone_2_chk = "";
+      while (sub_word.length() > 0) {
+        end_phon_pos = sub_word.find(" ");
+        if (end_phon_pos == std::string::npos) {
+          end_phon_pos = sub_word.length()-1;
+          phone_2_chk = sub_word;
+        } else
+          phone_2_chk = sub_word.substr(0, end_phon_pos);
+
+        // if the phoneme has a stress, remove it
+        if (isdigit(phone_2_chk.substr(phone_2_chk.length()-1)[0])) {
+          phone_2_chk = phone_2_chk.substr(0, phone_2_chk.length()-1);
+        }
+
+        // if a phoneme turns out to be an empty string, then it is wrong and
+        // the pronounciation is removed.
+        if (phone_2_chk.compare("") == 0) {
+            lexlkp.pron = "";
+            break;
+        }
+
+        // if no phoneme is found, pronounciation is removed
+        const TxpPhoneDescr* found_phone = phone_.GetPhone(phone_2_chk.c_str());
+        if (found_phone == NULL) {
+            KALDI_ERR << "Phoneme " << phone_2_chk << " from word " << word << " could not be found";
+            lexlkp.pron = "";
+            break;
+        }
+
+        st_phon_pos = end_phon_pos + 1;
+        sub_word = sub_word.substr(st_phon_pos);
+      }
+
       node.append_attribute("pron").set_value(lexlkp.pron.c_str());
       if (lexlkp.lts) {
         node.append_attribute("lts").set_value("true");
